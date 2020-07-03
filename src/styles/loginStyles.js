@@ -7,6 +7,16 @@ const loginStyles = makeStyles(theme => ({
 	loginWrapper: {
 		textAlign: 'center',
 	},
+	topwrapper: {
+		width: '100%',
+		height: '85vh',
+	},
+	bottomwrapper: {
+		width: '100%',
+		height: '15vh',
+		paddingLeft: '30px',
+		paddingRight: '30px',
+	},
 	loginImage: {
 		backgroundImage: `url(${"/assets/loginbg.png"})`,
 		backgroundSize: 'cover',
@@ -21,17 +31,21 @@ const loginStyles = makeStyles(theme => ({
 	header: {
 		marginTop: '50px',
 		fontFamily: 'Helvetica',
-		fontStyle: 'normal',
-		fontWeight: 'normal',
 		fontSize: '20px',
 		lineHeight: '23px',
-		textTransform: 'uppercase'
+		textTransform: 'uppercase',
+		color: '#000000',
+		paddingLeft: '20px',
+		paddingRight: '20px',
 	},
 	needaccount: {
 		marginTop: '50px',
-		fontFamily: 'Roboto',
-		fontStyle: 'normal',
-		fontWeight: 'normal',
+		fontSize: '17px',
+		lineHeight: '20px',
+		color: '#000000'
+	},
+	forgotpassword: {
+		marginTop: '30px',
 		fontSize: '17px',
 		lineHeight: '20px',
 	},
@@ -44,7 +58,28 @@ const loginStyles = makeStyles(theme => ({
 		height: '50px',
 		marginTop: '20px',
 		fontSize: '18px',
-	}
+	},
+	copyright: {
+		alignItems: 'flex-end',
+		color: '#979797',
+		fontSize: '13px',
+	},
+	bottomLinksWrapper: {
+		marginTop: '20px',
+	},
+	bottomLink: {
+		color: '#979797',
+		fontSize: '13px',
+	},
+	buttonWrapper: {
+		position: 'relative',
+	},
+	buttonProgress: {
+		position: 'absolute',
+		top: '50%',
+		left: '50%',
+		marginLeft: -12,
+	},
 }));
 
 export default loginStyles;

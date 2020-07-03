@@ -1,14 +1,14 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom';
 import cookie from 'react-cookies';
 
 import mainStyles from '../styles/mainStyles';
 import Header from './Header';
 import Footer from './Footer';
-import CircularLoader from '../components/CircularLoader';
+// import CircularLoader from '../components/CircularLoader';
 
 function MainContainer(props) {
-	const [loading, setLoading] = useState(true);
+	// const [loading, setLoading] = useState(true);
 	const classes = mainStyles();
 
 	return (
@@ -16,14 +16,14 @@ function MainContainer(props) {
 			<>
 				<Header title={props.title} />
 				<div className={classes.appBackground}>
-					{!loading ?
-						<Switch>
-							<Route exact path={'/'}>
-								{/* <MapContainer /> */}
-							</Route>
-							<Redirect path={'*'} to={'/'}></Redirect>
-						</Switch>
-						: <CircularLoader fill style={{ marginTop: 500 }} />}
+					{/* {!loading ? */}
+					<Switch>
+						<Route exact path={'/'}>
+							{/* <MapContainer /> */}
+						</Route>
+						<Redirect path={'*'} to={'/'}></Redirect>
+					</Switch>
+					{/* : <CircularLoader fill style={{ marginTop: 500 }} />} */}
 				</div>
 				<Footer />
 			</>

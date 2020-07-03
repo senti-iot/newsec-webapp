@@ -1,5 +1,6 @@
 import React from 'react';
-import { AppBar, Toolbar, ButtonBase, Grid } from '@material-ui/core';
+//, Toolbar, ButtonBase, Grid 
+import { AppBar} from '@material-ui/core';
 // import HeaderLinks from './HeaderLinks';
 import mainStyles from '../styles/mainStyles';
 // import logo from 'assets/logo.png'
