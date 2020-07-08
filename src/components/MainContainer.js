@@ -1,7 +1,9 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom';
+import { useDispatch } from 'react-redux'
 import cookie from 'react-cookies';
 
+// import { getUserData } from '../redux/user';
 import mainStyles from '../styles/mainStyles';
 import Header from './Header';
 import Footer from './Footer';
@@ -10,11 +12,26 @@ import Footer from './Footer';
 function MainContainer(props) {
 	// const [loading, setLoading] = useState(true);
 	const classes = mainStyles();
+	const dispatch = useDispatch();
+
+	useEffect(() => {
+		// const reduxGetUser = async () => dispatch(await getUserData());
+
+		// const loadSettings = async () => {
+		// 	await getSetting()
+		// 	setLoading(false)
+		// }
+		// loadSettings()
+	}, [dispatch]);
+
+	const onChangeView = () => {
+		console.log('onChangeView');
+	};
 
 	return (
 		cookie.load('SESSION') ?
 			<>
-				<Header title={props.title} />
+				<Header title={props.title} onChangeView={onChangeView} />
 				<div className={classes.appBackground}>
 					{/* {!loading ? */}
 					<Switch>

@@ -21,7 +21,6 @@ const Login = () => {
 
 	const hangleLogin = async () => {
 		setLoggingIn(true);
-		console.log('hangleLogin');
 
 		await loginUser(username, password).then(async rs => {
 			if (rs) {
