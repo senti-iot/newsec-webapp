@@ -1,13 +1,17 @@
+import cookie from 'react-cookies';
+
 import { coreApi } from './api';
 
-/**
- *
- * @param {String} username
- * @param {String} password
- */
 export const loginUser = async (username, password) => {
 	const session = await coreApi.post('/v2/auth/basic', JSON.stringify({ username: username, password: password })).then(rs => rs.data);
 	return session;
+}
+
+export const logoutUser = async () => {
+	var session = cookie.load('SESSION');
+	var data = await coreApi.delete('/v2/auth/' + session.token);
+	cookie.remove('SESSION');
+	return data;
 }
 
 export const getUser = async () => {
