@@ -16,6 +16,8 @@ const encrypt = (text) => {
 }
 
 const backendHost = 'https://dev.services.senti.cloud/core';
+const databrokerHost = 'https://dev.services.senti.cloud/databroker';
+const newsecBackendHost = 'https://newsec.senti.cloud';
 
 export const coreApi = create({
 	baseURL: backendHost,
@@ -27,7 +29,17 @@ export const coreApi = create({
 });
 
 export const databrokerApi = create({
-	baseURL: 'https://dev.services.senti.cloud/databroker',
+	baseURL: databrokerHost,
+	timeout: 30000,
+	headers: {
+		'auth': encrypt(process.env.REACT_APP_ENCRYPTION_KEY),
+		'Accept': 'application/json',
+		'Content-Type': 'application/json',
+	}
+});
+
+export const newsecApi = create({
+	baseURL: newsecBackendHost,
 	timeout: 30000,
 	headers: {
 		'auth': encrypt(process.env.REACT_APP_ENCRYPTION_KEY),
@@ -41,6 +53,7 @@ export const setToken = () => {
 		let token = cookie.load('SESSION').token;
 		coreApi.setHeader('Authorization', 'Bearer ' + token);
 		databrokerApi.setHeader('Authorization', 'Bearer ' + token);
+		newsecApi.setHeader('Authorization', 'Bearer ' + token);
 		return true;
 	} catch (error) {
 		return false;
@@ -50,6 +63,7 @@ export const setToken = () => {
 export const setHeaders = () => {
 	coreApi.setHeader('wlHost', window.location.hostname);
 	databrokerApi.setHeader('wlHost', window.location.hostname);
+	newsecApi.setHeader('wlHost', window.location.hostname);
 };
 
 setToken();
