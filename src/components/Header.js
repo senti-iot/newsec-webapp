@@ -9,12 +9,15 @@ import ListIcon from '@material-ui/icons/List';
 import ViewComfyIcon from '@material-ui/icons/ViewComfy';
 import MapIcon from '@material-ui/icons/Map';
 import TuneIcon from '@material-ui/icons/Tune';
+import AccountBoxIcon from '@material-ui/icons/AccountBox';
+import BusinessIcon from '@material-ui/icons/Business';
 import { useHistory } from 'react-router'
 import Gravatar from 'react-gravatar';
 
 import mainStyles from '../styles/mainStyles';
 import BarButton from './ui/BarButton';
 import logo from '../assets/logo.png';
+import { logoutUser } from '../data/coreApi';
 
 const Header = (props) => {
 	const classes = mainStyles();
@@ -37,8 +40,11 @@ const Header = (props) => {
 		}
 	};
 
-	const handleLogOut = () => {
-
+	const handleLogOut = async () => {
+		const result = await logoutUser();
+		if (result.status === 200) {
+			history.push('/login');
+		}
 	};
 
 	const toggleFilter = () => {
@@ -99,7 +105,7 @@ const Header = (props) => {
 							<Button
 								onClick={handleProfileOpen}
 							>
-								{user ? user.img ? <img src={user.img} alt='UserProfile' className={classes.userimage} /> : <Gravatar default='mp' email={user.email} className={classes.userimage} size={60} /> : ""}
+								{user ? user.img ? <img src={user.img} alt='UserProfile' className={classes.userimage} /> : <Gravatar default='mp' email={user.email} className={classes.userimage} size={55} /> : ""}
 							</Button>
 							<Menu
 								style={{ marginTop: 55 }}
@@ -113,8 +119,14 @@ const Header = (props) => {
 								onClose={handleProfileClose}
 								disableAutoFocusItem
 							>
+								<MenuItem>
+									<AccountBoxIcon className={classes.usermenuIcon} />Min profil
+								</MenuItem>
+								<MenuItem>
+									<BusinessIcon className={classes.usermenuIcon} />Kontodetaljer
+								</MenuItem>
 								<MenuItem onClick={() => { handleLogOut() }}>
-									<PowerSettingsNew className={classes.leftIcon} />Log ud
+									<PowerSettingsNew className={classes.usermenuIcon} />Log ud
 								</MenuItem>
 							</Menu>
 						</div>

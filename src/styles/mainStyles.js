@@ -5,9 +5,12 @@ const mainStyles = makeStyles(theme => ({
 		height: '100vh',
 	},
 	appBackground: {
-		marginTop: 120,
-		minHeight: 1100,
-		overflowX: 'hidden',
+		marginTop: 156,
+		marginLeft: 40,
+		marginRight: 40,
+		marginBottom: 40,
+		// minHeight: 1100,
+		// overflowX: 'hidden',
 	},
 	appVBarWrapper: {
 		flexGrow: 1,
@@ -17,7 +20,7 @@ const mainStyles = makeStyles(theme => ({
 	},
 	appBarSecondary: {
 		position: 'absolute',
-		top: 72,
+		top: 67,
 		left: 0,
 		backgroundColor: '#365979 !important',
 		width: '100%',
@@ -91,14 +94,24 @@ const mainStyles = makeStyles(theme => ({
 	userimage: {
 		float: 'left',
 		borderRadius: '50%',
-		height: 60,
-		width: 60,
+		height: 55,
+		width: 55,
+	},
+	usermenuIcon: {
+		marginRight: 10,
 	},
 	filterButton: {
 		color: '#fff !important',
 	},
 	dimmedButton: {
 		color: '#afbdc9 !important'
+	},
+	footer: {
+		width: '100%',
+		height: 90,
+		backgroundColor: '#525B60',
+		paddingLeft: 60,
+		paddingTop: 25,
 	}
 }));
 

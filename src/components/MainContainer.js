@@ -1,27 +1,24 @@
 import React, { useEffect } from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom';
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import cookie from 'react-cookies';
 
-// import { getUserData } from '../redux/user';
 import mainStyles from '../styles/mainStyles';
 import Header from './Header';
 import Footer from './Footer';
-// import CircularLoader from '../components/CircularLoader';
+import BuildingsList from './BuildingsList';
+import { getBuildings } from '../redux/buildings';
+import CircularLoader from '../components/CircularLoader';
 
-function MainContainer(props) {
-	// const [loading, setLoading] = useState(true);
+const MainContainer = props => {
 	const classes = mainStyles();
 	const dispatch = useDispatch();
 
-	useEffect(() => {
-		// const reduxGetUser = async () => dispatch(await getUserData());
+	const buildings = useSelector(s => s.buildingsReducer.buildings);
+	const loading = useSelector(s => s.buildingsReducer.loading);
 
-		// const loadSettings = async () => {
-		// 	await getSetting()
-		// 	setLoading(false)
-		// }
-		// loadSettings()
+	useEffect(() => {
+		dispatch(getBuildings())
 	}, [dispatch]);
 
 	const onChangeView = () => {
@@ -33,14 +30,14 @@ function MainContainer(props) {
 			<>
 				<Header title={props.title} onChangeView={onChangeView} />
 				<div className={classes.appBackground}>
-					{/* {!loading ? */}
-					<Switch>
-						<Route exact path={'/'}>
-							{/* <MapContainer /> */}
-						</Route>
-						<Redirect path={'*'} to={'/'}></Redirect>
-					</Switch>
-					{/* : <CircularLoader fill style={{ marginTop: 500 }} />} */}
+					{!loading ?
+						<Switch>
+							<Route exact path={'/'}>
+								<BuildingsList buildings={buildings} />
+							</Route>
+							<Redirect path={'*'} to={'/'}></Redirect>
+						</Switch>
+						: <CircularLoader fill style={{ marginTop: 500 }} />}
 				</div>
 				<Footer />
 			</>
