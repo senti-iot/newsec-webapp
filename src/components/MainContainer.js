@@ -7,7 +7,7 @@ import mainStyles from '../styles/mainStyles';
 import Header from './Header';
 import Footer from './Footer';
 import BuildingsList from './BuildingsList';
-import Building from './Building';
+import Building from './Building/Building';
 import { getBuildings } from '../redux/buildings';
 import CircularLoader from '../components/CircularLoader';
 
@@ -33,8 +33,8 @@ const MainContainer = props => {
 				<div className={classes.appBackground}>
 					{!loading ?
 						<Switch>
-							<Route path={'/building/:uuid'}>
-								<Building />
+							<Route path={'/'}>
+								<Building buildings={buildings} />
 							</Route>
 							<Route path={'/'}>
 								<BuildingsList buildings={buildings} />

@@ -8,7 +8,7 @@ import Demo from './demo/Demo'
 //import NewContent from 'Components/Loaders/NewContent';
 
 // <NewContent />
-function Main() {
+const Main = () => {
 	return (
 		<Switch>
 			{/* <Route path={'/password/reset/:lang/:token?'}>
