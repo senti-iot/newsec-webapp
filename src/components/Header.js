@@ -68,6 +68,7 @@ const Header = (props) => {
 						>
 							<MenuIcon fontSize="large" />
 						</IconButton>
+
 						<div className={classes.logoContainer}>
 							<ButtonBase
 								focusRipple
@@ -78,8 +79,9 @@ const Header = (props) => {
 								<img src={`${logo}`} alt="Newsec logo" className={classes.logo} />
 							</ButtonBase>
 						</div>
+
 						<Typography variant="h6" className={classes.appbarTitle}>
-							Overblik
+							{props.title}
 						</Typography>
 
 						<div className={classes.search}>
@@ -133,66 +135,67 @@ const Header = (props) => {
 					</Toolbar>
 				</AppBar>
 			</div>
-			<div className={classes.appBarSecondary}>
-				<Grid container>
-					<Grid container item xs={6}>
-						<BarButton
-							variant="contained"
-							color="default"
-							className={activeView === 'overview' ? classes.button : classes.dimmedButton}
-							size="large"
-							disableElevation
-							startIcon={<PageviewIcon />}
-							onClick={() => _onChangeView('overview')}
-						>
-							Overblik
-						</BarButton>
-						<BarButton
-							variant="contained"
-							color="default"
-							className={activeView === 'map' ? classes.button : classes.dimmedButton}
-							size="large"
-							disableElevation
-							startIcon={<MapIcon />}
-							onClick={() => _onChangeView('map')}
-						>
-							Kort
-						</BarButton>
-						<BarButton
-							variant="contained"
-							color="default"
-							className={activeView === 'list' ? classes.button : classes.dimmedButton}
-							size="large"
-							disableElevation
-							startIcon={<ListIcon />}
-							onClick={() => _onChangeView('list')}
-						>
-							Liste
-						</BarButton>
-						<BarButton
-							variant="contained"
-							color="default"
-							className={activeView === 'thumbs' ? classes.button : classes.dimmedButton}
-							size="large"
-							disableElevation
-							startIcon={<ViewComfyIcon />}
-							onClick={() => _onChangeView('thumbs')}
-						>
-							Miniaturer
-						</BarButton>
+			{props.enableSecondary ? 
+				<div className={classes.appBarSecondary}>
+					<Grid container>
+						<Grid container item xs={6}>
+							<BarButton
+								variant="contained"
+								color="default"
+								className={activeView === 'overview' ? classes.button : classes.dimmedButton}
+								size="large"
+								disableElevation
+								startIcon={<PageviewIcon />}
+								onClick={() => _onChangeView('overview')}
+							>
+								Overblik
+							</BarButton>
+							<BarButton
+								variant="contained"
+								color="default"
+								className={activeView === 'map' ? classes.button : classes.dimmedButton}
+								size="large"
+								disableElevation
+								startIcon={<MapIcon />}
+								onClick={() => _onChangeView('map')}
+							>
+								Kort
+							</BarButton>
+							<BarButton
+								variant="contained"
+								color="default"
+								className={activeView === 'list' ? classes.button : classes.dimmedButton}
+								size="large"
+								disableElevation
+								startIcon={<ListIcon />}
+								onClick={() => _onChangeView('list')}
+							>
+								Liste
+							</BarButton>
+							<BarButton
+								variant="contained"
+								color="default"
+								className={activeView === 'thumbs' ? classes.button : classes.dimmedButton}
+								size="large"
+								disableElevation
+								startIcon={<ViewComfyIcon />}
+								onClick={() => _onChangeView('thumbs')}
+							>
+								Miniaturer
+							</BarButton>
+						</Grid>
+						<Grid container item xs={6} justify="flex-end">
+							<IconButton
+								edge="start"
+								className={classes.filterButton}
+								onClick={toggleFilter}
+							>
+								<TuneIcon />
+							</IconButton>
+						</Grid>
 					</Grid>
-					<Grid container item xs={6} justify="flex-end">
-						<IconButton
-							edge="start"
-							className={classes.filterButton}
-							onClick={toggleFilter}
-						>
-							<TuneIcon />
-						</IconButton>
-					</Grid>
-				</Grid>
-
-			</div>
+				</div>
+				: ""}
 		</>
 	);
 }

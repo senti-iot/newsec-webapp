@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Checkbox, Hidden, Table, TableBody, TableRow } from '@material-ui/core';
+import { useHistory } from 'react-router';
 
 import tableStyles from '../styles/tableStyles';
 import TC from './table/TC';
@@ -15,6 +16,7 @@ const BuildingsList = props => {
 	const classes = tableStyles();
 	const rowsPerPage = 10;
 	const buildings = props.buildings;
+	const history = useHistory();
 
 	const handleSelectAllClick = () => {
 		
@@ -30,6 +32,11 @@ const BuildingsList = props => {
 
 	const handleChangePage = (event, newpage) => {
 		setPage(newpage);
+	}
+
+	const handleRowClick = uuid => {
+		console.log('handleRowClick')
+		history.push('/building/' + uuid);
 	}
 
 	const columnNames = [
@@ -58,7 +65,7 @@ const BuildingsList = props => {
 						return (
 							<TableRow
 								hover
-								// onClick={handleClick(n.uuid)}
+								onClick={() => handleRowClick(building.uuid)}
 								role='checkbox'
 								aria-checked={isSelected}
 								tabIndex={-1}

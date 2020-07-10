@@ -7,6 +7,7 @@ import mainStyles from '../styles/mainStyles';
 import Header from './Header';
 import Footer from './Footer';
 import BuildingsList from './BuildingsList';
+import Building from './Building';
 import { getBuildings } from '../redux/buildings';
 import CircularLoader from '../components/CircularLoader';
 
@@ -18,7 +19,7 @@ const MainContainer = props => {
 	const loading = useSelector(s => s.buildingsReducer.loading);
 
 	useEffect(() => {
-		dispatch(getBuildings())
+		dispatch(getBuildings());
 	}, [dispatch]);
 
 	const onChangeView = () => {
@@ -28,11 +29,14 @@ const MainContainer = props => {
 	return (
 		cookie.load('SESSION') ?
 			<>
-				<Header title={props.title} onChangeView={onChangeView} />
+				<Header title="Overblik" onChangeView={onChangeView} enableSecondary={true} />
 				<div className={classes.appBackground}>
 					{!loading ?
 						<Switch>
-							<Route exact path={'/'}>
+							<Route path={'/building/:uuid'}>
+								<Building />
+							</Route>
+							<Route path={'/'}>
 								<BuildingsList buildings={buildings} />
 							</Route>
 							<Redirect path={'*'} to={'/'}></Redirect>
