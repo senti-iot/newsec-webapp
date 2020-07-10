@@ -17,6 +17,8 @@ const MainContainer = props => {
 
 	const buildings = useSelector(s => s.buildingsReducer.buildings);
 	const loading = useSelector(s => s.buildingsReducer.loading);
+	const headerTitle = useSelector(s => s.appState.headerTitle);
+	const secondaryBarVisible = useSelector(s => s.appState.secondaryBarVisible);
 
 	useEffect(() => {
 		dispatch(getBuildings());
@@ -29,11 +31,11 @@ const MainContainer = props => {
 	return (
 		cookie.load('SESSION') ?
 			<>
-				<Header title="Overblik" onChangeView={onChangeView} enableSecondary={true} />
+				<Header title={headerTitle} onChangeView={onChangeView} enableSecondary={secondaryBarVisible} />
 				<div className={classes.appBackground}>
 					{!loading ?
 						<Switch>
-							<Route path={'/'}>
+							<Route path={'/building/:uuid'}>
 								<Building buildings={buildings} />
 							</Route>
 							<Route path={'/'}>

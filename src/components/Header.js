@@ -74,7 +74,7 @@ const Header = (props) => {
 								focusRipple
 								className={classes.image}
 								focusVisibleClassName={classes.focusVisible}
-								onClick={history.push('/')}
+								onClick={() => history.push('/')}
 							>
 								<img src={`${logo}`} alt="Newsec logo" className={classes.logo} />
 							</ButtonBase>

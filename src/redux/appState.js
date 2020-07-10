@@ -9,6 +9,8 @@ const changeEventHandler = 'changeEH'
 const changeSM = 'changeSmallmenu'
 const changeT = 'changeTabs'
 const getSettings = 'getSettings'
+const changeHeaderTitleAction = 'changeHeaderTitle'
+const changeSecondaryBarAction = 'changeSecondaryBarAction'
 
 export const changeSmallMenu = (val) => {
 	return dispatch => {
@@ -117,6 +119,24 @@ export const changeTabs = tabs => {
 	}
 }
 
+export const changeHeaderTitle = (val) => {
+	return (dispatch) => {
+		dispatch({ 
+			type: changeHeaderTitleAction,
+			headerTitle: val
+		})
+	}
+}
+
+export const changeSecondaryBarShown = (val) => {
+	return (dispatch) => {
+		dispatch({ 
+			type: changeSecondaryBarAction,
+			secondaryBarVisible: val
+		})
+	}
+}
+
 const initialState = {
 	tabs: {
 		id: '',
@@ -146,8 +166,9 @@ const initialState = {
 		sensors: [],
 		functions: [],
 		messages: [],
-	}
-
+	},
+	headerTitle: 'Overblik',
+	secondaryBarVisible: true,
 }
 
 export const appState = (state = initialState, action) => {
@@ -174,6 +195,10 @@ export const appState = (state = initialState, action) => {
 			return Object.assign({}, state, { trp: action.trp })
 		case updateFilters:
 			return Object.assign({}, state, { filters: { ...state.filters, ...action.filters } })
+		case changeHeaderTitleAction:
+			return Object.assign({}, state, { headerTitle: action.headerTitle })
+		case changeSecondaryBarAction:
+			return Object.assign({}, state, { secondaryBarVisible: action.secondaryBarVisible })
 		default:
 			return state
 	}

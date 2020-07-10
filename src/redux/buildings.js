@@ -1,5 +1,6 @@
-import { getBuildingsFromServer } from '../data/newsecApi';
+import { getBuildingsFromServer, getBuildingFromServer } from '../data/newsecApi';
 
+import { changeHeaderTitle, changeSecondaryBarShown } from './appState';
 
 /**
  * Actions
@@ -9,6 +10,9 @@ import { getBuildingsFromServer } from '../data/newsecApi';
 const GetData = 'GetBuildingsData'
 const GotData = 'GotBuildingsData'
 
+const GetExtendedData = 'GetBuildingExtendedData'
+const GotExtendedData = 'GotBuildingExtendedData'
+
 /**
  * Default dispatch
  */
@@ -17,8 +21,18 @@ const gotData = data => ({
 	payload: data
 })
 
+const gotExtendedData = data => ({
+	type: GotExtendedData,
+	payload: data
+})
+
 const setLoading = loading => ({
 	type: GetData,
+	payload: loading
+})
+
+const setLoadingExtended = loading => ({
+	type: GetExtendedData,
 	payload: loading
 })
 
@@ -32,12 +46,25 @@ export const getBuildings = () =>
 		dispatch(gotData(data));
 		dispatch(setLoading(false));
 	}
+
+export const getBuilding = (uuid) =>
+	async (dispatch, getState) => {
+		dispatch(setLoadingExtended(true));
+		let data = await getBuildingFromServer(uuid);
+		dispatch(changeHeaderTitle(data.name));
+		dispatch(changeSecondaryBarShown(false));
+		dispatch(gotExtendedData(data));
+		dispatch(setLoadingExtended(false));
+	}
+
 /**
  * Initial state
  */
 const initialState = {
 	loading: false,
-	buildings: null
+	loadingExtended: false,
+	buildings: null,
+	building: null,
 }
 
 /**
@@ -50,6 +77,10 @@ export const buildingsReducer = (state = initialState, { type, payload }) => {
 			return Object.assign({}, state, { loading: payload });
 		case GotData:
 			return Object.assign({}, state, { buildings: payload });
+		case GetExtendedData:
+			return Object.assign({}, state, { loadingExtended: payload });
+		case GotExtendedData:
+			return Object.assign({}, state, { building: payload });
 		default:
 			return state;
 	}

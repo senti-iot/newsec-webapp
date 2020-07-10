@@ -23,7 +23,9 @@ const BuildingsList = props => {
 	}
 
 	const handleCheckboxClick = () => {
-		
+		setSelected();
+		setOrder();
+		setOrderBy();
 	}
 
 	const handleRequestSort = () => {
