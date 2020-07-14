@@ -113,18 +113,96 @@ const BuildingInfo = props => {
 								<ListItem disableGutters={true}>
 									<ListItemText
 										disableTypography
-										primary={<Typography style={{ fontSize: '1rem', color: 'rgba(0, 0, 0, 0.46)' }}>Adresse</Typography>}
+										primary={<Typography style={{ fontSize: '1rem', color: 'rgba(0, 0, 0, 0.46)' }}>Energimærke</Typography>}
 										secondary={<Typography style={{ fontSize: '0.9rem', color: '#000' }}>{building.energyState}</Typography>}
 									/>
 								</ListItem>
-
 							</List>
 						</TabPanel>
 						<TabPanel value={selectedTab} index={1}>
-							Page Two
+							<List className={classes.root} style={{ padding: 0 }}>
+								<ListItem disableGutters={true}>
+									<ListItemText
+										disableTypography
+										primary={<Typography style={{ fontSize: '1rem', color: 'rgba(0, 0, 0, 0.46)' }}>Samlet areal bygning</Typography>}
+										secondary={<Typography style={{ fontSize: '0.9rem', color: '#000' }}>{building.areal}</Typography>}
+									/>
+								</ListItem>
+								<Divider />
+
+								<ListItem disableGutters={true}>
+									<ListItemText
+										disableTypography
+										primary={<Typography style={{ fontSize: '1rem', color: 'rgba(0, 0, 0, 0.46)' }}>Opvarmet bygningsareal</Typography>}
+										secondary={<Typography style={{ fontSize: '0.9rem', color: '#000' }}>{building.arealHeated}</Typography>}
+									/>
+								</ListItem>
+								<Divider />
+
+								<ListItem disableGutters={true}>
+									<ListItemText
+										disableTypography
+										primary={<Typography style={{ fontSize: '1rem', color: 'rgba(0, 0, 0, 0.46)' }}>BRB ejendomsnummer</Typography>}
+										secondary={<Typography style={{ fontSize: '0.9rem', color: '#000' }}>{building.bbrNumber}</Typography>}
+									/>
+								</ListItem>
+								<Divider />
+
+								<ListItem disableGutters={true}>
+									<ListItemText
+										disableTypography
+										primary={<Typography style={{ fontSize: '1rem', color: 'rgba(0, 0, 0, 0.46)' }}>Opført</Typography>}
+										secondary={<Typography style={{ fontSize: '0.9rem', color: '#000' }}>???</Typography>}
+									/>
+								</ListItem>
+								<Divider />
+
+								<ListItem disableGutters={true}>
+									<ListItemText
+										disableTypography
+										primary={<Typography style={{ fontSize: '1rem', color: 'rgba(0, 0, 0, 0.46)' }}>Årlig leje</Typography>}
+										secondary={<Typography style={{ fontSize: '0.9rem', color: '#000' }}>DKK {building.yearlyRent}</Typography>}
+									/>
+								</ListItem>
+								<Divider />
+
+								<ListItem disableGutters={true}>
+									<ListItemText
+										disableTypography
+										primary={<Typography style={{ fontSize: '1rem', color: 'rgba(0, 0, 0, 0.46)' }}>Årlig leje pr. m2</Typography>}
+										secondary={<Typography style={{ fontSize: '0.9rem', color: '#000' }}>DKK {building.yearlyRentM2}</Typography>}
+									/>
+								</ListItem>
+							</List>
 						</TabPanel>
 						<TabPanel value={selectedTab} index={2}>
-							Page Three
+							<List className={classes.root} style={{ padding: 0 }}>
+								<ListItem disableGutters={true}>
+									<ListItemText
+										disableTypography
+										primary={<Typography style={{ fontSize: '1rem', color: 'rgba(0, 0, 0, 0.46)' }}>Varme</Typography>}
+										secondary={<Typography style={{ fontSize: '0.9rem', color: '#000' }}>{building.providerHeat}</Typography>}
+									/>
+								</ListItem>
+								<Divider />
+
+								<ListItem disableGutters={true}>
+									<ListItemText
+										disableTypography
+										primary={<Typography style={{ fontSize: '1rem', color: 'rgba(0, 0, 0, 0.46)' }}>EL</Typography>}
+										secondary={<Typography style={{ fontSize: '0.9rem', color: '#000' }}>{building.providerPower}</Typography>}
+									/>
+								</ListItem>
+								<Divider />
+
+								<ListItem disableGutters={true}>
+									<ListItemText
+										disableTypography
+										primary={<Typography style={{ fontSize: '1rem', color: 'rgba(0, 0, 0, 0.46)' }}>Vand</Typography>}
+										secondary={<Typography style={{ fontSize: '0.9rem', color: '#000' }}>{building.providerWater}</Typography>}
+									/>
+								</ListItem>
+							</List>
 						</TabPanel>
 					</CardContent>
 				</Card>

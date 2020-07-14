@@ -6,6 +6,11 @@ import { useParams } from "react-router-dom";
 import BuildingInfo from './BuildingInfo';
 import BuildingImages from './BuildingImages';
 import BuildingGraph from './BuildingGraph';
+import BuildingForecast from './BuildingForecast';
+import BuildingEnergy from './BuildingEnergy';
+import BuildingScore from './BuildingScore';
+import BuildingEnergyGraph from './BuildingEnergyGraph';
+import BuildingMap from './BuildingMap';
 import { getBuilding } from '../../redux/buildings';
 import CircularLoader from '../../components/CircularLoader';
 
@@ -33,10 +38,27 @@ const Building = props => {
 					<Grid item xs={12}>
 						<BuildingGraph building={building} />
 					</Grid>
+					<Grid item xs={12} lg={4}>
+						<BuildingForecast building={building} />
+					</Grid>
+					<Grid item xs={12} lg={4}>
+						<BuildingEnergy building={building} />
+					</Grid>
+					<Grid item xs={12} lg={4}>
+						<BuildingScore building={building} />
+					</Grid>
+					<Grid item xs={12}>
+						<BuildingEnergyGraph building={building} />
+					</Grid>
+					<Grid item xs={12}>
+						<BuildingMap building={building} />
+					</Grid>
 				</Grid>
 				: <CircularLoader fill style={{ marginTop: 500 }} />}
 		</>
 	)
 }
+
+// Building.whyDidYouRender = true
 
 export default Building;

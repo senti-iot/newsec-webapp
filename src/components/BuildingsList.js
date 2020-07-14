@@ -45,6 +45,8 @@ const BuildingsList = props => {
 		// { id: 'id', label: t('devices.fields.id') },
 		{ id: 'no', label: 'Ejendomsnr' },
 		{ id: 'name', label: 'Ejendomsnavn' },
+		{ id: 'grouptype', label: 'Gruppe' },
+		{ id: 'relativeCO2Score', label: 'Relativ CO2 score' },
 	]
 
 	return (
@@ -97,6 +99,8 @@ const BuildingsList = props => {
 									<TC checkbox content={<Checkbox checked={isSelected} onClick={e => handleCheckboxClick(e, building.uuid)} />} />
 									<TC label={building.no} />
 									<TC label={building.name} />
+									<TC label={building.grouptype} />
+									<TC label={building.relativeCO2Score} />
 								</Hidden>
 							</TableRow>
 						)
