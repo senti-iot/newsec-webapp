@@ -46,6 +46,8 @@ const BuildingsList = props => {
 		{ id: 'no', label: 'Ejendomsnr' },
 		{ id: 'name', label: 'Ejendomsnavn' },
 		{ id: 'grouptype', label: 'Gruppe' },
+		{ id: 'owner', label: 'Organisation' },
+		{ id: 'address', label: 'Adresse' },
 		{ id: 'relativeCO2Score', label: 'Relativ CO2 score' },
 	]
 
@@ -100,6 +102,8 @@ const BuildingsList = props => {
 									<TC label={building.no} />
 									<TC label={building.name} />
 									<TC label={building.grouptype} />
+									<TC label={building.owner} />
+									<TC label={building.streetName + ' ' + building.houseNumber + ', ' + building.zipcode + ' ' + building.city} />
 									<TC label={building.relativeCO2Score} />
 								</Hidden>
 							</TableRow>

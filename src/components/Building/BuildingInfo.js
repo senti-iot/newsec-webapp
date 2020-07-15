@@ -102,7 +102,7 @@ const BuildingInfo = props => {
 										primary={<Typography style={{ fontSize: '1rem', color: 'rgba(0, 0, 0, 0.46)' }}>Adresse</Typography>}
 										secondary={
 											<>
-												<span style={{ fontSize: '0.9rem', color: '#000' }}>{building.streetName}<br />
+												<span style={{ fontSize: '0.9rem', color: '#000' }}>{building.streetName} {building.houseNumber}<br />
 													{building.zipcode} {building.city}</span>
 											</>
 										}
