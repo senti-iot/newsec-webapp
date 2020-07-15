@@ -7,6 +7,7 @@ import mainStyles from '../styles/mainStyles';
 import Header from './Header';
 import Footer from './Footer';
 import BuildingsList from './BuildingsList';
+import BuildingsThumbs from './BuildingsThumbs';
 import Building from './Building/Building';
 import { getBuildings } from '../redux/buildings';
 import CircularLoader from '../components/CircularLoader';
@@ -19,6 +20,7 @@ const MainContainer = props => {
 	const loading = useSelector(s => s.buildingsReducer.loading);
 	const headerTitle = useSelector(s => s.appState.headerTitle);
 	const secondaryBarVisible = useSelector(s => s.appState.secondaryBarVisible);
+	const activeView = useSelector(s => s.appState.mainView);
 
 	useEffect(() => {
 		dispatch(getBuildings());
@@ -39,7 +41,8 @@ const MainContainer = props => {
 								<Building buildings={buildings} />
 							</Route>
 							<Route path={'/'}>
-								<BuildingsList buildings={buildings} />
+								{activeView === 'list' ? <BuildingsList buildings={buildings} /> : ""}
+								{activeView === 'thumbs' ? <BuildingsThumbs buildings={buildings} /> : ""}
 							</Route>
 							<Redirect path={'*'} to={'/'}></Redirect>
 						</Switch>

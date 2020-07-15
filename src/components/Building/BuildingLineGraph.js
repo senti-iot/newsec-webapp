@@ -112,8 +112,7 @@ const BuildingLineGraph = (props) => {
 			<svg id={props.id} ref={lineChartContainer}
 				style={{
 					width: '100%',
-					height: '90%',
-					minHeight: 300
+					height: '500px',
 				}}>
 
 			</svg>

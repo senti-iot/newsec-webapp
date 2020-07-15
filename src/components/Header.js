@@ -13,18 +13,22 @@ import AccountBoxIcon from '@material-ui/icons/AccountBox';
 import BusinessIcon from '@material-ui/icons/Business';
 import { useHistory } from 'react-router'
 import Gravatar from 'react-gravatar';
+import { useDispatch, useSelector } from 'react-redux';
 
 import mainStyles from '../styles/mainStyles';
 import BarButton from './ui/BarButton';
 import logo from '../assets/logo.png';
 import { logoutUser } from '../data/coreApi';
+import { changeMainView } from '../redux/appState';
 
 const Header = (props) => {
 	const classes = mainStyles();
 	const history = useHistory();
+	const dispatch = useDispatch();
 	const [anchorProfile, setAnchorProfile] = useState(null);
-	const [activeView, setActiveView] = useState('list');
 	const openProfile = Boolean(anchorProfile);
+
+	const activeView = useSelector(s => s.appState.mainView);
 
 	const user = { firstName: 'Henrik', lastName: 'Hansen', email: 'hh@webhouse.dk' };
 
@@ -52,8 +56,7 @@ const Header = (props) => {
 	};
 
 	const _onChangeView = viewType => {
-		// console.log(viewType);
-		setActiveView(viewType);
+		dispatch(changeMainView(viewType));
 	}
 
 	return (

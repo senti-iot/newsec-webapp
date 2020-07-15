@@ -13,6 +13,12 @@ const changeHeaderTitleAction = 'changeHeaderTitle'
 const changeSecondaryBarAction = 'changeSecondaryBarAction'
 const fsLG = 'fullScreenLineGraph'
 const setLines = 'setGraphLines'
+const mainViewChange = 'mainViewChange'
+
+export const changeMainView = data => ({
+	type: mainViewChange,
+	payload: data
+});
 
 export const setGraphLines = (state) => {
 	return {
@@ -192,6 +198,7 @@ const initialState = {
 	},
 	headerTitle: 'Overblik',
 	secondaryBarVisible: true,
+	mainView: 'list'
 }
 
 export const appState = (state = initialState, action) => {
@@ -226,6 +233,8 @@ export const appState = (state = initialState, action) => {
 			return Object.assign({}, state, { lines: action.payload })
 		case fsLG:
 			return Object.assign({}, state, { fullScreenLineChart: action.payload })
+		case mainViewChange:
+			return Object.assign({}, state, { mainView: action.payload })
 		default:
 			return state
 	}
