@@ -27,11 +27,10 @@ export const getDeviceData = (device, period, type) =>
 		});
 		let line = {
 			graph: [{
-
 				name: "Data",
 				color: 'red',
-				data: convertedData
-
+				data: convertedData,
+				noArea: true
 			}]
 		}
 		dispatch(gotData(line));
