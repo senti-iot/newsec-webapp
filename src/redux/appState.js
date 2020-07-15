@@ -11,6 +11,27 @@ const changeT = 'changeTabs'
 const getSettings = 'getSettings'
 const changeHeaderTitleAction = 'changeHeaderTitle'
 const changeSecondaryBarAction = 'changeSecondaryBarAction'
+const fsLG = 'fullScreenLineGraph'
+const setLines = 'setGraphLines'
+
+export const setGraphLines = (state) => {
+	return {
+		type: setLines,
+		payload: state
+	}
+}
+
+export const setGraphLine = (id, value) => {
+	return (dispatch, getState) => {
+		let lState = { ...getState().appState.lines }
+
+		lState[id] = value
+		dispatch({
+			type: setLines,
+			payload: lState
+		})
+	}
+}
 
 export const changeSmallMenu = (val) => {
 	return dispatch => {
@@ -138,6 +159,8 @@ export const changeSecondaryBarShown = (val) => {
 }
 
 const initialState = {
+	lines: {},
+	fullScreenLineChart: false,
 	tabs: {
 		id: '',
 		route: 0,
@@ -199,6 +222,10 @@ export const appState = (state = initialState, action) => {
 			return Object.assign({}, state, { headerTitle: action.headerTitle })
 		case changeSecondaryBarAction:
 			return Object.assign({}, state, { secondaryBarVisible: action.secondaryBarVisible })
+		case setLines:
+			return Object.assign({}, state, { lines: action.payload })
+		case fsLG:
+			return Object.assign({}, state, { fullScreenLineChart: action.payload })
 		default:
 			return state
 	}

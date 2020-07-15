@@ -38,6 +38,17 @@ export const databrokerApi = create({
 	}
 });
 
+export const weatherApi = create({
+	baseURL: `https://api.senti.cloud/weather/v1/`,
+	timeout: 30000,
+	headers: {
+		'auth': encrypt(process.env.REACT_APP_ENCRYPTION_KEY),
+		'Accept': 'application/json',
+		'Content-Type': 'application/json',
+		'Cache-Control': 'public, max-age=864000'
+	}
+});
+
 export const newsecApi = create({
 	baseURL: newsecBackendHost,
 	timeout: 30000,
@@ -54,6 +65,7 @@ export const setToken = () => {
 		coreApi.setHeader('Authorization', 'Bearer ' + token);
 		databrokerApi.setHeader('Authorization', 'Bearer ' + token);
 		newsecApi.setHeader('Authorization', 'Bearer ' + token);
+		weatherApi.setHeader('Authorization', 'Bearer ' + token);
 		return true;
 	} catch (error) {
 		return false;
@@ -64,6 +76,7 @@ export const setHeaders = () => {
 	coreApi.setHeader('wlHost', window.location.hostname);
 	databrokerApi.setHeader('wlHost', window.location.hostname);
 	newsecApi.setHeader('wlHost', window.location.hostname);
+	weatherApi.setHeader('wlHost', window.location.hostname);
 };
 
 setToken();

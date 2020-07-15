@@ -1,6 +1,6 @@
 import cookie from 'react-cookies';
 
-import { coreApi } from './api';
+import { coreApi, databrokerApi } from './api';
 
 export const loginUser = async (username, password) => {
 	const session = await coreApi.post('/v2/auth/basic', JSON.stringify({ username: username, password: password })).then(rs => rs.data);
@@ -21,5 +21,11 @@ export const getUser = async () => {
 
 export const getAuth = async () => {
 	var data = await coreApi.get(`/v2/auth`).then(rs => rs);
+	return data;
+}
+
+export const getDeviceDataFromServer = async (device, period, type) => {
+	console.log('/v1/devicedata-clean/' + device + '/' + period.from.format('YYYY-MM-DD HH:mm:ss') + '/' + period.to.format('YYYY-MM-DD HH:mm:ss') + '/' + type + '/-1');
+	var data = await databrokerApi.get('/v1/devicedata-clean/' + device + '/' + period.from.format('YYYY-MM-DD HH:mm:ss') + '/' + period.to.format('YYYY-MM-DD HH:mm:ss') + '/' + type + '/-1').then(rs => rs);
 	return data;
 }

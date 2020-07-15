@@ -6,7 +6,8 @@ import { appState } from './appState';
 import { demoReducer } from './demo';
 import { buildingsReducer } from './buildings';
 import { settings } from './settings';
-// import { dateTime } from './dateTime'
+import { dateTime } from './dateTime'
+import { lineData } from './lineData'
 // import { data } from './data'
 // import { globalSearch } from './globalSearch'
 // import { weather } from './weather'
@@ -24,7 +25,8 @@ let reducers = combineReducers({
 	demoReducer,
 	buildingsReducer,
 	settings,
-	// dateTime,
+	dateTime,
+	lineData,
 	// data,
 	// globalSearch,
 	// weather,

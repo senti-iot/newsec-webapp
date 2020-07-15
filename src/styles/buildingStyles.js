@@ -21,6 +21,17 @@ const buildingStyles = makeStyles(theme => ({
 		height: 10,
 		backgroundColor: '#8B2979',
 		borderRadius: 3,
+	},
+	graphDatePickers: {
+		width: '100%',
+		height: 50,
+	},
+	graphRibbon: {
+		width: '100%',
+		height: 50,
+		backgroundColor: '#ebebeb',
+		marginTop: 20,
+		marginBottom: 20,
 	}
 }));
 

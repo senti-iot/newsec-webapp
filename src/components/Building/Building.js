@@ -5,7 +5,7 @@ import { useParams } from "react-router-dom";
 
 import BuildingInfo from './BuildingInfo';
 import BuildingImages from './BuildingImages';
-import BuildingGraph from './BuildingGraph';
+import BuildingGraphContainer from './BuildingGraphContainer';
 import BuildingForecast from './BuildingForecast';
 import BuildingEnergy from './BuildingEnergy';
 import BuildingScore from './BuildingScore';
@@ -36,7 +36,7 @@ const Building = props => {
 						<BuildingImages building={building} />
 					</Grid>
 					<Grid item xs={12}>
-						<BuildingGraph building={building} />
+						<BuildingGraphContainer building={building} />
 					</Grid>
 					<Grid item xs={12} lg={4}>
 						<BuildingForecast building={building} />
