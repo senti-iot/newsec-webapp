@@ -25,13 +25,25 @@ export const getDeviceData = (device, period, type) =>
 		Object.keys(data).map(date => {
 			convertedData.push({ value: data[date], date: date });
 		});
+		let line = {
+			graph: [{
 
-		dispatch(gotData(convertedData));
+				name: "Data",
+				color: 'red',
+				data: convertedData
+
+			}]
+		}
+		dispatch(gotData(line));
 		dispatch(setLoading(false));
 	}
 
 const initialState = {
-	data: null,
+	graph: [{
+		name: "Data",
+		color: 'red',
+		data: []
+	}],
 	loading: false,
 }
 
@@ -42,8 +54,8 @@ export const lineData = (state = initialState, { type, payload }) => {
 		case GetDeviceData:
 			return Object.assign({}, state, { loading: payload });
 		case GotDeviceData:
-			console.log(payload);
-			return Object.assign({}, state, { data: payload });
+			// console.log(payload);
+			return Object.assign({}, state, { ...state, ...payload });
 		default:
 			return state
 	}

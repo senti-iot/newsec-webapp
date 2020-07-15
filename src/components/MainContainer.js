@@ -25,7 +25,7 @@ const MainContainer = props => {
 	}, [dispatch]);
 
 	const onChangeView = () => {
-		console.log('onChangeView');
+		// console.log('onChangeView');
 	};
 
 	return (

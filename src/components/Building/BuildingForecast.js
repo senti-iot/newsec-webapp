@@ -22,7 +22,7 @@ const BuildingForecast = props => {
 	];
 
 	const renderGraph = () => {
-		console.log('renderGraph');
+		// console.log('renderGraph');
 		const width = 230;
 		const arcSize = (8 * width / 100);
 		const innerRadius = arcSize * 3;
@@ -60,7 +60,7 @@ const BuildingForecast = props => {
 				return i === 0 ? d.data.object.color : i === 1 ? 'none' : 'none';
 			});
 	}
- 
+
 	return (
 		<>
 			{building ?
@@ -80,10 +80,10 @@ const BuildingForecast = props => {
 						</div>
 
 						<div style={{ width: "50%", height: "50px", margin: "0 auto" }}>
-							<Grid container 
+							<Grid container
 								alignItems="center"
 								justify="center">
-								<Grid index xs={3}>
+								<Grid item xs={3}>
 									<Box display="flex" justifyContent="center" alignItems="center">
 										<div className={classes.ledgendCurrent}></div>
 									</Box>
@@ -91,7 +91,7 @@ const BuildingForecast = props => {
 										Aktuel
 									</Box>
 								</Grid>
-								<Grid index xs={3}>
+								<Grid item xs={3}>
 									<Box display="flex" justifyContent="center" alignItems="center">
 										<div className={classes.ledgendForecast}></div>
 									</Box>
@@ -99,7 +99,7 @@ const BuildingForecast = props => {
 										Prognose
 									</Box>
 								</Grid>
-								<Grid index xs={3}>
+								<Grid item xs={3}>
 									<Box display="flex" justifyContent="center" alignItems="center">
 										<div className={classes.legendGoal}></div>
 									</Box>

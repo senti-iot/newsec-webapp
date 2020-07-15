@@ -52,7 +52,7 @@ const Header = (props) => {
 	};
 
 	const _onChangeView = viewType => {
-		console.log(viewType);
+		// console.log(viewType);
 		setActiveView(viewType);
 	}
 
@@ -135,7 +135,7 @@ const Header = (props) => {
 					</Toolbar>
 				</AppBar>
 			</div>
-			{props.enableSecondary ? 
+			{props.enableSecondary ?
 				<div className={classes.appBarSecondary}>
 					<Grid container>
 						<Grid container item xs={6}>

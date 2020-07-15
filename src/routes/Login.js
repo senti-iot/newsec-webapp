@@ -24,7 +24,7 @@ const Login = () => {
 
 		await loginUser(username, password).then(async rs => {
 			if (rs) {
-				console.log(rs);
+				// console.log(rs);
 				let exp = moment().add('1', 'day');
 				cookie.save('SESSION', rs, { path: '/', expires: exp.toDate() });
 

@@ -46,6 +46,7 @@ const getMax = (arr) => {
 }
 const getMin = (arr) => {
 	if (arr.length > 0) {
+		// console.log('arr', arr)
 		let min = Math.min(...arr.map(d => d.value))
 		if (min > 1) {
 			// min = min - 0.1
@@ -86,6 +87,7 @@ class d3Line {
 		this.classes = classes
 		this.setLine = props.setLine
 		this.containerEl = containerEl
+		console.log('containerEl', containerEl)
 		this.props = props
 		this.period = props.period
 		this.margin = { top: 30, right: 50, bottom: 50, left: 50 }
@@ -140,7 +142,6 @@ class d3Line {
 		this.generateLines()
 		this.generateWeather()
 		this.generateMedian()
-		this.generateLegend()
 	}
 
 	generateYAxis = (noDomain) => {
@@ -181,11 +182,9 @@ class d3Line {
 
 		this.x = d3.scaleTime().range([this.margin.left + 45, width - this.margin.right])
 		let period = this.props.period
-
 		let data = this.props.data ? this.props.data[this.props.id] : []
 		let newData = data.filter(f => !this.state['L' + f.name])
 		let allData = [].concat(...newData.map(d => d.data))
-
 		let from = moment.min(allData.map(d => moment(d.date))).startOf('day')
 		let to = moment.max(allData.map(d => moment(d.date)))
 
