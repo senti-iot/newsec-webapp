@@ -20,59 +20,60 @@ const getMedianLineData = (data) => {
 const getMax = (arr) => {
 	if (arr.length > 0) {
 		let max = Math.max(...arr.map(d => d.value))
-		if (max < 1) {
-			return max + 0.1
-		}
-		if (max < 5) {
-			return max + 1
-		}
-		if (max > 100000) {
+		return max
+		// if (max < 1) {
+		// 	return max + 0.1
+		// }
+		// if (max < 5) {
+		// 	return max + 1
+		// }
+		// if (max > 100000) {
 
-			return max + 10000
-		}
-		if (max > 10000) {
-			return max + 1000
-		}
-		if (max > 1000) {
-			return max + 500
-		}
-		if (max > 100) {
-			return max + 200
-		}
-		if (max > 5) {
-			return max + 10
-		}
+		// 	return max + 10000
+		// }
+		// if (max > 10000) {
+		// 	return max + 1000
+		// }
+		// if (max > 1000) {
+		// 	return max + 500
+		// }
+		// if (max > 100) {
+		// 	return max + 200
+		// }
+		// if (max > 5) {
+		// 	return max + 10
+		// }
 	}
 }
 const getMin = (arr) => {
 	if (arr.length > 0) {
-		// console.log('arr', arr)
 		let min = Math.min(...arr.map(d => d.value))
-		if (min > 1) {
-			// min = min - 0.1
-			min = 0
-		}
-		if (min > 5) {
-			// min = min - 1
-			min = 0
-		}
-		if (min > 100) {
-			min = min - 100
-		}
-		if (min > 1000) {
-			min = min - 1000
-		}
-		if (min > 10000) {
-			min = min - 10000
-		}
-		if (min > 100000) {
-			min = min - 100000
-		}
-		// min = min - 10
+		return min
+		// 	if (min > 1) {
+		// 		// min = min - 0.1
+		// 		min = 0
+		// 	}
+		// 	if (min > 5) {
+		// 		// min = min - 1
+		// 		min = 0
+		// 	}
+		// 	if (min > 100) {
+		// 		min = min - 100
+		// 	}
+		// 	if (min > 1000) {
+		// 		min = min - 1000
+		// 	}
+		// 	if (min > 10000) {
+		// 		min = min - 10000
+		// 	}
+		// 	if (min > 100000) {
+		// 		min = min - 100000
+		// 	}
+		// 	// min = min - 10
 
-		// return min > 1 ? min - 10 : min - 0.1
-		// alert('min' + min)
-		return min > 0 ? Math.floor(min) : 0
+	// 	// return min > 1 ? min - 10 : min - 0.1
+	// 	// alert('min' + min)
+	// 	return min > 0 ? Math.floor(min) : 0
 	}
 }
 
@@ -87,7 +88,6 @@ class d3Line {
 		this.classes = classes
 		this.setLine = props.setLine
 		this.containerEl = containerEl
-		console.log('containerEl', containerEl)
 		this.props = props
 		this.period = props.period
 		this.margin = { top: 30, right: 50, bottom: 50, left: 50 }
@@ -108,6 +108,7 @@ class d3Line {
 			.y1((d) => { return this.y(d.value) })
 
 		this.valueLine = d3.line()
+			.curve(d3.curveCatmullRom)
 			.x((d) => this.x(moment(d.date).valueOf()))
 			.y(d => this.y(d.value))
 		this.div = d3.select(`#tooltip${props.id}`)
@@ -134,7 +135,8 @@ class d3Line {
 		let data = this.props.data ? this.props.data[this.props.id] : []
 		let newData = data.filter(f => !this.state['L' + f.name])
 		let allData = [].concat(...newData.map(d => d.data))
-		this.y.domain([Math.floor(getMin(allData)), Math.round(getMax(allData))])
+		// this.y.domain([Math.floor(getMin(allData)), Math.round(getMax(allData))])
+		this.y.domain([getMin(allData), getMax(allData)])
 		this.yAxis.remove()
 		this.svg.selectAll("*").remove()
 		this.generateXAxis()
