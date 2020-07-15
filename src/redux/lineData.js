@@ -1,4 +1,4 @@
-import moment from 'moment'
+// import moment from 'moment'
 
 import { getDeviceDataFromServer } from '../data/coreApi';
 
@@ -6,12 +6,12 @@ const GetDeviceData = 'GetDeviceData'
 const GotDeviceData = 'GotDeviceData'
 
 const gotData = data => ({
-	type: GetDeviceData,
+	type: GotDeviceData,
 	payload: data
 })
 
 const setLoading = loading => ({
-	type: GotDeviceData,
+	type: GetDeviceData,
 	payload: loading
 })
 
@@ -19,12 +19,20 @@ export const getDeviceData = (device, period, type) =>
 	async (dispatch, getState) => {
 		dispatch(setLoading(true));
 		let data = await getDeviceDataFromServer(device, period, type);
-		dispatch(gotData(data));
+		let convertedData = [];
+
+		// eslint-disable-next-line array-callback-return
+		Object.keys(data).map(date => {
+			convertedData.push({ value: data[date], date: date });
+		});
+
+		dispatch(gotData(convertedData));
 		dispatch(setLoading(false));
 	}
 
 const initialState = {
-	data: []
+	data: null,
+	loading: false,
 }
 
 export const lineData = (state = initialState, { type, payload }) => {
@@ -34,6 +42,7 @@ export const lineData = (state = initialState, { type, payload }) => {
 		case GetDeviceData:
 			return Object.assign({}, state, { loading: payload });
 		case GotDeviceData:
+			console.log(payload);
 			return Object.assign({}, state, { data: payload });
 		default:
 			return state

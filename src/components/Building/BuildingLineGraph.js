@@ -97,12 +97,12 @@ const BuildingLineGraph = (props) => {
 			line = new d3Line(lineChartContainer.current, cProps, classes)
 			// }
 		}
-
-		if ((props.id !== prevId) && line && lineChartContainer.current) {
+		console.log(deviceData);
+		if (deviceData && (props.id !== prevId) && line && lineChartContainer.current) {
 			genNewLine()
 		}
 
-		if ((lineChartContainer.current && !line && !props.loading) || ((prevLoading !== props.loading) && !props.loading)) {
+		if (deviceData && ((lineChartContainer.current && !line && !props.loading) || ((prevLoading !== props.loading) && !props.loading))) {
 			genNewLine()
 		}
 
