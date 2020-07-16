@@ -144,6 +144,7 @@ class d3Line {
 		this.generateLines()
 		this.generateWeather()
 		this.generateMedian()
+		this.generateDots()
 	}
 
 	generateYAxis = (noDomain) => {
@@ -378,7 +379,6 @@ class d3Line {
 		this.xAxis.selectAll('.tick').each(function (d, i) {
 			let parent = d3.select(this)
 			if (this.nextSibling) {
-
 				if (i % 2 === 0) {
 					parent.append('rect')
 						.attr('class', classes.axisLineWhite)
@@ -394,10 +394,8 @@ class d3Line {
 					}
 					// .attr("width", 32)
 					// .attr("height", 32)
-				}
-				else {
+				} else {
 					if (weatherData[i])
-
 						parent.append("image")
 							.attr("xlink:href", getIcon(weatherData[i].icon))
 							.attr('class', classes.weatherIcon)
@@ -430,19 +428,71 @@ class d3Line {
 					// .attr("height", 32)
 				}
 				else {
-					if (weatherData[i])
-
+					if (weatherData[i]) {
 						parent.append("image")
 							.attr("xlink:href", getIcon(weatherData[i].icon))
 							.attr('class', classes.weatherIcon)
 							.attr("x", Math.round(this.nextSibling.getBoundingClientRect().x - this.getBoundingClientRect().x) / 2)
 							.attr("y", -(height - margin.bottom - 40))
+					}
 					// .attr("width", 32)
 					// .attr("height", 32)
 				}
 				// }
 			}
 		})
+	}
+
+	generateDots = () => {
+		let data = this.props.data ? this.props.data[this.props.id] : []
+		// const setTooltip = this.props.setTooltip
+		// const width = this.width
+		data.forEach((line) => {
+			if (line.prev || line.onlyMedian) {
+				return
+			}
+			// let tooltipDiv = d3.select(`#tooltip${this.props.id}`)
+			this.svg.selectAll(".dot")
+				.data(line.data)
+				.enter()
+				.append("circle") // Uses the enter().append() method
+				// .on("mouseover", function (d) {
+				// 	d3.select(this).attr("r", 8)
+				// 	// tooltipDiv.transition()
+				// 	// 	.duration(200)
+				// 	// 	.style("opacity", 1)
+				// 	// 	.style('z-index', 1040)
+				// 	// let left = d3.event.pageX < 175 ? 245 : d3.event.pageX
+				// 	// left = d3.event.pageX > width - 175 ? width - 150 : left
+				// 	// left = left - 150 - 25 //150 - half of the Tooltip, 25 default D3 tooltip
+				// 	// tooltipDiv.style("left", left + "px")
+				// 	// 	.style("top", (d3.event.pageY) - 250 + "px")
+				// 	// setTooltip(d)
+
+				// }).on("mouseout", function () {
+				// 	// setExpand(false)
+				// 	d3.select(this).attr("r", 6)
+				// 	// tooltipDiv.transition()
+				// 	// 	.duration(500)
+				// 	// 	.style('z-index', -1)
+				// 	// 	.style("opacity", 0)
+				// }).on('click', function (d) {
+				// 	// setExpand(true)
+				// 	// alert(d.date + ' ' + d.value)
+				// })
+				.attr("cx", (d) => { return this.x(moment(d.date).valueOf()) })
+				// .attr("class", classes[`${line.name}Dot`]) // Assign a class for styling
+				.attr("cy", (d) => { return this.y(d.value) })
+				.attr("r", 0)
+				.attr("fill", line.color ? line.color : "#fff")
+				.attr('opacity', 0)
+				.transition()
+				.attr("id", `Dots${line.name}`)
+				.style("opacity", this.state['L' + line.name] ? 0 : 1)
+				.delay((d, i) => { return i * (1500 / line.data.length) })
+				.attr("r", 1)
+		})
+		// .duration(3000)
 	}
 
 	// generateLegend = () => {
@@ -538,7 +588,7 @@ class d3Line {
 						.attr('id', 'Area' + line.name)
 						.data([line.data])
 						.attr("opacity", this.state['L' + line.name] ? 0 : 1)
-						.attr('fill', line.prev ? 'rgba(255,255,255, 0.1' : hexToRgba(colors[line.color][500], 0.1))
+						.attr('fill', line.prev ? 'rgba(255,255,255, 0.1' : hexToRgba("#FA0000", 0.1))
 						.attr("d", animArea0)
 						.transition()
 						.duration(1500)
@@ -609,7 +659,7 @@ class d3Line {
 							.data([line.data])
 							.attr('id', 'L' + line.name)
 							.attr('fill', 'none')
-							.attr('stroke', colors[line.color][500])
+							.attr('stroke', '#FA0000')
 							.attr('stroke-width', '4px')
 							.attr('d', this.valueLine)
 							.attr("opacity", this.state['L' + line.name] ? 0 : 1)
@@ -664,7 +714,7 @@ class d3Line {
 							.attr('id', 'L' + line.name)
 							// .attr('class', classes[line.name])
 							.attr('fill', 'none')
-							.attr('stroke', colors[line.color][500])
+							.attr('stroke', line.color)
 							.attr('stroke-width', '4px')
 							.attr('d', this.valueLine)
 							.attr("stroke-dasharray", function () {
@@ -704,7 +754,7 @@ class d3Line {
 					.attr('id', `MedianL${line.name}`)
 					.attr("opacity", this.state['L' + line.name] ? 0 : 1)
 					.attr('stroke-width', '4px')
-					.attr('stroke', colors[line.color][500])
+					.attr('stroke', '#FA0000')
 					.attr('stroke-dasharray', ("3, 3"))
 
 				this.svg.append('path')
@@ -762,7 +812,7 @@ class d3Line {
 					.attr('id', `MedianL${line.name}`)
 					.attr('opacity', this.state[`Median${line.name}`] ? 0 : 1)
 					.attr('stroke-width', '4px')
-					.attr('stroke', colors[line.color][500])
+					.attr('stroke', '#FA0000')
 					.attr('stroke-dasharray', ("3, 3"))
 
 				// Hidden overlay for Median tooltip

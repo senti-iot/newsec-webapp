@@ -28,7 +28,7 @@ export const getDeviceData = (device, period, type) =>
 		let line = {
 			graph: [{
 				name: "Data",
-				color: 'red',
+				color: '#365979',
 				data: convertedData,
 				noArea: true
 			}]
@@ -40,7 +40,7 @@ export const getDeviceData = (device, period, type) =>
 const initialState = {
 	graph: [{
 		name: "Data",
-		color: 'red',
+		color: '#365979',
 		data: []
 	}],
 	loading: false,
