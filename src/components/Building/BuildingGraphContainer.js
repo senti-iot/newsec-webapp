@@ -7,7 +7,7 @@ import moment from 'moment';
 
 import buildingStyles from '../../styles/buildingStyles';
 import BuildingLineGraph from './BuildingLineGraph';
-import CircularLoader from '../CircularLoader'
+// import CircularLoader from '../CircularLoader'
 import { getDeviceData } from '../../redux/lineData'
 import { useDispatch, useSelector } from 'hooks'
 let deviceId = 2641
@@ -15,9 +15,8 @@ let deviceId = 2641
 const BuildingGraphContainer = () => {
 	const dispatch = useDispatch()
 	const classes = buildingStyles();
-	const loading = useSelector(s => s.lineData.loading)
 	const period = useSelector(s => s.dateTime.period)
-	console.log(loading);
+	console.log('BuildingGraphContainer Rerendered')
 	// const use
 	useEffect(() => {
 		// if (prevId !== deviceId) {
@@ -59,7 +58,7 @@ const BuildingGraphContainer = () => {
 				</Box>
 			</Box>
 
-			{loading ? <CircularLoader /> : <BuildingLineGraph id="graph" />}
+			 <BuildingLineGraph id="graph" />
 		</Card>
 	)
 }

@@ -5,6 +5,7 @@ import d3Line from './d3Line'
 import usePrevious from '../../hooks/usePrevious'
 import lineGraphStyles from '../../styles/lineGraphStyles'
 import { setGraphLine, setGraphLines } from 'redux/appState'
+import CircularLoader from 'components/CircularLoader'
 
 let line = null
 
@@ -18,6 +19,7 @@ const BuildingLineGraph = (props) => {
 	const period = useSelector(s => s.dateTime.period)
 	const mUnit = useSelector(s => s.settings.mUnit)
 	const graphLines = useSelector(s => s.appState.lines)
+	const loading = useSelector(s => s.lineData.loading)
 	//State
 	const lineChartContainer = useRef(React.createRef())
 	// const [value, setValue] = useState({ value: null, date: null })
@@ -41,13 +43,12 @@ const BuildingLineGraph = (props) => {
 
 	useLayoutEffect(() => {
 		const genNewLine = () => {
-			console.log('Generate Line')
 			/**
 			 * Generate state in redux
 			 **/
 			let lineState = {}
 			 if (deviceData[props.id] &&
-			 	(Object.keys(graphLines).length === 0 || Object.keys(graphLines).length !== Object.keys(lineState).length)) {
+			 	(Object.keys(graphLines).length === 0)) /* || Object.keys(graphLines).length !== Object.keys(lineState).length) */  {
 
 			 	deviceData[props.id].forEach(line => {
 					if (!line.noMedianLegend && line.median) {
@@ -82,9 +83,8 @@ const BuildingLineGraph = (props) => {
 			genNewLine()
 		}
 
-		if (lineChartContainer.current && !line && !props.loading) {
+		if (lineChartContainer.current && !line && !loading) {
 			console.log('Generate Line because of no line')
-			console.log('deviceData', deviceData)
 			genNewLine()
 		}
 
@@ -98,15 +98,16 @@ const BuildingLineGraph = (props) => {
 		window.addEventListener('resize', handleResize)
 		return () => {
 			window.removeEventListener('resize', handleResize)
+			line = null
 		}
 
-	}, [classes, setLine, prevId, props.id, deviceData, period, props.loading, mUnit, graphLines, setLines, props.fullScreen])//weatherData
+	}, [classes, setLine, prevId, props.id, deviceData, period, loading, mUnit, graphLines, setLines])//weatherData
 
 	//Handlers
 
 	return (
 
-		<div style={{ width: '100%', height: '100%' }}>
+		loading ? <CircularLoader fill style={{ minHeight: 500 }}/> : <div style={{ width: '100%', height: '100%' }}>
 			{/* <Tooltip fs={props.fullScreen} tooltip={value} id={props.id} unit={mUnit} /> */}
 			{/* <MedianTooltip fs={props.fullScreen} tooltip={medianValue} id={props.id} unit={mUnit} /> */}
 			<svg id={props.id} ref={lineChartContainer}
