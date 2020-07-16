@@ -17,6 +17,7 @@ const BuildingGraphContainer = () => {
 	const classes = buildingStyles();
 	const loading = useSelector(s => s.lineData.loading)
 	const period = useSelector(s => s.dateTime.period)
+	console.log(loading);
 	// const use
 	useEffect(() => {
 		// if (prevId !== deviceId) {

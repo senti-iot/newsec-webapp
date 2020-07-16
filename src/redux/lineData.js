@@ -20,7 +20,7 @@ export const getDeviceData = (device, period, type) =>
 		dispatch(setLoading(true));
 		let data = await getDeviceDataFromServer(device, period, type);
 		let convertedData = [];
-
+console.log(data);
 		// eslint-disable-next-line array-callback-return
 		Object.keys(data).map(date => {
 			convertedData.push({ value: data[date], date: date });
@@ -43,7 +43,7 @@ const initialState = {
 		color: '#365979',
 		data: []
 	}],
-	loading: false,
+	loading: true,
 }
 
 export const lineData = (state = initialState, { type, payload }) => {

@@ -1,7 +1,6 @@
 import * as d3 from 'd3'
 import moment from 'moment'
 import hexToRgba from 'hex-to-rgba'
-import { colors } from '@material-ui/core'
 
 import { ClearDay, ClearNight, Cloudy, Fog, PartlyCloudyDay, PartlyCloudyNight, Rain, Sleet, Snow, Wind, } from '../../assets/icons'
 import { store } from '../../Providers'
