@@ -37,7 +37,6 @@ const BuildingsList = props => {
 	}
 
 	const handleRowClick = uuid => {
-		console.log('handleRowClick')
 		history.push('/building/' + uuid);
 	}
 

@@ -32,6 +32,29 @@ const buildingStyles = makeStyles(theme => ({
 		backgroundColor: '#ebebeb',
 		marginTop: 20,
 		marginBottom: 20,
+	},
+	periodButton: {
+		border: 'solid 1px #365979',
+		borderRadius: 4,
+		color: '#365979',
+		marginRight: 15,
+		textTransform: 'none',
+		"&:hover": {
+			backgroundColor: '#365979',
+			color: '#fff'
+		}
+	},
+	periodButtonActive: {
+		border: 'solid 1px #365979',
+		borderRadius: 4,
+		color: '#fff',
+		backgroundColor: '#365979',
+		marginRight: 15,
+		textTransform: 'none',
+		"&:hover": {
+			backgroundColor: '#365979',
+			color: '#fff'
+		}
 	}
 }));
 

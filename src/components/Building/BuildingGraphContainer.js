@@ -3,6 +3,7 @@ import { Card, CardHeader, IconButton, Box, Typography, Button } from '@material
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
 import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos';
+import CalendarTodayIcon from '@material-ui/icons/CalendarToday';
 import moment from 'moment';
 
 import buildingStyles from '../../styles/buildingStyles';
@@ -16,7 +17,7 @@ const BuildingGraphContainer = () => {
 	const dispatch = useDispatch()
 	const classes = buildingStyles();
 	const period = useSelector(s => s.dateTime.period)
-	console.log('BuildingGraphContainer Rerendered')
+
 	// const use
 	useEffect(() => {
 		// if (prevId !== deviceId) {
@@ -50,7 +51,10 @@ const BuildingGraphContainer = () => {
 
 			<Box display="flex" justifyContent="center" alignItems="center" className={classes.graphDatePickers}>
 				<IconButton onClick={handleWeekPrev}><ArrowBackIosIcon /></IconButton> <Typography>Uge {moment().week()}</Typography><IconButton onClick={handleWeekNext}><ArrowForwardIosIcon /></IconButton>
-				<Button>Uge</Button>
+				<Button className={classes.periodButtonActive}>Uge</Button>
+				<Button className={classes.periodButton}>Måned</Button>
+				<Button className={classes.periodButton}>År</Button>
+				<Button className={classes.periodButton}><CalendarTodayIcon /></Button>
 			</Box>
 			<Box display="flex" justifyContent="center" alignItems="center" className={classes.graphRibbon}>
 				<Box>

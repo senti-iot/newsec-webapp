@@ -11,6 +11,7 @@ import BuildingsThumbs from './BuildingsThumbs';
 import Building from './Building/Building';
 import { getBuildings } from '../redux/buildings';
 import CircularLoader from '../components/CircularLoader';
+import { changeSecondaryBarShown } from 'redux/appState';
 
 const MainContainer = props => {
 	const classes = mainStyles();
@@ -24,6 +25,11 @@ const MainContainer = props => {
 
 	useEffect(() => {
 		dispatch(getBuildings());
+	}, [dispatch]);
+
+	useEffect(() => {
+		console.log('show');
+		dispatch(changeSecondaryBarShown(true));
 	}, [dispatch]);
 
 	const onChangeView = () => {
