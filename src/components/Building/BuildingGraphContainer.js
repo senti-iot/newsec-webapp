@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { Card, CardHeader, IconButton, Box, Typography, Button, Icon } from '@material-ui/core';
+import { Card, CardHeader, IconButton, Box, Typography, Button } from '@material-ui/core';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
 import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos';
@@ -19,9 +19,24 @@ import { ReactComponent as GraphBenchmarkIcon } from "assets/graph/benchmark.svg
 let deviceId = 2641
 
 const BuildingGraphContainer = () => {
+	//Hooks
 	const dispatch = useDispatch()
 	const classes = buildingStyles();
+
+	//Redux
 	const period = useSelector(s => s.dateTime.period)
+	const graphLines = useSelector(s => s.appState.lines)
+	//State
+
+	//Const
+
+	//useCallbacks
+
+	//useEffects
+
+	//Handlers
+
+
 
 	// const use
 	useEffect(() => {
@@ -40,18 +55,6 @@ const BuildingGraphContainer = () => {
 	}
 
 	const handleWeekNext = () => {
-	}
-
-	const toggleCurrentLine = () => {
-	}
-
-	const togglGoalLine = () => {
-	}
-
-	const togglLastLine = () => {
-	}
-
-	const togglBenchmarkLine = () => {
 	}
 
 	return (
@@ -80,39 +83,43 @@ const BuildingGraphContainer = () => {
 			</Box>
 
 			 <BuildingLineGraph id="graph" />
-
+			{/**
+			 * d3Line.js -> GenerateLegend function generates the onClick callback based on the button ID
+			 * Because in Senti Waterworks the legend is a checkbox + text combo the id is LegendCheckbox + line.name
+			 * So our first line in lineData.js reducer is "Actual" the id for it will be LegendCheckboxActual
+			*/}
 			<Box display="flex" justifyContent="center" alignItems="center" style={{ marginBottom: 30 }}>
 				<Button
+					id={'LegendCheckboxActual'}
 					classes={{ root: classes.graphIconButton, label: classes.graphIconButtonLabel }}
-					style={{ marginRight: 20, backgroundColor: 'transparent' }}
-					onClick={toggleCurrentLine}
+					style={{ marginRight: 20, backgroundColor: !graphLines['LActual'] ? '#365979' : 'transparent' }}
 				>
 					<GraphCurrentIcon className={classes.graphIconButtonIcon} />
-					<Typography className={classes.graphIconButtonLabelText}>Aktuel</Typography>
+					<Typography className={classes.graphIconButtonLabelText} style={{ color: !graphLines['LActual'] ? 'white' : 'black' }}>Aktuel</Typography>
 				</Button>
 				<Button
+					id={'LegendCheckboxGoal'}
 					classes={{ root: classes.graphIconButton, label: classes.graphIconButtonLabel }}
-					style={{ marginRight: 20, backgroundColor: 'transparent' }}
-					onClick={togglGoalLine}
+					style={{ marginRight: 20, backgroundColor: !graphLines['LGoal'] ? 'purple' : 'transparent' }}
 				>
 					<GraphGoalIcon className={classes.graphIconButtonIcon} />
-					<Typography className={classes.graphIconButtonLabelText}>Målsætning</Typography>
+					<Typography className={classes.graphIconButtonLabelText} style={{ color: !graphLines['LGoal'] ? 'white' : 'black' }}>Målsætning</Typography>
 				</Button>
 				<Button
+					id={'LegendCheckboxPreviousPeriod'}
 					classes={{ root: classes.graphIconButton, label: classes.graphIconButtonLabel }}
-					style={{ marginRight: 20, backgroundColor: 'transparent' }}
-					onClick={togglLastLine}
+					style={{ marginRight: 20, backgroundColor: !graphLines['LPreviousPeriod'] ? '#005500' : 'transparent' }}
 				>
 					<GraphLastIcon className={classes.graphIconButtonIcon} />
-					<Typography className={classes.graphIconButtonLabelText}>Sidste uge</Typography>
+					<Typography className={classes.graphIconButtonLabelText} style={{ color: !graphLines['LPreviousPeriod'] ? 'white' : 'black' }}>Sidste uge</Typography>
 				</Button>
 				<Button
+					id={'LegendCheckboxBenchmark'}
 					classes={{ root: classes.graphIconButton, label: classes.graphIconButtonLabel }}
-					style={{ backgroundColor: 'transparent' }}
-					onClick={togglBenchmarkLine}
+					style={{ backgroundColor: !graphLines['LBenchmark'] ? 'red' : 'transparent' }}
 				>
 					<GraphBenchmarkIcon className={classes.graphIconButtonIcon} />
-					<Typography className={classes.graphIconButtonLabelText}>Benchmark</Typography>
+					<Typography className={classes.graphIconButtonLabelText} style={{ color: !graphLines['LBenchmark'] ? 'white' : 'black' }}>Benchmark</Typography>
 				</Button>
 			 </Box>
 		</Card>

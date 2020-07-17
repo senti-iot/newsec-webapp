@@ -71,8 +71,8 @@ const BuildingLineGraph = (props) => {
 				id: props.id,
 				data: deviceData,
 				setLine: setLine,
-				// setTooltip: setValue,
-				// setMedianTooltip: setMedianValue,
+				setTooltip: () => { console.log('Tooltip')},
+				setMedianTooltip: () => { console.log('MedianTooltip')},
 				period: period,
 				// weatherData: weatherData,
 			}

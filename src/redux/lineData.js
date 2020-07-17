@@ -26,12 +26,35 @@ export const getDeviceData = (device, period, type) =>
 			convertedData.push({ value: data[date], date: date });
 		});
 		let line = {
-			graph: [{
-				name: "Data",
-				color: '#365979',
-				data: convertedData,
-				noArea: true
-			}]
+			graph: [
+				{
+					name: "Actual",
+					color: '#365979',
+					data: convertedData,
+					noArea: true
+				}, {
+					name: "Goal",
+					color: "purple",
+					data: convertedData.map(v => ({ value: 0.15, date: v.date })), //You'll need to make all the values the average
+					noArea: true,
+					dashed: true,
+					median: false,
+				}, {
+					name: "PreviousPeriod",
+					color: '#005500',
+					median: false,
+					// prev: true,
+					data: convertedData.map(v => ({ value: v.value * Math.random() + 0.1, date: v.date }))
+					//This one sucks because you need to set the dates to "match" the dates from "this week" or you'll end up having a split graph
+				},
+				{
+					name: "Benchmark",
+					color: "red",
+					dashed: true,
+					median: false,
+					noArea: true,
+					data: convertedData.map(v => ({ value: v.value * Math.random(), date: v.date }))
+				}]
 		}
 		dispatch(gotData(line));
 		dispatch(setLoading(false));

@@ -143,6 +143,7 @@ class d3Line {
 		this.generateLines()
 		this.generateWeather()
 		this.generateMedian()
+		this.generateLegend()
 		this.generateDots()
 	}
 
@@ -494,76 +495,76 @@ class d3Line {
 		// .duration(3000)
 	}
 
-	// generateLegend = () => {
-	// 	let data = this.props.data[this.props.id]
-	// 	data.forEach((line) => {
-	// 		if (line.median & !line.noMedianLegend) {
-	// 			let LegendMCheck = d3.select(`#LegendMedianCheckbox${line.name}`)
-	// 			let LegendM = d3.select(`#LegendMedian${line.name}`)
-	// 			let LegendMLabel = d3.select(`#LegendMedianLabel${line.name}`)
-	// 			LegendMCheck.on('click', () => {
+	generateLegend = () => {
+		let data = this.props.data[this.props.id]
+		data.forEach((line) => {
+			if (line.median & !line.noMedianLegend) {
+				let LegendMCheck = d3.select(`#LegendMedianCheckbox${line.name}`)
+				let LegendM = d3.select(`#LegendMedian${line.name}`)
+				let LegendMLabel = d3.select(`#LegendMedianLabel${line.name}`)
+				LegendMCheck.on('click', () => {
 
-	// 				var active = this.state['Median' + line.name] ? false : true,
-	// 					newOpacity = active ? 0 : 1, display = active ? 'none' : undefined,
-	// 					newColor = active ? 'steelblue' : line.color ? colors[line.color][500] : "#fff"
+					var active = this.state['Median' + line.name] ? false : true,
+						newOpacity = active ? 0 : 1, display = active ? 'none' : undefined,
+						newColor = active ? 'steelblue' : line.color ? line.color : "#fff"
 
-	// 				// Hide or show the elements
+					// Hide or show the elements
 
-	// 				d3.selectAll(`#MedianL${line.name}`)
-	// 					.transition().duration(200)
-	// 					.style("opacity", newOpacity)
-	// 				d3.selectAll(`#MedianLegend${line.name}`)
-	// 					.transition().duration(200)
-	// 					.style("fill", newColor)
-	// 				d3.select(`#MedianH${line.name}`)
-	// 					.transition().duration(200)
-	// 					.style("display", display)
+					d3.selectAll(`#MedianL${line.name}`)
+						.transition().duration(200)
+						.style("opacity", newOpacity)
+					d3.selectAll(`#MedianLegend${line.name}`)
+						.transition().duration(200)
+						.style("fill", newColor)
+					d3.select(`#MedianH${line.name}`)
+						.transition().duration(200)
+						.style("display", display)
 
-	// 				// LegendMCheck
-	// 				// 	.attr('value', active)
-	// 				LegendM
-	// 					.style("color", active ? 'rgba(255, 255, 255, 0.3)' : colors[line.color][500])
-	// 				LegendMLabel.style("color", active ? 'rgba(255,255,255,0.3)' : '#fff')
-	// 				this.setState('Median' + line.name, active)
-	// 			})
-	// 		}
+					// LegendMCheck
+					// 	.attr('value', active)
+					LegendM
+						.style("color", active ? 'rgba(255, 255, 255, 0.3)' : line.color)
+					LegendMLabel.style("color", active ? 'rgba(255,255,255,0.3)' : '#fff')
+					this.setState('Median' + line.name, active)
+				})
+			}
 
-	// 		let Legend = d3.select(`#Legend${line.name}`)
-	// 		let LegendCheck = d3.select(`#LegendCheckbox${line.name}`)
-	// 		let LegendLabel = d3.select(`#LegendLabel${line.name}`)
-	// 		LegendCheck.on('click', () => {
-	// 			let active = this.state['L' + line.name] ? false : true,
-	// 				newOpacity = active ? 0 : 1, display = active ? 'none' : undefined
-	// 			// Hide or show the elements
+			let Legend = d3.select(`#Legend${line.name}`)
+			let LegendCheck = d3.select(`#LegendCheckbox${line.name}`)
+			let LegendLabel = d3.select(`#LegendLabel${line.name}`)
+			LegendCheck.on('click', () => {
+				let active = this.state['L' + line.name] ? false : true,
+					newOpacity = active ? 0 : 1, display = active ? 'none' : undefined
+				// Hide or show the elements
 
-	// 			d3.select(`#L${line.name}`)
-	// 				.transition().duration(200)
-	// 				.style("opacity", newOpacity)
-	// 			d3.selectAll(`#Dots${line.name}`)
-	// 				.transition().duration(200)
-	// 				.style("opacity", newOpacity)
-	// 			d3.select(`#Area${line.name}`)
-	// 				.transition().duration(200)
-	// 				.style("opacity", newOpacity)
-	// 			d3.select(`#MArea${line.name}`)
-	// 				.transition().duration(200)
-	// 				.style("opacity", newOpacity)
-	// 			d3.select(`#HArea${line.name}`)
-	// 				.transition().duration(200)
-	// 				.style("display", display)
-	// 			// LegendCheck
-	// 			// 	.attr('value', active)
-	// 			Legend
-	// 				.style("color", active ? 'rgba(255,255,255,0.3)' : line.prev ? '#fff' : colors[line.color][500])
-	// 			LegendLabel.style("color", active ? 'rgba(255,255,255,0.3)' : '#fff')
+				d3.select(`#L${line.name}`)
+					.transition().duration(200)
+					.style("opacity", newOpacity)
+				d3.selectAll(`#Dots${line.name}`)
+					.transition().duration(200)
+					.style("opacity", newOpacity)
+				d3.select(`#Area${line.name}`)
+					.transition().duration(200)
+					.style("opacity", newOpacity)
+				d3.select(`#MArea${line.name}`)
+					.transition().duration(200)
+					.style("opacity", newOpacity)
+				d3.select(`#HArea${line.name}`)
+					.transition().duration(200)
+					.style("display", display)
+				// LegendCheck
+				// 	.attr('value', active)
+				Legend
+					.style("color", active ? 'rgba(255,255,255,0.3)' : line.prev ? '#fff' : line.color)
+				LegendLabel.style("color", active ? 'rgba(255,255,255,0.3)' : '#fff')
 
-	// 			this.setState('L' + line.name, active)
-	// 		})
+				this.setState('L' + line.name, active)
+			})
 
 
-	// 	})
+		})
 
-	// }
+	}
 
 	generateLines = () => {
 		let data = this.props.data[this.props.id]
@@ -587,7 +588,7 @@ class d3Line {
 						.attr('id', 'Area' + line.name)
 						.data([line.data])
 						.attr("opacity", this.state['L' + line.name] ? 0 : 1)
-						.attr('fill', line.prev ? 'rgba(255,255,255, 0.1' : hexToRgba("#FA0000", 0.1))
+						.attr('fill', line.prev ? 'rgba(255,255,255, 0.1' : hexToRgba(line.color, 0.1))
 						.attr("d", animArea0)
 						.transition()
 						.duration(1500)
@@ -658,7 +659,7 @@ class d3Line {
 							.data([line.data])
 							.attr('id', 'L' + line.name)
 							.attr('fill', 'none')
-							.attr('stroke', '#FA0000')
+							.attr('stroke', line.color)
 							.attr('stroke-width', '4px')
 							.attr('d', this.valueLine)
 							.attr("opacity", this.state['L' + line.name] ? 0 : 1)
