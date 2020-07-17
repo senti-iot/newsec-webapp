@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { Card, CardHeader, IconButton, Box, Typography, Button } from '@material-ui/core';
+import { Card, CardHeader, IconButton, Box, Typography, Button, Icon } from '@material-ui/core';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
 import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos';
@@ -11,6 +11,11 @@ import BuildingLineGraph from './BuildingLineGraph';
 // import CircularLoader from '../CircularLoader'
 import { getDeviceData } from '../../redux/lineData'
 import { useDispatch, useSelector } from 'hooks'
+import { ReactComponent as GraphCurrentIcon } from "assets/graph/current.svg";
+import { ReactComponent as GraphGoalIcon } from "assets/graph/goal.svg";
+import { ReactComponent as GraphLastIcon } from "assets/graph/last.svg";
+import { ReactComponent as GraphBenchmarkIcon } from "assets/graph/benchmark.svg";
+
 let deviceId = 2641
 
 const BuildingGraphContainer = () => {
@@ -35,6 +40,18 @@ const BuildingGraphContainer = () => {
 	}
 
 	const handleWeekNext = () => {
+	}
+
+	const toggleCurrentLine = () => {
+	}
+
+	const togglGoalLine = () => {
+	}
+
+	const togglLastLine = () => {
+	}
+
+	const togglBenchmarkLine = () => {
 	}
 
 	return (
@@ -63,6 +80,41 @@ const BuildingGraphContainer = () => {
 			</Box>
 
 			 <BuildingLineGraph id="graph" />
+
+			<Box display="flex" justifyContent="center" alignItems="center" style={{ marginBottom: 30 }}>
+				<Button
+					classes={{ root: classes.graphIconButton, label: classes.graphIconButtonLabel }}
+					style={{ marginRight: 20, backgroundColor: 'transparent' }}
+					onClick={toggleCurrentLine}
+				>
+					<GraphCurrentIcon className={classes.graphIconButtonIcon} />
+					<Typography className={classes.graphIconButtonLabelText}>Aktuel</Typography>
+				</Button>
+				<Button
+					classes={{ root: classes.graphIconButton, label: classes.graphIconButtonLabel }}
+					style={{ marginRight: 20, backgroundColor: 'transparent' }}
+					onClick={togglGoalLine}
+				>
+					<GraphGoalIcon className={classes.graphIconButtonIcon} />
+					<Typography className={classes.graphIconButtonLabelText}>Målsætning</Typography>
+				</Button>
+				<Button
+					classes={{ root: classes.graphIconButton, label: classes.graphIconButtonLabel }}
+					style={{ marginRight: 20, backgroundColor: 'transparent' }}
+					onClick={togglLastLine}
+				>
+					<GraphLastIcon className={classes.graphIconButtonIcon} />
+					<Typography className={classes.graphIconButtonLabelText}>Sidste uge</Typography>
+				</Button>
+				<Button
+					classes={{ root: classes.graphIconButton, label: classes.graphIconButtonLabel }}
+					style={{ backgroundColor: 'transparent' }}
+					onClick={togglBenchmarkLine}
+				>
+					<GraphBenchmarkIcon className={classes.graphIconButtonIcon} />
+					<Typography className={classes.graphIconButtonLabelText}>Benchmark</Typography>
+				</Button>
+			 </Box>
 		</Card>
 	)
 }

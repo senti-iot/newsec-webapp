@@ -55,6 +55,20 @@ const buildingStyles = makeStyles(theme => ({
 			backgroundColor: '#365979',
 			color: '#fff'
 		}
+	},
+	graphIconButton: {
+		textTransform: 'none'
+	},
+	graphIconButtonLabel: {
+		flexDirection: 'column'
+	},
+	graphIconButtonIcon: {
+		fontSize: '32px !important',
+		height: 40,
+	},
+	graphIconButtonLabelText: {
+		color: '#000',
+		fontSize: 13,
 	}
 }));
 
