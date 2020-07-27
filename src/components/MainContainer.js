@@ -8,6 +8,7 @@ import Header from './Header';
 import Footer from './Footer';
 import BuildingsList from './BuildingsList';
 import BuildingsThumbs from './BuildingsThumbs';
+import BuildingsMap from './BuildingsMap';
 import Building from './Building/Building';
 import { getBuildings } from '../redux/buildings';
 import CircularLoader from '../components/CircularLoader';
@@ -48,6 +49,7 @@ const MainContainer = props => {
 							</Route>
 							<Route path={'/'}>
 								{activeView === 'list' ? <BuildingsList buildings={buildings} /> : ""}
+								{activeView === 'map' ? <BuildingsMap buildings={buildings} /> : ""}
 								{activeView === 'thumbs' ? <BuildingsThumbs buildings={buildings} /> : ""}
 							</Route>
 							<Redirect path={'*'} to={'/'}></Redirect>

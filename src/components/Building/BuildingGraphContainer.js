@@ -92,34 +92,34 @@ const BuildingGraphContainer = () => {
 				<Button
 					id={'LegendCheckboxActual'}
 					classes={{ root: classes.graphIconButton, label: classes.graphIconButtonLabel }}
-					style={{ marginRight: 20, backgroundColor: !graphLines['LActual'] ? '#365979' : 'transparent' }}
+					style={{ marginRight: 20, border: 'solid 1px ' + (!graphLines['LActual'] ? '#365979' : 'transparent') }}
 				>
 					<GraphCurrentIcon className={classes.graphIconButtonIcon} />
-					<Typography className={classes.graphIconButtonLabelText} style={{ color: !graphLines['LActual'] ? 'white' : 'black' }}>Aktuel</Typography>
+					<Typography className={classes.graphIconButtonLabelText}>Aktuel</Typography>
 				</Button>
 				<Button
 					id={'LegendCheckboxGoal'}
 					classes={{ root: classes.graphIconButton, label: classes.graphIconButtonLabel }}
-					style={{ marginRight: 20, backgroundColor: !graphLines['LGoal'] ? 'purple' : 'transparent' }}
+					style={{ marginRight: 20, border: 'solid 1px ' + (!graphLines['LGoal'] ? '#8B2979' : 'transparent') }}
 				>
 					<GraphGoalIcon className={classes.graphIconButtonIcon} />
-					<Typography className={classes.graphIconButtonLabelText} style={{ color: !graphLines['LGoal'] ? 'white' : 'black' }}>Målsætning</Typography>
+					<Typography className={classes.graphIconButtonLabelText}>Målsætning</Typography>
 				</Button>
 				<Button
 					id={'LegendCheckboxPreviousPeriod'}
 					classes={{ root: classes.graphIconButton, label: classes.graphIconButtonLabel }}
-					style={{ marginRight: 20, backgroundColor: !graphLines['LPreviousPeriod'] ? '#005500' : 'transparent' }}
+					style={{ marginRight: 20, border: 'solid 1px ' + (!graphLines['LPreviousPeriod'] ? '#B2C6DD' : 'transparent') }}
 				>
 					<GraphLastIcon className={classes.graphIconButtonIcon} />
-					<Typography className={classes.graphIconButtonLabelText} style={{ color: !graphLines['LPreviousPeriod'] ? 'white' : 'black' }}>Sidste uge</Typography>
+					<Typography className={classes.graphIconButtonLabelText}>Sidste uge</Typography>
 				</Button>
 				<Button
 					id={'LegendCheckboxBenchmark'}
 					classes={{ root: classes.graphIconButton, label: classes.graphIconButtonLabel }}
-					style={{ backgroundColor: !graphLines['LBenchmark'] ? 'red' : 'transparent' }}
+					style={{ border: 'solid 1px ' + (!graphLines['LBenchmark'] ? '#CF7B4C' : 'transparent') }}
 				>
 					<GraphBenchmarkIcon className={classes.graphIconButtonIcon} />
-					<Typography className={classes.graphIconButtonLabelText} style={{ color: !graphLines['LBenchmark'] ? 'white' : 'black' }}>Benchmark</Typography>
+					<Typography className={classes.graphIconButtonLabelText}>Benchmark</Typography>
 				</Button>
 			 </Box>
 		</Card>

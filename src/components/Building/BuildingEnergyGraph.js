@@ -1,14 +1,15 @@
+/* eslint-disable array-callback-return */
 import React, { useEffect, useRef } from 'react';
 import { Card, CardHeader, CardContent, IconButton } from '@material-ui/core';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import * as d3 from "d3";
 
 import buildingStyles from '../../styles/buildingStyles';
-import lineGraphStyles from '../../styles/lineGraphStyles';
+import barGraphStyles from '../../styles/barGraphStyles';
 
 const BuildingEnergyGraph = props => {
 	const classes = buildingStyles();
-	const graphClasses = lineGraphStyles();
+	const graphClasses = barGraphStyles();
 	// const building = props.building;
 	const barChartContainer = useRef(React.createRef())
 
@@ -33,100 +34,78 @@ const BuildingEnergyGraph = props => {
 			.padding(0.5)
 			.align(0.1)
 
-		var z = d3.scaleOrdinal().range(['#D48A38', '#F5D93A', '#497EB3'])
+		//var z = d3.scaleOrdinal().range(['#D48A38', '#F5D93A', '#497EB3'])
+		let keys = ["12a15511-5cc4-414b-9a41-c307c15876d0", "07c4b5fc-53db-4d62-be70-7034414cf7ca", "a0a85c1a-7a33-424d-93d3-c61876331d54"];
 
-		var parseTime = d3.timeParse("%b %Y")
+		var color = d3.scaleOrdinal().domain(keys).range(['#D48A38', '#F5D93A', '#497EB3']);
 
-		d3.csv('https://raw.githubusercontent.com/LyonDataViz/MOS5.5-Dataviz/master/data/stocks.csv').then(function (raw) {
-			var symbols = [];
-			var data = []
-
-			// eslint-disable-next-line array-callback-return
-			raw.map((d, i) => {
-				if (symbols.indexOf(d.symbol) < 0) {
-					symbols.push(d.symbol)
-					data[symbols.indexOf(d.symbol)] = [];
-				}
-
-				// String to INT
-				d.value = +d.price;
-
-				// Parsing time
-				d.date = parseTime(d.date)
-				data[symbols.indexOf(d.symbol)].push(d);
-			});
-
-			var data_nest = d3.nest()
-				.key(function (d) { return d.date.getFullYear(); })
-				.key(function (d) { return d.symbol; })
-				.rollup(function (v) { return d3.sum(v, function (d) { return d.price; }); })
-				.entries(raw);
-
-			var years = data_nest.map(function (d) { return d.key; })
-
-			var data_stack = []
-
-			data_nest.forEach(function (d, i) {
-				d.values = d.values.map(function (e) { return e.value; })
-				var t = {}
-				symbols.forEach(function (e, i) {
-					t[e] = d.values[i]
-				})
-				t.year = d.key;
-				data_stack.push(t)
-			})
-
-			var layers = d3.stack().keys(symbols)(data_stack);
-
-			var max = d3.max(layers[layers.length - 1], function (d) { return d[1]; });
-
-			y.domain([0, max]);
-			x.domain(years);
-
-			var svg = d3.select("#barchart")
-				.attr("width", width + margin.left + margin.right)
-				.attr("height", height + margin.top + margin.bottom)
-				.append("g")
-				.attr("transform", "translate(" + margin.left + "," + margin.top + ")");
-
-			svg.append("g").selectAll("g")
-				.data(layers)
-				.enter().append("g")
-				.style("fill", function (d) { return z(d.key); })
-				.selectAll("rect")
-				.data(function (d) { return d; })
-				.enter().append("rect")
-				.attr("x", function (d, i) { return x(d.data.year); })
-				.attr("y", function (d) { return y(d[1]); })
-				.attr("height", function (d) { return y(d[0]) - y(d[1]); })
-				.attr("width", x.bandwidth());//
-
-			let xAxis = d3.axisBottom(x).tickSize(0).tickPadding(20);
-			let yAxis = d3.axisLeft().scale(y).tickSize(0)
-				// yAxis.append('text')
-				// 	.attr('transform', `translate(-16, ${this.margin.top})`)
-				// 	.attr('class', classes.axisText)
-				// 	.html(this.props.unit)
-
-			svg.append("g")
-				.attr("class", graphClasses.axisTick)
-				.attr("transform", "translate(0," + height + ")")
-				.call(xAxis)
-				.call(g => g.select(".domain").remove())
-
-			svg.append("g")
-				.attr("class", graphClasses.axisTick)
-				.attr("transform", "translate(" + (0) + ", 0)")
-				.call(yAxis)
-				.call(g => g.select(".domain").remove())
-				.append('text')
-				.attr('transform', `translate(0, ${margin.top})`)
-				.attr('class', graphClasses.axisText)
-				.html('Tons')
+		// var parseTime = d3.timeParse("%Y")
+		// var parseTimeYear = d3.timeParse("%Y")
 
 
+		let raw = [
+			{ year: 2018, "12a15511-5cc4-414b-9a41-c307c15876d0": 1234, "07c4b5fc-53db-4d62-be70-7034414cf7ca": 500, "a0a85c1a-7a33-424d-93d3-c61876331d54": 800, "sum": 2534 },
+			{ year: 2019, "12a15511-5cc4-414b-9a41-c307c15876d0": 1555, "07c4b5fc-53db-4d62-be70-7034414cf7ca": 300, "a0a85c1a-7a33-424d-93d3-c61876331d54": 200, "sum": 2055 },
+			{ year: 2020, "12a15511-5cc4-414b-9a41-c307c15876d0": 734, "07c4b5fc-53db-4d62-be70-7034414cf7ca": 600, "a0a85c1a-7a33-424d-93d3-c61876331d54": 700, "sum": 2034 }
+		];
 
-			})
+		let years = [2018, 2019, 2020];
+
+		var layers = d3.stack().keys(keys)(raw);
+		// var layers = d3.stack().keys(symbols)(data_stack);
+		// console.log(layers);
+		var max = d3.max(layers[layers.length - 1], function (d) { return d[1]; });
+
+		y.domain([0, max]);
+		x.domain(years);
+
+		var svg = d3.select("#barchart")
+			.attr("width", width + margin.left + margin.right)
+			.attr("height", height + margin.top + margin.bottom)
+			.append("g")
+			.attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+		svg.append("g").selectAll("g")
+			.data(layers)
+			.enter().append("g")
+			.style("fill", function (d) { return color(d.key); })
+			.selectAll("rect")
+			.data(function (d) { return d; })
+			.enter().append("rect")
+			.attr("x", function (d, i) { return x(d.data.year); })
+			.attr("y", function (d) { return y(d[1]); })
+			.attr("height", function (d) { return y(d[0]) - y(d[1]); })
+			.attr("width", x.bandwidth());
+
+		let xAxis = d3.axisBottom(x).tickSize(0).tickPadding(20);
+		let yAxis = d3.axisLeft().scale(y).tickSize(0);
+
+		svg.append("g")
+			.attr("class", graphClasses.axisTick)
+			.attr("transform", "translate(0," + height + ")")
+			.call(xAxis)
+			.call(g => g.select(".domain").remove());
+
+		svg.append("g")
+			.attr("class", graphClasses.axisTick)
+			.attr("transform", "translate(" + (0) + ", 0)")
+			.call(yAxis)
+			.call(g => g.select(".domain").remove())
+			.append('text')
+			.attr('transform', `translate(0, ${margin.top - 20})`)
+			.attr('class', graphClasses.axisText)
+			.html('Tons');
+
+
+		var line = d3.line()
+			.x(function (d) { return x(d.data.year) + x.bandwidth() / 2; })
+			.y(function (d) { return y(d.data.sum); });
+
+		svg.append("path")
+			.data(layers)
+			.attr("class", graphClasses.line)
+			.attr("d", line);
+
 	}
 
 	return (
