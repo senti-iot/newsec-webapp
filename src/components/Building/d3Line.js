@@ -590,7 +590,7 @@ class d3Line {
 						.attr('id', 'Area' + line.name)
 						.data([line.data])
 						.attr("opacity", this.state['L' + line.name] ? 0 : 1)
-						.attr('fill', line.prev ? 'rgba(255,255,255, 0.1' : hexToRgba(line.color, 0.5))
+						.attr('fill', hexToRgba(line.color, 0.3))
 						.attr("d", animArea0)
 						.transition()
 						.duration(1500)

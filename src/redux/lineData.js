@@ -72,6 +72,7 @@ export const getDeviceData = (device, building, period, type) =>
 					name: "PreviousPeriod",
 					color: '#B2C6DD',
 					median: false,
+					prev: true,
 					data: convertedDataPrevious
 				},
 				{
