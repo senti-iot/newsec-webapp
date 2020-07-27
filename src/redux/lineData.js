@@ -1,9 +1,13 @@
-// import moment from 'moment'
+/* eslint-disable array-callback-return */
+import moment from 'moment';
 
 import { getDeviceDataFromServer } from '../data/coreApi';
+import { getWeather } from 'data/weather';
+import { getDates } from 'data/functions'
 
 const GetDeviceData = 'GetDeviceData'
 const GotDeviceData = 'GotDeviceData'
+const wData = 'weatherData'
 
 const gotData = data => ({
 	type: GotDeviceData,
@@ -15,16 +19,41 @@ const setLoading = loading => ({
 	payload: loading
 })
 
-export const getDeviceData = (device, period, type) =>
+export const getDeviceData = (device, building, period, type) =>
 	async (dispatch, getState) => {
 		dispatch(setLoading(true));
-		let data = await getDeviceDataFromServer(device, period, type);
-		let convertedData = [];
 
-		// eslint-disable-next-line array-callback-return
+		let previousPeriod = { ...period };
+		let prevDaysToAdd = 0;
+		if (period.menuId === 2) {
+			previousPeriod.from = moment(period.from).subtract(7, 'day').startOf('day');
+			previousPeriod.to = moment(period.to).subtract(7, 'day').startOf('day');
+			prevDaysToAdd = 7;
+		} else if (period.menuId === 4) {
+			previousPeriod.from = moment(period.from).subtract(30, 'day').startOf('day');
+			previousPeriod.to = moment(period.to).subtract(30, 'day').startOf('day');
+			prevDaysToAdd = 30
+		} else if (period.menuId === 7) {
+			previousPeriod.from = moment(period.from).subtract(365, 'day').startOf('day');
+			previousPeriod.to = moment(period.to).subtract(365, 'day').startOf('day');
+			prevDaysToAdd = 365;
+		}
+
+		let data = await getDeviceDataFromServer(device, period, type);
+		let dataPreviousPeriod = await getDeviceDataFromServer(device, previousPeriod, type);
+
+		let convertedData = [];
 		Object.keys(data).map(date => {
 			convertedData.push({ value: data[date], date: date });
 		});
+		// console.log(convertedData);
+
+		let convertedDataPrevious = [];
+		Object.keys(dataPreviousPeriod).map(date => {
+			convertedDataPrevious.push({ value: dataPreviousPeriod[date], date: moment(date).add(prevDaysToAdd, 'day').format('YYYY-MM-DD HH:mm:ss') });
+		});
+		// console.log(convertedDataPrevious);
+
 		let line = {
 			graph: [
 				{
@@ -34,31 +63,66 @@ export const getDeviceData = (device, period, type) =>
 					noArea: true
 				}, {
 					name: "Goal",
-					color: "purple",
+					color: "#8B2979",
 					data: convertedData.map(v => ({ value: 0.15, date: v.date })), //You'll need to make all the values the average
 					noArea: true,
 					dashed: true,
 					median: false,
 				}, {
 					name: "PreviousPeriod",
-					color: '#005500',
+					color: '#B2C6DD',
 					median: false,
-					// prev: true,
-					data: convertedData.map(v => ({ value: v.value * Math.random() + 0.1, date: v.date }))
-					//This one sucks because you need to set the dates to "match" the dates from "this week" or you'll end up having a split graph
+					data: convertedDataPrevious
 				},
 				{
 					name: "Benchmark",
-					color: "red",
+					color: "#CF7B4C",
 					dashed: true,
 					median: false,
 					noArea: true,
 					data: convertedData.map(v => ({ value: v.value * Math.random(), date: v.date }))
 				}]
 		}
+
+		if (building.lat && building.lon) {
+			await dispatch(await getWeatherData(building.lat, building.lon));
+		}
+
 		dispatch(gotData(line));
 		dispatch(setLoading(false));
 	}
+
+export const getWeatherData = async (lat, lon) => {
+	return async (dispatch, getState) => {
+		let from = getState().dateTime.period.from.clone()
+		let to = getState().dateTime.period.to.clone()
+		let dates = getDates(from, to)
+		let timeType = getState().dateTime.period.timeType
+		if (lat && lon) {
+			let weather = await Promise.all(dates.map((d) => getWeather(d, lat, lon))).then(rs => rs)
+			let fWeather = []
+			if (timeType > 1) {
+				fWeather = weather.map(r => r.daily.data[0])
+			} else {
+				fWeather = weather[0]?.hourly?.data
+			}
+			let finalData = fWeather.map(w => ({
+				date: moment(w.time),
+				icon: w.icon,
+				description: w.summary
+			}))
+			dispatch({
+				type: wData,
+				payload: finalData
+			})
+		} else {
+			dispatch({
+				type: wData,
+				payload: []
+			})
+		}
+	}
+}
 
 const initialState = {
 	graph: [{
@@ -66,6 +130,7 @@ const initialState = {
 		color: '#365979',
 		data: []
 	}],
+	weatherData: [],
 	loading: true,
 }
 
@@ -73,6 +138,8 @@ export const lineData = (state = initialState, { type, payload }) => {
 	switch (type) {
 		case 'RESET_APP':
 			return initialState
+		case wData:
+			return Object.assign({}, state, { weatherData: payload });
 		case GetDeviceData:
 			return Object.assign({}, state, { loading: payload });
 		case GotDeviceData:

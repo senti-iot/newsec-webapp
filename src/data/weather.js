@@ -1,5 +1,6 @@
-import { weatherApi } from 'data/data';
 import moment from 'moment';
+
+import { weatherApi } from 'data/api';
 
 export const getWeather = async (date, lat, long) => {
 	let startDate = moment(date).format('YYYY-MM-DDTHH:mm:ss');

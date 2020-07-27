@@ -3,13 +3,14 @@ import { Card, CardHeader, IconButton, Box, Typography, Button } from '@material
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
 import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos';
-import CalendarTodayIcon from '@material-ui/icons/CalendarToday';
+// import CalendarTodayIcon from '@material-ui/icons/CalendarToday';
 import moment from 'moment';
 
 import buildingStyles from '../../styles/buildingStyles';
 import BuildingLineGraph from './BuildingLineGraph';
 // import CircularLoader from '../CircularLoader'
 import { getDeviceData } from '../../redux/lineData'
+import { changeDate } from 'redux/dateTime';
 import { useDispatch, useSelector } from 'hooks'
 import { ReactComponent as GraphCurrentIcon } from "assets/graph/current.svg";
 import { ReactComponent as GraphGoalIcon } from "assets/graph/goal.svg";
@@ -18,7 +19,7 @@ import { ReactComponent as GraphBenchmarkIcon } from "assets/graph/benchmark.svg
 
 let deviceId = 2641
 
-const BuildingGraphContainer = () => {
+const BuildingGraphContainer = props => {
 	//Hooks
 	const dispatch = useDispatch()
 	const classes = buildingStyles();
@@ -26,6 +27,9 @@ const BuildingGraphContainer = () => {
 	//Redux
 	const period = useSelector(s => s.dateTime.period)
 	const graphLines = useSelector(s => s.appState.lines)
+
+	const handleSetDate = (id, to, from, timeType) => dispatch(changeDate(id, to, from, timeType))
+
 	//State
 
 	//Const
@@ -41,7 +45,9 @@ const BuildingGraphContainer = () => {
 	// const use
 	useEffect(() => {
 		// if (prevId !== deviceId) {
-		dispatch(getDeviceData(deviceId, period, 'co2'))
+		if (props.building) {
+			dispatch(getDeviceData(deviceId, props.building, period, 'co2'))
+		}
 		// }
 		/**
 		 * MOVED FROM BuildingLineGraph.js
@@ -49,12 +55,70 @@ const BuildingGraphContainer = () => {
 		 * 1. Will get the data normally which redux and useSelector will trigger a rerender to LineGraph.js because the data changed
 		 * 2. Rerendering means the component will run the useEffect AGAIN resulting in starting from step 1
 		 */
-	}, [dispatch, period]);
+	}, [dispatch, period, props.building]);
 
-	const handleWeekPrev = () => {
+	const handlePeriodTypeChange = (type) => {
+		let from, to;
+		if (type === 2) {
+			from = moment().subtract(7, 'day').startOf('day');
+			to = moment().subtract(1, 'day').startOf('day');
+		} else if (type === 4) {
+			from = moment().subtract(365, 'day').startOf('day');
+			to = moment().subtract(1, 'day').startOf('day');
+		} else if (type === 7) {
+			from = moment().subtract(30, 'day').startOf('day');
+			to = moment().subtract(1, 'day').startOf('day');
+		}
+ 
+		handleSetDate(type, to, from, type);
 	}
 
-	const handleWeekNext = () => {
+	const futureTester = (date, unit) => {
+		return moment().subtract(1, 'day').diff(date, unit) <= 0;
+	}
+
+	const handlePrevPeriod = () => {
+		let from, to;
+		if (period.menuId === 2) {
+			from = moment(period.from).subtract(6, 'day').startOf('day');
+			to = moment(period.from);
+		} else if (period.menuId === 4) {
+			from = moment(period.from).subtract(365, 'day').startOf('day');
+			to = moment(period.from);
+		} else if (period.menuId === 7) {
+			from = moment(period.from).subtract(30, 'day').startOf('day');
+			to = moment(period.from);
+		}
+
+		handleSetDate(period.timeType, to, from, period.timeType);
+	}
+
+	const handleNextPeriod = () => {
+		let from, to;
+		if (period.menuId === 2) {
+			from = moment(period.to);
+			to = futureTester(to, 'day') ? moment(period.to).add(6, 'day') : moment().subtract(1, 'day');
+		} else if (period.menuId === 4) {
+			from = moment(period.from).add(365, 'month').startOf('month');
+			to = !futureTester(to, 'day') ? moment(from).endOf('month') : moment().subtract(365, 'day');
+		} else if (period.menuId === 7) {
+			from = moment(period.from).add(30, 'month').startOf('month');
+			to = !futureTester(to, 'day') ? moment(from).endOf('month') : moment().subtract(30, 'day');
+		}
+
+		handleSetDate(period.timeType, to, from, period.timeType);
+	}
+
+	const generatePeriodDesc = () => {
+		return (
+			<>
+				{ moment(period.from).format('ll') }
+				&nbsp;&nbsp;&nbsp;
+				{` — `}
+				&nbsp;&nbsp;&nbsp;
+				{ moment(period.to).format('ll') }
+			</>
+		)
 	}
 
 	return (
@@ -70,11 +134,11 @@ const BuildingGraphContainer = () => {
 			/>
 
 			<Box display="flex" justifyContent="center" alignItems="center" className={classes.graphDatePickers}>
-				<IconButton onClick={handleWeekPrev}><ArrowBackIosIcon /></IconButton> <Typography>Uge {moment().week()}</Typography><IconButton onClick={handleWeekNext}><ArrowForwardIosIcon /></IconButton>
-				<Button className={classes.periodButtonActive}>Uge</Button>
-				<Button className={classes.periodButton}>Måned</Button>
-				<Button className={classes.periodButton}>År</Button>
-				<Button className={classes.periodButton}><CalendarTodayIcon /></Button>
+				<IconButton onClick={handlePrevPeriod}><ArrowBackIosIcon /></IconButton> <Typography>{generatePeriodDesc()}</Typography><IconButton disabled={futureTester(period.to, 'day')} onClick={handleNextPeriod}><ArrowForwardIosIcon /></IconButton>
+				<Button className={(period.timeType === 2 ? classes.periodButtonActive : classes.periodButton)} onClick={() => handlePeriodTypeChange(2)}>7 dage</Button>
+				<Button className={(period.timeType === 7 ? classes.periodButtonActive : classes.periodButton)} onClick={() => handlePeriodTypeChange(7)}>30 dage</Button>
+				<Button className={(period.timeType === 4 ? classes.periodButtonActive : classes.periodButton)} onClick={() => handlePeriodTypeChange(4)}>År</Button>
+				{/* <Button className={(period.timeType === 6 ? classes.periodButtonActive : classes.periodButton)}><CalendarTodayIcon /></Button> */}
 			</Box>
 			<Box display="flex" justifyContent="center" alignItems="center" className={classes.graphRibbon}>
 				<Box>
@@ -111,7 +175,7 @@ const BuildingGraphContainer = () => {
 					style={{ marginRight: 20, border: 'solid 1px ' + (!graphLines['LPreviousPeriod'] ? '#B2C6DD' : 'transparent') }}
 				>
 					<GraphLastIcon className={classes.graphIconButtonIcon} />
-					<Typography className={classes.graphIconButtonLabelText}>Sidste uge</Typography>
+					<Typography className={classes.graphIconButtonLabelText}>Forrige periode</Typography>
 				</Button>
 				<Button
 					id={'LegendCheckboxBenchmark'}

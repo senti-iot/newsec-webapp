@@ -15,7 +15,7 @@ const BuildingLineGraph = (props) => {
 	const dispatch = useDispatch()
 	//Redux
 	const deviceData = useSelector(s => s.lineData)
-	// const weatherData = useSelector(s => s.data.weatherData)
+	const weatherData = useSelector(s => s.lineData.weatherData)
 	const period = useSelector(s => s.dateTime.period)
 	const mUnit = useSelector(s => s.settings.mUnit)
 	const graphLines = useSelector(s => s.appState.lines)
@@ -49,7 +49,6 @@ const BuildingLineGraph = (props) => {
 			let lineState = {}
 			 if (deviceData[props.id] &&
 			 	(Object.keys(graphLines).length === 0)) /* || Object.keys(graphLines).length !== Object.keys(lineState).length) */  {
-
 			 	deviceData[props.id].forEach(line => {
 					if (!line.noMedianLegend && line.median) {
 						// lineState['Median' + line.name] = true
@@ -74,7 +73,7 @@ const BuildingLineGraph = (props) => {
 				setTooltip: () => { console.log('Tooltip')},
 				setMedianTooltip: () => { console.log('MedianTooltip')},
 				period: period,
-				// weatherData: weatherData,
+				weatherData: weatherData,
 			}
 			line = new d3Line(lineChartContainer.current, cProps, classes)
 		}
@@ -101,7 +100,7 @@ const BuildingLineGraph = (props) => {
 			line = null
 		}
 
-	}, [classes, setLine, prevId, props.id, deviceData, period, loading, mUnit, graphLines, setLines])//weatherData
+	}, [classes, setLine, prevId, props.id, deviceData, period, loading, mUnit, graphLines, setLines, weatherData]);
 
 	//Handlers
 

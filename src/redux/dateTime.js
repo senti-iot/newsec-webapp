@@ -26,18 +26,12 @@ export const changeDate = (menuId, to, from, timeType) => {
 		})
 	}
 }
-/**
- * ChartType:
- * 0 - Pie
- * 1 - Doughnut
- * 2 - Bar
- * 3 - Line
- */
+
 const initialState = {
 	period: {
 		menuId: 2,
-		from: moment().subtract(6, 'day').startOf('day'),
-		to: moment().startOf('day'),
+		from: moment().subtract(7, 'day').startOf('day'),
+		to: moment().subtract(1, 'day').startOf('day'),
 		timeType: 2
 	},
 
@@ -53,8 +47,8 @@ export const dateTime = (state = initialState, action) => {
 				return Object.assign({}, state, {
 					period: {
 						menuId: 2,
-						from: moment().subtract(6, 'day').startOf('day'),
-						to: moment().startOf('day'),
+						from: moment().subtract(7, 'day').startOf('day'),
+						to: moment().subtract(1, 'day').startOf('day'),
 						timeType: 2
 					},
 				})

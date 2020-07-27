@@ -24,7 +24,7 @@ const BuildingScore = props => {
 							titleTypographyProps={{ variant: 'h4' }}
 						/>
 						<CardContent>
-							<div style={{ width: "50%", height: "200px", margin: "0 auto" }}>
+							<div style={{ width: "50%", height: "230px", margin: "0 auto" }}>
 								<ReactSpeedometer
 									value={building.relativeCO2Score}
 									minValue={0}
