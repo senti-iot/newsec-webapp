@@ -1,21 +1,46 @@
-// import cookie from 'react-cookies';
-// import moment from 'moment';
+import cookie from 'react-cookies';
+import moment from 'moment';
 
-// import { getUser, getAuth } from '../data/coreApi';
+import { getUser, getAuth } from '../data/coreApi';
 
-export const getUserData = async () => {
-	// return async (dispatch, getState) => {
-	// 	var sessionCookie = cookie.load('SESSION') ? cookie.load('SESSION') : null;
-	// 	if (sessionCookie) {
-	// 		let authStatus = await getAuth().then(rs => rs.status);
+const setData = 'setUserData';
 
-	// 		if (authStatus === 200) {
-	// 			let exp = moment().add('1', 'day');
-	// 			cookie.save('SESSION', sessionCookie, { path: '/', expires: exp.toDate() });
-	// 			setPrefix(sessionCookie.userID);
-	// 		} else {
-	// 			return cookie.remove('SESSION');
-	// 		}
-	// 	}
-	// };
+export const getUserData = () => {
+	return async (dispatch) => {
+		var sessionCookie = cookie.load('SESSION') ? cookie.load('SESSION') : null;
+		if (sessionCookie) {
+			let authStatus = await getAuth().then(rs => rs.status);
+
+			if (authStatus === 200) {
+				let exp = moment().add('1', 'day');
+				cookie.save('SESSION', sessionCookie, { path: '/', expires: exp.toDate() });
+
+				let userData = await getUser();
+				console.log(userData);
+				if (userData) {
+					dispatch({
+						type: setData,
+						payload: userData
+					});
+				}
+			} else {
+				return cookie.remove('SESSION');
+			}
+		}
+	};
+}
+
+
+const initialState = {
+	user: null
+}
+
+export const user = (state = initialState, { type, payload }) => {
+	switch (type) {
+		case setData:
+			return Object.assign({}, state, { user: payload })
+
+		default:
+			return state
+	}
 }

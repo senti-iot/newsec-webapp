@@ -6,7 +6,7 @@ import cookie from 'react-cookies';
 import mainStyles from '../styles/mainStyles';
 import Header from './Header';
 import Footer from './Footer';
-import Overview from './Overview';
+import Overview from './Overview/Overview';
 import BuildingsList from './BuildingsList';
 import BuildingsThumbs from './BuildingsThumbs';
 import BuildingsMap from './BuildingsMap';

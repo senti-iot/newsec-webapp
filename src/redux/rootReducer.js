@@ -9,6 +9,7 @@ import { settings } from './settings';
 import { dateTime } from './dateTime'
 import { lineData } from './lineData'
 import { data } from './data'
+import { user } from './user'
 // import { globalSearch } from './globalSearch'
 // import { weather } from './weather'
 // import { dsSystem } from './dsSystem'
@@ -29,6 +30,7 @@ let reducers = combineReducers({
 	lineData,
 	data,
 	serviceWorkerReducer,
+	user,
 	// globalSearch,
 	// weather,
 	// dsSystem,

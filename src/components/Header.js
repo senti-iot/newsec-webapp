@@ -28,9 +28,8 @@ const Header = (props) => {
 	const [anchorProfile, setAnchorProfile] = useState(null);
 	const openProfile = Boolean(anchorProfile);
 
+	const user = useSelector(s => s.user.user);
 	const activeView = useSelector(s => s.appState.mainView);
-
-	const user = { firstName: 'Henrik', lastName: 'Hansen', email: 'hh@webhouse.dk' };
 
 	const handleProfileOpen = e => {
 		setAnchorProfile(e.currentTarget);
@@ -106,12 +105,13 @@ const Header = (props) => {
 						</IconButton>
 
 						<div>
-							<div className={classes.username}>{`${user.firstName} ${user.lastName}`}</div>
+							<div className={classes.username}>{user ? user.firstName + ' ' + user.lastName : ""}</div>
 							<Button
 								onClick={handleProfileOpen}
 							>
-								{user ? user.img ? <img src={user.img} alt='UserProfile' className={classes.userimage} /> : <Gravatar default='mp' email={user.email} className={classes.userimage} size={55} /> : ""}
+								{user ? user.img ? <img src={user.img} alt='UserProfile' className={classes.userimage} /> : <Gravatar default='mp' email={user.email} className={classes.userimage} size={55} /> : "" }
 							</Button>
+
 							<Menu
 								style={{ marginTop: 55 }}
 								id='menu-appbar'
