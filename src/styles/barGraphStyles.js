@@ -9,7 +9,8 @@ const barGraphStyles = makeStyles(theme => ({
 	axisTick: {
 		fill: 'currentColor',
 		fontWeight: 600,
-		fontSize: '0.75rem'
+		fontSize: '0.75rem',
+		strokeOpacity: 0
 	},
 	line: {
 		fill: 'none',
@@ -54,6 +55,9 @@ const barGraphStyles = makeStyles(theme => ({
 		backgroundColor: '#8B2979',
 		marginBottom: 5,
 	},
+	gridline: {
+		color: '#C4C4C4',
+	}
 }));
 
 export default barGraphStyles;
