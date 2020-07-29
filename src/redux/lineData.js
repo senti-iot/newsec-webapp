@@ -39,8 +39,14 @@ export const getDeviceData = (device, building, period, type) =>
 			prevDaysToAdd = 365;
 		}
 
+		let budgetData = await getDeviceDataFromServer(device, period, 'co2Budget');
 		let data = await getDeviceDataFromServer(device, period, type);
 		let dataPreviousPeriod = await getDeviceDataFromServer(device, previousPeriod, type);
+
+		let convertedBudgetData = [];
+		Object.keys(budgetData).map(date => {
+			convertedBudgetData.push({ value: budgetData[date], date: date });
+		});
 
 		let convertedData = [];
 		Object.keys(data).map(date => {
@@ -64,7 +70,7 @@ export const getDeviceData = (device, building, period, type) =>
 				}, {
 					name: "Goal",
 					color: "#8B2979",
-					data: convertedData.map(v => ({ value: 0.15, date: v.date })), //You'll need to make all the values the average
+					data: convertedBudgetData,
 					noArea: true,
 					dashed: true,
 					median: false,
