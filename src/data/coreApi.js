@@ -25,7 +25,12 @@ export const getAuth = async () => {
 }
 
 export const getDeviceDataFromServer = async (device, period, type) => {
-	console.log('/v1/devicedata-clean/' + device + '/' + period.from.format('YYYY-MM-DD HH:mm:ss') + '/' + period.to.format('YYYY-MM-DD HH:mm:ss') + '/' + type + '/-1');
+	// console.log('/v1/devicedata-clean/' + device + '/' + period.from.format('YYYY-MM-DD HH:mm:ss') + '/' + period.to.format('YYYY-MM-DD HH:mm:ss') + '/' + type + '/-1');
 	var data = await databrokerApi.get('/v1/devicedata-clean/' + device + '/' + period.from.format('YYYY-MM-DD HH:mm:ss') + '/' + period.to.format('YYYY-MM-DD HH:mm:ss') + '/' + type + '/-1').then(rs => rs.data);
+	return data;
+}
+
+export const getDeviceCo2ByYear = async (devices) => {
+	var data = await databrokerApi.post('/v2/newsec/deviceco2byyear', devices).then(rs => rs.data);
 	return data;
 }

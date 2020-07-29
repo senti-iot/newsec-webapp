@@ -1,24 +1,37 @@
 /* eslint-disable array-callback-return */
 import React, { useEffect, useRef } from 'react';
-import { Card, CardHeader, CardContent, IconButton } from '@material-ui/core';
+import { Card, CardHeader, CardContent, IconButton, Box, Typography } from '@material-ui/core';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import * as d3 from "d3";
+import { useDispatch, useSelector } from 'react-redux';
 
 import buildingStyles from '../../styles/buildingStyles';
 import barGraphStyles from '../../styles/barGraphStyles';
+import { getEnergyDataByYear } from 'redux/data';
 
 const BuildingEnergyGraph = props => {
+	const dispatch = useDispatch();
 	const classes = buildingStyles();
 	const graphClasses = barGraphStyles();
 	// const building = props.building;
 	const barChartContainer = useRef(React.createRef())
 
+	let devices = ["12a15511-5cc4-414b-9a41-c307c15876d0", "07c4b5fc-53db-4d62-be70-7034414cf7ca", "a0a85c1a-7a33-424d-93d3-c61876331d54"];
+
+	const energyBarData = useSelector(s => s.data.energyBarData);
+
 	useEffect(() => {
-		if (barChartContainer) {
+		if (!energyBarData) {
+			dispatch(getEnergyDataByYear(devices));
+		}
+	}, [dispatch, devices, energyBarData]);
+
+	useEffect(() => {
+		if (barChartContainer && energyBarData) {
 			renderGraph();
 		}
 		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [barChartContainer]);
+	}, [barChartContainer, energyBarData]);
 
 	const renderGraph = () => {
 		var margin = { top: 20, right: 30, bottom: 30, left: 40 },
@@ -34,29 +47,11 @@ const BuildingEnergyGraph = props => {
 			.padding(0.5)
 			.align(0.1)
 
-		//var z = d3.scaleOrdinal().range(['#D48A38', '#F5D93A', '#497EB3'])
-		let keys = ["12a15511-5cc4-414b-9a41-c307c15876d0", "07c4b5fc-53db-4d62-be70-7034414cf7ca", "a0a85c1a-7a33-424d-93d3-c61876331d54"];
+		var color = d3.scaleOrdinal().domain(devices).range(['#D48A38', '#F5D93A', '#497EB3']);
 
-		var color = d3.scaleOrdinal().domain(keys).range(['#D48A38', '#F5D93A', '#497EB3']);
+		let years = [2018, 2019, 2020];
 
-		// var parseTime = d3.timeParse("%Y")
-		// var parseTimeYear = d3.timeParse("%Y")
-
-
-		let raw = [
-			{ year: 2018, "12a15511-5cc4-414b-9a41-c307c15876d0": 1234, "07c4b5fc-53db-4d62-be70-7034414cf7ca": 500, "a0a85c1a-7a33-424d-93d3-c61876331d54": 800, "sum": 2534 },
-			{ year: 2019, "12a15511-5cc4-414b-9a41-c307c15876d0": 1555, "07c4b5fc-53db-4d62-be70-7034414cf7ca": 400, "a0a85c1a-7a33-424d-93d3-c61876331d54": 200, "sum": 2155 },
-			{ year: 2020, "12a15511-5cc4-414b-9a41-c307c15876d0": 734, "07c4b5fc-53db-4d62-be70-7034414cf7ca": 600, "a0a85c1a-7a33-424d-93d3-c61876331d54": 700, "sum": 2034 },
-			{ year: 2021, "12a15511-5cc4-414b-9a41-c307c15876d0": 934, "07c4b5fc-53db-4d62-be70-7034414cf7ca": 800, "a0a85c1a-7a33-424d-93d3-c61876331d54": 900, "sum": 2634 },
-			{ year: 2022, "12a15511-5cc4-414b-9a41-c307c15876d0": 534, "07c4b5fc-53db-4d62-be70-7034414cf7ca": 500, "a0a85c1a-7a33-424d-93d3-c61876331d54": 1000, "sum": 2034 },
-			{ year: 2023, "12a15511-5cc4-414b-9a41-c307c15876d0": 1034, "07c4b5fc-53db-4d62-be70-7034414cf7ca": 600, "a0a85c1a-7a33-424d-93d3-c61876331d54": 900, "sum": 2534 },
-		];
-
-		let years = [2018, 2019, 2020, 2021, 2022, 2023];
-
-		var layers = d3.stack().keys(keys)(raw);
-		// var layers = d3.stack().keys(symbols)(data_stack);
-		// console.log(layers);
+		var layers = d3.stack().keys(devices)(energyBarData);
 		var max = d3.max(layers[layers.length - 1], function (d) { return d[1]; });
 
 		y.domain([0, max]);
@@ -108,7 +103,6 @@ const BuildingEnergyGraph = props => {
 			.data(layers)
 			.attr("class", graphClasses.line)
 			.attr("d", line);
-
 	}
 
 	return (
@@ -126,6 +120,33 @@ const BuildingEnergyGraph = props => {
 				<div style={{ width: '100%', height: '100%' }}>
 					<svg id="barchart" ref={barChartContainer} style={{ width: '100%', height: '500px' }}></svg>
 				</div>
+
+				<Box display="flex" justifyContent="center" alignItems="center" style={{ marginTop: 30, marginBottom: 30 }}>
+					<Box display="flex" justifyContent="center" alignItems="center" flexDirection="column" className={graphClasses.legendWrapper}>
+						<div className={graphClasses.legend1}></div>
+						<div><Typography>CO2 varme</Typography></div>
+					</Box>
+
+					<Box display="flex" justifyContent="center" alignItems="center" flexDirection="column" className={graphClasses.legendWrapper}>
+						<div className={graphClasses.legend2}></div>
+						<div><Typography>CO2 el</Typography></div>
+					</Box>
+
+					<Box display="flex" justifyContent="center" alignItems="center" flexDirection="column" className={graphClasses.legendWrapper}>
+						<div className={graphClasses.legend3}></div>
+						<div><Typography>CO2 vand</Typography></div>
+					</Box>
+
+					<Box display="flex" justifyContent="center" alignItems="center" flexDirection="column" className={graphClasses.legendWrapper}>
+						<div className={graphClasses.legend4}></div>
+						<div><Typography>Total</Typography></div>
+					</Box>
+
+					<Box display="flex" justifyContent="center" alignItems="center" flexDirection="column" className={graphClasses.legendWrapper}>
+						<div className={graphClasses.legend5}></div>
+						<div><Typography>Målsætning</Typography></div>
+					</Box>
+				</Box>
 			</CardContent>
 		</Card>
 	)

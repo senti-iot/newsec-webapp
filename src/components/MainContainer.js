@@ -6,6 +6,7 @@ import cookie from 'react-cookies';
 import mainStyles from '../styles/mainStyles';
 import Header from './Header';
 import Footer from './Footer';
+import Overview from './Overview';
 import BuildingsList from './BuildingsList';
 import BuildingsThumbs from './BuildingsThumbs';
 import BuildingsMap from './BuildingsMap';
@@ -48,6 +49,7 @@ const MainContainer = props => {
 								<Building buildings={buildings} />
 							</Route>
 							<Route path={'/'}>
+								{activeView === 'overview' ? <Overview /> : ""}
 								{activeView === 'list' ? <BuildingsList buildings={buildings} /> : ""}
 								{activeView === 'map' ? <BuildingsMap buildings={buildings} /> : ""}
 								{activeView === 'thumbs' ? <BuildingsThumbs buildings={buildings} /> : ""}

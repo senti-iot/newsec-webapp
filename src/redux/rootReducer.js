@@ -8,11 +8,11 @@ import { buildingsReducer } from './buildings';
 import { settings } from './settings';
 import { dateTime } from './dateTime'
 import { lineData } from './lineData'
-// import { data } from './data'
+import { data } from './data'
 // import { globalSearch } from './globalSearch'
 // import { weather } from './weather'
 // import { dsSystem } from './dsSystem'
-// import { serviceWorkerReducer } from './serviceWorkerRedux'
+import { serviceWorkerReducer } from './serviceWorkerRedux'
 import { combineReducers } from 'redux';
 // import { auth } from './auth'
 
@@ -27,11 +27,11 @@ let reducers = combineReducers({
 	settings,
 	dateTime,
 	lineData,
-	// data,
+	data,
+	serviceWorkerReducer,
 	// globalSearch,
 	// weather,
 	// dsSystem,
-	// serviceWorkerReducer
 })
 /**
 *	 Debugging purposes
