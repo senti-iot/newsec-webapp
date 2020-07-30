@@ -9,7 +9,7 @@ const OverviewScore = () => {
 	const classes = buildingStyles();
 
 	return (
-		<Card className={classes.card}>
+		<Card className={classes.card} style={{ minHeight: 370 }}>
 			<CardHeader
 				action={
 					<IconButton>

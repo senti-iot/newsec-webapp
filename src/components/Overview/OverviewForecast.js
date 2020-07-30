@@ -57,10 +57,13 @@ const OverviewForecast = () => {
 			.append("path")
 			.attr("fill", (d, i) => colors[i])
 			.attr("d", arc)
+
+
+
 	}
 
 	return (
-		<Card className={classes.card}>
+		<Card className={classes.card} style={{ minHeight: 370 }}>
 			<CardHeader
 				action={
 					<IconButton>
@@ -71,8 +74,8 @@ const OverviewForecast = () => {
 				titleTypographyProps={{ variant: 'h5' }}
 			/>
 			<CardContent>
-				<div style={{ width: '100%', height: '100%' }}>
-					<svg id="forecast" ref={chartContainer} style={{ width: '100%', height: '200px' }}></svg>
+				<div style={{ width: '100%', height: '100%', marginBottom: 40 }}>
+					<svg id="forecast" ref={chartContainer} style={{ width: '100%' }}></svg>
 				</div>
 				<Typography>Forventning til slutresultat for portefølje (84 ejendomme)</Typography>
 			</CardContent>
