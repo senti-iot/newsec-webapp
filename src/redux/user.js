@@ -16,7 +16,7 @@ export const getUserData = () => {
 				cookie.save('SESSION', sessionCookie, { path: '/', expires: exp.toDate() });
 
 				let userData = await getUser();
-				console.log(userData);
+
 				if (userData) {
 					dispatch({
 						type: setData,

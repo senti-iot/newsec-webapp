@@ -49,7 +49,7 @@ const MainContainer = props => {
 								<Building buildings={buildings} />
 							</Route>
 							<Route path={'/'}>
-								{activeView === 'overview' ? <Overview /> : ""}
+								{activeView === 'overview' ? <Overview buildings={buildings} /> : ""}
 								{activeView === 'list' ? <BuildingsList buildings={buildings} /> : ""}
 								{activeView === 'map' ? <BuildingsMap buildings={buildings} /> : ""}
 								{activeView === 'thumbs' ? <BuildingsThumbs buildings={buildings} /> : ""}

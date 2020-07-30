@@ -34,3 +34,8 @@ export const getDeviceCo2ByYear = async (devices) => {
 	var data = await databrokerApi.post('/v2/newsec/deviceco2byyear', devices).then(rs => rs.data);
 	return data;
 }
+
+export const getBuildingsSum = async (devices, period) => {
+	var data = await databrokerApi.post('/v2/newsec/buildingsum/' + period.from.format('YYYY-MM-DD') + '/' + period.to.format('YYYY-MM-DD'), devices).then(rs => rs.data);
+	return data;
+}

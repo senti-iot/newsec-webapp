@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { Card, CardHeader, CardContent, IconButton, Typography, Box, Button } from '@material-ui/core';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
@@ -10,59 +10,66 @@ import moment from 'moment';
 import barGraphStyles from '../../styles/barGraphStyles';
 import buildingStyles from '../../styles/buildingStyles';
 import { changeDate } from 'redux/dateTime';
+import { getBuildingsEmission } from 'redux/buildings';
 import { useDispatch, useSelector } from 'hooks';
 
-const OverviewScore = () => {
-	const barChartContainer = useRef(React.createRef())
+const OverviewBarGraph = props => {
+	const barChartContainer = useRef(React.createRef());
 	const classes = buildingStyles();
 	const graphClasses = barGraphStyles();
 	const history = useHistory();
 	const dispatch = useDispatch();
+	const buildings = props.buildings;
+	const emissionDevices = useSelector(s => s.buildingsReducer.emissionDevices);
+	const emissionData = useSelector(s => s.buildingsReducer.emissionData);
+	const [didRenderGraph, setDidRenderGraph] = useState(false);
 
 	const period = useSelector(s => s.dateTime.period);
 
 	useEffect(() => {
-		if (barChartContainer) {
+		if (barChartContainer && buildings && emissionData) {
 			renderGraph();
 		}
 	// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [barChartContainer]);
+	}, [barChartContainer, buildings, emissionData]);
 
-	const handleSetDate = (id, to, from, timeType) => dispatch(changeDate(id, to, from, timeType))
+	useEffect(() => {
+		if (emissionDevices) {
+			dispatch(getBuildingsEmission(emissionDevices, period));
+		}
+	}, [dispatch, emissionDevices, period]);
+
+	const handleSetDate = (id, to, from, timeType) => dispatch(changeDate(id, to, from, timeType));
 
 	const make_y_gridlines = (y) => {
 		return d3.axisLeft(y).ticks(5);
 	}
-
-	let data = [
-		{ uuid: '04bb8316-e645-4670-a91f-c9648731928f', label: 15946, value: 60 },
-		{ uuid: '04bb8316-e645-4670-a91f-c9648731928f', label: 15947, value: 40 },
-		{ uuid: '04bb8316-e645-4670-a91f-c9648731928f', label: 15948, value: 30 },
-		{ uuid: '04bb8316-e645-4670-a91f-c9648731928f', label: 15949, value: 70 },
-		{ uuid: '04bb8316-e645-4670-a91f-c9648731928f', label: 15950, value: 20 },
-	];
 
 	const renderGraph = () => {
 		let margin = { top: 20, right: 20, bottom: 70, left: 40 };
 		let width = barChartContainer.current.clientWidth - margin.left - margin.right;
 		let height = barChartContainer.current.clientHeight - margin.top - margin.bottom;
 
-		var x = d3.scaleBand().rangeRound([0, data.length * 30]).padding(.5);
-		var y = d3.scaleLinear().range([height, 0]);
+		if (didRenderGraph) {
+			d3.select("#overviewGraph").selectAll("*").remove();
+		}
 
-		let xAxis = d3.axisBottom(x).tickSize(0).tickPadding(10);
-		let yAxis = d3.axisLeft(y).tickSize(0);
-
-		var svg = d3.select("#overviewGraph")
+		let svgg = d3.select("#overviewGraph")
 			.attr("width", width + margin.left + margin.right)
 			.attr("height", height + margin.top + margin.bottom)
 			.append("g")
 			.attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
-		x.domain(data.map(function (d) { return d.label; }));
-		y.domain([0, d3.max(data, function (d) { return d.value; })]);
+		let x = d3.scaleBand().rangeRound([0, emissionData.length * 30]).padding(.5);
+		let y = d3.scaleLinear().range([height, 0]);
 
-		svg.append("g")
+		let xAxis = d3.axisBottom(x).tickSize(0).tickPadding(10);
+		let yAxis = d3.axisLeft(y).tickSize(0);
+
+		x.domain(emissionData.map(function (d) { return d.buildingNo; }));
+		y.domain([0, d3.max(emissionData, function (d) { return d.val; })]);
+
+		svgg.append("g")
 			.attr("class", graphClasses.axisTick)
 			.attr("transform", "translate(0," + height + ")")
 			.call(xAxis)
@@ -72,7 +79,7 @@ const OverviewScore = () => {
 			.attr("dy", "-.55em")
 			.attr("transform", "rotate(-90)");
 
-		svg.append("g")
+		svgg.append("g")
 			.attr("class", graphClasses.axisTick)
 			.call(yAxis)
 			// .append("text")
@@ -82,22 +89,22 @@ const OverviewScore = () => {
 			// .style("text-anchor", "end")
 			// .text("Value ($)");
 
-		svg.append("g")
+		svgg.append("g")
 			.attr("class", graphClasses.gridline)
 			.call(make_y_gridlines(y)
 				.tickSize(-width)
 				.tickFormat("")
 			);
-	
-		svg.selectAll("bar")
-			.data(data)
+
+		svgg.selectAll("bar")
+			.data(emissionData)
 			.enter().append("rect")
 			.style("fill", "#497EB3")
 			.style("cursor", "pointer")
-			.attr("x", function (d) { return x(d.label); })
+			.attr("x", function (d) { return x(d.buildingNo); })
 			.attr("width", x.bandwidth())
-			.attr("y", function (d) { return y(d.value); })
-			.attr("height", function (d) { return height - y(d.value); })
+			.attr("y", function (d) { return y(d.val); })
+			.attr("height", function (d) { return height - y(d.val); })
 			.on("mouseover", function () {
 				d3.select(this).style("fill", "#D48A38");
 			})
@@ -107,6 +114,8 @@ const OverviewScore = () => {
 			.on("click", function (d, i) {
 				history.push('/building/' + d.uuid);
 			});
+
+		setDidRenderGraph(true);
 	}
 
 	const generatePeriodDesc = () => {
@@ -202,4 +211,4 @@ const OverviewScore = () => {
 	)
 }
 
-export default OverviewScore;
+export default OverviewBarGraph;

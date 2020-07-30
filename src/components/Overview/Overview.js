@@ -9,9 +9,9 @@ import OverviewScore from './OverviewScore';
 import OverviewForecast from './OverviewForecast';
 import CircularLoader from 'components/CircularLoader';
 
-const Overview = () => {
+const Overview = props => {
 	const user = useSelector(s => s.user.user);
-	console.log(user);
+	const buildings = props.buildings;
 
 	const getWelcomeTime = () => {
 		let string = "";
@@ -36,7 +36,7 @@ const Overview = () => {
 
 	return (
 		<>
-			{user ?
+			{user && buildings ?
 				<Grid container spacing={5}>
 					<Grid item xs={12} lg={8}>
 						<Box style={{ maxWidth: '50%' }}>
@@ -48,7 +48,7 @@ const Overview = () => {
 						<ActualResult />
 					</Grid>
 					<Grid item xs={12} lg={8}>
-						<OverviewBarGraph />
+						<OverviewBarGraph buildings={buildings} />
 					</Grid>
 					<Grid item xs={12} lg={2}>
 						<OverviewScore />

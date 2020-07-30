@@ -1,5 +1,6 @@
+/* eslint-disable array-callback-return */
 import { getBuildingsFromServer, getBuildingFromServer } from '../data/newsecApi';
-
+import { getBuildingsSum } from '../data/coreApi';
 import { changeHeaderTitle, changeSecondaryBarShown } from './appState';
 
 /**
@@ -9,9 +10,10 @@ import { changeHeaderTitle, changeSecondaryBarShown } from './appState';
  */
 const GetData = 'GetBuildingsData'
 const GotData = 'GotBuildingsData'
-
 const GetExtendedData = 'GetBuildingExtendedData'
 const GotExtendedData = 'GotBuildingExtendedData'
+const emissionDevices = 'emissionDevices'
+const emissionData = 'emissionData'
 
 /**
  * Default dispatch
@@ -36,6 +38,16 @@ const setLoadingExtended = loading => ({
 	payload: loading
 })
 
+const setEmissionDevices = devices => ({
+	type: emissionDevices,
+	payload: devices
+})
+
+const gotEmissionData = data => ({
+	type: emissionData,
+	payload: data
+})
+
 /**
  * Custom middleware dispatch
  */
@@ -43,7 +55,24 @@ export const getBuildings = () =>
 	async (dispatch, getState) => {
 		dispatch(setLoading(true));
 		let data = await getBuildingsFromServer();
-		dispatch(gotData(data));
+
+		if (data) {
+			let emissionDevices = [];
+			data.map(building => {
+				if (building.devices && building.devices.length) {
+					building.devices.map(device => {
+						if (device.type === 'emission') {
+							emissionDevices.push(device.uuid);
+						}
+					});
+				}
+			});
+
+			dispatch(setEmissionDevices(emissionDevices));
+
+			dispatch(gotData(data));
+		}
+
 		dispatch(setLoading(false));
 	}
 
@@ -57,6 +86,12 @@ export const getBuilding = (uuid) =>
 		dispatch(setLoadingExtended(false));
 	}
 
+export const getBuildingsEmission = (devices, period) =>
+	async (dispatch, getState) => {
+		let data = await getBuildingsSum(devices, period);
+		dispatch(gotEmissionData(data));
+	}
+
 /**
  * Initial state
  */
@@ -65,6 +100,8 @@ const initialState = {
 	loadingExtended: false,
 	buildings: null,
 	building: null,
+	emissionDevices: null,
+	emissionData: null,
 }
 
 /**
@@ -81,6 +118,10 @@ export const buildingsReducer = (state = initialState, { type, payload }) => {
 			return Object.assign({}, state, { loadingExtended: payload });
 		case GotExtendedData:
 			return Object.assign({}, state, { building: payload });
+		case emissionDevices:
+			return Object.assign({}, state, { emissionDevices: payload });
+		case emissionData:
+			return Object.assign({}, state, { emissionData: payload });
 		default:
 			return state;
 	}
