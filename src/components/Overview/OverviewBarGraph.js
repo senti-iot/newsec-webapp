@@ -20,7 +20,6 @@ const OverviewBarGraph = props => {
 	const history = useHistory();
 	const dispatch = useDispatch();
 	const buildings = props.buildings;
-	const emissionDevices = useSelector(s => s.buildingsReducer.emissionDevices);
 	const emissionData = useSelector(s => s.buildingsReducer.emissionData);
 	const [didRenderGraph, setDidRenderGraph] = useState(false);
 
@@ -34,10 +33,8 @@ const OverviewBarGraph = props => {
 	}, [barChartContainer, buildings, emissionData]);
 
 	useEffect(() => {
-		if (emissionDevices) {
-			dispatch(getBuildingsEmission(emissionDevices, period));
-		}
-	}, [dispatch, emissionDevices, period]);
+		dispatch(getBuildingsEmission(period));
+	}, [dispatch, period]);
 
 	const handleSetDate = (id, to, from, timeType) => dispatch(changeDate(id, to, from, timeType));
 
@@ -67,7 +64,7 @@ const OverviewBarGraph = props => {
 		let yAxis = d3.axisLeft(y).tickSize(0);
 
 		x.domain(emissionData.map(function (d) { return d.buildingNo; }));
-		y.domain([0, d3.max(emissionData, function (d) { return d.val; })]);
+		y.domain([0, d3.max(emissionData, function (d) { return d.value; })]);
 
 		svgg.append("g")
 			.attr("class", graphClasses.axisTick)
@@ -103,8 +100,8 @@ const OverviewBarGraph = props => {
 			.style("cursor", "pointer")
 			.attr("x", function (d) { return x(d.buildingNo); })
 			.attr("width", x.bandwidth())
-			.attr("y", function (d) { return y(d.val); })
-			.attr("height", function (d) { return height - y(d.val); })
+			.attr("y", function (d) { return y(d.value); })
+			.attr("height", function (d) { return height - y(d.value); })
 			.on("mouseover", function () {
 				d3.select(this).style("fill", "#D48A38");
 			})
@@ -112,7 +109,7 @@ const OverviewBarGraph = props => {
 				d3.select(this).transition().duration(300).style("fill", "#497EB3");
 			})
 			.on("click", function (d, i) {
-				history.push('/building/' + d.uuid);
+				history.push('/building/' + d.buildingUuid);
 			});
 
 		setDidRenderGraph(true);

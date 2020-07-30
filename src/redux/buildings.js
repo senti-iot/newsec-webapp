@@ -1,6 +1,5 @@
 /* eslint-disable array-callback-return */
-import { getBuildingsFromServer, getBuildingFromServer } from '../data/newsecApi';
-import { getBuildingsSum } from '../data/coreApi';
+import { getBuildingsFromServer, getBuildingFromServer, getBuildingsSum } from '../data/newsecApi';
 import { changeHeaderTitle, changeSecondaryBarShown } from './appState';
 
 /**
@@ -86,9 +85,9 @@ export const getBuilding = (uuid) =>
 		dispatch(setLoadingExtended(false));
 	}
 
-export const getBuildingsEmission = (devices, period) =>
+export const getBuildingsEmission = (period) =>
 	async (dispatch, getState) => {
-		let data = await getBuildingsSum(devices, period);
+		let data = await getBuildingsSum(period);
 		dispatch(gotEmissionData(data));
 	}
 
