@@ -12,11 +12,12 @@ const mainStyles = makeStyles(theme => ({
 		// minHeight: 1100,
 		// overflowX: 'hidden',
 	},
-	appVBarWrapper: {
-		flexGrow: 1,
+	appBarWrapper: {
+		display: 'flex',
 	},
 	appBarPrimary: {
 		backgroundColor: '#D1D7DA !important',
+		zIndex: theme.zIndex.drawer + 1,
 	},
 	appBarSecondary: {
 		position: 'absolute',
@@ -112,7 +113,29 @@ const mainStyles = makeStyles(theme => ({
 		backgroundColor: '#525B60',
 		paddingLeft: 60,
 		paddingTop: 25,
-	}
+	},
+	drawer: {
+		flexShrink: 0,
+		width: 250,
+	},
+	drawerPaper: {
+		color: '#fff !important',
+		backgroundColor: "#525B60 !important",
+		width: 250,
+	},
+	drawerContainer: {
+		overflow: 'auto',
+	},
+	drawerListItem: {
+		marginBottom: '10px !important',
+	},
+	drawerListIcon: {
+		minWidth: '40px !important',
+	},
+	drawerIcon: {
+		color: '#fff !important',
+		fontSize: '30px !important',
+	},
 }));
 
 export default mainStyles;

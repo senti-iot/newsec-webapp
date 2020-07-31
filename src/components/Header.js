@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { AppBar, Toolbar, IconButton, ButtonBase, Typography, InputBase, Badge, Button, Menu, MenuItem, Grid } from '@material-ui/core';
+import { AppBar, Toolbar, IconButton, ButtonBase, Typography, InputBase, Badge, Button, Menu, MenuItem, Grid, SwipeableDrawer, List, ListItem, ListItemIcon, ListItemText } from '@material-ui/core';
 import MenuIcon from '@material-ui/icons/Menu';
 import SearchIcon from '@material-ui/icons/Search';
 import NotificationsIcon from '@material-ui/icons/Notifications';
@@ -7,6 +7,13 @@ import PowerSettingsNew from '@material-ui/icons/PowerSettingsNew';
 import PageviewIcon from '@material-ui/icons/Pageview';
 import ListIcon from '@material-ui/icons/List';
 import ViewComfyIcon from '@material-ui/icons/ViewComfy';
+import PollOutlinedIcon from '@material-ui/icons/PollOutlined';
+import StarOutlinedIcon from '@material-ui/icons/StarOutlined';
+import PeopleIcon from '@material-ui/icons/People';
+import EmailIcon from '@material-ui/icons/Email';
+import ContactSupportIcon from '@material-ui/icons/ContactSupport';
+import VerifiedUserIcon from '@material-ui/icons/VerifiedUser';
+import CopyrightIcon from '@material-ui/icons/Copyright';
 import MapIcon from '@material-ui/icons/Map';
 import TuneIcon from '@material-ui/icons/Tune';
 import AccountBoxIcon from '@material-ui/icons/AccountBox';
@@ -26,6 +33,7 @@ const Header = (props) => {
 	const history = useHistory();
 	const dispatch = useDispatch();
 	const [anchorProfile, setAnchorProfile] = useState(null);
+	const [drawerOpen, setDrawerOpen] = useState(false);
 	const openProfile = Boolean(anchorProfile);
 
 	const user = useSelector(s => s.user.user);
@@ -58,6 +66,40 @@ const Header = (props) => {
 		dispatch(changeMainView(viewType));
 	}
 
+	const toggleDrawer = () => {
+		setDrawerOpen(drawerOpen ? false : true);
+	};
+
+	const goToPage = page => {
+		switch (page) {
+			default:
+			case 'overview':
+				history.push('/');
+				break;
+			case 'benchmark':
+				history.push('/');
+				break;
+			case 'favorites':
+				history.push('/');
+				break;
+			case 'users':
+				history.push('/');
+				break;
+			case 'customers':
+				history.push('/');
+				break;
+			case 'support':
+				history.push('/');
+				break;
+			case 'policy':
+				history.push('/');
+				break;
+			case 'about':
+				history.push('/');
+				break;
+		}
+	}
+
 	return (
 		<>
 			<div className={classes.appBarWrapper}>
@@ -67,6 +109,7 @@ const Header = (props) => {
 							edge="start"
 							className={classes.menuButton}
 							color="inherit"
+							onClick={toggleDrawer}
 						>
 							<MenuIcon fontSize="large" />
 						</IconButton>
@@ -137,6 +180,55 @@ const Header = (props) => {
 						</div>
 					</Toolbar>
 				</AppBar>
+
+				<SwipeableDrawer
+					className={classes.drawer}
+					classes={{ paper: classes.drawerPaper }}
+					anchor="left"
+					open={drawerOpen}
+					onClose={toggleDrawer}
+				>
+					<div role="presentation" onClick={toggleDrawer} onKeyDown={toggleDrawer} className={classes.drawerContainer}>			
+						<List>
+							<ListItem button className={classes.drawerListItem} onClick={() => goToPage('overview')}>
+								<ListItemIcon className={classes.drawerListIcon}><PageviewIcon className={classes.drawerIcon} /></ListItemIcon>
+								<ListItemText primary="Overblik" />
+							</ListItem>
+							<ListItem button className={classes.drawerListItem} onClick={() => goToPage('benchmark')}>
+								<ListItemIcon className={classes.drawerListIcon}><PollOutlinedIcon className={classes.drawerIcon} /></ListItemIcon>
+								<ListItemText primary="Benchmark" />
+							</ListItem>
+							<ListItem button className={classes.drawerListItem} onClick={() => goToPage('favorites')}>
+								<ListItemIcon className={classes.drawerListIcon}><StarOutlinedIcon className={classes.drawerIcon} /></ListItemIcon>
+								<ListItemText primary="Favoritter" />
+							</ListItem>
+							<ListItem button className={classes.drawerListItem} onClick={() => goToPage('users')}>
+								<ListItemIcon className={classes.drawerListIcon}><PeopleIcon className={classes.drawerIcon} /></ListItemIcon>
+								<ListItemText primary="Brugere" />
+							</ListItem>
+							<ListItem button className={classes.drawerListItem} onClick={() => goToPage('customers')}>
+								<ListItemIcon className={classes.drawerListIcon}><BusinessIcon className={classes.drawerIcon} /></ListItemIcon>
+								<ListItemText primary="Kunder" />
+							</ListItem>
+							<ListItem button className={classes.drawerListItem} onClick={() => goToPage('contact')}>
+								<ListItemIcon className={classes.drawerListIcon}><EmailIcon className={classes.drawerIcon} /></ListItemIcon>
+								<ListItemText primary="Kontakt" />
+							</ListItem>
+							<ListItem button className={classes.drawerListItem} onClick={() => goToPage('support')}>
+								<ListItemIcon className={classes.drawerListIcon}><ContactSupportIcon className={classes.drawerIcon} /></ListItemIcon>
+								<ListItemText primary="Support" />
+							</ListItem>
+							<ListItem button className={classes.drawerListItem} onClick={() => goToPage('policy')}>
+								<ListItemIcon className={classes.drawerListIcon}><VerifiedUserIcon className={classes.drawerIcon} /></ListItemIcon>
+								<ListItemText primary="Datapolitik" />
+							</ListItem>
+							<ListItem button className={classes.drawerListItem} onClick={() => goToPage('about')}>
+								<ListItemIcon className={classes.drawerListIcon}><CopyrightIcon className={classes.drawerIcon} /></ListItemIcon>
+								<ListItemText primary="Om Newsec" />
+							</ListItem>
+						</List>
+					</div>
+				</SwipeableDrawer>
 			</div>
 			{props.enableSecondary ?
 				<div className={classes.appBarSecondary}>
