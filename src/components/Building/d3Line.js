@@ -19,61 +19,25 @@ const getMedianLineData = (data) => {
 const getMax = (arr) => {
 	if (arr.length > 0) {
 		let max = Math.max(...arr.map(d => d.value))
-		return max
-		// if (max < 1) {
-		// 	return max + 0.1
-		// }
-		// if (max < 5) {
-		// 	return max + 1
-		// }
-		// if (max > 100000) {
 
-		// 	return max + 10000
-		// }
-		// if (max > 10000) {
-		// 	return max + 1000
-		// }
-		// if (max > 1000) {
-		// 	return max + 500
-		// }
-		// if (max > 100) {
-		// 	return max + 200
-		// }
-		// if (max > 5) {
-		// 	return max + 10
-		// }
+		if (max < 1) {
+			return max + 0.1;
+		} else if (max < 5) {
+			return max + 1;
+		} else if (max > 100000) {
+			return max + 10000;
+		} else if (max > 10000) {
+			return max + 1000;
+		} else if (max > 1000) {
+			return max + 500;
+		} else if (max > 100) {
+			return max + 200;
+		} else if (max > 5) {
+			return max + 10;
+		}
 	}
 }
 const getMin = (arr) => {
-	if (arr.length > 0) {
-		// let min = Math.min(...arr.map(d => d.value))
-		// return min
-		// 	if (min > 1) {
-		// 		// min = min - 0.1
-		// 		min = 0
-		// 	}
-		// 	if (min > 5) {
-		// 		// min = min - 1
-		// 		min = 0
-		// 	}
-		// 	if (min > 100) {
-		// 		min = min - 100
-		// 	}
-		// 	if (min > 1000) {
-		// 		min = min - 1000
-		// 	}
-		// 	if (min > 10000) {
-		// 		min = min - 10000
-		// 	}
-		// 	if (min > 100000) {
-		// 		min = min - 100000
-		// 	}
-		// 	// min = min - 10
-
-	// 	// return min > 1 ? min - 10 : min - 0.1
-	// 	// alert('min' + min)
-	// 	return min > 0 ? Math.floor(min) : 0
-	}
 	return 0;
 }
 
