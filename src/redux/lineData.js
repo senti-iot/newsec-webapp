@@ -91,10 +91,6 @@ export const getDeviceData = (device, building, period, type) =>
 				}]
 		}
 
-		if (building.lat && building.lon) {
-			await dispatch(await getWeatherData(building.lat, building.lon));
-		}
-
 		dispatch(gotData(line));
 		dispatch(setLoading(false));
 	}

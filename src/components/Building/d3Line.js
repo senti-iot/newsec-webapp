@@ -4,6 +4,7 @@ import hexToRgba from 'hex-to-rgba'
 
 import { ClearDay, ClearNight, Cloudy, Fog, PartlyCloudyDay, PartlyCloudyNight, Rain, Sleet, Snow, Wind, } from '../../assets/icons'
 import { store } from '../../Providers'
+import { getWeather } from 'data/weather';
 
 const getMedianLineData = (data) => {
 	let medianValues = []
@@ -164,7 +165,7 @@ class d3Line {
 		let timeType = period.timeType
 		let counter = moment(from)
 		let hourTicks = []
-		let ticks = []
+		this.ticks = []
 		let monthTicks = []
 		let add = 1
 		let lb = 0
@@ -182,7 +183,7 @@ class d3Line {
 		if (timeType === 4) {
 			monthTicks.push(counter.valueOf())
 			while (moment(counter).diff(to, 'day') < 0) {
-				ticks.push(counter.valueOf())
+				this.ticks.push(counter.valueOf())
 				if (lb === 0) {
 					counter.add(14, 'day')
 					lb = 1
@@ -203,7 +204,7 @@ class d3Line {
 					monthTicks.push(counter.valueOf())
 				}
 			}
-			ticks.push(to.valueOf())
+			this.ticks.push(to.valueOf())
 			monthTicks.push(to.valueOf())
 		}
 		if (timeType === 1) {
@@ -218,10 +219,10 @@ class d3Line {
 			 * Day tick generator
 			 */
 			while (moment(counter).diff(to, 'day') < 0) {
-				ticks.push(counter.valueOf())
+				this.ticks.push(counter.valueOf())
 				counter.add(add, 'day')
 			}
-			ticks.push(to.valueOf())
+			this.ticks.push(to.valueOf())
 
 			monthTicks.push(counter.valueOf())
 			while (moment(counter).diff(to, 'day') < 0) {
@@ -237,9 +238,10 @@ class d3Line {
 			}
 			monthTicks.push(to.valueOf())
 		}
+
 		/**
-			 * Generate Hour axis
-			 */
+		  * Generate Hour axis
+		  */
 		var xAxis_hours = this.xAxis_hours = d3.axisBottom(this.x)
 			// .tickFormat(d3.timeFormat("%d"))
 			.tickFormat(f => moment(f).format('HH:mm'))
@@ -267,7 +269,7 @@ class d3Line {
 		var xAxis_woy = this.xAxis_days = d3.axisBottom(this.x)
 			// .tickFormat(d3.timeFormat("%d"))
 			.tickFormat(f => moment(f).format('D'))
-			.tickValues(ticks)
+			.tickValues(this.ticks)
 
 		/**
 		 * Append Day Axis
@@ -308,11 +310,29 @@ class d3Line {
 		// 	.html(toUppercase(moment(ticks[0].date).format('MMMM')))
 	}
 
-	generateWeather = () => {
+	generateWeather = async () => {
 		const classes = this.classes
 		const height = this.height
 		const margin = this.margin
-		const weatherData = this.weatherData
+
+		let dates = [];
+		// eslint-disable-next-line array-callback-return
+		this.ticks.map(tick => {
+			dates.push(moment(tick).format('YYYY-MM-DD'));
+		});
+
+		let weatherData = [];
+		if (this.props.building.lat && this.props.building.lon) {
+			let weather = await Promise.all(dates.map((d) => getWeather(d, this.props.building.lat, this.props.building.lon))).then(rs => rs)
+			let fWeather = weather.map(r => r.daily.data[0])
+			let finalData = fWeather.map(w => ({
+				date: moment(w.time),
+				icon: w.icon,
+				description: w.summary
+			}));
+
+			weatherData = finalData;
+		}
 
 		const getIcon = (icon) => {
 

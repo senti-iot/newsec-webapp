@@ -74,6 +74,7 @@ const BuildingLineGraph = (props) => {
 				setMedianTooltip: () => { console.log('MedianTooltip')},
 				period: period,
 				weatherData: weatherData,
+				building: props.building,
 			}
 			line = new d3Line(lineChartContainer.current, cProps, classes)
 		}
@@ -100,7 +101,7 @@ const BuildingLineGraph = (props) => {
 			line = null
 		}
 
-	}, [classes, setLine, prevId, props.id, deviceData, period, loading, mUnit, graphLines, setLines, weatherData]);
+	}, [classes, setLine, prevId, props.id, deviceData, period, loading, mUnit, graphLines, setLines, weatherData, props.building]);
 
 	//Handlers
 

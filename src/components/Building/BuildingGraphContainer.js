@@ -17,8 +17,6 @@ import { ReactComponent as GraphGoalIcon } from "assets/graph/goal.svg";
 import { ReactComponent as GraphLastIcon } from "assets/graph/last.svg";
 import { ReactComponent as GraphBenchmarkIcon } from "assets/graph/benchmark.svg";
 
-let deviceId = 2641
-
 const BuildingGraphContainer = props => {
 	//Hooks
 	const dispatch = useDispatch()
@@ -33,6 +31,7 @@ const BuildingGraphContainer = props => {
 	//State
 
 	//Const
+	const building = props.building;
 
 	//useCallbacks
 
@@ -45,8 +44,19 @@ const BuildingGraphContainer = props => {
 	// const use
 	useEffect(() => {
 		// if (prevId !== deviceId) {
-		if (props.building) {
-			dispatch(getDeviceData(deviceId, props.building, period, 'co2'))
+		if (building && building.devices) {
+			let deviceId = null;
+			building.devices.map(device => {
+				console.log(device);
+				if (device.type === 'emission') {
+					deviceId = device.deviceId;
+				}
+				return null;
+			});
+
+			if (deviceId) {
+				dispatch(getDeviceData(deviceId, building, period, 'co2'));
+			}
 		}
 		// }
 		/**
@@ -55,7 +65,7 @@ const BuildingGraphContainer = props => {
 		 * 1. Will get the data normally which redux and useSelector will trigger a rerender to LineGraph.js because the data changed
 		 * 2. Rerendering means the component will run the useEffect AGAIN resulting in starting from step 1
 		 */
-	}, [dispatch, period, props.building]);
+	}, [dispatch, period, building]);
 
 	const handlePeriodTypeChange = (type) => {
 		let from, to;
@@ -146,7 +156,7 @@ const BuildingGraphContainer = props => {
 				</Box>
 			</Box>
 
-			 <BuildingLineGraph id="graph" />
+			 <BuildingLineGraph id="graph" building={building} />
 			{/**
 			 * d3Line.js -> GenerateLegend function generates the onClick callback based on the button ID
 			 * Because in Senti Waterworks the legend is a checkbox + text combo the id is LegendCheckbox + line.name

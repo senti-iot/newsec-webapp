@@ -5,7 +5,6 @@ const energyBarData = 'energyBarData';
 export const getEnergyDataByYear = (devices) => {
 	return async (dispatch) => {
 		let data = await getDeviceCo2ByYear(devices);
-		console.log(data);
 		if (data) {
 			dispatch({
 				type: energyBarData,
