@@ -39,6 +39,10 @@ const Header = (props) => {
 	const user = useSelector(s => s.user.user);
 	const activeView = useSelector(s => s.appState.mainView);
 
+	const redux = {
+		resetRedux: () => dispatch({ type: 'RESET_APP' })
+	};
+
 	const handleProfileOpen = e => {
 		setAnchorProfile(e.currentTarget);
 	};
@@ -54,6 +58,7 @@ const Header = (props) => {
 	const handleLogOut = async () => {
 		const result = await logoutUser();
 		if (result.status === 200) {
+			redux.resetRedux();
 			history.push('/login');
 		}
 	};
