@@ -47,7 +47,6 @@ const BuildingGraphContainer = props => {
 		if (building && building.devices) {
 			let deviceId = null;
 			building.devices.map(device => {
-				console.log(device);
 				if (device.type === 'emission') {
 					deviceId = device.deviceId;
 				}
