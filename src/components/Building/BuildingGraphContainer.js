@@ -39,8 +39,6 @@ const BuildingGraphContainer = props => {
 
 	//Handlers
 
-
-
 	// const use
 	useEffect(() => {
 		// if (prevId !== deviceId) {
