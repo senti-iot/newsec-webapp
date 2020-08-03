@@ -12,6 +12,7 @@ import BuildingsThumbs from './BuildingsThumbs';
 import BuildingsMap from './BuildingsMap';
 import Building from './Building/Building';
 import { getBuildings } from '../redux/buildings';
+import { getUserData } from 'redux/user';
 import CircularLoader from '../components/CircularLoader';
 import { changeSecondaryBarShown } from 'redux/appState';
 
@@ -27,10 +28,7 @@ const MainContainer = props => {
 
 	useEffect(() => {
 		dispatch(getBuildings());
-	}, [dispatch]);
-
-	useEffect(() => {
-		console.log('show');
+		dispatch(getUserData());
 		dispatch(changeSecondaryBarShown(true));
 	}, [dispatch]);
 
