@@ -100,6 +100,10 @@ const Header = (props) => {
 		}
 	}
 
+	const onOpenDrawer = () => {
+		
+	}
+
 	return (
 		<>
 			<div className={classes.appBarWrapper}>
@@ -186,6 +190,7 @@ const Header = (props) => {
 					classes={{ paper: classes.drawerPaper }}
 					anchor="left"
 					open={drawerOpen}
+					onOpen={onOpenDrawer}
 					onClose={toggleDrawer}
 				>
 					<div role="presentation" onClick={toggleDrawer} onKeyDown={toggleDrawer} className={classes.drawerContainer}>			
