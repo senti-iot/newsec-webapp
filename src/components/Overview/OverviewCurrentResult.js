@@ -1,11 +1,14 @@
 import React from 'react';
-import { Card, CardHeader, CardContent, IconButton } from '@material-ui/core';
+import { Card, CardHeader, CardContent, IconButton, Typography } from '@material-ui/core';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 
-import buildingStyles from '../../styles/buildingStyles';
+import mainStyles from 'styles/mainStyles';
+import buildingStyles from 'styles/buildingStyles';
+import ArrowDownIcon from 'assets/icons/green_arrow_down.png';
 
-const ActualResult = () => {
+const OverviewCurrentResult = () => {
 	const classes = buildingStyles();
+	const mainClasses = mainStyles();
 
 	return (
 		<Card className={classes.card}>
@@ -19,9 +22,18 @@ const ActualResult = () => {
 				titleTypographyProps={{ variant: 'h5' }}
 			/>
 			<CardContent>
+				<div className={mainClasses.currentResultWrapper}>
+					<div>
+						<Typography variant="h2" style={{ color: '#365979' }}>14.5%</Typography>
+					</div>
+					<div>
+						<img src={`${ArrowDownIcon}`} alt="" className={mainClasses.currentResultArrow} />
+					</div>
+				</div>
+				<Typography variant="h4">FALD I <span style={{ color: '#365979', fontWeight: 'bold' }}>CO2 FORBRUG</span> SIDEN 2018</Typography>
 			</CardContent>
 		</Card>
 	)
 }
 
-export default ActualResult;
+export default OverviewCurrentResult;

@@ -141,7 +141,14 @@ const mainStyles = makeStyles(theme => ({
 	},
 	refreshButton: {
 		color: '#ffffff !important',
-	}
+	},
+	currentResultWrapper: {
+		display: 'flex',
+		alignItems: 'center',
+	},
+	currentResultArrow: {
+		marginLeft: 15,
+	},
 }));
 
 export default mainStyles;
