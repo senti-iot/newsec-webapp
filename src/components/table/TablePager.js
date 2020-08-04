@@ -16,7 +16,7 @@ const TablePager = props => {
 	const rowsPerPage = useSelector(s => s.appState.trp ? s.appState.trp : s.settings.trp)
 	// const rowsPerPage = useSelector(s => s.appState.trp)
 
-	const { count, page, disableRowsPerPage } = props
+	const { count, page, disableRowsPerPage, disableRowsPerPageLabel } = props
 
 	const handleChangeRowsPerPage = e => {
 		dispatch(changeTableRows(e.target.value))
@@ -64,7 +64,7 @@ const TablePager = props => {
 			labelDisplayedRows={({ from, to, count }) => disableRowsPerPage ? `` : `${from}-${to} ${'af'} ${count}`}
 			onChangePage={handleChangePage}
 			onChangeRowsPerPage={handleChangeRowsPerPage}
-			labelRowsPerPage={isWidthUp('sm', width) ? disableRowsPerPage ? `` : 'Rækker pr. side' : ''}
+			labelRowsPerPage={isWidthUp('sm', width) ? disableRowsPerPage ? `` : disableRowsPerPageLabel ? "" : 'Rækker pr. side' : ''}
 			rowsPerPageOptions={handleGenerateAllOptions()}
 			SelectProps={{
 				renderValue: value => value,
