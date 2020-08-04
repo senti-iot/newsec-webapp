@@ -136,6 +136,12 @@ const mainStyles = makeStyles(theme => ({
 		color: '#fff !important',
 		fontSize: '30px !important',
 	},
+	newContent: {
+		background: '#ff9800 !important',
+	},
+	refreshButton: {
+		color: '#ffffff !important',
+	}
 }));
 
 export default mainStyles;
