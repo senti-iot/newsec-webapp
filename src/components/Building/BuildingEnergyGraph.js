@@ -1,5 +1,5 @@
 /* eslint-disable array-callback-return */
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { Card, CardHeader, CardContent, IconButton, Box, Typography } from '@material-ui/core';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import * as d3 from "d3";
@@ -13,25 +13,40 @@ const BuildingEnergyGraph = props => {
 	const dispatch = useDispatch();
 	const classes = buildingStyles();
 	const graphClasses = barGraphStyles();
-	// const building = props.building;
-	const barChartContainer = useRef(React.createRef())
-
-	let devices = ["12a15511-5cc4-414b-9a41-c307c15876d0", "07c4b5fc-53db-4d62-be70-7034414cf7ca", "a0a85c1a-7a33-424d-93d3-c61876331d54"];
+	const building = props.building;
+	const barChartContainer = useRef(React.createRef());
+	const [devices, setDevices] = useState(null);
+	// const [years, setYears] = useState(null);
 
 	const energyBarData = useSelector(s => s.data.energyBarData);
 
 	useEffect(() => {
-		if (!energyBarData) {
-			dispatch(getEnergyDataByYear(devices));
+		if (building && !devices) {
+			let d = [];
+			if (building.devices && building.devices.length) {
+				building.devices.map(device => {
+					if (device.type === 'fjernvarme' || device.type === 'vand' || device.type === 'el') {
+						d.push(device.uuid);
+					}
+				});
+				console.log(d);
+				setDevices(d);
+			}
 		}
-	}, [dispatch, devices, energyBarData]);
+	}, [building, devices]);
 
 	useEffect(() => {
-		if (barChartContainer && energyBarData) {
+		if (!energyBarData && building && devices) {
+			dispatch(getEnergyDataByYear(devices));
+		}
+	}, [dispatch, energyBarData, building, devices]);
+
+	useEffect(() => {
+		if (barChartContainer && energyBarData && devices) {
 			renderGraph();
 		}
 		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [barChartContainer, energyBarData]);
+	}, [barChartContainer, energyBarData, devices]);
 
 	const renderGraph = () => {
 		var margin = { top: 20, right: 30, bottom: 30, left: 40 },
@@ -49,6 +64,7 @@ const BuildingEnergyGraph = props => {
 
 		var color = d3.scaleOrdinal().domain(devices).range(['#D48A38', '#F5D93A', '#497EB3']);
 
+		//TODO: get from data
 		let years = [2018, 2019, 2020];
 
 		var layers = d3.stack().keys(devices)(energyBarData);
