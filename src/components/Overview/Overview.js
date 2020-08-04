@@ -3,7 +3,7 @@ import moment from 'moment';
 import { Grid, Typography, Box } from '@material-ui/core';
 import { useSelector } from 'react-redux';
 
-import ActualResult from './ActualResult';
+import ActualResult from './OverviewCurrentResult';
 import OverviewBarGraph from './OverviewBarGraph';
 import OverviewScore from './OverviewScore';
 import OverviewForecast from './OverviewForecast';
