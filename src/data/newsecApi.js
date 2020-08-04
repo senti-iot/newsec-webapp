@@ -19,3 +19,8 @@ export const getBuindingsBenchmark = async (period) => {
 	var data = await newsecApi.get('/data/buildingbenchmark/' + period.from.format('YYYY-MM-DD') + '/' + period.to.format('YYYY-MM-DD')).then(rs => rs.data);
 	return data;
 }
+
+export const getBuindingsScore = async () => {
+	var data = await newsecApi.get('/buildings/averageco2score').then(rs => rs.data);
+	return data;
+}

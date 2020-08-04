@@ -1,6 +1,8 @@
 import { getDeviceCo2ByYear } from 'data/coreApi';
+import { getBuindingsScore } from 'data/newsecApi';
 
 const energyBarData = 'energyBarData';
+const buildingsScoreData = 'buildingsScoreData';
 
 export const getEnergyDataByYear = (devices) => {
 	return async (dispatch) => {
@@ -14,8 +16,21 @@ export const getEnergyDataByYear = (devices) => {
 	}
 }
 
+export const getbuildingsScore = () => {
+	return async (dispatch) => {
+		let data = await getBuindingsScore();
+		if (data) {
+			dispatch({
+				type: buildingsScoreData,
+				payload: data
+			});
+		}
+	}
+}
+
 const initialState = {
 	energyBarData: null,
+	buildingsScoreData: null,
 }
 
 export const data = (state = initialState, { type, payload }) => {
@@ -24,6 +39,8 @@ export const data = (state = initialState, { type, payload }) => {
 			return initialState;
 		case energyBarData:
 			return Object.assign({}, state, { energyBarData: payload })
+		case buildingsScoreData:
+			return Object.assign({}, state, { buildingsScoreData: payload })
 		default:
 			return state;
 	}

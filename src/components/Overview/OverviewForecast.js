@@ -74,10 +74,10 @@ const OverviewForecast = () => {
 				titleTypographyProps={{ variant: 'h5' }}
 			/>
 			<CardContent>
-				<div style={{ width: '100%', height: '100%', marginBottom: 40 }}>
+				<div style={{ width: '100%', height: '100%', marginBottom: 50 }}>
 					<svg id="forecast" ref={chartContainer} style={{ width: '100%' }}></svg>
 				</div>
-				<Typography>Forventning til slutresultat for portefølje (84 ejendomme)</Typography>
+				<Typography style={{ marginTop: 10 }}>Forventning til slutresultat for portefølje (84 ejendomme)</Typography>
 			</CardContent>
 		</Card>
 	)
