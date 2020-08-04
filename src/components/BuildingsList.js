@@ -6,6 +6,7 @@ import tableStyles from '../styles/tableStyles';
 import TC from './table/TC';
 import TableHeader from './table/TableHeader';
 import TablePager from './table/TablePager';
+import { useSelector } from 'react-redux'
 
 const BuildingsList = props => {
 	const [page, setPage] = useState(0);
@@ -14,12 +15,12 @@ const BuildingsList = props => {
 	const [orderBy, setOrderBy] = useState('');
 
 	const classes = tableStyles();
-	const rowsPerPage = 10;
+	const rowsPerPage = useSelector(s => s.appState.trp ? s.appState.trp : s.settings.trp)
 	const buildings = props.buildings;
 	const history = useHistory();
 
 	const handleSelectAllClick = () => {
-		
+
 	}
 
 	const handleCheckboxClick = () => {

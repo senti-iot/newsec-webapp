@@ -14,6 +14,7 @@ const TablePager = props => {
 
 	const rowsPerPageOptions = useSelector(s => s.settings.rowsPerPageOptions)
 	const rowsPerPage = useSelector(s => s.appState.trp ? s.appState.trp : s.settings.trp)
+	// const rowsPerPage = useSelector(s => s.appState.trp)
 
 	const { count, page, disableRowsPerPage } = props
 
@@ -27,9 +28,9 @@ const TablePager = props => {
 
 	const handleGenerateAllOptions = () => {
 		let all = [...rowsPerPageOptions]
-		if (all.findIndex(a => a.value === rowsPerPage) === -1) {
-			all.unshift({ value: rowsPerPage, label: rowsPerPage })
-		}
+		// if (all.findIndex(a => a.value === rowsPerPage) === -1) {
+		// 	all.unshift({ value: rowsPerPage, label: rowsPerPage })
+		// }
 		return all
 	}
 
