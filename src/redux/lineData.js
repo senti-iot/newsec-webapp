@@ -3,7 +3,8 @@ import moment from 'moment';
 
 import { getDeviceDataFromServer } from '../data/coreApi';
 import { getWeather } from 'data/weather';
-import { getDates } from 'data/functions'
+import { getBuindingsBenchmark } from 'data/newsecApi';
+import { getDates } from 'data/functions';
 
 const GetDeviceData = 'GetDeviceData'
 const GotDeviceData = 'GotDeviceData'
@@ -39,6 +40,7 @@ export const getDeviceData = (device, building, period, type) =>
 			prevDaysToAdd = 365;
 		}
 
+		let benchmarkData = await getBuindingsBenchmark(period);
 		let budgetData = await getDeviceDataFromServer(device, period, 'co2Budget');
 		let data = await getDeviceDataFromServer(device, period, type);
 		let dataPreviousPeriod = await getDeviceDataFromServer(device, previousPeriod, type);
@@ -87,7 +89,7 @@ export const getDeviceData = (device, building, period, type) =>
 					dashed: true,
 					median: false,
 					noArea: true,
-					data: convertedData.map(v => ({ value: v.value * Math.random(), date: v.date }))
+					data: benchmarkData
 				}]
 		}
 
