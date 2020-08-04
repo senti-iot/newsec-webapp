@@ -39,15 +39,12 @@ const BuildingGraphContainer = props => {
 
 	//Handlers
 
-
-
 	// const use
 	useEffect(() => {
 		// if (prevId !== deviceId) {
 		if (building && building.devices) {
 			let deviceId = null;
 			building.devices.map(device => {
-				console.log(device);
 				if (device.type === 'emission') {
 					deviceId = device.deviceId;
 				}
