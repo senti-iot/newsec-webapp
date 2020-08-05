@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { AppBar, Toolbar, IconButton, ButtonBase, Typography, InputBase, Badge, Button, Menu, MenuItem, Grid, SwipeableDrawer, List, ListItem, ListItemIcon, ListItemText } from '@material-ui/core';
+import { AppBar, Toolbar, IconButton, ButtonBase, Typography, InputBase, Badge, Button, Menu, MenuItem, Grid, SwipeableDrawer, List, ListItem, ListItemIcon, ListItemText, Slide } from '@material-ui/core';
 import MenuIcon from '@material-ui/icons/Menu';
 import SearchIcon from '@material-ui/icons/Search';
 import NotificationsIcon from '@material-ui/icons/Notifications';
@@ -330,14 +330,22 @@ const Header = (props) => {
 				</div>
 				: ""}
 
-			{filterBarShown ?
+			<Slide in={filterBarShown} direction={'left'}>
 				<div className={classes.filterBar}>
 					<FilterToolbar
 						reduxKey={'buildings'}
 						filters={ft}
 					/>
 				</div>
-				: ""}
+			</Slide>
+			{/* {filterBarShown ?
+				<div className={classes.filterBar}>
+					<FilterToolbar
+						reduxKey={'buildings'}
+						filters={ft}
+					/>
+				</div>
+				: ""} */}
 		</>
 	);
 }

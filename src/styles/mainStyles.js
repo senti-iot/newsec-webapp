@@ -148,7 +148,10 @@ const mainStyles = makeStyles(theme => ({
 		marginLeft: 15,
 	},
 	filterBar: {
+		padding: 4,
 		width: '100%',
+		display: 'flex',
+		alignItems: 'center',
 		height: 67,
 		backgroundColor: '#525B60',
 	},
