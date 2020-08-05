@@ -1,52 +1,25 @@
 /* eslint-disable array-callback-return */
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { Card, CardHeader, CardContent, IconButton, Box, Typography } from '@material-ui/core';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import * as d3 from "d3";
-import { useDispatch, useSelector } from 'react-redux';
 
 import buildingStyles from '../../styles/buildingStyles';
 import barGraphStyles from '../../styles/barGraphStyles';
-import { getEnergyDataByYear } from 'redux/data';
 
 const BuildingEnergyGraph = props => {
-	const dispatch = useDispatch();
 	const classes = buildingStyles();
 	const graphClasses = barGraphStyles();
 	const building = props.building;
 	const barChartContainer = useRef(React.createRef());
-	const [devices, setDevices] = useState(null);
 	// const [years, setYears] = useState(null);
 
-	const energyBarData = useSelector(s => s.data.energyBarData);
-
 	useEffect(() => {
-		if (building && !devices) {
-			let d = [];
-			if (building.devices && building.devices.length) {
-				building.devices.map(device => {
-					if (device.type === 'fjernvarme' || device.type === 'vand' || device.type === 'el') {
-						d.push(device.uuid);
-					}
-				});
-
-				setDevices(d);
-			}
-		}
-	}, [building, devices]);
-
-	useEffect(() => {
-		if (!energyBarData && building && devices) {
-			dispatch(getEnergyDataByYear(devices));
-		}
-	}, [dispatch, energyBarData, building, devices]);
-
-	useEffect(() => {
-		if (barChartContainer && energyBarData && devices) {
+		if (barChartContainer && building && building.energyData) {
 			renderGraph();
 		}
 		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [barChartContainer, energyBarData, devices]);
+	}, [barChartContainer, building]);
 
 	const renderGraph = () => {
 		var margin = { top: 20, right: 30, bottom: 30, left: 40 },
@@ -69,10 +42,10 @@ const BuildingEnergyGraph = props => {
 		//TODO: get from data
 		let years = [2018, 2019, 2020];
 
-		var layers = d3.stack().keys(keys)(energyBarData);
+		var layers = d3.stack().keys(keys)(building.energyData);
 		var max = d3.max(layers[layers.length - 1], function (d) { return d[1]; });
 
-		y.domain([0, max]);
+		y.domain([0, max + 10]);
 		x.domain(years);
 
 		var svg = d3.select("#barchart")
@@ -108,7 +81,7 @@ const BuildingEnergyGraph = props => {
 			.call(yAxis)
 			.call(g => g.select(".domain").remove())
 			.append('text')
-			.attr('transform', `translate(0, ${margin.top - 20})`)
+			.attr('transform', `translate(0, ${margin.top - 25})`)
 			.attr('class', graphClasses.axisText)
 			.html('Tons');
 

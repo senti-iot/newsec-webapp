@@ -54,7 +54,7 @@ const Building = props => {
 						<BuildingMap building={building} />
 					</Grid>
 				</Grid>
-				: <CircularLoader fill style={{ marginTop: 500 }} />}
+				: <CircularLoader fill style={{ marginTop: 200 }} />}
 		</>
 	)
 }

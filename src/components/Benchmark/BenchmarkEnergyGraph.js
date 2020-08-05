@@ -74,7 +74,7 @@ const BenchmarkEnergyGraph = props => {
 		var layers = d3.stack().keys(keys)(energyBarData);
 		var max = d3.max(layers[layers.length - 1], function (d) { return d[1]; });
 
-		y.domain([0, max]);
+		y.domain([0, max + 10]);
 		x.domain(years);
 
 		var svg = d3.select("#barchart")

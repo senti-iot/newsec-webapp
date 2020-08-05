@@ -1,5 +1,6 @@
 /* eslint-disable array-callback-return */
 import { getBuildingsFromServer, getBuildingFromServer, getBuildingsSum } from '../data/newsecApi';
+import { getDeviceCo2ByYear } from 'data/coreApi';
 import { changeHeaderTitle, changeSecondaryBarShown } from './appState';
 
 /**
@@ -13,6 +14,7 @@ const GetExtendedData = 'GetBuildingExtendedData'
 const GotExtendedData = 'GotBuildingExtendedData'
 const emissionDevices = 'emissionDevices'
 const emissionData = 'emissionData'
+const energyBarData = 'energyBarData';
 
 /**
  * Default dispatch
@@ -78,10 +80,23 @@ export const getBuildings = () =>
 export const getBuilding = (uuid) =>
 	async (dispatch, getState) => {
 		dispatch(setLoadingExtended(true));
-		let data = await getBuildingFromServer(uuid);
-		dispatch(changeHeaderTitle(data.name));
+		let building = await getBuildingFromServer(uuid);
+
+		let devices = [];
+		if (building.devices && building.devices.length) {
+			building.devices.map(device => {
+				if (device.type === 'fjernvarme' || device.type === 'vand' || device.type === 'el') {
+					devices.push(device.uuid);
+				}
+			});
+		}
+
+		let energyData = await getDeviceCo2ByYear(devices);
+		building.energyData = energyData;
+
+		dispatch(changeHeaderTitle(building.name));
 		dispatch(changeSecondaryBarShown(false));
-		dispatch(gotExtendedData(data));
+		dispatch(gotExtendedData(building));
 		dispatch(setLoadingExtended(false));
 	}
 
@@ -90,6 +105,18 @@ export const getBuildingsEmission = (period) =>
 		let data = await getBuildingsSum(period);
 		dispatch(gotEmissionData(data));
 	}
+
+export const getEnergyDataByYear = (devices) => {
+	return async (dispatch) => {
+		let data = await getDeviceCo2ByYear(devices);
+		if (data) {
+			dispatch({
+				type: energyBarData,
+				payload: data
+			});
+		}
+	}
+}
 
 /**
  * Initial state
@@ -101,6 +128,7 @@ const initialState = {
 	building: null,
 	emissionDevices: null,
 	emissionData: null,
+	energyBarData: null,
 }
 
 /**
