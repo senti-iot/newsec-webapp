@@ -29,7 +29,7 @@ const BuildingEnergyGraph = props => {
 						d.push(device.uuid);
 					}
 				});
-				console.log(d);
+
 				setDevices(d);
 			}
 		}
@@ -62,12 +62,14 @@ const BuildingEnergyGraph = props => {
 			.padding(0.5)
 			.align(0.1)
 
-		var color = d3.scaleOrdinal().domain(devices).range(['#D48A38', '#F5D93A', '#497EB3']);
+		let keys = ['Fjernvarme', 'Vand', 'Elektricitet'];
+
+		var color = d3.scaleOrdinal().domain(keys).range(['#D48A38', '#F5D93A', '#497EB3']);
 
 		//TODO: get from data
 		let years = [2018, 2019, 2020];
 
-		var layers = d3.stack().keys(devices)(energyBarData);
+		var layers = d3.stack().keys(keys)(energyBarData);
 		var max = d3.max(layers[layers.length - 1], function (d) { return d[1]; });
 
 		y.domain([0, max]);
