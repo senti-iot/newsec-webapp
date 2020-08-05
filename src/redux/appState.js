@@ -209,7 +209,7 @@ const initialState = {
 	headerTitle: 'Overblik',
 	secondaryBarVisible: true,
 	mainView: 'overview',
-	filterBarShown: true,
+	filterBarShown: false,
 }
 
 export const appState = (state = initialState, action) => {
