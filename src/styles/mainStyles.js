@@ -119,6 +119,7 @@ const mainStyles = makeStyles(theme => ({
 		color: '#fff !important',
 		backgroundColor: "#525B60 !important",
 		width: 250,
+		top: '68px !important',
 	},
 	drawerContainer: {
 		overflow: 'auto',

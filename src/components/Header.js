@@ -210,6 +210,7 @@ const Header = (props) => {
 					open={drawerOpen}
 					onOpen={onOpenDrawer}
 					onClose={toggleDrawer}
+					BackdropProps={{ invisible: true }}
 				>
 					<div role="presentation" onClick={toggleDrawer} onKeyDown={toggleDrawer} className={classes.drawerContainer}>			
 						<List>
