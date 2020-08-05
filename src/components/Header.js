@@ -27,11 +27,13 @@ import BarButton from './ui/BarButton';
 import logo from '../assets/logo.png';
 import { logoutUser } from '../data/coreApi';
 import { changeMainView, changeHeaderTitle, changeSecondaryBarShown, toogleFilterBar } from '../redux/appState';
+import FilterToolbar from 'components/filterToolbar/FilterToolbar'
 
 const Header = (props) => {
 	const classes = mainStyles();
 	const history = useHistory();
 	const dispatch = useDispatch();
+	// const t = useLocalization()
 	const [anchorProfile, setAnchorProfile] = useState(null);
 	const [drawerOpen, setDrawerOpen] = useState(false);
 	const openProfile = Boolean(anchorProfile);
@@ -40,6 +42,18 @@ const Header = (props) => {
 	const activeView = useSelector(s => s.appState.mainView);
 	const headerTitle = useSelector(s => s.appState.headerTitle);
 	const filterBarShown = useSelector(s => s.appState.filterBarShown);
+
+	// const dropDownExample = [
+	// 	{ value: 0, label: "No", icon: <MapIcon /> },
+	// 	{ value: 1, label: "Yes", icon: <MapIcon /> }
+	// ]
+	const ft = [
+		{ key: 'name', name: "Navn", type: 'string' },
+		// { key: 'uuid', name: "uuid", type: 'string' },
+		// { key: 'communication', name: "FieldName", type: 'dropDown', options: dropDownExample },
+		// { key: 'reg_name', name: "FieldName", type: 'string' },
+		{ key: '', name: "Free Text", type: 'string', hidden: true },
+	]
 
 	const redux = {
 		resetRedux: () => dispatch({ type: 'RESET_APP' })
@@ -112,7 +126,7 @@ const Header = (props) => {
 	}
 
 	const onOpenDrawer = () => {
-		
+
 	}
 
 	const handleLogoClick = () => {
@@ -211,7 +225,7 @@ const Header = (props) => {
 					onOpen={onOpenDrawer}
 					onClose={toggleDrawer}
 				>
-					<div role="presentation" onClick={toggleDrawer} onKeyDown={toggleDrawer} className={classes.drawerContainer}>			
+					<div role="presentation" onClick={toggleDrawer} onKeyDown={toggleDrawer} className={classes.drawerContainer}>
 						<List>
 							<ListItem button className={classes.drawerListItem} onClick={() => goToPage('overview')}>
 								<ListItemIcon className={classes.drawerListIcon}><PageviewIcon className={classes.drawerIcon} /></ListItemIcon>
@@ -317,7 +331,10 @@ const Header = (props) => {
 
 			{filterBarShown ?
 				<div className={classes.filterBar}>
-					123
+					<FilterToolbar
+						reduxKey={'buildings'}
+						filters={ft}
+					/>
 				</div>
 				: ""}
 		</>

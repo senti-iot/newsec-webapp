@@ -149,7 +149,7 @@ export const changeTabs = tabs => {
 
 export const changeHeaderTitle = (val) => {
 	return (dispatch) => {
-		dispatch({ 
+		dispatch({
 			type: changeHeaderTitleAction,
 			headerTitle: val
 		})
@@ -158,7 +158,7 @@ export const changeHeaderTitle = (val) => {
 
 export const changeSecondaryBarShown = (val) => {
 	return (dispatch) => {
-		dispatch({ 
+		dispatch({
 			type: changeSecondaryBarAction,
 			secondaryBarVisible: val
 		})
@@ -167,7 +167,7 @@ export const changeSecondaryBarShown = (val) => {
 
 export const toogleFilterBar = () => {
 	return (dispatch, getState) => {
-		dispatch({ 
+		dispatch({
 			type: filterBarChange,
 			payload: getState().appState.filterBarShown ? false : true
 		})
@@ -193,6 +193,7 @@ const initialState = {
 	smallMenu: true,
 	trp: null,
 	filters: {
+		buildings: [],
 		tokens: [],
 		favorites: [],
 		projects: [],

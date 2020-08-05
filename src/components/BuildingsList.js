@@ -7,16 +7,18 @@ import TC from './table/TC';
 import TableHeader from './table/TableHeader';
 import TablePager from './table/TablePager';
 import { useSelector } from 'react-redux'
+import { customFilterItems } from 'variables/filters'
 
 const BuildingsList = props => {
 	const [page, setPage] = useState(0);
 	const [selected, setSelected] = useState([]);
 	const [order, setOrder] = useState('asc');
 	const [orderBy, setOrderBy] = useState('');
+	const filters = useSelector(s => s.appState.filters.buildings)
 
 	const classes = tableStyles();
 	const rowsPerPage = useSelector(s => s.appState.trp ? s.appState.trp : s.settings.trp)
-	const buildings = props.buildings;
+	const buildings = customFilterItems(props.buildings, filters);
 	const history = useHistory();
 
 	const handleSelectAllClick = () => {
