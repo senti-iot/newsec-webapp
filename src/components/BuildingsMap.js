@@ -1,14 +1,14 @@
 import React, { useEffect, useRef } from 'react';
-import { Map, Marker, TileLayer, FeatureGroup } from 'react-leaflet';
+import { Map, Marker, TileLayer, FeatureGroup, Popup } from 'react-leaflet';
 import "leaflet/dist/leaflet.css";
 import L from 'leaflet';
-import { useHistory } from 'react-router';
+
+import BuildingsMapPopup from 'components/BuildingsMapPopup';
 
 const BuildingsMap = props => {
 	const buildings = props.buildings;
 	const mapRef = useRef(null);
 	const groupRef = useRef(null);
-	const history = useHistory();
 
 	useEffect(() => {
 		//leaflet hack to fix marker images
@@ -40,10 +40,6 @@ const BuildingsMap = props => {
 		zoomToFitMarkers();
 	}, []);
 
-	const goToBuilding = uuid => {
-		history.push('/building/' + uuid);
-	}
-
 	return (
 		<>
 			<Map
@@ -61,7 +57,13 @@ const BuildingsMap = props => {
 				<FeatureGroup ref={groupRef}>
 					{buildings.map(building => {
 						if (building.lat && building.lon) {
-							return <Marker key={building.uuid} position={[building.lat, building.lon]} onclick={() => goToBuilding(building.uuid)} />;
+							return (
+								<Marker key={building.uuid} position={[building.lat, building.lon]}>
+									<Popup closeButton={false}>
+										<BuildingsMapPopup building={building} />
+									</Popup>
+								</Marker>
+							)
 						}
 						return null;
 					})}
