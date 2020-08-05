@@ -5,7 +5,7 @@ const mainStyles = makeStyles(theme => ({
 		height: '100vh',
 	},
 	appBackground: {
-		marginTop: 156,
+		marginTop: 40,
 		marginLeft: 40,
 		marginRight: 40,
 		marginBottom: 40,
@@ -20,9 +20,6 @@ const mainStyles = makeStyles(theme => ({
 		zIndex: theme.zIndex.drawer + 1,
 	},
 	appBarSecondary: {
-		position: 'absolute',
-		top: 67,
-		left: 0,
 		backgroundColor: '#365979 !important',
 		width: '100%',
 		height: 50,
@@ -148,6 +145,11 @@ const mainStyles = makeStyles(theme => ({
 	},
 	currentResultArrow: {
 		marginLeft: 15,
+	},
+	filterBar: {
+		width: '100%',
+		height: 67,
+		backgroundColor: '#525B60',
 	},
 }));
 

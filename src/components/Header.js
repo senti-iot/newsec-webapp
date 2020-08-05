@@ -26,7 +26,7 @@ import mainStyles from '../styles/mainStyles';
 import BarButton from './ui/BarButton';
 import logo from '../assets/logo.png';
 import { logoutUser } from '../data/coreApi';
-import { changeMainView, changeHeaderTitle, changeSecondaryBarShown } from '../redux/appState';
+import { changeMainView, changeHeaderTitle, changeSecondaryBarShown, toogleFilterBar } from '../redux/appState';
 
 const Header = (props) => {
 	const classes = mainStyles();
@@ -39,6 +39,7 @@ const Header = (props) => {
 	const user = useSelector(s => s.user.user);
 	const activeView = useSelector(s => s.appState.mainView);
 	const headerTitle = useSelector(s => s.appState.headerTitle);
+	const filterBarShown = useSelector(s => s.appState.filterBarShown);
 
 	const redux = {
 		resetRedux: () => dispatch({ type: 'RESET_APP' })
@@ -65,7 +66,7 @@ const Header = (props) => {
 	};
 
 	const toggleFilter = () => {
-
+		dispatch(toogleFilterBar());
 	};
 
 	const _onChangeView = viewType => {
@@ -124,7 +125,7 @@ const Header = (props) => {
 	return (
 		<>
 			<div className={classes.appBarWrapper}>
-				<AppBar className={classes.appBarPrimary} position='absolute' elevation={0}>
+				<AppBar className={classes.appBarPrimary} position='relative' elevation={0}>
 					<Toolbar>
 						<IconButton
 							edge="start"
@@ -311,6 +312,12 @@ const Header = (props) => {
 							</IconButton>
 						</Grid>
 					</Grid>
+				</div>
+				: ""}
+
+			{filterBarShown ?
+				<div className={classes.filterBar}>
+					123
 				</div>
 				: ""}
 		</>
