@@ -26,7 +26,7 @@ import mainStyles from '../styles/mainStyles';
 import BarButton from './ui/BarButton';
 import logo from '../assets/logo.png';
 import { logoutUser } from '../data/coreApi';
-import { changeMainView } from '../redux/appState';
+import { changeMainView, changeHeaderTitle, changeSecondaryBarShown } from '../redux/appState';
 
 const Header = (props) => {
 	const classes = mainStyles();
@@ -38,6 +38,7 @@ const Header = (props) => {
 
 	const user = useSelector(s => s.user.user);
 	const activeView = useSelector(s => s.appState.mainView);
+	const headerTitle = useSelector(s => s.appState.headerTitle);
 
 	const redux = {
 		resetRedux: () => dispatch({ type: 'RESET_APP' })
@@ -79,10 +80,14 @@ const Header = (props) => {
 		switch (page) {
 			default:
 			case 'overview':
+				dispatch(changeSecondaryBarShown(true));
+				dispatch(changeHeaderTitle('Overblik'));
 				history.push('/');
 				break;
 			case 'benchmark':
-				history.push('/');
+				dispatch(changeSecondaryBarShown(false));
+				dispatch(changeHeaderTitle('Benchmark'));
+				history.push('/benchmark');
 				break;
 			case 'favorites':
 				history.push('/');
@@ -109,6 +114,13 @@ const Header = (props) => {
 		
 	}
 
+	const handleLogoClick = () => {
+		dispatch(changeSecondaryBarShown(true));
+		dispatch(changeHeaderTitle('Overblik'));
+
+		history.push('/');
+	}
+
 	return (
 		<>
 			<div className={classes.appBarWrapper}>
@@ -128,14 +140,14 @@ const Header = (props) => {
 								focusRipple
 								className={classes.image}
 								focusVisibleClassName={classes.focusVisible}
-								onClick={() => history.push('/')}
+								onClick={handleLogoClick}
 							>
 								<img src={`${logo}`} alt="Newsec logo" className={classes.logo} />
 							</ButtonBase>
 						</div>
 
 						<Typography variant="h6" className={classes.appbarTitle}>
-							{props.title}
+							{headerTitle ? headerTitle : ""}
 						</Typography>
 
 						<div className={classes.search}>

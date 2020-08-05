@@ -12,7 +12,7 @@ const BuildingForecast = props => {
 	const building = props.building;
 
 	const deviceData = useSelector(s => s.lineData)
-	console.log(deviceData);
+
 	useEffect(() => {
 		if (deviceData && deviceData.graph && !deviceData.loading) {
 			let actual = 0;
@@ -24,7 +24,6 @@ const BuildingForecast = props => {
 			deviceData.graph[1].data.map(d => {
 				goal += d.value;
 			});
-			console.log(goal);
 
 			let forecast = 0;
 
