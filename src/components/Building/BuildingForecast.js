@@ -1,7 +1,9 @@
+/* eslint-disable array-callback-return */
 import React, { useEffect } from 'react';
 import { Card, CardHeader, CardContent, IconButton, Typography, Grid, Box } from '@material-ui/core';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import * as d3 from "d3";
+import { useSelector } from 'react-redux'
 
 import buildingStyles from '../../styles/buildingStyles';
 
@@ -9,20 +11,36 @@ const BuildingForecast = props => {
 	const classes = buildingStyles();
 	const building = props.building;
 
+	const deviceData = useSelector(s => s.lineData)
+	console.log(deviceData);
 	useEffect(() => {
-		renderGraph();
+		if (deviceData && deviceData.graph && !deviceData.loading) {
+			let actual = 0;
+			deviceData.graph[0].data.map(d => {
+				actual += d.value;
+			});
+
+			let goal = 0;
+			deviceData.graph[1].data.map(d => {
+				goal += d.value;
+			});
+			console.log(goal);
+
+			let forecast = 0;
+
+			const data = [
+				{ value: goal * 100, color: '#8B2979' },
+				{ value: forecast, color: '#C8D0D8' },
+				{ value: actual * 100, color: '#365979' },
+			];
+
+			renderGraph(data);
+		}
+
 	// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, []);
+	}, [deviceData]);
 
-
-	const data = [
-		{ value: 50, color: '#8B2979' },
-		{ value: 100, color: '#C8D0D8' },
-		{ value: 80, color: '#365979' },
-	];
-
-	const renderGraph = () => {
-		// console.log('renderGraph');
+	const renderGraph = (data) => {
 		const width = 230;
 		const arcSize = (8 * width / 100);
 		const innerRadius = arcSize * 3;
@@ -111,7 +129,7 @@ const BuildingForecast = props => {
 						</div>
 
 						<Typography variant="h5">Målsætning</Typography>
-						<Typography>Der er i forhold til forrige uge udledt mindre CO2 end målsætningen</Typography>
+						<Typography>***Der er i forhold til forrige periode udledt mindre CO2 end målsætningen</Typography>
 					</CardContent>
 				</Card>
 				: ""}
