@@ -73,7 +73,7 @@ const BuildingInfo = props => {
 									<ListItemText
 										disableTypography
 										primary={<Typography style={{ fontSize: '1rem', color: 'rgba(0, 0, 0, 0.46)' }}>Gruppe</Typography>}
-										secondary={<Typography style={{ fontSize: '0.9rem', color: '#000' }}>{building.group}</Typography>}
+										secondary={<Typography style={{ fontSize: '0.9rem', color: '#000' }}>{building.grouptype}</Typography>}
 									/>
 								</ListItem>
 								<Divider />
