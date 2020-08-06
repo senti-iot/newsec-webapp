@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import { AppBar, Toolbar, IconButton, ButtonBase, Typography, InputBase, Badge, Button, Menu, MenuItem, Grid, SwipeableDrawer, List, ListItem, ListItemIcon, ListItemText, Fade } from '@material-ui/core';
+import { AppBar, Toolbar, IconButton, ButtonBase, Typography, Badge, Button, Menu, MenuItem, Grid, SwipeableDrawer, List, ListItem, ListItemIcon, ListItemText, Fade } from '@material-ui/core';
 import MenuIcon from '@material-ui/icons/Menu';
-import SearchIcon from '@material-ui/icons/Search';
+// import SearchIcon from '@material-ui/icons/Search';
 import NotificationsIcon from '@material-ui/icons/Notifications';
 import PowerSettingsNew from '@material-ui/icons/PowerSettingsNew';
 import PageviewIcon from '@material-ui/icons/Pageview';
@@ -171,7 +171,7 @@ const Header = (props) => {
 							{headerTitle ? headerTitle : ""}
 						</Typography>
 
-						<div className={classes.search}>
+						{/* <div className={classes.search}>
 							<div className={classes.searchIcon}>
 								<SearchIcon />
 							</div>
@@ -182,7 +182,8 @@ const Header = (props) => {
 									input: classes.searchInput,
 								}}
 							/>
-						</div>
+						</div> */}
+
 						<IconButton color="inherit">
 							<Badge badgeContent={0} color="secondary" overlap="circle" classes={{ badge: classes.notificationsBadge }}>
 								<NotificationsIcon fontSize="large" className={classes.notificationsIcon} />
