@@ -1,14 +1,13 @@
 import React, { useEffect, Fragment, useState, useRef } from 'react'
-import FilterInput from 'components/filterToolbar/FilterInput'
-import FilterCard from 'components/filterToolbar/FilterCard'
 import { useSelector, useDispatch } from 'react-redux'
 import { MenuItem, MenuList, ClickAwayListener, Paper, Popper, Grow } from '@material-ui/core'
+
+import FilterInput from 'components/filterToolbar/FilterInput'
+import FilterCard from 'components/filterToolbar/FilterCard'
 import { addFilter, editFilter as reduxEditFilter, removeFilter, changeEH } from 'redux/appState'
-// import { useLocalization } from 'hooks'
 
 const FilterToolbar = props => {
 	//Hooks
-	// const t = useLocalization()
 	const dispatch = useDispatch()
 
 	//Redux
@@ -220,10 +219,8 @@ const FilterToolbar = props => {
 					onDelete={(deletedChip, i) => handleDelete(deletedChip, i)}
 					handleClick={handleClick}
 					dataSourceConfig={{ id: 'id', text: 'displayValue', value: 'displayValue' }}
-					placeholder={"Change placeholder"}
-					// placeholder={t('actions.search')}
+					placeholder={"Skriv her for at søge"}
 					fullWidth
-					// t={t}
 				/>
 				<Popper
 					open={actionAnchor ? true : false}

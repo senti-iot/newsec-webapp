@@ -12,7 +12,6 @@ import { Add } from 'variables/icons';
 
 const styles = (theme) => {
 	const light = theme.palette.type === 'light'
-	const bottomLineColor = light ? 'rgba(0, 0, 0, 0.42)' : 'rgba(255, 255, 255, 0.7)'
 
 	return {
 		formControl: {
@@ -31,10 +30,12 @@ const styles = (theme) => {
 			display: 'inline-block',
 			appearance: 'none',
 			WebkitTapHighlightColor: 'rgba(0,0,0,0)',
+			color: '#fff',
 			float: 'left',
 			"&::placeholder": {
 				textOverflow: 'elipsis',
-				fontSize: "0.8125rem"
+				fontSize: '1rem',
+				color: '#fff',
 			}
 		},
 		chipContainer: {
@@ -103,7 +104,7 @@ const styles = (theme) => {
 			},
 			'&$disabled:before': {
 				background: 'transparent',
-				backgroundImage: `linear-gradient(to right, ${bottomLineColor} 33%, transparent 0%)`,
+				backgroundImage: `linear-gradient(to right, #fff 33%, transparent 0%)`,
 				backgroundPosition: 'left top',
 				backgroundRepeat: 'repeat-x',
 				backgroundSize: '5px 1px'
@@ -116,11 +117,13 @@ const styles = (theme) => {
 			}
 		},
 		chip: {
-			color: theme.palette.type === 'light' ? 'inherit' : '#fff',
+			// color: theme.palette.type === 'light' ? 'inherit' : '#fff',
+			color: '#fff',
+			backgroundColor: '#497EB3',
 			margin: '0 8px 8px 0',
 			float: 'left',
-			'&:focused': {
-				background: theme.palette.primary[light ? 'dark' : 'light']
+			'&:hover': {
+				backgroundColor: '#497EB3',
 			}
 		}
 	}
@@ -483,12 +486,12 @@ class FilterInput extends Component {
 				>
 					{chipRenderer({
 						// value: t('actions.addFilter'),
-						value: 'Add Filter',
+						value: 'Tilføj Filter',
 						// text: t('actions.addFilter'),
-						text: 'Add Filter',
+						text: 'Tilføj Filter',
 						// chip: t('actions.addFilter'),
-						chip: 'Add Filter',
-						icon: <Add />,
+						chip: 'Tilføj Filter',
+						icon: <Add style={{ color: '#fff' }} />,
 						isDisabled: !!disabled,
 						isFocused: false,
 						className: classes.chip,
