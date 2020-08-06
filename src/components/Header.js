@@ -26,7 +26,7 @@ import mainStyles from '../styles/mainStyles';
 import BarButton from './ui/BarButton';
 import logo from '../assets/logo.png';
 import { logoutUser } from '../data/coreApi';
-import { changeMainView, changeHeaderTitle, changeSecondaryBarShown, toogleFilterBar } from '../redux/appState';
+import { changeMainView, changeHeaderTitle, changeSecondaryBarShown, toogleFilterBar, toogleFilterIcon } from 'redux/appState';
 import FilterToolbar from 'components/filterToolbar/FilterToolbar'
 
 const Header = (props) => {
@@ -42,6 +42,7 @@ const Header = (props) => {
 	const activeView = useSelector(s => s.appState.mainView);
 	const headerTitle = useSelector(s => s.appState.headerTitle);
 	const filterBarShown = useSelector(s => s.appState.filterBarShown);
+	const filterIconShown = useSelector(s => s.appState.filterIconShown);
 
 	// const dropDownExample = [
 	// 	{ value: 0, label: "No", icon: <MapIcon /> },
@@ -85,6 +86,11 @@ const Header = (props) => {
 
 	const _onChangeView = viewType => {
 		dispatch(changeMainView(viewType));
+		if (viewType === 'overview') {
+			dispatch(toogleFilterIcon(false));
+		} else {
+			dispatch(toogleFilterIcon(true));
+		}
 	}
 
 	const toggleDrawer = () => {
@@ -318,13 +324,15 @@ const Header = (props) => {
 							</BarButton>
 						</Grid>
 						<Grid container item xs={6} justify="flex-end">
-							<IconButton
-								edge="start"
-								className={classes.filterButton}
-								onClick={toggleFilter}
-							>
-								<TuneIcon />
-							</IconButton>
+							{filterIconShown ?
+								<IconButton
+									edge="start"
+									className={classes.filterButton}
+									onClick={toggleFilter}
+								>
+									<TuneIcon />
+								</IconButton>
+								: ""}
 						</Grid>
 					</Grid>
 				</div>

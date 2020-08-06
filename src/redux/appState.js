@@ -15,6 +15,7 @@ const fsLG = 'fullScreenLineGraph'
 const setLines = 'setGraphLines'
 const mainViewChange = 'mainViewChange'
 const filterBarChange = 'filterBarChange'
+const filterIconChange = 'filterIconChange'
 
 export const changeMainView = data => ({
 	type: mainViewChange,
@@ -174,6 +175,15 @@ export const toogleFilterBar = () => {
 	}
 }
 
+export const toogleFilterIcon = value => {
+	return (dispatch, getState) => {
+		dispatch({
+			type: filterIconChange,
+			payload: value
+		})
+	}
+}
+
 const initialState = {
 	lines: {},
 	fullScreenLineChart: false,
@@ -211,6 +221,7 @@ const initialState = {
 	secondaryBarVisible: true,
 	mainView: 'overview',
 	filterBarShown: false,
+	filterIconShown: false,
 }
 
 export const appState = (state = initialState, action) => {
@@ -249,6 +260,8 @@ export const appState = (state = initialState, action) => {
 			return Object.assign({}, state, { mainView: action.payload })
 		case filterBarChange:
 			return Object.assign({}, state, { filterBarShown: action.payload })
+		case filterIconChange:
+			return Object.assign({}, state, { filterIconShown: action.payload })
 		default:
 			return state
 	}
