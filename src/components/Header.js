@@ -338,14 +338,16 @@ const Header = (props) => {
 				</div>
 				: ""}
 
-			<Fade in={filterBarShown} direction={'left'}>
-				<div className={classes.filterBar}>
-					<FilterToolbar
-						reduxKey={'buildings'}
-						filters={ft}
-					/>
-				</div>
-			</Fade>
+			{filterBarShown ?
+				<Fade in={filterBarShown} direction={'left'}>
+					<div className={classes.filterBar}>
+						<FilterToolbar
+							reduxKey={'buildings'}
+							filters={ft}
+						/>
+					</div>
+				</Fade>
+				: ""}
 		</>
 	);
 }
