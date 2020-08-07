@@ -1,13 +1,23 @@
 import React from 'react';
 import { ButtonBase } from '@material-ui/core';
 import { useHistory } from 'react-router'
+import { useDispatch } from 'react-redux';
 
 import mainStyles from '../styles/mainStyles';
 import logo from '../assets/logo.png';
+import { changeHeaderTitle, changeSecondaryBarShown } from 'redux/appState';
 
 const Footer = () => {
 	const classes = mainStyles();
 	const history = useHistory();
+	const dispatch = useDispatch();
+
+	const handleLogoClick = () => {
+		dispatch(changeSecondaryBarShown(true));
+		dispatch(changeHeaderTitle('Overblik'));
+
+		history.push('/');
+	}
 
 	return (
 		<div className={classes.footer}>
@@ -16,7 +26,7 @@ const Footer = () => {
 					focusRipple
 					className={classes.image}
 					focusVisibleClassName={classes.focusVisible}
-					onClick={() => history.push('/')}
+					onClick={handleLogoClick}
 				>
 					<img src={`${logo}`} alt="Newsec logo" className={classes.logo} />
 				</ButtonBase>
