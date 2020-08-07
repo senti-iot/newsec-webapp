@@ -4,13 +4,15 @@ import MoreVertIcon from '@material-ui/icons/MoreVert';
 import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos';
 import StarBorderIcon from '@material-ui/icons/StarBorder';
 import { useHistory } from 'react-router';
+import { useSelector } from 'react-redux';
 
 import buildingStyles from '../styles/buildingStyles';
-import TablePager from 'components/table/TablePager'
-import { useSelector } from 'react-redux'
+import TablePager from 'components/table/TablePager';
+import { customFilterItems } from 'variables/filters';
 
 const BuildingsThumbs = props => {
-	const buildings = props.buildings;
+	const filters = useSelector(s => s.appState.filters.buildings);
+	const buildings = customFilterItems(props.buildings, filters);
 	const classes = buildingStyles();
 	const history = useHistory();
 	const [page, setPage] = useState(0)

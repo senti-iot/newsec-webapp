@@ -2,11 +2,14 @@ import React, { useEffect, useRef } from 'react';
 import { Map, Marker, TileLayer, FeatureGroup, Popup } from 'react-leaflet';
 import "leaflet/dist/leaflet.css";
 import L from 'leaflet';
+import { useSelector } from 'react-redux';
 
 import BuildingsMapPopup from 'components/BuildingsMapPopup';
+import { customFilterItems } from 'variables/filters';
 
 const BuildingsMap = props => {
-	const buildings = props.buildings;
+	const filters = useSelector(s => s.appState.filters.buildings);
+	const buildings = customFilterItems(props.buildings, filters);
 	const mapRef = useRef(null);
 	const groupRef = useRef(null);
 
