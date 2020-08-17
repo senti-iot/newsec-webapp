@@ -8,10 +8,10 @@
     "@material-ui/icons": "^4.9.1",
     "@material-ui/pickers": "^3.2.10",
     "@reduxjs/toolkit": "^1.4.0",
-    "@testing-library/jest-dom": "^5.11.2",
-    "@testing-library/react": "^10.4.7",
-    "@testing-library/user-event": "^12.1.0",
-    "@welldone-software/why-did-you-render": "^4.2.7",
+    "@testing-library/jest-dom": "^5.11.3",
+    "@testing-library/react": "^10.4.8",
+    "@testing-library/user-event": "^12.1.1",
+    "@welldone-software/why-did-you-render": "^4.3.1",
     "apisauce": "^1.1.1",
     "classnames": "^2.2.6",
     "crypto": "^1.0.1",
@@ -27,14 +27,14 @@
     "react-leaflet": "^2.7.0",
     "react-redux": "^7.2.1",
     "react-router-dom": "^5.2.0",
-    "react-scripts": "3.4.1"
+    "react-scripts": "3.4.3"
   },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build && npm run-script sw",
     "test": "react-scripts test",
-	"eject": "react-scripts eject",
-	"sw": "node build-sw.js"
+    "eject": "react-scripts eject",
+    "sw": "node build-sw.js"
   },
   "eslintConfig": {
     "extends": "react-app"
