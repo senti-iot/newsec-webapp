@@ -66,26 +66,26 @@ export const getDeviceData = (device, building, period, type) =>
 			graph: [
 				{
 					name: "Actual",
-					color: '#365979',
+					color: '#497EB3',
 					data: convertedData,
 					noArea: true
 				}, {
 					name: "Goal",
-					color: "#8B2979",
+					color: "#1F3B54",
 					data: convertedBudgetData,
 					noArea: true,
 					dashed: true,
 					median: false,
 				}, {
 					name: "PreviousPeriod",
-					color: '#B2C6DD',
+					color: '#B3CDE3',
 					median: false,
 					prev: true,
 					data: convertedDataPrevious
 				},
 				{
 					name: "Benchmark",
-					color: "#CF7B4C",
+					color: "#377EB8",
 					dashed: true,
 					median: false,
 					noArea: true,

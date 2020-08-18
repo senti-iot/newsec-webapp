@@ -24,7 +24,7 @@ const BuildingScore = props => {
 							titleTypographyProps={{ variant: 'h4' }}
 						/>
 						<CardContent>
-							<div style={{ width: "50%", height: "230px", margin: "0 auto" }}>
+							<div className={classes.scoregraphwrapper}>
 								<ReactSpeedometer
 									value={building.relativeCO2Score}
 									minValue={0}
@@ -123,7 +123,7 @@ const BuildingScore = props => {
 								/>
 							</div>
 
-							<Typography>Ejendommen ligger under middel i CO2 belastning</Typography>
+							<Typography style={{ marginTop: 80 }}>Ejendommen ligger under middel i CO2 belastning</Typography>
 						</CardContent>
 					</Card>
 				</>

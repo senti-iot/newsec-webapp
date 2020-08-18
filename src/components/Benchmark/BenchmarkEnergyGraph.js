@@ -66,7 +66,7 @@ const BenchmarkEnergyGraph = props => {
 
 		let keys = ['Fjernvarme', 'Vand', 'Elektricitet'];
 
-		var color = d3.scaleOrdinal().domain(keys).range(['#D48A38', '#F5D93A', '#497EB3']);
+		var color = d3.scaleOrdinal().domain(keys).range(['#214C6F', '#B3CDE3', '#497EB3']);
 
 		//TODO: get from data
 		let years = [2018, 2019, 2020];
@@ -110,9 +110,9 @@ const BenchmarkEnergyGraph = props => {
 			.call(yAxis)
 			.call(g => g.select(".domain").remove())
 			.append('text')
-			.attr('transform', `translate(0, ${margin.top - 20})`)
+			.attr('transform', `translate(0, ${margin.top - 25})`)
 			.attr('class', graphClasses.axisText)
-			.html('Tons');
+			.html('Ton');
 
 
 		var line = d3.line()
@@ -133,12 +133,12 @@ const BenchmarkEnergyGraph = props => {
 						<MoreVertIcon />
 					</IconButton>
 				}
-				title="Energiforbrug"
+				title="CO2-aftryk"
 				titleTypographyProps={{ variant: 'h4' }}
 			/>
 			<CardContent>
 				<div style={{ width: '100%', height: '100%' }}>
-					<svg id="barchart" ref={barChartContainer} style={{ width: '100%', height: '500px' }}></svg>
+					<svg id="barchart" ref={barChartContainer} style={{ width: '100%', height: '330px' }}></svg>
 				</div>
 
 				<Box display="flex" justifyContent="center" alignItems="center" style={{ marginTop: 30, marginBottom: 30 }}>

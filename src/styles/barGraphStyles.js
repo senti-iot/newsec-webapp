@@ -24,14 +24,14 @@ const barGraphStyles = makeStyles(theme => ({
 		width: 50,
 		height: 10,
 		borderRadius: 2,
-		backgroundColor: '#D48A38',
+		backgroundColor: '#214C6F',
 		marginBottom: 5,
 	},
 	legend2: {
 		width: 50,
 		height: 10,
 		borderRadius: 2,
-		backgroundColor: '#F5D93A',
+		backgroundColor: '#B3CDE3',
 		marginBottom: 5,
 	},
 	legend3: {
@@ -52,7 +52,7 @@ const barGraphStyles = makeStyles(theme => ({
 		width: 50,
 		height: 10,
 		borderRadius: 2,
-		backgroundColor: '#8B2979',
+		backgroundColor: '#1F3B54',
 		marginBottom: 5,
 	},
 	gridline: {

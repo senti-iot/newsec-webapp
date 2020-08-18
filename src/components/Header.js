@@ -100,11 +100,6 @@ const Header = (props) => {
 	const goToPage = page => {
 		switch (page) {
 			default:
-			case 'overview':
-				dispatch(changeSecondaryBarShown(true));
-				dispatch(changeHeaderTitle('Overblik'));
-				history.push('/');
-				break;
 			case 'benchmark':
 				dispatch(changeSecondaryBarShown(false));
 				dispatch(changeHeaderTitle('Benchmark'));
@@ -150,7 +145,7 @@ const Header = (props) => {
 						<IconButton
 							edge="start"
 							className={classes.menuButton}
-							color="inherit"
+							
 							onClick={toggleDrawer}
 						>
 							<MenuIcon fontSize="large" />
@@ -167,7 +162,7 @@ const Header = (props) => {
 							</ButtonBase>
 						</div>
 
-						<Typography variant="h6" className={classes.appbarTitle}>
+						<Typography className={classes.appbarTitle}>
 							{headerTitle ? headerTitle : ""}
 						</Typography>
 
@@ -235,10 +230,6 @@ const Header = (props) => {
 				>
 					<div role="presentation" onClick={toggleDrawer} onKeyDown={toggleDrawer} className={classes.drawerContainer}>
 						<List>
-							<ListItem button className={classes.drawerListItem} onClick={() => goToPage('overview')}>
-								<ListItemIcon className={classes.drawerListIcon}><PageviewIcon className={classes.drawerIcon} /></ListItemIcon>
-								<ListItemText primary="Overblik" />
-							</ListItem>
 							<ListItem button className={classes.drawerListItem} onClick={() => goToPage('benchmark')}>
 								<ListItemIcon className={classes.drawerListIcon}><PollOutlinedIcon className={classes.drawerIcon} /></ListItemIcon>
 								<ListItemText primary="Benchmark" />

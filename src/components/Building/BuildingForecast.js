@@ -28,9 +28,9 @@ const BuildingForecast = props => {
 			let forecast = 0;
 
 			const data = [
-				{ value: goal * 100, color: '#8B2979' },
-				{ value: forecast, color: '#C8D0D8' },
-				{ value: actual * 100, color: '#365979' },
+				{ value: goal * 100, color: '#1F3B54' },
+				{ value: forecast, color: '#B3CDE3' },
+				{ value: actual * 100, color: '#377EB8' },
 			];
 
 			renderGraph(data);
@@ -88,15 +88,15 @@ const BuildingForecast = props => {
 								<MoreVertIcon />
 							</IconButton>
 						}
-						title="CO2 udledning"
+						title="CO2-aftryk"
 						titleTypographyProps={{ variant: 'h4' }}
 					/>
 					<CardContent>
-						<div style={{ width: "50%", height: "250px", margin: "0 auto" }}>
+						<div className={classes.forecastgraphwrapper}>
 							<svg id='forecastgraph'></svg>
 						</div>
 
-						<div style={{ width: "50%", height: "50px", margin: "0 auto" }}>
+						<div className={classes.forecastgraphlegendwrapper}>
 							<Grid container
 								alignItems="center"
 								justify="center">

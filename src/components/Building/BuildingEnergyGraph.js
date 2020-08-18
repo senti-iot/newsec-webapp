@@ -37,7 +37,7 @@ const BuildingEnergyGraph = props => {
 
 		let keys = ['Fjernvarme', 'Vand', 'Elektricitet'];
 
-		var color = d3.scaleOrdinal().domain(keys).range(['#D48A38', '#F5D93A', '#497EB3']);
+		var color = d3.scaleOrdinal().domain(keys).range(['#214C6F', '#B3CDE3', '#497EB3']);
 
 		//TODO: get from data
 		let years = [2018, 2019, 2020];
@@ -104,7 +104,7 @@ const BuildingEnergyGraph = props => {
 						<MoreVertIcon />
 					</IconButton>
 				}
-				title="Energiforbrug"
+				title="CO2-aftryk"
 				titleTypographyProps={{ variant: 'h4' }}
 			/>
 			<CardContent>

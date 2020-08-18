@@ -11,3 +11,35 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+@font-face {
+    font-family: 'interstate';
+    font-style: normal;
+    font-weight: 400;
+    font-display: swap;
+    src: url('./assets//fonts/Interstate-Regular.woff2') format('woff2');
+}
+
+@font-face {
+    font-family: 'interstateLight';
+    font-style: normal;
+    font-weight: 300;
+    font-display: swap;
+    src: url('./assets//fonts/Interstate-Light.woff2') format('woff2');
+}
+
+@font-face {
+    font-family: 'interstateBold';
+    font-style: normal;
+    font-weight: 500;
+    font-display: swap;
+    src: url('./assets//fonts/Interstate-Bold.woff2') format('woff2');
+}
+
+.alice-carousel__dots-item:hover, .alice-carousel__dots-item.__active {
+  background-color: #497EB3 !important;
+}
+
+.alice-carousel__dots-item {
+  background-color: #C4C4C4 !important;
+}

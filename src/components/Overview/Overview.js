@@ -3,10 +3,9 @@ import moment from 'moment';
 import { Grid, Typography, Box } from '@material-ui/core';
 import { useSelector } from 'react-redux';
 
-import ActualResult from './OverviewCurrentResult';
+import OverviewCurrentResult from './OverviewCurrentResult';
 import OverviewBarGraph from './OverviewBarGraph';
-import OverviewScore from './OverviewScore';
-import OverviewForecast from './OverviewForecast';
+import BenchmarkEnergyGraph from 'components/Benchmark/BenchmarkEnergyGraph';
 import CircularLoader from 'components/CircularLoader';
 
 const Overview = props => {
@@ -38,23 +37,20 @@ const Overview = props => {
 		<>
 			{user && buildings ?
 				<Grid container spacing={5}>
-					<Grid item xs={12} lg={8}>
+					<Grid item xs={12} lg={7}>
 						<Box style={{ maxWidth: '50%' }}>
-							<Typography variant="h5" style={{ color: '#000', marginBottom: 20 }}>{getWelcomeTime()} {`${user.firstName} ${user.lastName}`}</Typography>
-							<Typography style={{ color: '#000', fontWeight: 300 }}>Brug benchmark for at gå direkte til den ejendom hvor du ønske at aflæse energiforbrug og CO2. Du kan også via menuen få vist ejendomme som kort, liste eller miniaturer. Til højre på menuen kan du filtrere dine visning.</Typography>
+							<Typography variant="h4" style={{ color: '#000', marginBottom: 20 }}>{getWelcomeTime()} {`${user.firstName}`}</Typography>
+							<Typography style={{ color: '#000', fontFamily: 'interstateLight' }}>Brug benchmark for at gå direkte til den ejendom hvor du ønske at aflæse energiforbrug og CO2. Du kan også via menuen få vist ejendomme som kort, liste eller miniaturer. Til højre på menuen kan du filtrere dine visning.</Typography>
 						</Box>
 					</Grid>
-					<Grid item xs={12} lg={4}>
-						<ActualResult />
+					<Grid item xs={12} lg={5}>
+						<OverviewCurrentResult />
 					</Grid>
-					<Grid item xs={12} lg={8}>
+					<Grid item xs={12} lg={7} xl={7}>
 						<OverviewBarGraph buildings={buildings} />
 					</Grid>
-					<Grid item xs={12} lg={2}>
-						<OverviewScore />
-					</Grid>
-					<Grid item xs={12} lg={2}>
-						<OverviewForecast />
+					<Grid item xs={12} lg={5} xl={5}>
+						<BenchmarkEnergyGraph buildings={buildings} />
 					</Grid>
 				</Grid>
 				: <CircularLoader fill style={{ marginTop: 500 }} />}

@@ -17,6 +17,7 @@ const theme = createMuiTheme({
 			fontSize: '1.6rem',
 		},
 		h4: {
+			fontFamily: 'interstateBold !important',
 			fontSize: '1.4rem',
 		},
 		h5: {

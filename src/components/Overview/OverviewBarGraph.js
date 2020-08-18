@@ -96,17 +96,17 @@ const OverviewBarGraph = props => {
 		svgg.selectAll("bar")
 			.data(emissionData)
 			.enter().append("rect")
-			.style("fill", "#497EB3")
+			.style("fill", "#377EB8")
 			.style("cursor", "pointer")
 			.attr("x", function (d) { return x(d.buildingNo); })
 			.attr("width", x.bandwidth())
 			.attr("y", function (d) { return y(d.value); })
 			.attr("height", function (d) { return height - y(d.value); })
 			.on("mouseover", function () {
-				d3.select(this).style("fill", "#D48A38");
+				d3.select(this).style("fill", "#1F3B54");
 			})
 			.on("mouseout", function (d, i) {
-				d3.select(this).transition().duration(300).style("fill", "#497EB3");
+				d3.select(this).transition().duration(300).style("fill", "#377EB8");
 			})
 			.on("click", function (d, i) {
 				history.push('/building/' + d.buildingUuid);
@@ -188,7 +188,7 @@ const OverviewBarGraph = props => {
 					</IconButton>
 				}
 				title="Benchmark"
-				titleTypographyProps={{ variant: 'h5' }}
+				titleTypographyProps={{ variant: 'h4' }}
 			/>
 			<CardContent>
 				<Box display="flex" justifyContent="center" alignItems="center" className={classes.graphDatePickers}>

@@ -277,7 +277,6 @@ const FilterToolbar = props => {
 					}}
 				/> : null}
 				{(filters && inputRef.current) ? filters.map((ft, i) => {
-					console.log(inputRef.current, ft.name, state[ft.name])
 					return <FilterCard
 						resetError={() => setError(false)}
 						error={error}

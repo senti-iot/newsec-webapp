@@ -19,18 +19,18 @@ const OverviewCurrentResult = () => {
 					</IconButton>
 				}
 				title="Aktuelt resultat"
-				titleTypographyProps={{ variant: 'h5' }}
+				titleTypographyProps={{ variant: 'h4' }}
 			/>
 			<CardContent>
 				<div className={mainClasses.currentResultWrapper}>
 					<div>
-						<Typography variant="h2" style={{ color: '#365979' }}>14.5%</Typography>
+						<Typography variant="h2" style={{ color: '#377EB8' }}>14.5%</Typography>
 					</div>
 					<div>
 						<img src={`${ArrowDownIcon}`} alt="" className={mainClasses.currentResultArrow} />
 					</div>
 				</div>
-				<Typography variant="h4">FALD I <span style={{ color: '#365979', fontWeight: 'bold' }}>CO2 FORBRUG</span> SIDEN 2018</Typography>
+				<Typography variant="h4">FALD I <span style={{ color: '#377EB8', fontWeight: 'bold' }}>CO2 FORBRUG</span> SIDEN 2018</Typography>
 			</CardContent>
 		</Card>
 	)

@@ -27,6 +27,7 @@ const mainStyles = makeStyles(theme => ({
 	},
 	menuButton: {
 		marginRight: theme.spacing(2),
+		color: '#214C6F !important',
 	},
 	logoContainer: {
 		marginRight: theme.spacing(2),
@@ -36,6 +37,8 @@ const mainStyles = makeStyles(theme => ({
 		marginLeft: 20,
 	},
 	appbarTitle: {
+		fontFamily: 'interstateBold !important',
+		fontSize: '20px !important',
 		flexGrow: 1,
 		color: '#365979',
 		fontWeight: '400 !important',

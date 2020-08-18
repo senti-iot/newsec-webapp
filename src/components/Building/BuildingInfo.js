@@ -15,7 +15,7 @@ const BuildingInfo = props => {
 
 	const StyledTabs = withStyles({
 		root: {
-			background: 'rgba(54, 89, 121, 0.72)',
+			background: '#1F3B54',
 		},
 		indicator: {
 			backgroundColor: 'transparent',
@@ -30,7 +30,7 @@ const BuildingInfo = props => {
 			fontSize: '1rem',
 			opacity: 1,
 			'&$selected': {
-				backgroundColor: '#365979',
+				backgroundColor: '#497EB3',
 			},
 			// borderRight: 'solid 1px #fff'
 		},
@@ -44,7 +44,7 @@ const BuildingInfo = props => {
 	return (
 		<>
 			{building ?
-				<Card className={classes.card}>
+				<Card className={classes.card} style={{ height: 700 }}>
 					<CardHeader
 						avatar={
 							<Avatar className={classes.avatar}>

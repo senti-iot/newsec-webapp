@@ -7,19 +7,19 @@ const buildingStyles = makeStyles(theme => ({
 	ledgendCurrent: {
 		width: 30,
 		height: 10,
-		backgroundColor: '#365979',
+		backgroundColor: '#377EB8',
 		borderRadius: 3,
 	},
 	ledgendForecast: {
 		width: 30,
 		height: 10,
-		backgroundColor: '#C8D0D8',
+		backgroundColor: '#B3CDE3',
 		borderRadius: 3,
 	},
 	legendGoal: {
 		width: 30,
 		height: 10,
-		backgroundColor: '#8B2979',
+		backgroundColor: '#1F3B54',
 		borderRadius: 3,
 	},
 	graphDatePickers: {
@@ -29,47 +29,72 @@ const buildingStyles = makeStyles(theme => ({
 	graphRibbon: {
 		width: '100%',
 		height: 50,
-		backgroundColor: '#ebebeb',
+		backgroundColor: '#1F3B54',
 		marginTop: 20,
 		marginBottom: 20,
 	},
 	periodButton: {
-		border: 'solid 1px #365979',
+		border: 'solid 2px #377EB8',
 		borderRadius: 4,
-		color: '#365979',
+		color: '#377EB8',
 		marginRight: 15,
 		textTransform: 'none',
 		"&:hover": {
-			backgroundColor: '#365979',
+			backgroundColor: '#377EB8',
 			color: '#fff'
 		}
 	},
 	periodButtonActive: {
-		border: 'solid 1px #365979',
+		border: 'solid 2px #377EB8',
 		borderRadius: 4,
 		color: '#fff',
-		backgroundColor: '#365979',
+		backgroundColor: '#377EB8',
 		marginRight: 15,
 		textTransform: 'none',
 		"&:hover": {
-			backgroundColor: '#365979',
+			backgroundColor: '#377EB8',
 			color: '#fff'
 		}
 	},
 	graphIconButton: {
-		textTransform: 'none'
+		textTransform: 'none',
+		width: 120,
 	},
 	graphIconButtonLabel: {
 		flexDirection: 'column'
 	},
 	graphIconButtonIcon: {
-		fontSize: '32px !important',
+		fontSize: '52px !important',
 		height: 40,
 	},
 	graphIconButtonLabelText: {
 		color: '#000',
 		fontSize: 13,
-	}
+	},
+	forecastgraphwrapper: {
+		width: '50%',
+		height: '230px',
+		margin: '0 auto',
+		[theme.breakpoints.down('lg')]: {
+			width: '80%',
+		}
+	},
+	forecastgraphlegendwrapper: {
+		width: '50%',
+		height: '50px',
+		margin: '0 auto',
+		[theme.breakpoints.down('lg')]: {
+			width: '90%',
+		}
+	},
+	scoregraphwrapper: {
+		width: '50%',
+		height: '230px',
+		margin: '0 auto',
+		[theme.breakpoints.down('lg')]: {
+			width: '80%',
+		}
+	},
 }));
 
 export default buildingStyles;
