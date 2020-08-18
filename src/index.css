@@ -17,7 +17,7 @@ code {
     font-style: normal;
     font-weight: 400;
     font-display: swap;
-    src: url('./assets//fonts/Interstate-Regular.woff2') format('woff2');
+    src: url('./assets/fonts/Interstate-Regular.woff2') format('woff2');
 }
 
 @font-face {
@@ -25,7 +25,7 @@ code {
     font-style: normal;
     font-weight: 300;
     font-display: swap;
-    src: url('./assets//fonts/Interstate-Light.woff2') format('woff2');
+    src: url('./assets/fonts/Interstate-Light.woff2') format('woff2');
 }
 
 @font-face {
@@ -33,7 +33,7 @@ code {
     font-style: normal;
     font-weight: 500;
     font-display: swap;
-    src: url('./assets//fonts/Interstate-Bold.woff2') format('woff2');
+    src: url('./assets/fonts/Interstate-Bold.woff2') format('woff2');
 }
 
 .alice-carousel__dots-item:hover, .alice-carousel__dots-item.__active {

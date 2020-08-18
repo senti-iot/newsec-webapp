@@ -23,7 +23,6 @@ const mainStyles = makeStyles(theme => ({
 		backgroundColor: '#365979 !important',
 		width: '100%',
 		height: 50,
-		paddingTop: 2,
 	},
 	menuButton: {
 		marginRight: theme.spacing(2),
@@ -158,6 +157,12 @@ const mainStyles = makeStyles(theme => ({
 		alignItems: 'center',
 		height: 67,
 		backgroundColor: '#525B60',
+	},
+	overviewWelcome: {
+		maxWidth: '50%',
+		[theme.breakpoints.down('lg')]: {
+			maxWidth: '80%',
+		},
 	},
 }));
 

@@ -4,7 +4,6 @@ import MenuIcon from '@material-ui/icons/Menu';
 // import SearchIcon from '@material-ui/icons/Search';
 import NotificationsIcon from '@material-ui/icons/Notifications';
 import PowerSettingsNew from '@material-ui/icons/PowerSettingsNew';
-import PageviewIcon from '@material-ui/icons/Pageview';
 import ListIcon from '@material-ui/icons/List';
 import ViewComfyIcon from '@material-ui/icons/ViewComfy';
 import PollOutlinedIcon from '@material-ui/icons/PollOutlined';
@@ -101,9 +100,9 @@ const Header = (props) => {
 		switch (page) {
 			default:
 			case 'benchmark':
-				dispatch(changeSecondaryBarShown(false));
+				dispatch(changeSecondaryBarShown(true));
 				dispatch(changeHeaderTitle('Benchmark'));
-				history.push('/benchmark');
+				history.push('/');
 				break;
 			case 'favorites':
 				history.push('/');
@@ -132,7 +131,7 @@ const Header = (props) => {
 
 	const handleLogoClick = () => {
 		dispatch(changeSecondaryBarShown(true));
-		dispatch(changeHeaderTitle('Overblik'));
+		dispatch(changeHeaderTitle('Benchmark'));
 
 		history.push('/');
 	}
@@ -276,10 +275,10 @@ const Header = (props) => {
 								className={activeView === 'overview' ? classes.button : classes.dimmedButton}
 								size="large"
 								disableElevation
-								startIcon={<PageviewIcon />}
+								startIcon={<PollOutlinedIcon />}
 								onClick={() => _onChangeView('overview')}
 							>
-								Overblik
+								Benchmark
 							</BarButton>
 							<BarButton
 								variant="contained"

@@ -141,7 +141,13 @@ const BuildingGraphContainer = props => {
 			/>
 
 			<Box display="flex" justifyContent="center" alignItems="center" className={classes.graphDatePickers}>
-				<IconButton onClick={handlePrevPeriod}><ArrowBackIosIcon style={{ color: '#377EB8' }} /></IconButton> <Typography>{generatePeriodDesc()}</Typography><IconButton disabled={futureTester(period.to, 'day')} onClick={handleNextPeriod}><ArrowForwardIosIcon style={{ color: '#377EB8' }} /></IconButton>
+				<IconButton onClick={handlePrevPeriod}>
+					<ArrowBackIosIcon style={{ color: '#377EB8' }} />
+				</IconButton> 
+				<Typography variant="body2">{generatePeriodDesc()}</Typography>
+				<IconButton disabled={futureTester(period.to, 'day')} onClick={handleNextPeriod}>
+					<ArrowForwardIosIcon style={{ color: '#377EB8' }} />
+				</IconButton>
 				<Button className={(period.timeType === 2 ? classes.periodButtonActive : classes.periodButton)} onClick={() => handlePeriodTypeChange(2)}>7 dage</Button>
 				<Button className={(period.timeType === 7 ? classes.periodButtonActive : classes.periodButton)} onClick={() => handlePeriodTypeChange(7)}>30 dage</Button>
 				<Button className={(period.timeType === 4 ? classes.periodButtonActive : classes.periodButton)} onClick={() => handlePeriodTypeChange(4)}>År</Button>
@@ -149,7 +155,7 @@ const BuildingGraphContainer = props => {
 			</Box>
 			<Box display="flex" justifyContent="center" alignItems="center" className={classes.graphRibbon}>
 				<Box>
-					<Typography style={{ color: '#fff' }}>Daglig udledning: X tons</Typography>
+					<Typography variant="body2" style={{ color: '#fff' }}>Daglig udledning: X tons</Typography>
 				</Box>
 			</Box>
 
@@ -166,7 +172,7 @@ const BuildingGraphContainer = props => {
 					style={{ marginRight: 20, border: 'solid 1px ' + (!graphLines['LActual'] ? '#497EB3' : 'transparent') }}
 				>
 					<GraphCurrentIcon className={classes.graphIconButtonIcon} />
-					<Typography className={classes.graphIconButtonLabelText}>Aktuel</Typography>
+					<Typography className={classes.graphIconButtonLabelText} variant="body2">Aktuel</Typography>
 				</Button>
 				<Button
 					id={'LegendCheckboxGoal'}
@@ -174,7 +180,7 @@ const BuildingGraphContainer = props => {
 					style={{ marginRight: 20, border: 'solid 1px ' + (!graphLines['LGoal'] ? '#1F3B54' : 'transparent') }}
 				>
 					<GraphGoalIcon className={classes.graphIconButtonIcon} />
-					<Typography className={classes.graphIconButtonLabelText}>Målsætning</Typography>
+					<Typography className={classes.graphIconButtonLabelText} variant="body2">Målsætning</Typography>
 				</Button>
 				<Button
 					id={'LegendCheckboxPreviousPeriod'}
@@ -182,7 +188,7 @@ const BuildingGraphContainer = props => {
 					style={{ marginRight: 20, border: 'solid 1px ' + (!graphLines['LPreviousPeriod'] ? '#B3CDE3' : 'transparent') }}
 				>
 					<GraphLastIcon className={classes.graphIconButtonIcon} />
-					<Typography className={classes.graphIconButtonLabelText}>Forrige periode</Typography>
+					<Typography className={classes.graphIconButtonLabelText} variant="body2">Forrige periode</Typography>
 				</Button>
 				<Button
 					id={'LegendCheckboxBenchmark'}
@@ -190,7 +196,7 @@ const BuildingGraphContainer = props => {
 					style={{ border: 'solid 1px ' + (!graphLines['LBenchmark'] ? '#377EB8' : 'transparent') }}
 				>
 					<GraphBenchmarkIcon className={classes.graphIconButtonIcon} />
-					<Typography className={classes.graphIconButtonLabelText}>Benchmark</Typography>
+					<Typography className={classes.graphIconButtonLabelText} variant="body2">Benchmark</Typography>
 				</Button>
 			 </Box>
 		</Card>

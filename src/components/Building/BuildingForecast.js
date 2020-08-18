@@ -105,7 +105,7 @@ const BuildingForecast = props => {
 										<div className={classes.ledgendCurrent}></div>
 									</Box>
 									<Box display="flex" justifyContent="center" alignItems="center">
-										Aktuel
+										<Typography variant="body2">Aktuel</Typography>
 									</Box>
 								</Grid>
 								<Grid item xs={3}>
@@ -113,7 +113,7 @@ const BuildingForecast = props => {
 										<div className={classes.ledgendForecast}></div>
 									</Box>
 									<Box display="flex" justifyContent="center" alignItems="center">
-										Prognose
+										<Typography variant="body2">Prognose</Typography>
 									</Box>
 								</Grid>
 								<Grid item xs={3}>
@@ -121,14 +121,14 @@ const BuildingForecast = props => {
 										<div className={classes.legendGoal}></div>
 									</Box>
 									<Box display="flex" justifyContent="center" alignItems="center">
-										Målsætning
+										<Typography variant="body2">Målsætning</Typography>
 									</Box>
 								</Grid>
 							</Grid>
 						</div>
 
 						<Typography variant="h5">Målsætning</Typography>
-						<Typography>***Der er i forhold til forrige periode udledt mindre CO2 end målsætningen</Typography>
+						<Typography variant="body2">***Der er i forhold til forrige periode udledt mindre CO2 end målsætningen</Typography>
 					</CardContent>
 				</Card>
 				: ""}

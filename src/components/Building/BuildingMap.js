@@ -50,7 +50,7 @@ const BuildingMap = props => {
 							<Marker position={[building.lat, building.lon]} />
 						</Map>
 
-						<Typography style={{ marginTop: 20 }}>Koordinater: {building.lat} {building.lon}</Typography>
+						<Typography style={{ marginTop: 20 }} variant="body2">Koordinater: {building.lat} {building.lon}</Typography>
 					</CardContent>
 				</Card>
 				: "" }

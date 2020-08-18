@@ -123,7 +123,7 @@ const BuildingScore = props => {
 								/>
 							</div>
 
-							<Typography style={{ marginTop: 80 }}>Ejendommen ligger under middel i CO2 belastning</Typography>
+							<Typography style={{ marginTop: 80 }} variant="body2">Ejendommen ligger under middel i CO2 belastning</Typography>
 						</CardContent>
 					</Card>
 				</>

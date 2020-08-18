@@ -21,14 +21,16 @@ const theme = createMuiTheme({
 			fontSize: '1.4rem',
 		},
 		h5: {
+			fontFamily: 'interstateLight !important',
 			fontSize: '1.2rem',
 		},
 		h6: {
 			fontSize: '1rem',
 		},
 		body2: {
-			color: '#979797',
-			fontSize: '13px',
+			color: '#000',
+			fontFamily: 'interstateLight !important',
+			fontSize: '1rem',
 		},
 	},
 });

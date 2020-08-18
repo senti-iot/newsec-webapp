@@ -7,10 +7,12 @@ import OverviewCurrentResult from './OverviewCurrentResult';
 import OverviewBarGraph from './OverviewBarGraph';
 import BenchmarkEnergyGraph from 'components/Benchmark/BenchmarkEnergyGraph';
 import CircularLoader from 'components/CircularLoader';
+import mainStyles from 'styles/mainStyles';
 
 const Overview = props => {
 	const user = useSelector(s => s.user.user);
 	const buildings = props.buildings;
+	const classes = mainStyles();
 
 	const getWelcomeTime = () => {
 		let string = "";
@@ -38,7 +40,7 @@ const Overview = props => {
 			{user && buildings ?
 				<Grid container spacing={5}>
 					<Grid item xs={12} lg={7}>
-						<Box style={{ maxWidth: '50%' }}>
+						<Box className={classes.overviewWelcome}>
 							<Typography variant="h4" style={{ color: '#000', marginBottom: 20 }}>{getWelcomeTime()} {`${user.firstName}`}</Typography>
 							<Typography style={{ color: '#000', fontFamily: 'interstateLight' }}>Brug benchmark for at gå direkte til den ejendom hvor du ønske at aflæse energiforbrug og CO2. Du kan også via menuen få vist ejendomme som kort, liste eller miniaturer. Til højre på menuen kan du filtrere dine visning.</Typography>
 						</Box>

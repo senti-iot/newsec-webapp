@@ -46,7 +46,7 @@ class BuildingImages extends React.Component {
 								variant="outlined"
 								startIcon={<ArrowBackIosIcon />}
 								onClick={() => this.Carousel.slidePrev()}
-								style={{ border: 'none', color: '#497EB3' }}
+								style={{ fontFamily: 'interstate', border: 'none', color: '#497EB3' }}
 							>
 								FORRIGE
 							</Button>
@@ -56,7 +56,7 @@ class BuildingImages extends React.Component {
 								variant="outlined"
 								endIcon={<ArrowForwardIosIcon />}
 								onClick={() => this.Carousel.slideNext()}
-								style={{ border: 'none', color: '#497EB3' }}
+								style={{ fontFamily: 'interstate', border: 'none', color: '#497EB3' }}
 							>
 								NÆSTE
 							</Button>

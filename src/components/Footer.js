@@ -14,7 +14,7 @@ const Footer = () => {
 
 	const handleLogoClick = () => {
 		dispatch(changeSecondaryBarShown(true));
-		dispatch(changeHeaderTitle('Overblik'));
+		dispatch(changeHeaderTitle('Benchmark'));
 
 		history.push('/');
 	}

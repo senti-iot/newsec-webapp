@@ -72,8 +72,8 @@ const BuildingInfo = props => {
 								<ListItem disableGutters={true}>
 									<ListItemText
 										disableTypography
-										primary={<Typography style={{ fontSize: '1rem', color: 'rgba(0, 0, 0, 0.46)' }}>Gruppe</Typography>}
-										secondary={<Typography style={{ fontSize: '0.9rem', color: '#000' }}>{building.grouptype}</Typography>}
+										primary={<Typography style={{ fontFamily: 'interstate', fontSize: '1rem', color: 'rgba(0, 0, 0, 0.46)' }}>Gruppe</Typography>}
+										secondary={<Typography style={{ fontFamily: 'interstate', fontSize: '0.9rem', color: '#000' }}>{building.grouptype}</Typography>}
 									/>
 								</ListItem>
 								<Divider />
@@ -81,8 +81,8 @@ const BuildingInfo = props => {
 								<ListItem disableGutters={true}>
 									<ListItemText
 										disableTypography
-										primary={<Typography style={{ fontSize: '1rem', color: 'rgba(0, 0, 0, 0.46)' }}>Lejer</Typography>}
-										secondary={<Typography style={{ fontSize: '0.9rem', color: '#000' }}>{building.tenant}</Typography>}
+										primary={<Typography style={{ fontFamily: 'interstate', fontSize: '1rem', color: 'rgba(0, 0, 0, 0.46)' }}>Lejer</Typography>}
+										secondary={<Typography style={{ fontFamily: 'interstate', fontSize: '0.9rem', color: '#000' }}>{building.tenant}</Typography>}
 									/>
 								</ListItem>
 								<Divider />
@@ -90,8 +90,8 @@ const BuildingInfo = props => {
 								<ListItem disableGutters={true}>
 									<ListItemText
 										disableTypography
-										primary={<Typography style={{ fontSize: '1rem', color: 'rgba(0, 0, 0, 0.46)' }}>Ejer</Typography>}
-										secondary={<Typography style={{ fontSize: '0.9rem', color: '#000' }}>{building.owner}</Typography>}
+										primary={<Typography style={{ fontFamily: 'interstate', fontSize: '1rem', color: 'rgba(0, 0, 0, 0.46)' }}>Ejer</Typography>}
+										secondary={<Typography style={{ fontFamily: 'interstate', fontSize: '0.9rem', color: '#000' }}>{building.owner}</Typography>}
 									/>
 								</ListItem>
 								<Divider />
@@ -99,10 +99,10 @@ const BuildingInfo = props => {
 								<ListItem disableGutters={true}>
 									<ListItemText
 										disableTypography
-										primary={<Typography style={{ fontSize: '1rem', color: 'rgba(0, 0, 0, 0.46)' }}>Adresse</Typography>}
+										primary={<Typography style={{ fontFamily: 'interstate', fontSize: '1rem', color: 'rgba(0, 0, 0, 0.46)' }}>Adresse</Typography>}
 										secondary={
 											<>
-												<span style={{ fontSize: '0.9rem', color: '#000' }}>{building.streetName} {building.houseNumber}<br />
+												<span style={{ fontFamily: 'interstate', fontSize: '0.9rem', color: '#000' }}>{building.streetName} {building.houseNumber}<br />
 													{building.zipcode} {building.city}</span>
 											</>
 										}
@@ -113,8 +113,8 @@ const BuildingInfo = props => {
 								<ListItem disableGutters={true}>
 									<ListItemText
 										disableTypography
-										primary={<Typography style={{ fontSize: '1rem', color: 'rgba(0, 0, 0, 0.46)' }}>Energimærke</Typography>}
-										secondary={<Typography style={{ fontSize: '0.9rem', color: '#000' }}>{building.energyState}</Typography>}
+										primary={<Typography style={{ fontFamily: 'interstate', fontSize: '1rem', color: 'rgba(0, 0, 0, 0.46)' }}>Energimærke</Typography>}
+										secondary={<Typography style={{ fontFamily: 'interstate', fontSize: '0.9rem', color: '#000' }}>{building.energyState}</Typography>}
 									/>
 								</ListItem>
 							</List>
@@ -124,8 +124,8 @@ const BuildingInfo = props => {
 								<ListItem disableGutters={true}>
 									<ListItemText
 										disableTypography
-										primary={<Typography style={{ fontSize: '1rem', color: 'rgba(0, 0, 0, 0.46)' }}>Samlet areal bygning</Typography>}
-										secondary={<Typography style={{ fontSize: '0.9rem', color: '#000' }}>{building.areal}</Typography>}
+										primary={<Typography style={{ fontFamily: 'interstate', fontSize: '1rem', color: 'rgba(0, 0, 0, 0.46)' }}>Samlet areal bygning</Typography>}
+										secondary={<Typography style={{ fontFamily: 'interstate', fontSize: '0.9rem', color: '#000' }}>{building.areal}</Typography>}
 									/>
 								</ListItem>
 								<Divider />
@@ -133,8 +133,8 @@ const BuildingInfo = props => {
 								<ListItem disableGutters={true}>
 									<ListItemText
 										disableTypography
-										primary={<Typography style={{ fontSize: '1rem', color: 'rgba(0, 0, 0, 0.46)' }}>Opvarmet bygningsareal</Typography>}
-										secondary={<Typography style={{ fontSize: '0.9rem', color: '#000' }}>{building.arealHeated}</Typography>}
+										primary={<Typography style={{ fontFamily: 'interstate', fontSize: '1rem', color: 'rgba(0, 0, 0, 0.46)' }}>Opvarmet bygningsareal</Typography>}
+										secondary={<Typography style={{ fontFamily: 'interstate', fontSize: '0.9rem', color: '#000' }}>{building.arealHeated}</Typography>}
 									/>
 								</ListItem>
 								<Divider />
@@ -142,8 +142,8 @@ const BuildingInfo = props => {
 								<ListItem disableGutters={true}>
 									<ListItemText
 										disableTypography
-										primary={<Typography style={{ fontSize: '1rem', color: 'rgba(0, 0, 0, 0.46)' }}>BRB ejendomsnummer</Typography>}
-										secondary={<Typography style={{ fontSize: '0.9rem', color: '#000' }}>{building.bbrNumber}</Typography>}
+										primary={<Typography style={{ fontFamily: 'interstate', fontSize: '1rem', color: 'rgba(0, 0, 0, 0.46)' }}>BRB ejendomsnummer</Typography>}
+										secondary={<Typography style={{ fontFamily: 'interstate', fontSize: '0.9rem', color: '#000' }}>{building.bbrNumber}</Typography>}
 									/>
 								</ListItem>
 								<Divider />
@@ -151,8 +151,8 @@ const BuildingInfo = props => {
 								<ListItem disableGutters={true}>
 									<ListItemText
 										disableTypography
-										primary={<Typography style={{ fontSize: '1rem', color: 'rgba(0, 0, 0, 0.46)' }}>Opført</Typography>}
-										secondary={<Typography style={{ fontSize: '0.9rem', color: '#000' }}>???</Typography>}
+										primary={<Typography style={{ fontFamily: 'interstate', fontSize: '1rem', color: 'rgba(0, 0, 0, 0.46)' }}>Opført</Typography>}
+										secondary={<Typography style={{ fontFamily: 'interstate', fontSize: '0.9rem', color: '#000' }}>???</Typography>}
 									/>
 								</ListItem>
 								<Divider />
@@ -160,8 +160,8 @@ const BuildingInfo = props => {
 								<ListItem disableGutters={true}>
 									<ListItemText
 										disableTypography
-										primary={<Typography style={{ fontSize: '1rem', color: 'rgba(0, 0, 0, 0.46)' }}>Årlig leje</Typography>}
-										secondary={<Typography style={{ fontSize: '0.9rem', color: '#000' }}>DKK {building.yearlyRent}</Typography>}
+										primary={<Typography style={{ fontFamily: 'interstate', fontSize: '1rem', color: 'rgba(0, 0, 0, 0.46)' }}>Årlig leje</Typography>}
+										secondary={<Typography style={{ fontFamily: 'interstate', fontSize: '0.9rem', color: '#000' }}>DKK {building.yearlyRent}</Typography>}
 									/>
 								</ListItem>
 								<Divider />
@@ -169,8 +169,8 @@ const BuildingInfo = props => {
 								<ListItem disableGutters={true}>
 									<ListItemText
 										disableTypography
-										primary={<Typography style={{ fontSize: '1rem', color: 'rgba(0, 0, 0, 0.46)' }}>Årlig leje pr. m2</Typography>}
-										secondary={<Typography style={{ fontSize: '0.9rem', color: '#000' }}>DKK {building.yearlyRentM2}</Typography>}
+										primary={<Typography style={{ fontFamily: 'interstate', fontSize: '1rem', color: 'rgba(0, 0, 0, 0.46)' }}>Årlig leje pr. m2</Typography>}
+										secondary={<Typography style={{ fontFamily: 'interstate', fontSize: '0.9rem', color: '#000' }}>DKK {building.yearlyRentM2}</Typography>}
 									/>
 								</ListItem>
 							</List>
@@ -180,8 +180,8 @@ const BuildingInfo = props => {
 								<ListItem disableGutters={true}>
 									<ListItemText
 										disableTypography
-										primary={<Typography style={{ fontSize: '1rem', color: 'rgba(0, 0, 0, 0.46)' }}>Varme</Typography>}
-										secondary={<Typography style={{ fontSize: '0.9rem', color: '#000' }}>{building.providerHeat}</Typography>}
+										primary={<Typography style={{ fontFamily: 'interstate', fontSize: '1rem', color: 'rgba(0, 0, 0, 0.46)' }}>Varme</Typography>}
+										secondary={<Typography style={{ fontFamily: 'interstate', fontSize: '0.9rem', color: '#000' }}>{building.providerHeat}</Typography>}
 									/>
 								</ListItem>
 								<Divider />
@@ -189,8 +189,8 @@ const BuildingInfo = props => {
 								<ListItem disableGutters={true}>
 									<ListItemText
 										disableTypography
-										primary={<Typography style={{ fontSize: '1rem', color: 'rgba(0, 0, 0, 0.46)' }}>EL</Typography>}
-										secondary={<Typography style={{ fontSize: '0.9rem', color: '#000' }}>{building.providerPower}</Typography>}
+										primary={<Typography style={{ fontFamily: 'interstate', fontSize: '1rem', color: 'rgba(0, 0, 0, 0.46)' }}>EL</Typography>}
+										secondary={<Typography style={{ fontFamily: 'interstate', fontSize: '0.9rem', color: '#000' }}>{building.providerPower}</Typography>}
 									/>
 								</ListItem>
 								<Divider />
@@ -198,8 +198,8 @@ const BuildingInfo = props => {
 								<ListItem disableGutters={true}>
 									<ListItemText
 										disableTypography
-										primary={<Typography style={{ fontSize: '1rem', color: 'rgba(0, 0, 0, 0.46)' }}>Vand</Typography>}
-										secondary={<Typography style={{ fontSize: '0.9rem', color: '#000' }}>{building.providerWater}</Typography>}
+										primary={<Typography style={{ fontFamily: 'interstate', fontSize: '1rem', color: 'rgba(0, 0, 0, 0.46)' }}>Vand</Typography>}
+										secondary={<Typography style={{ fontFamily: 'interstate', fontSize: '0.9rem', color: '#000' }}>{building.providerWater}</Typography>}
 									/>
 								</ListItem>
 							</List>

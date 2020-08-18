@@ -34,6 +34,7 @@ const buildingStyles = makeStyles(theme => ({
 		marginBottom: 20,
 	},
 	periodButton: {
+		fontFamily: 'interstate',
 		border: 'solid 2px #377EB8',
 		borderRadius: 4,
 		color: '#377EB8',

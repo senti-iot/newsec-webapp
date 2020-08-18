@@ -3,6 +3,7 @@ import moment from 'moment'
 const changePeriods = 'changeDate'
 const GetSettings = 'getSettings'
 const NOSETTINGS = 'noSettings'
+const changeBenchmarkPeriod = 'changeBenchmarkPeriod'
 
 // const GetSettings = 'getSettings'
 
@@ -27,6 +28,19 @@ export const changeDate = (menuId, to, from, timeType) => {
 	}
 }
 
+export const changeBenchmarkDate = (to, from) => {
+	return (dispatch) => {
+		let period = {
+			to, from
+		}
+
+		dispatch({
+			type: changeBenchmarkPeriod,
+			payload: period
+		});
+	}
+}
+
 const initialState = {
 	period: {
 		menuId: 2,
@@ -34,7 +48,10 @@ const initialState = {
 		to: moment().subtract(1, 'day').startOf('day'),
 		timeType: 2
 	},
-
+	benchmarkPeriod: {
+		from: moment().startOf('year'),
+		to: moment().endOf('year'),
+	},
 }
 
 export const dateTime = (state = initialState, action) => {
@@ -55,6 +72,8 @@ export const dateTime = (state = initialState, action) => {
 			return state
 		case changePeriods:
 			return Object.assign({}, state, { period: action.payload })
+		case changeBenchmarkPeriod:
+			return Object.assign({}, state, { benchmarkPeriod: action.payload })
 		default:
 			return state
 	}

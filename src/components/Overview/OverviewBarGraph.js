@@ -1,17 +1,20 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { Card, CardHeader, CardContent, IconButton, Typography, Box, Button } from '@material-ui/core';
+import { Card, CardHeader, CardContent, IconButton, Typography, Box } from '@material-ui/core';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
-import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
-import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos';
 import * as d3 from 'd3';
 import { useHistory } from 'react-router';
 import moment from 'moment';
 
 import barGraphStyles from '../../styles/barGraphStyles';
 import buildingStyles from '../../styles/buildingStyles';
-import { changeDate } from 'redux/dateTime';
+import { changeBenchmarkDate } from 'redux/dateTime';
 import { getBuildingsEmission } from 'redux/buildings';
 import { useDispatch, useSelector } from 'hooks';
+import { ReactComponent as CalendarIcon } from "assets/icons/calendar.svg";
+import { ReactComponent as ArrowPrev } from "assets/icons/arrow_prev_blue.svg";
+import { ReactComponent as ArrowPrevDisabled } from "assets/icons/arrow_prev_grey.svg";
+import { ReactComponent as ArrowNext } from "assets/icons/arrow_next_blue.svg";
+import { ReactComponent as ArrowNextDisabled } from "assets/icons/arrow_next_grey.svg";
 
 const OverviewBarGraph = props => {
 	const barChartContainer = useRef(React.createRef());
@@ -20,10 +23,10 @@ const OverviewBarGraph = props => {
 	const history = useHistory();
 	const dispatch = useDispatch();
 	const buildings = props.buildings;
-	const emissionData = useSelector(s => s.buildingsReducer.emissionData);
 	const [didRenderGraph, setDidRenderGraph] = useState(false);
 
-	const period = useSelector(s => s.dateTime.period);
+	const emissionData = useSelector(s => s.buildingsReducer.emissionData);
+	const benchkmarkPeriod = useSelector(s => s.dateTime.benchmarkPeriod);
 
 	useEffect(() => {
 		if (barChartContainer && buildings && emissionData) {
@@ -33,10 +36,10 @@ const OverviewBarGraph = props => {
 	}, [barChartContainer, buildings, emissionData]);
 
 	useEffect(() => {
-		dispatch(getBuildingsEmission(period));
-	}, [dispatch, period]);
+		dispatch(getBuildingsEmission(benchkmarkPeriod));
+	}, [dispatch, benchkmarkPeriod]);
 
-	const handleSetDate = (id, to, from, timeType) => dispatch(changeDate(id, to, from, timeType));
+	const handleSetDate = (to, from) => dispatch(changeBenchmarkDate(to, from));
 
 	const make_y_gridlines = (y) => {
 		return d3.axisLeft(y).ticks(5);
@@ -60,11 +63,23 @@ const OverviewBarGraph = props => {
 		let x = d3.scaleBand().rangeRound([0, emissionData.length * 30]).padding(.5);
 		let y = d3.scaleLinear().range([height, 0]);
 
+		let max = d3.max(emissionData, function (d) { return parseFloat(d.value); }) + 5;
+
+		// let tickValues = [0];
+		// for (let i = 0; i < max; i++) {
+		// 	i += Math.round(max / 5);
+		// 	if (i < max) {
+		// 		tickValues.push(i);
+		// 	}
+		// }
+
+		// tickValues.push(max);
+
 		let xAxis = d3.axisBottom(x).tickSize(0).tickPadding(10);
 		let yAxis = d3.axisLeft(y).tickSize(0);
 
 		x.domain(emissionData.map(function (d) { return d.buildingNo; }));
-		y.domain([0, d3.max(emissionData, function (d) { return d.value; })]);
+		y.domain([0, max]);
 
 		svgg.append("g")
 			.attr("class", graphClasses.axisTick)
@@ -118,65 +133,33 @@ const OverviewBarGraph = props => {
 	const generatePeriodDesc = () => {
 		return (
 			<>
-				{moment(period.from).format('ll')}
-				&nbsp;&nbsp;&nbsp;
-				{` — `}
-				&nbsp;&nbsp;&nbsp;
-				{ moment(period.to).format('ll')}
+				{moment(benchkmarkPeriod.from).format('YYYY')}
 			</>
 		)
 	}
 
 	const handlePrevPeriod = () => {
 		let from, to;
-		if (period.menuId === 2) {
-			from = moment(period.from).subtract(6, 'day').startOf('day');
-			to = moment(period.from);
-		} else if (period.menuId === 4) {
-			from = moment(period.from).subtract(365, 'day').startOf('day');
-			to = moment(period.from);
-		} else if (period.menuId === 7) {
-			from = moment(period.from).subtract(30, 'day').startOf('day');
-			to = moment(period.from);
-		}
+		from = moment(benchkmarkPeriod.from).subtract(1, 'year').startOf('year');
+		to = moment(from).endOf('year');
 
-		handleSetDate(period.timeType, to, from, period.timeType);
+		handleSetDate(to, from);
 	}
 
 	const handleNextPeriod = () => {
 		let from, to;
-		if (period.menuId === 2) {
-			from = moment(period.to);
-			to = futureTester(to, 'day') ? moment(period.to).add(6, 'day') : moment().subtract(1, 'day');
-		} else if (period.menuId === 4) {
-			from = moment(period.from).add(365, 'month').startOf('month');
-			to = !futureTester(to, 'day') ? moment(from).endOf('month') : moment().subtract(365, 'day');
-		} else if (period.menuId === 7) {
-			from = moment(period.from).add(30, 'month').startOf('month');
-			to = !futureTester(to, 'day') ? moment(from).endOf('month') : moment().subtract(30, 'day');
-		}
+		from = moment(benchkmarkPeriod.from).add(1, 'year').startOf('year');
+		to = moment(from).endOf('year');
 
-		handleSetDate(period.timeType, to, from, period.timeType);
+		handleSetDate(to, from);
 	}
 
-	const handlePeriodTypeChange = (type) => {
-		let from, to;
-		if (type === 2) {
-			from = moment().subtract(7, 'day').startOf('day');
-			to = moment().subtract(1, 'day').startOf('day');
-		} else if (type === 4) {
-			from = moment().subtract(365, 'day').startOf('day');
-			to = moment().subtract(1, 'day').startOf('day');
-		} else if (type === 7) {
-			from = moment().subtract(30, 'day').startOf('day');
-			to = moment().subtract(1, 'day').startOf('day');
-		}
-
-		handleSetDate(type, to, from, type);
+	const futureTesterNext = (date) => {
+		return moment().year() === moment(date).year() ? true : false;
 	}
 
-	const futureTester = (date, unit) => {
-		return moment().subtract(1, 'day').diff(date, unit) <= 0;
+	const futureTesterPrev = (date) => {
+		return moment(date).year() === 2018 ? true : false;
 	}
 
 	return (
@@ -192,17 +175,20 @@ const OverviewBarGraph = props => {
 			/>
 			<CardContent>
 				<Box display="flex" justifyContent="center" alignItems="center" className={classes.graphDatePickers}>
-					<IconButton onClick={handlePrevPeriod}><ArrowBackIosIcon /></IconButton> <Typography>{generatePeriodDesc()}</Typography><IconButton disabled={futureTester(period.to, 'day')} onClick={handleNextPeriod}><ArrowForwardIosIcon /></IconButton>
-					<Button className={(period.timeType === 2 ? classes.periodButtonActive : classes.periodButton)} onClick={() => handlePeriodTypeChange(2)}>7 dage</Button>
-					<Button className={(period.timeType === 7 ? classes.periodButtonActive : classes.periodButton)} onClick={() => handlePeriodTypeChange(7)}>30 dage</Button>
-					<Button className={(period.timeType === 4 ? classes.periodButtonActive : classes.periodButton)} onClick={() => handlePeriodTypeChange(4)}>År</Button>
-					{/* <Button className={(period.timeType === 6 ? classes.periodButtonActive : classes.periodButton)}><CalendarTodayIcon /></Button> */}
+					<IconButton onClick={handlePrevPeriod} disabled={futureTesterPrev(benchkmarkPeriod.to)}>
+						{futureTesterPrev(benchkmarkPeriod.to) ? <ArrowPrevDisabled /> : <ArrowPrev />}
+					</IconButton> 
+					<Typography variant="body2">{generatePeriodDesc()}</Typography>
+					<IconButton disabled={futureTesterNext(benchkmarkPeriod.to)} onClick={handleNextPeriod}>
+						{futureTesterNext(benchkmarkPeriod.to) ? <ArrowNextDisabled /> : <ArrowNext />}
+					</IconButton>
+					<IconButton><CalendarIcon /></IconButton>
 				</Box>
 
 				<div style={{ width: '100%', height: '100%' }}>
 					<svg id="overviewGraph" ref={barChartContainer} style={{ width: '100%', height: '350px' }}></svg>
 				</div>
-				<Typography>Vælg en ejendom for at se detajler.</Typography>
+				<Typography variant="body2">Vælg en ejendom for at se detajler.</Typography>
 			</CardContent>
 		</Card>
 	)

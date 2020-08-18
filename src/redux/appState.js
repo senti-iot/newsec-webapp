@@ -217,7 +217,7 @@ const initialState = {
 		functions: [],
 		messages: [],
 	},
-	headerTitle: 'Overblik',
+	headerTitle: 'Benchmark',
 	secondaryBarVisible: true,
 	mainView: 'overview',
 	filterBarShown: false,

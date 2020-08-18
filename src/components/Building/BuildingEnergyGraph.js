@@ -115,27 +115,27 @@ const BuildingEnergyGraph = props => {
 				<Box display="flex" justifyContent="center" alignItems="center" style={{ marginTop: 30, marginBottom: 30 }}>
 					<Box display="flex" justifyContent="center" alignItems="center" flexDirection="column" className={graphClasses.legendWrapper}>
 						<div className={graphClasses.legend1}></div>
-						<div><Typography>CO2 varme</Typography></div>
+						<div><Typography variant="body2">CO2 varme</Typography></div>
 					</Box>
 
 					<Box display="flex" justifyContent="center" alignItems="center" flexDirection="column" className={graphClasses.legendWrapper}>
 						<div className={graphClasses.legend2}></div>
-						<div><Typography>CO2 el</Typography></div>
+						<div><Typography variant="body2">CO2 el</Typography></div>
 					</Box>
 
 					<Box display="flex" justifyContent="center" alignItems="center" flexDirection="column" className={graphClasses.legendWrapper}>
 						<div className={graphClasses.legend3}></div>
-						<div><Typography>CO2 vand</Typography></div>
+						<div><Typography variant="body2">CO2 vand</Typography></div>
 					</Box>
 
 					<Box display="flex" justifyContent="center" alignItems="center" flexDirection="column" className={graphClasses.legendWrapper}>
 						<div className={graphClasses.legend4}></div>
-						<div><Typography>Total</Typography></div>
+						<div><Typography variant="body2">Total</Typography></div>
 					</Box>
 
 					<Box display="flex" justifyContent="center" alignItems="center" flexDirection="column" className={graphClasses.legendWrapper}>
 						<div className={graphClasses.legend5}></div>
-						<div><Typography>Målsætning</Typography></div>
+						<div><Typography variant="body2">Målsætning</Typography></div>
 					</Box>
 				</Box>
 			</CardContent>

@@ -315,27 +315,27 @@ class d3Line {
 		const height = this.height
 		const margin = this.margin
 
-		let dates = [];
-		// eslint-disable-next-line array-callback-return
-		this.ticks.map(tick => {
-			dates.push(moment(tick).format('YYYY-MM-DD'));
-		});
-
 		let weatherData = [];
-		if (this.props.building.lat && this.props.building.lon) {
-			let weather = await Promise.all(dates.map((d) => getWeather(d, this.props.building.lat, this.props.building.lon))).then(rs => rs)
-			let fWeather = weather.map(r => r.daily.data[0])
-			let finalData = fWeather.map(w => ({
-				date: moment(w.time),
-				icon: w.icon,
-				description: w.summary
-			}));
+		if (this.period.timeType === 2) { // only generate weather for week view
+			if (this.props.building.lat && this.props.building.lon) {
+				let dates = [];
+				for (var m = moment(this.period.from); m.diff(this.period.to, 'days') <= 0; m.add(1, 'days')) {
+					dates.push(m.format('YYYY-MM-DD'));
+				}
 
-			weatherData = finalData;
+				let weather = await Promise.all(dates.map((d) => getWeather(d, this.props.building.lat, this.props.building.lon))).then(rs => rs)
+				let fWeather = weather.map(r => r.daily.data[0])
+				let finalData = fWeather.map(w => ({
+					date: moment(w.time),
+					icon: w.icon,
+					description: w.summary
+				}));
+
+				weatherData = finalData;
+			}
 		}
 
 		const getIcon = (icon) => {
-
 			switch (icon) {
 				case 'clear-day':
 					return ClearDay
