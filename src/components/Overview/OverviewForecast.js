@@ -28,7 +28,7 @@ const OverviewForecast = () => {
 		var thickness = 30
 		// Utility 
 		//     var colors = d3.scale.category10();
-		var colors = ["#365979", "#c8d0d8"]
+		var colors = ["#214C6F", "#c8d0d8"]
 
 		var pies = d3.pie()
 			.value(d => d)

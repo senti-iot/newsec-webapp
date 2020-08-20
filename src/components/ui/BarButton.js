@@ -4,9 +4,10 @@ import { Button } from '@material-ui/core';
 const BarButton = withStyles(() => ({
 	root: {
 		fontFamily: 'interstate',
+		fontSize: 16,
 		textTransform: 'none',
 		color: '#fff',
-		height: 50,
+		height: 60,
 		backgroundColor: 'transparent',
 		'&:hover': {
 			backgroundColor: 'transparent',

@@ -20,7 +20,7 @@ const lineGraphStyles = makeStyles(theme => ({
 	axisTick: {
 		fill: 'currentColor',
 		fontWeight: 600,
-		fontSize: '0.75rem'
+		fontSize: '1rem'
 	},
 	yAxisLine: {
 		stroke: '#ffffff33'

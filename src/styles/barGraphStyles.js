@@ -9,7 +9,7 @@ const barGraphStyles = makeStyles(theme => ({
 	axisTick: {
 		fill: 'currentColor',
 		fontWeight: 600,
-		fontSize: '0.75rem',
+		fontSize: '1rem',
 		strokeOpacity: 0
 	},
 	line: {

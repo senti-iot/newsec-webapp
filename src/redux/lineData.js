@@ -132,7 +132,7 @@ export const getWeatherData = async (lat, lon) => {
 const initialState = {
 	graph: [{
 		name: "Data",
-		color: '#365979',
+		color: '#214C6F',
 		data: []
 	}],
 	weatherData: [],

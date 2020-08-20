@@ -6,7 +6,6 @@ import NotificationsIcon from '@material-ui/icons/Notifications';
 import PowerSettingsNew from '@material-ui/icons/PowerSettingsNew';
 import ListIcon from '@material-ui/icons/List';
 import ViewComfyIcon from '@material-ui/icons/ViewComfy';
-import PollOutlinedIcon from '@material-ui/icons/PollOutlined';
 import StarOutlinedIcon from '@material-ui/icons/StarOutlined';
 import PeopleIcon from '@material-ui/icons/People';
 import EmailIcon from '@material-ui/icons/Email';
@@ -27,6 +26,8 @@ import logo from '../assets/logo.png';
 import { logoutUser } from '../data/coreApi';
 import { changeMainView, changeHeaderTitle, changeSecondaryBarShown, toogleFilterBar, toogleFilterIcon } from 'redux/appState';
 import FilterToolbar from 'components/filterToolbar/FilterToolbar'
+import { ReactComponent as BenchmarkIcon } from "assets/icons/benchmark.svg";
+import { ReactComponent as BenchmarkDimmedIcon } from "assets/icons/benchmark_dimmed.svg";
 
 const Header = (props) => {
 	const classes = mainStyles();
@@ -178,7 +179,7 @@ const Header = (props) => {
 							/>
 						</div> */}
 
-						<IconButton color="inherit">
+						<IconButton>
 							<Badge badgeContent={0} color="secondary" overlap="circle" classes={{ badge: classes.notificationsBadge }}>
 								<NotificationsIcon fontSize="large" className={classes.notificationsIcon} />
 							</Badge>
@@ -189,7 +190,7 @@ const Header = (props) => {
 							<Button
 								onClick={handleProfileOpen}
 							>
-								{user ? user.img ? <img src={user.img} alt='UserProfile' className={classes.userimage} /> : <Gravatar default='mp' email={user.email} className={classes.userimage} size={55} /> : "" }
+								{user ? user.img ? <img src={user.img} alt='UserProfile' className={classes.userimage} /> : <Gravatar default='mp' email={user.email} className={classes.userimage} /> : "" }
 							</Button>
 
 							<Menu
@@ -230,8 +231,8 @@ const Header = (props) => {
 					<div role="presentation" onClick={toggleDrawer} onKeyDown={toggleDrawer} className={classes.drawerContainer}>
 						<List>
 							<ListItem button className={classes.drawerListItem} onClick={() => goToPage('benchmark')}>
-								<ListItemIcon className={classes.drawerListIcon}><PollOutlinedIcon className={classes.drawerIcon} /></ListItemIcon>
-								<ListItemText primary="Benchmark" style={{ fontFamily: 'interstateLight' }} />
+								<ListItemIcon className={classes.drawerListIcon} style={{ marginLeft: 10 }}><BenchmarkIcon className={classes.drawerIcon} /></ListItemIcon>
+								<ListItemText primary="Benchmark" style={{ fontFamily: 'interstateLight', marginLeft: -10 }} />
 							</ListItem>
 							<ListItem button className={classes.drawerListItem} onClick={() => goToPage('favorites')}>
 								<ListItemIcon className={classes.drawerListIcon}><StarOutlinedIcon className={classes.drawerIcon} /></ListItemIcon>
@@ -275,7 +276,7 @@ const Header = (props) => {
 								className={activeView === 'overview' ? classes.button : classes.dimmedButton}
 								size="large"
 								disableElevation
-								startIcon={<PollOutlinedIcon />}
+								startIcon={activeView === 'overview' ? <BenchmarkIcon style={{ width: 23, height: 23 }} /> : <BenchmarkDimmedIcon style={{ width: 23, height: 23 }} />}
 								onClick={() => _onChangeView('overview')}
 							>
 								Benchmark
@@ -284,9 +285,8 @@ const Header = (props) => {
 								variant="contained"
 								color="default"
 								className={activeView === 'map' ? classes.button : classes.dimmedButton}
-								size="large"
 								disableElevation
-								startIcon={<MapIcon />}
+								startIcon={<MapIcon style={{ width: 30, height: 30 }} />}
 								onClick={() => _onChangeView('map')}
 							>
 								Kort
@@ -295,9 +295,8 @@ const Header = (props) => {
 								variant="contained"
 								color="default"
 								className={activeView === 'list' ? classes.button : classes.dimmedButton}
-								size="large"
 								disableElevation
-								startIcon={<ListIcon />}
+								startIcon={<ListIcon style={{ width: 30, height: 30 }} />}
 								onClick={() => _onChangeView('list')}
 							>
 								Liste
@@ -306,9 +305,8 @@ const Header = (props) => {
 								variant="contained"
 								color="default"
 								className={activeView === 'thumbs' ? classes.button : classes.dimmedButton}
-								size="large"
 								disableElevation
-								startIcon={<ViewComfyIcon />}
+								startIcon={<ViewComfyIcon style={{ width: 30, height: 30 }} />}
 								onClick={() => _onChangeView('thumbs')}
 							>
 								Miniaturer

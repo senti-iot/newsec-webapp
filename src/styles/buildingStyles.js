@@ -59,7 +59,7 @@ const buildingStyles = makeStyles(theme => ({
 	},
 	graphIconButton: {
 		textTransform: 'none',
-		width: 120,
+		width: 140,
 	},
 	graphIconButtonLabel: {
 		flexDirection: 'column'
@@ -70,7 +70,7 @@ const buildingStyles = makeStyles(theme => ({
 	},
 	graphIconButtonLabelText: {
 		color: '#000',
-		fontSize: 13,
+		fontSize: '1rem',
 	},
 	forecastgraphwrapper: {
 		width: '50%',
@@ -84,6 +84,7 @@ const buildingStyles = makeStyles(theme => ({
 		width: '50%',
 		height: '50px',
 		margin: '0 auto',
+		marginTop: 20,
 		[theme.breakpoints.down('lg')]: {
 			width: '90%',
 		}

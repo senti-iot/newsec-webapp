@@ -26,7 +26,7 @@ const BuildingEnergyGraph = props => {
 	}
 
 	const renderGraph = () => {
-		const margin = { top: 20, right: 30, bottom: 30, left: 40 },
+		const margin = { top: 20, right: 30, bottom: 40, left: 40 },
 			width = barChartContainer.current.clientWidth - margin.left - margin.right,
 			height = barChartContainer.current.clientHeight - margin.top - margin.bottom;
 
@@ -47,9 +47,9 @@ const BuildingEnergyGraph = props => {
 		let years = [2018, 2019, 2020];
 
 		const layers = d3.stack().keys(keys)(building.energyData);
-		const max = d3.max(layers[layers.length - 1], function (d) { return d[1]; });
+		const max = d3.max(layers[layers.length - 1], function (d) { return d[1]; }) + 9;
 
-		y.domain([0, max + 10]);
+		y.domain([0, max]);
 		x.domain(years);
 
 		const svg = d3.select("#barchart")
@@ -99,7 +99,7 @@ const BuildingEnergyGraph = props => {
 		const line = d3.line()
 			.x(function (d) { return x(d.data.year) + x.bandwidth() / 2; })
 			.y(function (d) { return y(d.data.sum); });
-		console.log(layers);
+
 		svg.append("path")
 			.data(layers)
 			.attr("class", graphClasses.line)

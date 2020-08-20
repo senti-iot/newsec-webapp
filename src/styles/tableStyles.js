@@ -25,7 +25,7 @@ const thStyles = makeStyles(theme => ({
 			paddingRight: 4,
 			padding: 0,
 		},
-		backgroundColor: '#365979',
+		backgroundColor: '#214C6F',
 		padding: 5,
 	},
 	checkbox: {
@@ -91,7 +91,7 @@ const thStyles = makeStyles(theme => ({
 		color: '#fff'
 	},
 	tablePaginationToolbar: {
-		backgroundColor: '#365979',
+		backgroundColor: '#214C6F',
 		color: '#fff',
 	}
 }));

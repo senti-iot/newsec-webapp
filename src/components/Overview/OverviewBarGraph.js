@@ -61,7 +61,7 @@ const OverviewBarGraph = props => {
 		let x = d3.scaleBand().rangeRound([0, emissionData.length * 30]).padding(.5);
 		let y = d3.scaleLinear().range([height, 0]);
 
-		let max = d3.max(emissionData, function (d) { return parseFloat(d.value); }) + 5;
+		let max = d3.max(emissionData, function (d) { return parseFloat(d.value); }) + 9;
 
 		// let tickValues = [0];
 		// for (let i = 0; i < max; i++) {
@@ -98,6 +98,10 @@ const OverviewBarGraph = props => {
 			// .attr("dy", ".71em")
 			// .style("text-anchor", "end")
 			// .text("Value ($)");
+			.append('text')
+			.attr('transform', `translate(0, ${margin.top - 25})`)
+			.attr('class', graphClasses.axisText)
+			.html('Tons');
 
 		svgg.append("g")
 			.attr("class", graphClasses.gridline)

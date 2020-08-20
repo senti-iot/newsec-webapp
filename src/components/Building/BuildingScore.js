@@ -30,11 +30,14 @@ const BuildingScore = props => {
 									minValue={0}
 									maxValue={100}
 									segments={13}
-									valueTextFontSize="24"
+									valueTextFontSize="1.8rem"
+									paddingVertical={30}
+									labelFontSize="1.1rem"
+									textColor="#000"
 									fluidWidth={true}
 									needleColor="#33434b"
 									needleHeightRatio={0.7}
-									segmentColors={['#617850', 'transparent', '#779A60', 'transparent', '#BBD9A7', 'transparent', '#FED460', 'transparent', '#EF9663', 'transparent', '#CF7B4C', 'transparent', '#BF373D']}
+									segmentColors={['#4A5131', 'transparent', '#6B840A', 'transparent', '#B3DC10', 'transparent', '#FFD600', 'transparent', '#F97F0A', 'transparent', '#C60018', 'transparent', '#9B0011']}
 									maxSegmentLabels={3}
 									customSegmentStops={[
 										0,
@@ -123,7 +126,7 @@ const BuildingScore = props => {
 								/>
 							</div>
 
-							<Typography style={{ marginTop: 80 }} variant="body2">Ejendommen ligger under middel i CO2 belastning</Typography>
+							<Typography style={{ marginTop: 100 }} variant="body2">Ejendommen ligger under middel i CO2 belastning</Typography>
 						</CardContent>
 					</Card>
 				</>

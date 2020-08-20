@@ -127,7 +127,7 @@ const BuildingForecast = props => {
 							</Grid>
 						</div>
 
-						<Typography variant="h5">Målsætning</Typography>
+						<Typography variant="h4">Målsætning</Typography>
 						<Typography variant="body2">***Der er i forhold til forrige periode udledt mindre CO2 end målsætningen</Typography>
 					</CardContent>
 				</Card>

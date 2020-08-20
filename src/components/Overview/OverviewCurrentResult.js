@@ -1,6 +1,5 @@
 import React from 'react';
-import { Card, CardHeader, CardContent, IconButton, Typography } from '@material-ui/core';
-import MoreVertIcon from '@material-ui/icons/MoreVert';
+import { Card, CardContent, Typography } from '@material-ui/core';
 
 import mainStyles from 'styles/mainStyles';
 import buildingStyles from 'styles/buildingStyles';
@@ -12,16 +11,8 @@ const OverviewCurrentResult = () => {
 
 	return (
 		<Card className={classes.card}>
-			<CardHeader
-				action={
-					<IconButton>
-						<MoreVertIcon />
-					</IconButton>
-				}
-				title="Aktuelt resultat"
-				titleTypographyProps={{ variant: 'h4' }}
-			/>
-			<CardContent>
+			<CardContent style={{ paddingTop: '0px !important' }}>
+				<Typography variant="h3">Aktuelt resultat</Typography>
 				<div className={mainClasses.currentResultWrapper}>
 					<div>
 						<Typography variant="h2" style={{ color: '#377EB8' }}>14.5%</Typography>
@@ -30,7 +21,7 @@ const OverviewCurrentResult = () => {
 						<img src={`${ArrowDownIcon}`} alt="" className={mainClasses.currentResultArrow} />
 					</div>
 				</div>
-				<Typography variant="h4">FALD I <span style={{ color: '#377EB8', fontWeight: 'bold' }}>CO2 FORBRUG</span> SIDEN 2018</Typography>
+				<Typography variant="h3">FALD I <span style={{ color: '#377EB8', fontWeight: 'bold' }}>CO2 FORBRUG</span> SIDEN 2018</Typography>
 			</CardContent>
 		</Card>
 	)

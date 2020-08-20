@@ -9,7 +9,7 @@ const mainStyles = makeStyles(theme => ({
 		marginLeft: 40,
 		marginRight: 40,
 		marginBottom: 40,
-		// minHeight: 1100,
+		minHeight: 'calc(100vh - 75px - 60px - 90px - 60px)',
 		// overflowX: 'hidden',
 	},
 	appBarWrapper: {
@@ -18,11 +18,13 @@ const mainStyles = makeStyles(theme => ({
 	appBarPrimary: {
 		backgroundColor: '#D1D7DA !important',
 		zIndex: theme.zIndex.drawer + 1,
+		height: 75,
+		paddingTop: 5,
 	},
 	appBarSecondary: {
-		backgroundColor: '#365979 !important',
+		backgroundColor: '#214C6F !important',
 		width: '100%',
-		height: 50,
+		height: 60,
 	},
 	menuButton: {
 		marginRight: theme.spacing(2),
@@ -39,7 +41,7 @@ const mainStyles = makeStyles(theme => ({
 		fontFamily: 'interstateBold !important',
 		fontSize: '20px !important',
 		flexGrow: 1,
-		color: '#365979',
+		color: '#214C6F',
 		fontWeight: '400 !important',
 		paddingLeft: 100,
 	},
@@ -81,21 +83,22 @@ const mainStyles = makeStyles(theme => ({
 		color: '#fff !important',
 	},
 	notificationsIcon: {
-		color: '#365979 !important',
+		color: '#214C6F !important',
 	},
 	username: {
+		fontFamily: 'Roboto, sans-serif',
 		float: 'left',
-		color: '#365979',
+		color: '#214C6F',
 		fontSize: 16,
-		marginTop: 25,
+		marginTop: 18,
 		marginLeft: 20,
 		userSelect: 'none'
 	},
 	userimage: {
 		float: 'left',
 		borderRadius: '50%',
-		height: 55,
-		width: 55,
+		height: 45,
+		width: 45,
 	},
 	usermenuIcon: {
 		marginRight: 10,
@@ -109,7 +112,7 @@ const mainStyles = makeStyles(theme => ({
 	footer: {
 		width: '100%',
 		height: 90,
-		backgroundColor: '#525B60',
+		backgroundColor: '#5D6A70',
 		paddingLeft: 60,
 		paddingTop: 25,
 	},
@@ -121,7 +124,7 @@ const mainStyles = makeStyles(theme => ({
 		color: '#fff !important',
 		backgroundColor: "#525B60 !important",
 		width: 250,
-		top: '67px !important',
+		top: '75px !important',
 	},
 	drawerContainer: {
 		overflow: 'auto',

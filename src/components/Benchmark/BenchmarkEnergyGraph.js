@@ -55,7 +55,7 @@ const BenchmarkEnergyGraph = props => {
 	}
 
 	const renderGraph = () => {
-		const margin = { top: 20, right: 30, bottom: 30, left: 40 },
+		const margin = { top: 20, right: 30, bottom: 40, left: 40 },
 			width = barChartContainer.current.clientWidth - margin.left - margin.right,
 			height = barChartContainer.current.clientHeight - margin.top - margin.bottom;
 
@@ -148,7 +148,7 @@ const BenchmarkEnergyGraph = props => {
 			/>
 			<CardContent>
 				<div style={{ width: '100%', height: '100%' }}>
-					<svg id="barchart" ref={barChartContainer} style={{ width: '100%', height: '330px' }}></svg>
+					<svg id="barchart" ref={barChartContainer} style={{ width: '100%', height: '325px' }}></svg>
 				</div>
 
 				<Box display="flex" justifyContent="center" alignItems="center" style={{ marginTop: 30, marginBottom: 30 }}>

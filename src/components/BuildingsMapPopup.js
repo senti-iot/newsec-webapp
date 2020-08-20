@@ -15,7 +15,7 @@ const BuildingsMapPopup = props => {
 			<Typography variant="h4">{building.name}</Typography>
 			<Typography variant="h5" style={{ color: '#979797' }}>{building.no}</Typography>
 
-			<Button onClick={handleClick} style={{ width: '100%', marginTop: 30, color: '#fff', backgroundColor: '#365979' }}>Se detaljer</Button>
+			<Button onClick={handleClick} style={{ width: '100%', marginTop: 30, color: '#fff', backgroundColor: '#214C6F' }}>Se detaljer</Button>
 		</>
 	)
 }

@@ -14,11 +14,12 @@ const theme = createMuiTheme({
 			fontWeight: 'bold',
 		},
 		h3: {
-			fontSize: '1.6rem',
+			fontFamily: 'interstateBold !important',
+			fontSize: '1.8rem',
 		},
 		h4: {
 			fontFamily: 'interstateBold !important',
-			fontSize: '1.4rem',
+			fontSize: '1.6rem',
 		},
 		h5: {
 			fontFamily: 'interstateLight !important',
@@ -30,7 +31,7 @@ const theme = createMuiTheme({
 		body2: {
 			color: '#000',
 			fontFamily: 'interstateLight !important',
-			fontSize: '1rem',
+			fontSize: '1.1rem',
 		},
 	},
 });
