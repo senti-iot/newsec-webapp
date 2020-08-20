@@ -5,6 +5,7 @@ import * as d3 from 'd3';
 import { useHistory } from 'react-router';
 import moment from 'moment';
 
+import YearPicker from 'components/ui/YearPicker';
 import barGraphStyles from '../../styles/barGraphStyles';
 import buildingStyles from '../../styles/buildingStyles';
 import { changeBenchmarkDate } from 'redux/dateTime';
@@ -24,6 +25,8 @@ const OverviewBarGraph = props => {
 	const dispatch = useDispatch();
 	const buildings = props.buildings;
 	const [didRenderGraph, setDidRenderGraph] = useState(false);
+	const [selectedDate, setSelectedDate] = useState(moment());
+	const [datePickerOpen, setDatepickerOpen] = useState(false);
 
 	const emissionData = useSelector(s => s.buildingsReducer.emissionData);
 	const benchkmarkPeriod = useSelector(s => s.dateTime.benchmarkPeriod);
@@ -37,13 +40,8 @@ const OverviewBarGraph = props => {
 
 	useEffect(() => {
 		dispatch(getBuildingsEmission(benchkmarkPeriod));
+		setSelectedDate(moment(benchkmarkPeriod.to));
 	}, [dispatch, benchkmarkPeriod]);
-
-	const handleSetDate = (to, from) => dispatch(changeBenchmarkDate(to, from));
-
-	const make_y_gridlines = (y) => {
-		return d3.axisLeft(y).ticks(5);
-	}
 
 	const renderGraph = () => {
 		let margin = { top: 20, right: 20, bottom: 70, left: 40 };
@@ -130,6 +128,10 @@ const OverviewBarGraph = props => {
 		setDidRenderGraph(true);
 	}
 
+	const make_y_gridlines = (y) => {
+		return d3.axisLeft(y).ticks(5);
+	}
+
 	const generatePeriodDesc = () => {
 		return (
 			<>
@@ -138,11 +140,17 @@ const OverviewBarGraph = props => {
 		)
 	}
 
+	const handleSetDate = (to, from) => {
+		setSelectedDate(to);
+		dispatch(changeBenchmarkDate(to, from));
+	}
+
 	const handlePrevPeriod = () => {
 		let from, to;
 		from = moment(benchkmarkPeriod.from).subtract(1, 'year').startOf('year');
 		to = moment(from).endOf('year');
 
+		setSelectedDate(to);
 		handleSetDate(to, from);
 	}
 
@@ -151,6 +159,7 @@ const OverviewBarGraph = props => {
 		from = moment(benchkmarkPeriod.from).add(1, 'year').startOf('year');
 		to = moment(from).endOf('year');
 
+		setSelectedDate(to);
 		handleSetDate(to, from);
 	}
 
@@ -162,35 +171,56 @@ const OverviewBarGraph = props => {
 		return moment(date).year() === 2018 ? true : false;
 	}
 
-	return (
-		<Card className={classes.card}>
-			<CardHeader
-				action={
-					<IconButton>
-						<MoreVertIcon />
-					</IconButton>
-				}
-				title="Benchmark"
-				titleTypographyProps={{ variant: 'h4' }}
-			/>
-			<CardContent>
-				<Box display="flex" justifyContent="center" alignItems="center" className={classes.graphDatePickers}>
-					<IconButton onClick={handlePrevPeriod} disabled={futureTesterPrev(benchkmarkPeriod.to)}>
-						{futureTesterPrev(benchkmarkPeriod.to) ? <ArrowPrevDisabled /> : <ArrowPrev />}
-					</IconButton> 
-					<Typography variant="body2">{generatePeriodDesc()}</Typography>
-					<IconButton disabled={futureTesterNext(benchkmarkPeriod.to)} onClick={handleNextPeriod}>
-						{futureTesterNext(benchkmarkPeriod.to) ? <ArrowNextDisabled /> : <ArrowNext />}
-					</IconButton>
-					<IconButton><CalendarIcon /></IconButton>
-				</Box>
+	const handleDateChange = (date) => {
+		let to = moment(date).endOf('year').endOf('day');
+		let from = moment(date).startOf('year').startOf('day');
 
-				<div style={{ width: '100%', height: '100%' }}>
-					<svg id="overviewGraph" ref={barChartContainer} style={{ width: '100%', height: '350px' }}></svg>
-				</div>
-				<Typography variant="body2">Vælg en ejendom for at se detajler.</Typography>
-			</CardContent>
-		</Card>
+		handleSetDate(to, from);
+
+		setDatepickerOpen(false);
+	}
+
+	const handleOpenDatepicker = () => {
+		setDatepickerOpen(true);
+	}
+
+	const handleDatepickerClose = () => {
+		setDatepickerOpen(false);
+	}
+
+	return (
+		<>
+			<Card className={classes.card}>
+				<CardHeader
+					action={
+						<IconButton>
+							<MoreVertIcon />
+						</IconButton>
+					}
+					title="Benchmark"
+					titleTypographyProps={{ variant: 'h4' }}
+				/>
+				<CardContent>
+					<Box display="flex" justifyContent="center" alignItems="center" className={classes.graphDatePickers}>
+						<IconButton onClick={handlePrevPeriod} disabled={futureTesterPrev(benchkmarkPeriod.to)}>
+							{futureTesterPrev(benchkmarkPeriod.to) ? <ArrowPrevDisabled /> : <ArrowPrev />}
+						</IconButton> 
+						<Typography variant="body2">{generatePeriodDesc()}</Typography>
+						<IconButton disabled={futureTesterNext(benchkmarkPeriod.to)} onClick={handleNextPeriod}>
+							{futureTesterNext(benchkmarkPeriod.to) ? <ArrowNextDisabled /> : <ArrowNext />}
+						</IconButton>
+						<IconButton onClick={handleOpenDatepicker}><CalendarIcon /></IconButton>
+					</Box>
+
+					<div style={{ width: '100%', height: '100%' }}>
+						<svg id="overviewGraph" ref={barChartContainer} style={{ width: '100%', height: '350px' }}></svg>
+					</div>
+					<Typography variant="body2">Vælg en ejendom for at se detajler.</Typography>
+				</CardContent>
+			</Card>
+
+			<YearPicker datePickerOpen={datePickerOpen} selectedDate={selectedDate} handleDateChange={handleDateChange} handleDatepickerClose={handleDatepickerClose} />
+		</>
 	)
 }
 
