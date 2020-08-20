@@ -21,38 +21,49 @@ const BuildingEnergyGraph = props => {
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [barChartContainer, building]);
 
+	const make_y_gridlines = (y) => {
+		return d3.axisLeft(y).ticks(5);
+	}
+
 	const renderGraph = () => {
-		var margin = { top: 20, right: 30, bottom: 30, left: 40 },
+		const margin = { top: 20, right: 30, bottom: 30, left: 40 },
 			width = barChartContainer.current.clientWidth - margin.left - margin.right,
 			height = barChartContainer.current.clientHeight - margin.top - margin.bottom;
 
-		var y = d3.scaleLinear()
+		const y = d3.scaleLinear()
 			.rangeRound([height, 0])
 			.nice()
 
-		var x = d3.scaleBand()
+		const x = d3.scaleBand()
 			.rangeRound([0, width])
 			.padding(0.5)
 			.align(0.1)
 
 		let keys = ['Fjernvarme', 'Vand', 'Elektricitet'];
 
-		var color = d3.scaleOrdinal().domain(keys).range(['#214C6F', '#B3CDE3', '#497EB3']);
+		const color = d3.scaleOrdinal().domain(keys).range(['#214C6F', '#B3CDE3', '#497EB3']);
 
 		//TODO: get from data
 		let years = [2018, 2019, 2020];
 
-		var layers = d3.stack().keys(keys)(building.energyData);
-		var max = d3.max(layers[layers.length - 1], function (d) { return d[1]; });
+		const layers = d3.stack().keys(keys)(building.energyData);
+		const max = d3.max(layers[layers.length - 1], function (d) { return d[1]; });
 
 		y.domain([0, max + 10]);
 		x.domain(years);
 
-		var svg = d3.select("#barchart")
+		const svg = d3.select("#barchart")
 			.attr("width", width + margin.left + margin.right)
 			.attr("height", height + margin.top + margin.bottom)
 			.append("g")
 			.attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+		svg.append("g")
+			.attr("class", graphClasses.gridline)
+			.call(make_y_gridlines(y)
+				.tickSize(-width)
+				.tickFormat("")
+			);
 
 		svg.append("g").selectAll("g")
 			.data(layers)
@@ -66,8 +77,8 @@ const BuildingEnergyGraph = props => {
 			.attr("height", function (d) { return y(d[0]) - y(d[1]); })
 			.attr("width", x.bandwidth());
 
-		let xAxis = d3.axisBottom(x).tickSize(0).tickPadding(20);
-		let yAxis = d3.axisLeft().scale(y).tickSize(0);
+		const xAxis = d3.axisBottom(x).tickSize(0).tickPadding(20);
+		const yAxis = d3.axisLeft().scale(y).ticks(5).tickSize(0);
 
 		svg.append("g")
 			.attr("class", graphClasses.axisTick)
@@ -85,11 +96,10 @@ const BuildingEnergyGraph = props => {
 			.attr('class', graphClasses.axisText)
 			.html('Tons');
 
-
-		var line = d3.line()
+		const line = d3.line()
 			.x(function (d) { return x(d.data.year) + x.bandwidth() / 2; })
 			.y(function (d) { return y(d.data.sum); });
-
+		console.log(layers);
 		svg.append("path")
 			.data(layers)
 			.attr("class", graphClasses.line)

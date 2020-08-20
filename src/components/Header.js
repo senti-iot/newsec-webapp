@@ -204,13 +204,13 @@ const Header = (props) => {
 								onClose={handleProfileClose}
 								disableAutoFocusItem
 							>
-								<MenuItem>
+								<MenuItem style={{ fontFamily: 'interstateLight' }}>
 									<AccountBoxIcon className={classes.usermenuIcon} />Min profil
 								</MenuItem>
-								<MenuItem>
+								<MenuItem style={{ fontFamily: 'interstateLight' }}>
 									<BusinessIcon className={classes.usermenuIcon} />Kontodetaljer
 								</MenuItem>
-								<MenuItem onClick={() => { handleLogOut() }}>
+								<MenuItem onClick={() => { handleLogOut() }} style={{ fontFamily: 'interstateLight' }}>
 									<PowerSettingsNew className={classes.usermenuIcon} />Log ud
 								</MenuItem>
 							</Menu>
@@ -231,35 +231,35 @@ const Header = (props) => {
 						<List>
 							<ListItem button className={classes.drawerListItem} onClick={() => goToPage('benchmark')}>
 								<ListItemIcon className={classes.drawerListIcon}><PollOutlinedIcon className={classes.drawerIcon} /></ListItemIcon>
-								<ListItemText primary="Benchmark" />
+								<ListItemText primary="Benchmark" style={{ fontFamily: 'interstateLight' }} />
 							</ListItem>
 							<ListItem button className={classes.drawerListItem} onClick={() => goToPage('favorites')}>
 								<ListItemIcon className={classes.drawerListIcon}><StarOutlinedIcon className={classes.drawerIcon} /></ListItemIcon>
-								<ListItemText primary="Favoritter" />
+								<ListItemText primary="Favoritter" style={{ fontFamily: 'interstateLight' }} />
 							</ListItem>
 							<ListItem button className={classes.drawerListItem} onClick={() => goToPage('users')}>
 								<ListItemIcon className={classes.drawerListIcon}><PeopleIcon className={classes.drawerIcon} /></ListItemIcon>
-								<ListItemText primary="Brugere" />
+								<ListItemText primary="Brugere" style={{ fontFamily: 'interstateLight' }} />
 							</ListItem>
 							<ListItem button className={classes.drawerListItem} onClick={() => goToPage('customers')}>
 								<ListItemIcon className={classes.drawerListIcon}><BusinessIcon className={classes.drawerIcon} /></ListItemIcon>
-								<ListItemText primary="Kunder" />
+								<ListItemText primary="Kunder" style={{ fontFamily: 'interstateLight' }} />
 							</ListItem>
 							<ListItem button className={classes.drawerListItem} onClick={() => goToPage('contact')}>
 								<ListItemIcon className={classes.drawerListIcon}><EmailIcon className={classes.drawerIcon} /></ListItemIcon>
-								<ListItemText primary="Kontakt" />
+								<ListItemText primary="Kontakt" style={{ fontFamily: 'interstateLight' }} />
 							</ListItem>
 							<ListItem button className={classes.drawerListItem} onClick={() => goToPage('support')}>
 								<ListItemIcon className={classes.drawerListIcon}><ContactSupportIcon className={classes.drawerIcon} /></ListItemIcon>
-								<ListItemText primary="Support" />
+								<ListItemText primary="Support" style={{ fontFamily: 'interstateLight' }} />
 							</ListItem>
 							<ListItem button className={classes.drawerListItem} onClick={() => goToPage('policy')}>
 								<ListItemIcon className={classes.drawerListIcon}><VerifiedUserIcon className={classes.drawerIcon} /></ListItemIcon>
-								<ListItemText primary="Datapolitik" />
+								<ListItemText primary="Datapolitik" style={{ fontFamily: 'interstateLight' }} />
 							</ListItem>
 							<ListItem button className={classes.drawerListItem} onClick={() => goToPage('about')}>
 								<ListItemIcon className={classes.drawerListIcon}><CopyrightIcon className={classes.drawerIcon} /></ListItemIcon>
-								<ListItemText primary="Om Newsec" />
+								<ListItemText primary="Om Newsec" style={{ fontFamily: 'interstateLight' }} />
 							</ListItem>
 						</List>
 					</div>

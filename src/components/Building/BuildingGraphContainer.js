@@ -1,9 +1,6 @@
 import React, { useEffect } from 'react';
 import { Card, CardHeader, IconButton, Box, Typography, Button } from '@material-ui/core';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
-import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
-import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos';
-// import CalendarTodayIcon from '@material-ui/icons/CalendarToday';
 import moment from 'moment';
 
 import buildingStyles from '../../styles/buildingStyles';
@@ -16,6 +13,10 @@ import { ReactComponent as GraphCurrentIcon } from "assets/graph/current.svg";
 import { ReactComponent as GraphGoalIcon } from "assets/graph/goal.svg";
 import { ReactComponent as GraphLastIcon } from "assets/graph/last.svg";
 import { ReactComponent as GraphBenchmarkIcon } from "assets/graph/benchmark.svg";
+import { ReactComponent as ArrowPrev } from "assets/icons/arrow_prev_blue.svg";
+import { ReactComponent as ArrowPrevDisabled } from "assets/icons/arrow_prev_grey.svg";
+import { ReactComponent as ArrowNext } from "assets/icons/arrow_next_blue.svg";
+import { ReactComponent as ArrowNextDisabled } from "assets/icons/arrow_next_grey.svg";
 
 const BuildingGraphContainer = props => {
 	//Hooks
@@ -84,17 +85,21 @@ const BuildingGraphContainer = props => {
 		return moment().subtract(1, 'day').diff(date, unit) <= 0;
 	}
 
+	const futureTesterPrev = (date) => {
+		return moment(date).year() <= 2018 ? true : false;
+	}
+
 	const handlePrevPeriod = () => {
 		let from, to;
-		if (period.menuId === 2) {
+		if (period.menuId === 2) { // day
 			from = moment(period.from).subtract(6, 'day').startOf('day');
-			to = moment(period.from);
-		} else if (period.menuId === 4) {
-			from = moment(period.from).subtract(365, 'day').startOf('day');
-			to = moment(period.from);
-		} else if (period.menuId === 7) {
-			from = moment(period.from).subtract(30, 'day').startOf('day');
-			to = moment(period.from);
+			to = moment(period.from).endOf('day');
+		} else if (period.menuId === 4) { //year
+			from = moment(period.from).subtract(1, 'year').startOf('day');
+			to = moment(period.from).endOf('day');
+		} else if (period.menuId === 7) { //month
+			from = moment(period.from).subtract(1, 'month').startOf('day');
+			to = moment(period.from).endOf('day');
 		}
 
 		handleSetDate(period.timeType, to, from, period.timeType);
@@ -102,15 +107,21 @@ const BuildingGraphContainer = props => {
 
 	const handleNextPeriod = () => {
 		let from, to;
-		if (period.menuId === 2) {
+		if (period.menuId === 2) { //day
 			from = moment(period.to);
 			to = futureTester(to, 'day') ? moment(period.to).add(6, 'day') : moment().subtract(1, 'day');
-		} else if (period.menuId === 4) {
-			from = moment(period.from).add(365, 'month').startOf('month');
-			to = !futureTester(to, 'day') ? moment(from).endOf('month') : moment().subtract(365, 'day');
-		} else if (period.menuId === 7) {
-			from = moment(period.from).add(30, 'month').startOf('month');
-			to = !futureTester(to, 'day') ? moment(from).endOf('month') : moment().subtract(30, 'day');
+		} else if (period.menuId === 4) { //year
+			from = moment(period.to).startOf('day');
+			to = moment(from).add(1, 'year').endOf('day');
+			if (moment(to).isAfter(moment())) {
+				to = moment().subtract(1, 'day').endOf('day');
+			}
+		} else if (period.menuId === 7) { //month
+			from = moment(period.to).startOf('day');
+			to = moment(from).add(1, 'month').endOf('day');
+			if (moment(to).isAfter(moment())) {
+				to = moment().subtract(1, 'day').endOf('day');
+			}
 		}
 
 		handleSetDate(period.timeType, to, from, period.timeType);
@@ -141,21 +152,25 @@ const BuildingGraphContainer = props => {
 			/>
 
 			<Box display="flex" justifyContent="center" alignItems="center" className={classes.graphDatePickers}>
-				<IconButton onClick={handlePrevPeriod}>
-					<ArrowBackIosIcon style={{ color: '#377EB8' }} />
-				</IconButton> 
-				<Typography variant="body2">{generatePeriodDesc()}</Typography>
-				<IconButton disabled={futureTester(period.to, 'day')} onClick={handleNextPeriod}>
-					<ArrowForwardIosIcon style={{ color: '#377EB8' }} />
-				</IconButton>
-				<Button className={(period.timeType === 2 ? classes.periodButtonActive : classes.periodButton)} onClick={() => handlePeriodTypeChange(2)}>7 dage</Button>
-				<Button className={(period.timeType === 7 ? classes.periodButtonActive : classes.periodButton)} onClick={() => handlePeriodTypeChange(7)}>30 dage</Button>
-				<Button className={(period.timeType === 4 ? classes.periodButtonActive : classes.periodButton)} onClick={() => handlePeriodTypeChange(4)}>År</Button>
-				{/* <Button className={(period.timeType === 6 ? classes.periodButtonActive : classes.periodButton)}><CalendarTodayIcon /></Button> */}
+				<Box display="flex" justifyContent="center" alignItems="center" style={{ marginRight: 80 }}>
+					<IconButton onClick={handlePrevPeriod}>
+						{futureTesterPrev(period.to) ? <ArrowPrevDisabled /> : <ArrowPrev />}
+					</IconButton> 
+					<Typography variant="body2">{generatePeriodDesc()}</Typography>
+					<IconButton disabled={futureTester(period.to, 'day')} onClick={handleNextPeriod}>
+						{futureTester(period.to, 'day') ? <ArrowNextDisabled /> : <ArrowNext />}
+					</IconButton>
+				</Box>
+				<Box display="flex" justifyContent="center" alignItems="center">
+					<Button className={(period.timeType === 2 ? classes.periodButtonActive : classes.periodButton)} onClick={() => handlePeriodTypeChange(2)}>7 dage</Button>
+					<Button className={(period.timeType === 7 ? classes.periodButtonActive : classes.periodButton)} onClick={() => handlePeriodTypeChange(7)}>30 dage</Button>
+					<Button className={(period.timeType === 4 ? classes.periodButtonActive : classes.periodButton)} onClick={() => handlePeriodTypeChange(4)}>År</Button>
+					{/* <Button className={(period.timeType === 6 ? classes.periodButtonActive : classes.periodButton)}><CalendarTodayIcon /></Button> */}
+				</Box>
 			</Box>
 			<Box display="flex" justifyContent="center" alignItems="center" className={classes.graphRibbon}>
 				<Box>
-					<Typography variant="body2" style={{ color: '#fff' }}>Daglig udledning: X tons</Typography>
+					{/* <Typography variant="body2" style={{ color: '#fff' }}>Daglig udledning: X tons</Typography> */}
 				</Box>
 			</Box>
 
