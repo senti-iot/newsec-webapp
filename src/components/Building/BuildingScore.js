@@ -13,7 +13,7 @@ const BuildingScore = props => {
 		<>
 			{building ?
 				<>
-					<Card className={classes.card} style={{ minHeight: 470 }}>
+					<Card className={classes.card} style={{ minHeight: 500 }}>
 						<CardHeader
 							action={
 								<IconButton aria-label="settings">

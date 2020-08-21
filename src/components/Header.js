@@ -91,6 +91,16 @@ const Header = (props) => {
 		} else {
 			dispatch(toogleFilterIcon(true));
 		}
+
+		if (viewType === 'overview') {
+			dispatch(changeHeaderTitle('Benchmark'));
+		} else if (viewType === 'map') {
+			dispatch(changeHeaderTitle('Kort'));
+		} else if (viewType === 'list') {
+			dispatch(changeHeaderTitle('Liste'));
+		} else if (viewType === 'thumbs') {
+			dispatch(changeHeaderTitle('Miniaturer'));
+		}
 	}
 
 	const toggleDrawer = () => {
@@ -101,6 +111,7 @@ const Header = (props) => {
 		switch (page) {
 			default:
 			case 'benchmark':
+				dispatch(changeMainView('overview'));
 				dispatch(changeSecondaryBarShown(true));
 				dispatch(changeHeaderTitle('Benchmark'));
 				history.push('/');
