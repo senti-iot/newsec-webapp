@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { AppBar, Toolbar, IconButton, ButtonBase, Typography, Badge, Button, Menu, MenuItem, Grid, SwipeableDrawer, List, ListItem, ListItemIcon, ListItemText, Fade } from '@material-ui/core';
 import MenuIcon from '@material-ui/icons/Menu';
 // import SearchIcon from '@material-ui/icons/Search';
@@ -24,7 +24,7 @@ import mainStyles from '../styles/mainStyles';
 import BarButton from './ui/BarButton';
 import logo from '../assets/logo.png';
 import { logoutUser } from '../data/coreApi';
-import { changeMainView, changeHeaderTitle, changeSecondaryBarShown, toogleFilterBar, toogleFilterIcon } from 'redux/appState';
+import { changeMainView, changeHeaderTitle, toogleFilterBar, toogleFilterIcon } from 'redux/appState';
 import FilterToolbar from 'components/filterToolbar/FilterToolbar'
 import { ReactComponent as BenchmarkIcon } from "assets/icons/benchmark.svg";
 import { ReactComponent as BenchmarkDimmedIcon } from "assets/icons/benchmark_dimmed.svg";
@@ -37,12 +37,18 @@ const Header = (props) => {
 	const [anchorProfile, setAnchorProfile] = useState(null);
 	const [drawerOpen, setDrawerOpen] = useState(false);
 	const openProfile = Boolean(anchorProfile);
+	const [hasFilters, setHasFilters] = useState(0);
 
 	const user = useSelector(s => s.user.user);
 	const activeView = useSelector(s => s.appState.mainView);
 	const headerTitle = useSelector(s => s.appState.headerTitle);
 	const filterBarShown = useSelector(s => s.appState.filterBarShown);
 	const filterIconShown = useSelector(s => s.appState.filterIconShown);
+	const filters = useSelector(s => s.appState.filters);
+
+	useEffect(() => {
+		setHasFilters(filters.buildings.length ? true : false);
+	}, [filters]);
 
 	// const dropDownExample = [
 	// 	{ value: 0, label: "No", icon: <MapIcon /> },
@@ -101,6 +107,8 @@ const Header = (props) => {
 		} else if (viewType === 'thumbs') {
 			dispatch(changeHeaderTitle('Miniaturer'));
 		}
+
+		history.push('/');
 	}
 
 	const toggleDrawer = () => {
@@ -112,7 +120,6 @@ const Header = (props) => {
 			default:
 			case 'benchmark':
 				dispatch(changeMainView('overview'));
-				dispatch(changeSecondaryBarShown(true));
 				dispatch(changeHeaderTitle('Benchmark'));
 				history.push('/');
 				break;
@@ -142,7 +149,7 @@ const Header = (props) => {
 	}
 
 	const handleLogoClick = () => {
-		dispatch(changeSecondaryBarShown(true));
+		dispatch(changeMainView('overview'));
 		dispatch(changeHeaderTitle('Benchmark'));
 
 		history.push('/');
@@ -277,66 +284,65 @@ const Header = (props) => {
 					</div>
 				</SwipeableDrawer>
 			</div>
-			{props.enableSecondary ?
-				<div className={classes.appBarSecondary}>
-					<Grid container>
-						<Grid container item xs={6}>
-							<BarButton
-								variant="contained"
-								color="default"
-								className={activeView === 'overview' ? classes.button : classes.dimmedButton}
-								size="large"
-								disableElevation
-								startIcon={activeView === 'overview' ? <BenchmarkIcon style={{ width: 23, height: 23 }} /> : <BenchmarkDimmedIcon style={{ width: 23, height: 23 }} />}
-								onClick={() => _onChangeView('overview')}
-							>
-								Benchmark
-							</BarButton>
-							<BarButton
-								variant="contained"
-								color="default"
-								className={activeView === 'map' ? classes.button : classes.dimmedButton}
-								disableElevation
-								startIcon={<MapIcon style={{ width: 30, height: 30 }} />}
-								onClick={() => _onChangeView('map')}
-							>
-								Kort
-							</BarButton>
-							<BarButton
-								variant="contained"
-								color="default"
-								className={activeView === 'list' ? classes.button : classes.dimmedButton}
-								disableElevation
-								startIcon={<ListIcon style={{ width: 30, height: 30 }} />}
-								onClick={() => _onChangeView('list')}
-							>
-								Liste
-							</BarButton>
-							<BarButton
-								variant="contained"
-								color="default"
-								className={activeView === 'thumbs' ? classes.button : classes.dimmedButton}
-								disableElevation
-								startIcon={<ViewComfyIcon style={{ width: 30, height: 30 }} />}
-								onClick={() => _onChangeView('thumbs')}
-							>
-								Miniaturer
-							</BarButton>
-						</Grid>
-						<Grid container item xs={6} justify="flex-end">
-							{filterIconShown ?
-								<IconButton
-									edge="start"
-									className={classes.filterButton}
-									onClick={toggleFilter}
-								>
-									<TuneIcon />
-								</IconButton>
-								: ""}
-						</Grid>
+
+			<div className={classes.appBarSecondary}>
+				<Grid container>
+					<Grid container item xs={6}>
+						<BarButton
+							variant="contained"
+							color="default"
+							className={activeView === 'overview' ? classes.button : classes.dimmedButton}
+							size="large"
+							disableElevation
+							startIcon={activeView === 'overview' ? <BenchmarkIcon style={{ width: 23, height: 23 }} /> : <BenchmarkDimmedIcon style={{ width: 23, height: 23 }} />}
+							onClick={() => _onChangeView('overview')}
+						>
+							Benchmark
+						</BarButton>
+						<BarButton
+							variant="contained"
+							color="default"
+							className={activeView === 'map' ? classes.button : classes.dimmedButton}
+							disableElevation
+							startIcon={<MapIcon style={{ width: 30, height: 30 }} />}
+							onClick={() => _onChangeView('map')}
+						>
+							Kort
+						</BarButton>
+						<BarButton
+							variant="contained"
+							color="default"
+							className={activeView === 'list' ? classes.button : classes.dimmedButton}
+							disableElevation
+							startIcon={<ListIcon style={{ width: 30, height: 30 }} />}
+							onClick={() => _onChangeView('list')}
+						>
+							Liste
+						</BarButton>
+						<BarButton
+							variant="contained"
+							color="default"
+							className={activeView === 'thumbs' ? classes.button : classes.dimmedButton}
+							disableElevation
+							startIcon={<ViewComfyIcon style={{ width: 30, height: 30 }} />}
+							onClick={() => _onChangeView('thumbs')}
+						>
+							Miniaturer
+						</BarButton>
 					</Grid>
-				</div>
-				: ""}
+					<Grid container item xs={6} justify="flex-end">
+						{filterIconShown ?
+							<IconButton
+								edge="start"
+								className={hasFilters ? classes.filterButtonActive : classes.filterButton}
+								onClick={toggleFilter}
+							>
+								<TuneIcon />
+							</IconButton>
+							: ""}
+					</Grid>
+				</Grid>
+			</div>
 
 			{filterBarShown ?
 				<Fade in={filterBarShown} direction={'left'}>

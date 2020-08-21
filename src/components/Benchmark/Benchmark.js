@@ -6,13 +6,12 @@ import OverviewBarGraph from 'components/Overview/OverviewBarGraph';
 import OverviewScore from 'components/Overview/OverviewScore';
 import OverviewForecast from 'components/Overview/OverviewForecast';
 import BenchmarkEnergyGraph from 'components/Benchmark/BenchmarkEnergyGraph';
-import { changeHeaderTitle, changeSecondaryBarShown } from 'redux/appState';
+import { changeHeaderTitle } from 'redux/appState';
 
 const Benchmark = props => {
 	const dispatch = useDispatch();
 
 	useEffect(() => {
-		dispatch(changeSecondaryBarShown(false));
 		dispatch(changeHeaderTitle('Benchmark'));
 	}, [dispatch]);
 

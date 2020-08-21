@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Card, CardHeader, CardContent, Avatar, IconButton, Tabs, Tab, List, ListItem, ListItemText, Divider, Typography } from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
+import NumberFormat from 'react-number-format';
 
 import buildingStyles from '../../styles/buildingStyles';
 import TabPanel from '../ui/TabPanel';
@@ -125,7 +126,7 @@ const BuildingInfo = props => {
 									<ListItemText
 										disableTypography
 										primary={<Typography style={{ fontFamily: 'interstate', fontSize: '1.1rem', color: 'rgba(0, 0, 0, 0.46)' }}>Samlet areal bygning</Typography>}
-										secondary={<Typography style={{ fontFamily: 'interstate', fontSize: '1rem', color: '#000' }}>{building.areal}</Typography>}
+										secondary={<Typography style={{ fontFamily: 'interstate', fontSize: '1rem', color: '#000' }}><NumberFormat value={building.areal} displayType={'text'} thousandSeparator={'.'} decimalSeparator={false} suffix={' m2'} /></Typography>}
 									/>
 								</ListItem>
 								<Divider />
@@ -134,7 +135,7 @@ const BuildingInfo = props => {
 									<ListItemText
 										disableTypography
 										primary={<Typography style={{ fontFamily: 'interstate', fontSize: '1.1rem', color: 'rgba(0, 0, 0, 0.46)' }}>Opvarmet bygningsareal</Typography>}
-										secondary={<Typography style={{ fontFamily: 'interstate', fontSize: '1rem', color: '#000' }}>{building.arealHeated}</Typography>}
+										secondary={<Typography style={{ fontFamily: 'interstate', fontSize: '1rem', color: '#000' }}><NumberFormat value={building.arealHeated} displayType={'text'} thousandSeparator={'.'} decimalSeparator={false} suffix={' m2'} /></Typography>}
 									/>
 								</ListItem>
 								<Divider />
@@ -142,7 +143,7 @@ const BuildingInfo = props => {
 								<ListItem disableGutters={true}>
 									<ListItemText
 										disableTypography
-										primary={<Typography style={{ fontFamily: 'interstate', fontSize: '1.1rem', color: 'rgba(0, 0, 0, 0.46)' }}>BRB ejendomsnummer</Typography>}
+										primary={<Typography style={{ fontFamily: 'interstate', fontSize: '1.1rem', color: 'rgba(0, 0, 0, 0.46)' }}>BBR ejendomsnummer</Typography>}
 										secondary={<Typography style={{ fontFamily: 'interstate', fontSize: '1rem', color: '#000' }}>{building.bbrNumber}</Typography>}
 									/>
 								</ListItem>
@@ -161,7 +162,7 @@ const BuildingInfo = props => {
 									<ListItemText
 										disableTypography
 										primary={<Typography style={{ fontFamily: 'interstate', fontSize: '1.1rem', color: 'rgba(0, 0, 0, 0.46)' }}>Årlig leje</Typography>}
-										secondary={<Typography style={{ fontFamily: 'interstate', fontSize: '1rem', color: '#000' }}>DKK {building.yearlyRent}</Typography>}
+										secondary={<Typography style={{ fontFamily: 'interstate', fontSize: '1rem', color: '#000' }}><NumberFormat value={building.yearlyRent} displayType={'text'} thousandSeparator={'.'} decimalSeparator={false} prefix={'DKK '} /></Typography>}
 									/>
 								</ListItem>
 								<Divider />
@@ -170,7 +171,7 @@ const BuildingInfo = props => {
 									<ListItemText
 										disableTypography
 										primary={<Typography style={{ fontFamily: 'interstate', fontSize: '1.1rem', color: 'rgba(0, 0, 0, 0.46)' }}>Årlig leje pr. m2</Typography>}
-										secondary={<Typography style={{ fontFamily: 'interstate', fontSize: '1rem', color: '#000' }}>DKK {building.yearlyRentM2}</Typography>}
+										secondary={<Typography style={{ fontFamily: 'interstate', fontSize: '1rem', color: '#000' }}><NumberFormat value={building.yearlyRentM2} displayType={'text'} thousandSeparator={'.'} decimalSeparator={false} prefix={'DKK '} /></Typography>}
 									/>
 								</ListItem>
 							</List>

@@ -106,6 +106,14 @@ const mainStyles = makeStyles(theme => ({
 	filterButton: {
 		color: '#fff !important',
 	},
+	filterButtonActive: {
+		width: 40,
+		height: 40,
+		marginTop: '10px !important',
+		marginRight: '4px !important',
+		color: '#fff !important',
+		backgroundColor: '#D1D7DA !important',
+	},
 	dimmedButton: {
 		color: '#afbdc9 !important'
 	},

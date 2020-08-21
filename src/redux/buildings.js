@@ -1,7 +1,7 @@
 /* eslint-disable array-callback-return */
 import { getBuildingsFromServer, getBuildingFromServer, getBuildingsSum } from '../data/newsecApi';
 import { getDeviceCo2ByYear } from 'data/coreApi';
-import { changeHeaderTitle, changeSecondaryBarShown } from './appState';
+import { changeHeaderTitle, changeMainView } from './appState';
 
 /**
  * Actions
@@ -94,8 +94,8 @@ export const getBuilding = (uuid) =>
 		let energyData = await getDeviceCo2ByYear(devices);
 		building.energyData = energyData;
 
+		dispatch(changeMainView(''));
 		dispatch(changeHeaderTitle(building.name));
-		dispatch(changeSecondaryBarShown(false));
 		dispatch(gotExtendedData(building));
 		dispatch(setLoadingExtended(false));
 	}

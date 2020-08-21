@@ -5,7 +5,7 @@ import { useDispatch } from 'react-redux';
 
 import mainStyles from '../styles/mainStyles';
 import logo from '../assets/logo.png';
-import { changeHeaderTitle, changeSecondaryBarShown } from 'redux/appState';
+import { changeHeaderTitle, changeMainView } from 'redux/appState';
 
 const Footer = () => {
 	const classes = mainStyles();
@@ -13,7 +13,7 @@ const Footer = () => {
 	const dispatch = useDispatch();
 
 	const handleLogoClick = () => {
-		dispatch(changeSecondaryBarShown(true));
+		dispatch(changeMainView('overview'));
 		dispatch(changeHeaderTitle('Benchmark'));
 
 		history.push('/');
