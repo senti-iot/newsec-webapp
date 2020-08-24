@@ -4,9 +4,10 @@ import { withStyles } from '@material-ui/core/styles';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import NumberFormat from 'react-number-format';
 
-import buildingStyles from '../../styles/buildingStyles';
-import TabPanel from '../ui/TabPanel';
-import CircularLoader from '../../components/CircularLoader';
+import buildingStyles from 'styles/buildingStyles';
+import TabPanel from 'components/ui/TabPanel';
+import CircularLoader from 'components/CircularLoader';
+import { groupTypeLabel } from 'variables/functions';
 
 const BuildingInfo = props => {
 	const [selectedTab, setSelectedTab] = useState(0);
@@ -74,7 +75,7 @@ const BuildingInfo = props => {
 									<ListItemText
 										disableTypography
 										primary={<Typography style={{ fontFamily: 'interstate', fontSize: '1.1rem', color: 'rgba(0, 0, 0, 0.46)' }}>Gruppe</Typography>}
-										secondary={<Typography style={{ fontFamily: 'interstate', fontSize: '1rem', color: '#000' }}>{building.grouptype}</Typography>}
+										secondary={<Typography style={{ fontFamily: 'interstate', fontSize: '1rem', color: '#000' }}>{groupTypeLabel(building.grouptype)}</Typography>}
 									/>
 								</ListItem>
 								<Divider />

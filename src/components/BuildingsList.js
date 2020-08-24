@@ -6,8 +6,9 @@ import tableStyles from '../styles/tableStyles';
 import TC from './table/TC';
 import TableHeader from './table/TableHeader';
 import TablePager from './table/TablePager';
-import { useSelector } from 'react-redux'
-import { customFilterItems } from 'variables/filters'
+import { useSelector } from 'react-redux';
+import { customFilterItems } from 'variables/filters';
+import { groupTypeLabel } from 'variables/functions';
 
 const BuildingsList = props => {
 	const [page, setPage] = useState(0);
@@ -103,7 +104,7 @@ const BuildingsList = props => {
 									<TC checkbox content={<Checkbox checked={isSelected} onClick={e => handleCheckboxClick(e, building.uuid)} />} />
 									<TC label={building.no} />
 									<TC label={building.name} />
-									<TC label={building.grouptype} />
+									<TC label={groupTypeLabel(building.grouptype)} />
 									<TC label={building.owner} />
 									<TC label={building.streetName + ' ' + building.houseNumber + ', ' + building.zipcode + ' ' + building.city} />
 									<TC label={building.relativeCO2Score} />

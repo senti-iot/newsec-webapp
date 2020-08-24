@@ -6,6 +6,7 @@ import "leaflet/dist/leaflet.css";
 import L from 'leaflet';
 
 import buildingStyles from '../../styles/buildingStyles';
+import { findPinFromBuildingScore } from 'variables/functions';
 
 const BuildingMap = props => {
 	const classes = buildingStyles();
@@ -29,27 +30,6 @@ const BuildingMap = props => {
 			popupAnchor: [-3, -76]
 		}
 	});
-
-	const findPinFromBuildingScore = score => {
-		let pin;
-		if (score <= 14.29) {
-			pin = 1;
-		} else if (score > 14.29 && score <= 28.58) {
-			pin = 2;
-		} else if (score > 28.58 && score <= 42.87) {
-			pin = 3;
-		} else if (score > 42.87 && score <= 57.16) {
-			pin = 4;
-		} else if (score > 57.16 && score <= 71.45) {
-			pin = 5;
-		} else if (score > 71.45 && score <= 85.74) {
-			pin = 6;
-		} else if (score > 85.74) {
-			pin = 7;
-		}
-
-		return pin;
-	}
 
 	return (
 		<>

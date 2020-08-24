@@ -9,6 +9,7 @@ import { useSelector } from 'react-redux';
 import buildingStyles from '../styles/buildingStyles';
 import TablePager from 'components/table/TablePager';
 import { customFilterItems } from 'variables/filters';
+import { groupTypeLabel } from 'variables/functions';
 
 const BuildingsThumbs = props => {
 	const filters = useSelector(s => s.appState.filters.buildings);
@@ -53,7 +54,7 @@ const BuildingsThumbs = props => {
 									subheaderTypographyProps={{ variant: 'h6' }}
 								/>
 								<CardContent>
-									<Typography>{building.grouptype}</Typography>
+									<Typography>{groupTypeLabel(building.grouptype)}</Typography>
 
 									<CardActions disableSpacing={true}>
 										<Button
