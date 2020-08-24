@@ -167,7 +167,7 @@ const mainStyles = makeStyles(theme => ({
 		display: 'flex',
 		alignItems: 'center',
 		height: 67,
-		backgroundColor: '#525B60',
+		backgroundColor: '#33434B',
 	},
 	overviewWelcome: {
 		maxWidth: '50%',

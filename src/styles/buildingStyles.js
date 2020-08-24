@@ -5,19 +5,19 @@ const buildingStyles = makeStyles(theme => ({
 		backgroundColor: '#F5F5F5'
 	},
 	ledgendCurrent: {
-		width: 30,
+		width: 40,
 		height: 10,
 		backgroundColor: '#377EB8',
 		borderRadius: 3,
 	},
 	ledgendForecast: {
-		width: 30,
+		width: 40,
 		height: 10,
 		backgroundColor: '#B3CDE3',
 		borderRadius: 3,
 	},
 	legendGoal: {
-		width: 30,
+		width: 40,
 		height: 10,
 		backgroundColor: '#1F3B54',
 		borderRadius: 3,
@@ -85,8 +85,9 @@ const buildingStyles = makeStyles(theme => ({
 		height: '50px',
 		margin: '0 auto',
 		marginTop: 20,
+		marginBottom: 20,
 		[theme.breakpoints.down('lg')]: {
-			width: '90%',
+			width: '100%',
 		}
 	},
 	scoregraphwrapper: {
@@ -95,6 +96,17 @@ const buildingStyles = makeStyles(theme => ({
 		margin: '0 auto',
 		[theme.breakpoints.down('lg')]: {
 			width: '80%',
+		}
+	},
+	detailsPopup: {
+		backgroundColor: '#fff',
+		padding: 20,
+	},
+	buildingsMap: {
+		width: '100%',
+		height: 800,
+		[theme.breakpoints.down('lg')]: {
+			height: 450,
 		}
 	},
 }));

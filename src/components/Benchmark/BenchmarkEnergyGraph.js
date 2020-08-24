@@ -1,6 +1,6 @@
 /* eslint-disable array-callback-return */
 import React, { useEffect, useRef, useState } from 'react';
-import { Card, CardHeader, CardContent, IconButton, Box, Typography } from '@material-ui/core';
+import { Card, CardHeader, CardContent, IconButton, Box, Typography, Grid } from '@material-ui/core';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import * as d3 from "d3";
 import { useDispatch, useSelector } from 'react-redux';
@@ -125,14 +125,14 @@ const BenchmarkEnergyGraph = props => {
 			.attr('class', graphClasses.axisText)
 			.html('Ton');
 
-		const line = d3.line()
-			.x(function (d) { return x(d.data.year) + x.bandwidth() / 2; })
-			.y(function (d) { return y(d.data.sum); });
+		// const line = d3.line()
+		// 	.x(function (d) { return x(d.data.year) + x.bandwidth() / 2; })
+		// 	.y(function (d) { return y(d.data.sum); });
 
-		svg.append("path")
-			.data(layers)
-			.attr("class", graphClasses.line)
-			.attr("d", line);
+		// svg.append("path")
+		// 	.data(layers)
+		// 	.attr("class", graphClasses.line)
+		// 	.attr("d", line);
 	}
 
 	return (
@@ -151,32 +151,45 @@ const BenchmarkEnergyGraph = props => {
 					<svg id="barchart" ref={barChartContainer} style={{ width: '100%', height: '325px' }}></svg>
 				</div>
 
-				<Box display="flex" justifyContent="center" alignItems="center" style={{ marginTop: 30, marginBottom: 30 }}>
-					<Box display="flex" justifyContent="center" alignItems="center" flexDirection="column" className={graphClasses.legendWrapper}>
-						<div className={graphClasses.legend1}></div>
-						<div><Typography variant="body2">CO2 varme</Typography></div>
-					</Box>
+				<Grid container display="flex" justifyContent="center" alignItems="center" style={{ marginTop: 30, marginBottom: 30 }}>
+					<Grid item xs={0} xl={1}></Grid>
 
-					<Box display="flex" justifyContent="center" alignItems="center" flexDirection="column" className={graphClasses.legendWrapper}>
-						<div className={graphClasses.legend2}></div>
-						<div><Typography variant="body2">CO2 el</Typography></div>
-					</Box>
+					<Grid item xs={2}>
+						<Box display="flex" justifyContent="center" alignItems="center" flexDirection="column" className={graphClasses.legendWrapper}>
+							<div className={graphClasses.legend1}></div>
+							<div><Typography variant="body2">CO2 varme</Typography></div>
+						</Box>
+					</Grid>
 
-					<Box display="flex" justifyContent="center" alignItems="center" flexDirection="column" className={graphClasses.legendWrapper}>
-						<div className={graphClasses.legend3}></div>
-						<div><Typography variant="body2">CO2 vand</Typography></div>
-					</Box>
+					<Grid item xs={2}>
+						<Box display="flex" justifyContent="center" alignItems="center" flexDirection="column" className={graphClasses.legendWrapper}>
+							<div className={graphClasses.legend2}></div>
+							<div><Typography variant="body2">CO2 el</Typography></div>
+						</Box>
+					</Grid>
 
-					<Box display="flex" justifyContent="center" alignItems="center" flexDirection="column" className={graphClasses.legendWrapper}>
-						<div className={graphClasses.legend4}></div>
-						<div><Typography variant="body2">Total</Typography></div>
-					</Box>
+					<Grid item xs={2}>
+						<Box display="flex" justifyContent="center" alignItems="center" flexDirection="column" className={graphClasses.legendWrapper}>
+							<div className={graphClasses.legend3}></div>
+							<div><Typography variant="body2">CO2 vand</Typography></div>
+						</Box>
+					</Grid>
 
-					<Box display="flex" justifyContent="center" alignItems="center" flexDirection="column" className={graphClasses.legendWrapper}>
-						<div className={graphClasses.legend5}></div>
-						<div><Typography variant="body2">Målsætning</Typography></div>
-					</Box>
-				</Box>
+					<Grid item xs={2}>
+						<Box display="flex" justifyContent="center" alignItems="center" flexDirection="column" className={graphClasses.legendWrapper}>
+							<div className={graphClasses.legend4}></div>
+							<div><Typography variant="body2">Total</Typography></div>
+						</Box>
+					</Grid>
+
+					<Grid item xs={2}>
+						<Box display="flex" justifyContent="center" alignItems="center" flexDirection="column" className={graphClasses.legendWrapper}>
+							<div className={graphClasses.legend5}></div>
+							<div><Typography variant="body2">Målsætning</Typography></div>
+						</Box>
+					</Grid>
+					<Grid item xs={0} xl={1}></Grid>
+				</Grid>
 			</CardContent>
 		</Card>
 	)

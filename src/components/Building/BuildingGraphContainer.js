@@ -69,13 +69,13 @@ const BuildingGraphContainer = props => {
 		let from, to;
 		if (type === 2) {
 			from = moment().subtract(7, 'day').startOf('day');
-			to = moment().subtract(1, 'day').startOf('day');
+			to = moment().subtract(1, 'day').endOf('day');
 		} else if (type === 4) {
-			from = moment().subtract(365, 'day').startOf('day');
-			to = moment().subtract(1, 'day').startOf('day');
+			from = moment().startOf('year').startOf('day');
+			to = moment().endOf('year').endOf('day');
 		} else if (type === 7) {
 			from = moment().subtract(30, 'day').startOf('day');
-			to = moment().subtract(1, 'day').startOf('day');
+			to = moment().subtract(1, 'day').endOf('day');
 		}
  
 		handleSetDate(type, to, from, type);
@@ -95,8 +95,8 @@ const BuildingGraphContainer = props => {
 			from = moment(period.from).subtract(6, 'day').startOf('day');
 			to = moment(period.from).endOf('day');
 		} else if (period.menuId === 4) { //year
-			from = moment(period.from).subtract(1, 'year').startOf('day');
-			to = moment(period.from).endOf('day');
+			from = moment(period.from).subtract(1, 'year').startOf('year').startOf('day');
+			to = moment(from).endOf('year').endOf('day');
 		} else if (period.menuId === 7) { //month
 			from = moment(period.from).subtract(1, 'month').startOf('day');
 			to = moment(period.from).endOf('day');
@@ -111,8 +111,8 @@ const BuildingGraphContainer = props => {
 			from = moment(period.to);
 			to = futureTester(to, 'day') ? moment(period.to).add(6, 'day') : moment().subtract(1, 'day');
 		} else if (period.menuId === 4) { //year
-			from = moment(period.to).startOf('day');
-			to = moment(from).add(1, 'year').endOf('day');
+			from = moment(period.to).add(1, 'year').startOf('year').startOf('day');
+			to = moment(from).endOf('year').endOf('day');
 			if (moment(to).isAfter(moment())) {
 				to = moment().subtract(1, 'day').endOf('day');
 			}

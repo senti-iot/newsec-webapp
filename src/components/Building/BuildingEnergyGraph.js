@@ -96,14 +96,14 @@ const BuildingEnergyGraph = props => {
 			.attr('class', graphClasses.axisText)
 			.html('Tons');
 
-		const line = d3.line()
-			.x(function (d) { return x(d.data.year) + x.bandwidth() / 2; })
-			.y(function (d) { return y(d.data.sum); });
+		// const line = d3.line()
+		// 	.x(function (d) { return x(d.data.year) + x.bandwidth() / 2; })
+		// 	.y(function (d) { return y(d.data.sum); });
 
-		svg.append("path")
-			.data(layers)
-			.attr("class", graphClasses.line)
-			.attr("d", line);
+		// svg.append("path")
+		// 	.data(layers)
+		// 	.attr("class", graphClasses.line)
+		// 	.attr("d", line);
 	}
 
 	return (

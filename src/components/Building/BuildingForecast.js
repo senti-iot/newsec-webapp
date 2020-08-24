@@ -99,7 +99,8 @@ const BuildingForecast = props => {
 						<div className={classes.forecastgraphlegendwrapper}>
 							<Grid container
 								alignItems="center"
-								justify="center">
+								justify="center"
+								spacing={5}>
 								<Grid item xs={3}>
 									<Box display="flex" justifyContent="center" alignItems="center">
 										<div className={classes.ledgendCurrent}></div>

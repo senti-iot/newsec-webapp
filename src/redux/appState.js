@@ -166,6 +166,15 @@ export const changeSecondaryBarShown = (val) => {
 	}
 }
 
+export const closeFilterBar = () => {
+	return (dispatch, getState) => {
+		dispatch({
+			type: filterBarChange,
+			payload: false
+		})
+	}
+}
+
 export const toogleFilterBar = () => {
 	return (dispatch, getState) => {
 		dispatch({

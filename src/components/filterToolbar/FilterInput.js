@@ -117,13 +117,12 @@ const styles = (theme) => {
 			}
 		},
 		chip: {
-			// color: theme.palette.type === 'light' ? 'inherit' : '#fff',
-			color: '#fff',
-			backgroundColor: '#497EB3',
+			color: '#000',
+			backgroundColor: '#fff',
 			margin: '0 8px 8px 0',
 			float: 'left',
 			'&:hover': {
-				backgroundColor: '#497EB3',
+				backgroundColor: '#fff',
 			}
 		}
 	}
@@ -485,13 +484,10 @@ class FilterInput extends Component {
 					})}
 				>
 					{chipRenderer({
-						// value: t('actions.addFilter'),
 						value: 'Tilføj Filter',
-						// text: t('actions.addFilter'),
 						text: 'Tilføj Filter',
-						// chip: t('actions.addFilter'),
 						chip: 'Tilføj Filter',
-						icon: <Add style={{ color: '#fff' }} />,
+						icon: <Add style={{ color: '#000' }} />,
 						isDisabled: !!disabled,
 						isFocused: false,
 						className: classes.chip,

@@ -1,17 +1,17 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { Card, CardHeader, CardContent, IconButton, Typography, Box } from '@material-ui/core';
+import { Card, CardHeader, CardContent, IconButton, Typography, Box, Popover } from '@material-ui/core';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
+import CalendarTodayIcon from '@material-ui/icons/CalendarToday';
 import * as d3 from 'd3';
-import { useHistory } from 'react-router';
 import moment from 'moment';
 
+import BuildingDetailsPopup from 'components/Overview/BuildingDetailsPopup';
 import YearPicker from 'components/ui/YearPicker';
 import barGraphStyles from '../../styles/barGraphStyles';
 import buildingStyles from '../../styles/buildingStyles';
 import { changeBenchmarkDate } from 'redux/dateTime';
 import { getBuildingsEmission } from 'redux/buildings';
 import { useDispatch, useSelector } from 'hooks';
-import { ReactComponent as CalendarIcon } from "assets/icons/calendar.svg";
 import { ReactComponent as ArrowPrev } from "assets/icons/arrow_prev_blue.svg";
 import { ReactComponent as ArrowPrevDisabled } from "assets/icons/arrow_prev_grey.svg";
 import { ReactComponent as ArrowNext } from "assets/icons/arrow_next_blue.svg";
@@ -21,12 +21,13 @@ const OverviewBarGraph = props => {
 	const barChartContainer = useRef(React.createRef());
 	const classes = buildingStyles();
 	const graphClasses = barGraphStyles();
-	const history = useHistory();
 	const dispatch = useDispatch();
 	const buildings = props.buildings;
 	const [didRenderGraph, setDidRenderGraph] = useState(false);
 	const [selectedDate, setSelectedDate] = useState(moment());
 	const [datePickerOpen, setDatepickerOpen] = useState(false);
+	const [anchorEl, setAnchorEl] = React.useState(null);
+	const [selectedBuilding, setSelectedBuilding] = React.useState(null);
 
 	const emissionData = useSelector(s => s.buildingsReducer.emissionData);
 	const benchkmarkPeriod = useSelector(s => s.dateTime.benchmarkPeriod);
@@ -126,7 +127,11 @@ const OverviewBarGraph = props => {
 				d3.select(this).transition().duration(300).style("fill", "#377EB8");
 			})
 			.on("click", function (d, i) {
-				history.push('/building/' + d.buildingUuid);
+				//history.push('/building/' + d.buildingUuid);
+				console.log(d3.event.currentTarget);
+				console.log(d);
+				setSelectedBuilding(d);
+				setAnchorEl(anchorEl ? null : d3.event.currentTarget);
 			});
 
 		setDidRenderGraph(true);
@@ -192,6 +197,10 @@ const OverviewBarGraph = props => {
 		setDatepickerOpen(false);
 	}
 
+	const handlePopoverClose = () => {
+		setAnchorEl(null);
+	}
+
 	return (
 		<>
 			<Card className={classes.card}>
@@ -213,7 +222,7 @@ const OverviewBarGraph = props => {
 						<IconButton disabled={futureTesterNext(benchkmarkPeriod.to)} onClick={handleNextPeriod}>
 							{futureTesterNext(benchkmarkPeriod.to) ? <ArrowNextDisabled /> : <ArrowNext />}
 						</IconButton>
-						<IconButton onClick={handleOpenDatepicker}><CalendarIcon /></IconButton>
+						<IconButton onClick={handleOpenDatepicker}><CalendarTodayIcon style={{ color: '#377EB8' }} /></IconButton>
 					</Box>
 
 					<div style={{ width: '100%', height: '100%' }}>
@@ -224,6 +233,23 @@ const OverviewBarGraph = props => {
 			</Card>
 
 			<YearPicker datePickerOpen={datePickerOpen} selectedDate={selectedDate} handleDateChange={handleDateChange} handleDatepickerClose={handleDatepickerClose} />
+
+			<Popover
+				id="popover-building"
+				open={Boolean(anchorEl)}
+				onClose={handlePopoverClose}
+				anchorEl={anchorEl}
+				anchorOrigin={{
+					vertical: 'bottom',
+					horizontal: 'center',
+				}}
+				transformOrigin={{
+					vertical: 'top',
+					horizontal: 'center',
+				}}
+			>
+				<BuildingDetailsPopup building={selectedBuilding} />
+			</Popover>
 		</>
 	)
 }

@@ -2,7 +2,7 @@ import React from 'react';
 import { Typography, Button } from '@material-ui/core';
 import { useHistory } from 'react-router';
 
-const BuildingsMapPopup = props => {
+const BuildingDetailsMapPopup = props => {
 	const building = props.building;
 	const history = useHistory();
 
@@ -20,4 +20,4 @@ const BuildingsMapPopup = props => {
 	)
 }
 
-export default BuildingsMapPopup;
+export default BuildingDetailsMapPopup;

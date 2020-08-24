@@ -22,6 +22,35 @@ const BuildingMap = props => {
 		});
 	}, []);
 
+	const markerIcon = L.Icon.extend({
+		options: {
+			iconSize: [50, 84],
+			iconAnchor: [25, 84],
+			popupAnchor: [-3, -76]
+		}
+	});
+
+	const findPinFromBuildingScore = score => {
+		let pin;
+		if (score <= 14.29) {
+			pin = 1;
+		} else if (score > 14.29 && score <= 28.58) {
+			pin = 2;
+		} else if (score > 28.58 && score <= 42.87) {
+			pin = 3;
+		} else if (score > 42.87 && score <= 57.16) {
+			pin = 4;
+		} else if (score > 57.16 && score <= 71.45) {
+			pin = 5;
+		} else if (score > 71.45 && score <= 85.74) {
+			pin = 6;
+		} else if (score > 85.74) {
+			pin = 7;
+		}
+
+		return pin;
+	}
+
 	return (
 		<>
 			{building && building.lat && building.lon ? 
@@ -47,7 +76,7 @@ const BuildingMap = props => {
 								attribution="&copy; <a href=&quot;http://osm.org/copyright&quot;>OpenStreetMap</a> contributors"
 							/>
 
-							<Marker position={[building.lat, building.lon]} />
+							<Marker position={[building.lat, building.lon]} icon={new markerIcon({ iconUrl: '/assets/pins/pin_' + findPinFromBuildingScore(building.relativeCO2Score) + '.svg' })} />
 						</Map>
 
 						<Typography style={{ marginTop: 20 }} variant="body2">Koordinater: {building.lat} {building.lon}</Typography>

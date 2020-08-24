@@ -18,7 +18,7 @@ const barGraphStyles = makeStyles(theme => ({
 		strokeWidth: '2px',
 	},
 	legendWrapper: {
-		width: 130
+		width: 120,
 	},
 	legend1: {
 		width: 50,
