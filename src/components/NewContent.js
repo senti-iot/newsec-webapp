@@ -1,7 +1,7 @@
 import React from 'react';
 import { Button, Typography, Snackbar, SnackbarContent } from '@material-ui/core/Button';
 import Warning from '@material-ui/icons/Warning';
-// import { useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 
 import mainStyles from 'styles/mainStyles';
 
@@ -12,7 +12,7 @@ import mainStyles from 'styles/mainStyles';
 // `
 
 function NewContent(props) {
-	// const serviceWorkerUpdated = useSelector(s => s.serviceWorkerReducer.serviceWorkerUpdated)
+	const serviceWorkerUpdated = useSelector(s => s.serviceWorkerReducer.serviceWorkerUpdated)
 	const classes = mainStyles();
 
 	const handleClose = () => {
