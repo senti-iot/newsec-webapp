@@ -9,7 +9,6 @@ import NewContent from 'components/NewContent';
 
 // <NewContent />
 const Main = () => {
-
 	return (
 		<>
 			<NewContent />
