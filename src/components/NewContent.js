@@ -1,8 +1,7 @@
 import React from 'react';
-import { Button, Typography, Snackbar, SnackbarContent } from '@material-ui/core';
+import { Button, Typography, Snackbar, SnackbarContent } from '@material-ui/core/Button';
 import Warning from '@material-ui/icons/Warning';
 // import { useSelector } from 'react-redux';
-import { useClearCache } from "react-clear-cache";
 
 import mainStyles from 'styles/mainStyles';
 
@@ -15,10 +14,9 @@ import mainStyles from 'styles/mainStyles';
 function NewContent(props) {
 	// const serviceWorkerUpdated = useSelector(s => s.serviceWorkerReducer.serviceWorkerUpdated)
 	const classes = mainStyles();
-	const { isLatestVersion, emptyCacheStorage } = useClearCache();
 
 	const handleClose = () => {
-		emptyCacheStorage();
+		window.location.reload();
 	};
 
 	return (
@@ -27,11 +25,11 @@ function NewContent(props) {
 				vertical: 'top',
 				horizontal: 'center',
 			}}
-			open={!isLatestVersion}
+			open={serviceWorkerUpdated}
 		>
 			<SnackbarContent
 				message={<span style={{ color: '#ffffff', display: 'flex', alignItems: 'center' }}>
-					<Warning style={{ color: '#ffffff', fontSize: 22, marginRight: 8 }} />
+					<Warning style={{ color: '#ffffff', fontSize: 16, marginRight: 8 }} />
 					<Typography>{props.installing ? 'Caching application ...' : 'Update Available'}</Typography>
 				</span>}
 				action={<Button size="small" onClick={handleClose} className={classes.refreshButton}>REFRESH</Button>}
