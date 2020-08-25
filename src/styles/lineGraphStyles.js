@@ -44,6 +44,16 @@ const lineGraphStyles = makeStyles(theme => ({
 			height: 32,
 			transform: 'translate(-26px, 0px)'
 		}
+	},
+	tooltip: {
+		minWidth: 300,
+		width: 300,
+		maxWidth: 300,
+		position: 'absolute',
+		border: 0,
+		borderRadius: 4,
+		zIndex: -1,
+		transition: '300ms all ease'
 	}
 }));
 

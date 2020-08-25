@@ -21,6 +21,7 @@ const thStyles = makeStyles(theme => ({
 		textOverflow: "ellipsis"
 	},
 	header: {
+		height: 50,
 		[theme.breakpoints.down('sm')]: {
 			paddingRight: 4,
 			padding: 0,
@@ -47,7 +48,7 @@ const thStyles = makeStyles(theme => ({
 	},
 	tableRow: {
 		cursor: 'pointer',
-		height: 20,
+		height: 50,
 		"&:hover": {
 			color: '#fff',
 		},

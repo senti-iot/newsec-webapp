@@ -429,55 +429,51 @@ class d3Line {
 	}
 
 	generateDots = () => {
-		// let data = this.props.data ? this.props.data[this.props.id] : []
-		// const setTooltip = this.props.setTooltip
-		// const width = this.width
-		// data.forEach((line) => {
-		// if (line.prev || line.onlyMedian) {
-		// 	return
-		// }
-		// // let tooltipDiv = d3.select(`#tooltip${this.props.id}`)
-		// this.svg.selectAll(".dot")
-		// 	.data(line.data)
-		// 	.enter()
-		// 	.append("circle") // Uses the enter().append() method
-		// .on("mouseover", function (d) {
-		// 	d3.select(this).attr("r", 8)
-		// 	// tooltipDiv.transition()
-		// 	// 	.duration(200)
-		// 	// 	.style("opacity", 1)
-		// 	// 	.style('z-index', 1040)
-		// 	// let left = d3.event.pageX < 175 ? 245 : d3.event.pageX
-		// 	// left = d3.event.pageX > width - 175 ? width - 150 : left
-		// 	// left = left - 150 - 25 //150 - half of the Tooltip, 25 default D3 tooltip
-		// 	// tooltipDiv.style("left", left + "px")
-		// 	// 	.style("top", (d3.event.pageY) - 250 + "px")
-		// 	// setTooltip(d)
-
-		// }).on("mouseout", function () {
-		// 	// setExpand(false)
-		// 	d3.select(this).attr("r", 6)
-		// 	// tooltipDiv.transition()
-		// 	// 	.duration(500)
-		// 	// 	.style('z-index', -1)
-		// 	// 	.style("opacity", 0)
-		// }).on('click', function (d) {
-		// 	// setExpand(true)
-		// 	// alert(d.date + ' ' + d.value)
-		// })
-		// .attr("cx", (d) => { return this.x(moment(d.date).valueOf()) })
-		// // .attr("class", classes[`${line.name}Dot`]) // Assign a class for styling
-		// .attr("cy", (d) => { return this.y(d.value) })
-		// .attr("r", 0)
-		// .attr("fill", line.color ? line.color : "#fff")
-		// .attr('opacity', 0)
-		// .transition()
-		// .attr("id", `Dots${line.name}`)
-		// .style("opacity", this.state['L' + line.name] ? 0 : 1)
-		// .delay((d, i) => { return i * (1500 / line.data.length) })
-		// .attr("r", 0)
-		// })
-		// .duration(3000)
+		let data = this.props.data ? this.props.data[this.props.id] : []
+		const setTooltip = this.props.setTooltip
+		const width = this.width
+		data.forEach((line) => {
+			if (line.onlyMedian) {
+				return
+			}
+			let tooltipDiv = d3.select(`#tooltip${this.props.id}`)
+			this.svg.selectAll(".dot")
+				.data(line.data)
+				.enter()
+				.append("circle") // Uses the enter().append() method
+				.on("mouseover", function (d) {
+					d3.select(this).transition().duration(200).attr('opacity', 1)
+					tooltipDiv.transition()
+						.duration(200)
+						.style("opacity", 1)
+						.style('z-index', 1040)
+					// let left = d3.event.pageX < 175 ? 245 : d3.event.pageX
+					// left = d3.event.pageX > width - 175 ? width - 150 : left
+					let left = d3.event.pageX;
+					if (left + 300 > width) {
+						left -= 300;
+					}
+					tooltipDiv.style("left", left + "px").style("top", (d3.event.pageY + 10) + "px")
+					setTooltip(d, line.name)
+				}).on("mouseout", function () {
+					// setExpand(false)
+					d3.select(this).transition().duration(200).attr('opacity', 0)
+					tooltipDiv.transition()
+						.duration(500)
+						.style('z-index', -1)
+						.style("opacity", 0)
+				})
+				.attr("cx", (d) => { return this.x(moment(d.date).valueOf()) })
+				// .attr("class", classes[`${line.name}Dot`]) // Assign a class for styling
+				.attr("cy", (d) => { return this.y(d.value) })
+				.attr('opacity', 0)
+				.transition()
+				.attr("id", `Dots${line.name}`)
+				// .style("opacity", this.state['L' + line.name] ? 0 : 1)
+				.delay((d, i) => { return i * (1500 / line.data.length) })
+				.attr("r", 8)
+				.attr("fill", line.color);
+		})
 	}
 
 	generateLegend = () => {

@@ -2,6 +2,7 @@
 import { getBuildingsFromServer, getBuildingFromServer, getBuildingsSum } from '../data/newsecApi';
 import { getDeviceCo2ByYear } from 'data/coreApi';
 import { changeHeaderTitle, changeMainView, closeFilterBar } from './appState';
+import { handleRequestSort } from 'variables/functions';
 
 /**
  * Actions
@@ -15,6 +16,7 @@ const GotExtendedData = 'GotBuildingExtendedData'
 const emissionDevices = 'emissionDevices'
 const emissionData = 'emissionData'
 const energyBarData = 'energyBarData';
+const sData = 'sortData';
 
 /**
  * Default dispatch
@@ -48,6 +50,23 @@ const gotEmissionData = data => ({
 	type: emissionData,
 	payload: data
 })
+
+export const sortData = (key, property, order) => {
+	return (dispatch, getState) => {
+		let data = getState().data[key]
+		let sortedData = handleRequestSort(property, order, data)
+		let newArr = []
+		newArr = sortedData
+		dispatch({
+			type: sData,
+			payload: {
+				key,
+				sortedData: newArr
+			}
+		})
+
+	}
+}
 
 /**
  * Custom middleware dispatch
@@ -150,6 +169,8 @@ export const buildingsReducer = (state = initialState, { type, payload }) => {
 			return Object.assign({}, state, { emissionDevices: payload });
 		case emissionData:
 			return Object.assign({}, state, { emissionData: payload });
+		case sData:
+			return Object.assign({}, state, { [payload.key]: payload.sortedData })
 		default:
 			return state;
 	}

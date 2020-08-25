@@ -75,7 +75,7 @@ const OverviewBarGraph = props => {
 		// tickValues.push(max);
 
 		let xAxis = d3.axisBottom(x).tickSize(0).tickPadding(10);
-		let yAxis = d3.axisLeft(y).tickSize(0);
+		let yAxis = d3.axisLeft(y).tickSize(0).ticks(5);
 
 		x.domain(emissionData.map(function (d) { return d.buildingNo; }));
 		y.domain([0, max]);
@@ -100,9 +100,9 @@ const OverviewBarGraph = props => {
 			// .style("text-anchor", "end")
 			// .text("Value ($)");
 			.append('text')
-			.attr('transform', `translate(0, ${margin.top - 25})`)
+			.attr('transform', `translate(40, ${margin.top - 28})`)
 			.attr('class', graphClasses.axisText)
-			.html('Tons');
+			.html('kg pr. m2');
 
 		svgg.append("g")
 			.attr("class", graphClasses.gridline)

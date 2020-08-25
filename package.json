@@ -18,6 +18,7 @@
     "d3": "^5.16.0",
     "hex-to-rgba": "^2.0.1",
     "leaflet": "^1.6.0",
+    "lodash": "^4.17.20",
     "moment": "^2.27.0",
     "react": "^16.13.1",
     "react-alice-carousel": "^1.19.3",

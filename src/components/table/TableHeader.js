@@ -13,7 +13,7 @@ const TableHeader = props => {
 
 	return (
 		<TableHead>
-			<TableRow>
+			<TableRow className={classes.header}>
 				{noCheckbox ? null : <TableCell className={classes.header + ' ' + classes.tablecellcheckbox}>
 					<Checkbox
 						indeterminate={numSelected > 0 && numSelected < rowCount}

@@ -1,18 +1,18 @@
 import React, { useState } from 'react';
-import { Checkbox, Hidden, Table, TableBody, TableRow } from '@material-ui/core';
+import { Hidden, Table, TableBody, TableRow } from '@material-ui/core';
 import { useHistory } from 'react-router';
+import { useSelector, useDispatch } from 'react-redux';
 
 import tableStyles from '../styles/tableStyles';
 import TC from './table/TC';
 import TableHeader from './table/TableHeader';
 import TablePager from './table/TablePager';
-import { useSelector } from 'react-redux';
 import { customFilterItems } from 'variables/filters';
 import { groupTypeLabel } from 'variables/functions';
+import { sortData } from 'redux/buildings';
 
 const BuildingsList = props => {
 	const [page, setPage] = useState(0);
-	const [selected, setSelected] = useState([]);
 	const [order, setOrder] = useState('asc');
 	const [orderBy, setOrderBy] = useState('');
 	const filters = useSelector(s => s.appState.filters.buildings)
@@ -21,19 +21,18 @@ const BuildingsList = props => {
 	const rowsPerPage = useSelector(s => s.appState.trp ? s.appState.trp : s.settings.trp)
 	const buildings = customFilterItems(props.buildings, filters);
 	const history = useHistory();
+	const dispatch = useDispatch();
 
-	const handleSelectAllClick = () => {
-
+	const redux = {
+		sortData: (key, property, order) => dispatch(sortData(key, property, order))
 	}
 
-	const handleCheckboxClick = () => {
-		setSelected();
-		setOrder();
-		setOrderBy();
-	}
+	const handleRequestSort = (key, property) => {
+		let o = property !== orderBy ? 'asc' : order === 'desc' ? 'asc' : 'desc'
 
-	const handleRequestSort = () => {
-
+		setOrder(o)
+		setOrderBy(property)
+		redux.sortData(key, property, o)
 	}
 
 	const handleChangePage = (event, newpage) => {
@@ -58,28 +57,22 @@ const BuildingsList = props => {
 		<>
 			<Table className={classes.table} aria-labelledby='tableTitle'>
 				<TableHeader
-					numSelected={selected.length}
 					order={order}
 					orderBy={orderBy}
-					onSelectAllClick={handleSelectAllClick}
+					noCheckbox
 					onRequestSort={handleRequestSort}
 					rowCount={buildings ? buildings.length : 0}
 					columnData={columnNames}
 				/>
 				<TableBody>
 					{buildings ? buildings.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map(building => {
-						// const isSelected = isSelectedFunc(n.uuid);
-						const isSelected = false;
-
 						return (
 							<TableRow
 								hover
 								onClick={() => handleRowClick(building.uuid)}
 								role='checkbox'
-								aria-checked={isSelected}
 								tabIndex={-1}
 								key={building.uuid}
-								selected={isSelected}
 								//style={{ cursor: 'pointer' }}
 								className={classes.tableRow}
 							>
@@ -101,7 +94,6 @@ const BuildingsList = props => {
 								</Hidden> */}
 
 								<Hidden mdDown>
-									<TC checkbox content={<Checkbox checked={isSelected} onClick={e => handleCheckboxClick(e, building.uuid)} />} />
 									<TC label={building.no} />
 									<TC label={building.name} />
 									<TC label={groupTypeLabel(building.grouptype)} />
