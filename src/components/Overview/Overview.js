@@ -42,7 +42,7 @@ const Overview = props => {
 					<Grid item xs={12} lg={7}>
 						<Box className={classes.overviewWelcome}>
 							<Typography variant="h3" style={{ color: '#000', marginBottom: 20, textTransform: 'uppercase' }}>{getWelcomeTime()} {`${user.firstName}`}</Typography>
-							<Typography variant="body2" style={{ fontSize: '1.2rem' }}>Brug benchmark for at gå direkte til den ejendom hvor du ønske at aflæse energiforbrug og CO2. Du kan også via menuen få vist ejendomme som kort, liste eller miniaturer. Til højre på menuen kan du filtrere dine visning.</Typography>
+							<Typography variant="body2" style={{ fontSize: '1.2rem' }}>Brug benchmark for at gå direkte til den ejendom hvor du ønske at aflæse energiforbrug og CO2. Du kan også via menuen få vist ejendomme som kort, liste eller miniaturer. Til højre på menuen kan du filtrere dine visninger.</Typography>
 						</Box>
 					</Grid>
 					<Grid item xs={12} lg={5}>
