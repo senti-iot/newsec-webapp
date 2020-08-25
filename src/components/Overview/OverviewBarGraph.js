@@ -128,8 +128,6 @@ const OverviewBarGraph = props => {
 			})
 			.on("click", function (d, i) {
 				//history.push('/building/' + d.buildingUuid);
-				console.log(d3.event.currentTarget);
-				console.log(d);
 				setSelectedBuilding(d);
 				setAnchorEl(anchorEl ? null : d3.event.currentTarget);
 			});
