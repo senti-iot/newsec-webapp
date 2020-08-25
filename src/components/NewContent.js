@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, Typography, Snackbar, SnackbarContent } from '@material-ui/core/Button';
+import { Button, Typography, Snackbar, SnackbarContent } from '@material-ui/core';
 import Warning from '@material-ui/icons/Warning';
 import { useSelector } from 'react-redux';
 
