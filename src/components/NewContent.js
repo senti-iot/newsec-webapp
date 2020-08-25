@@ -18,7 +18,7 @@ function NewContent(props) {
 	const classes = mainStyles();
 
 	const handleClose = () => {
-		window.location.reload()
+		window.location.reload(true)
 	};
 	return (
 

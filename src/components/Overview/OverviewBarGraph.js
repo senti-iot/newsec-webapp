@@ -102,7 +102,7 @@ const OverviewBarGraph = props => {
 			.append('text')
 			.attr('transform', `translate(40, ${margin.top - 28})`)
 			.attr('class', graphClasses.axisText)
-			.html('kg pr. m2 TEST3');
+			.html('kg pr. m2 TEST4');
 
 		svgg.append("g")
 			.attr("class", graphClasses.gridline)
