@@ -3,6 +3,7 @@ import React, { useEffect, useRef } from 'react';
 import { Card, CardHeader, CardContent, IconButton, Box, Typography } from '@material-ui/core';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import * as d3 from "d3";
+import moment from 'moment';
 
 import buildingStyles from '../../styles/buildingStyles';
 import barGraphStyles from '../../styles/barGraphStyles';
@@ -44,7 +45,12 @@ const BuildingEnergyGraph = props => {
 		const color = d3.scaleOrdinal().domain(keys).range(['#214C6F', '#B3CDE3', '#497EB3']);
 
 		//TODO: get from data
-		let years = [2018, 2019, 2020];
+		let years = [2018, 2019, 2020, 2021, 2022, 2023, 2024];
+
+		building.energyData.push({ year: 2021, sum: 58, Fjernvarme: 30, Vand: 18, Elektricitet: 10 });
+		building.energyData.push({ year: 2022, sum: 50, Fjernvarme: 25, Vand: 10, Elektricitet: 15 });
+		building.energyData.push({ year: 2023, sum: 43, Fjernvarme: 20, Vand: 10, Elektricitet: 13 });
+		building.energyData.push({ year: 2024, sum: 40, Fjernvarme: 15, Vand: 10, Elektricitet: 15 });
 
 		const layers = d3.stack().keys(keys)(building.energyData);
 		const max = d3.max(layers[layers.length - 1], function (d) { return d[1]; }) + 9;
@@ -65,13 +71,28 @@ const BuildingEnergyGraph = props => {
 				.tickFormat("")
 			);
 
+		//grey bar behind
+		svg.selectAll("rect")
+			.data(building.energyData)
+			.enter()
+			.append("rect")
+			.attr("x", function (d, i) { return x(d.year) - 20; })
+			.attr("y", function (d) { return y(40); })
+			.attr("fill", "#CCD6DB")
+			.attr("height", function (d) { return height - y(40) })
+			.attr("width", x.bandwidth() + 40);
+
+		// main stacked
 		svg.append("g").selectAll("g")
 			.data(layers)
-			.enter().append("g")
+			.enter()
+			.append("g")
 			.style("fill", function (d) { return color(d.key); })
 			.selectAll("rect")
 			.data(function (d) { return d; })
-			.enter().append("rect")
+			.enter()
+			.append("rect")
+			.style("opacity", function (d) { return d.data.year > moment().year() ? 0.3 : 1; })
 			.attr("x", function (d, i) { return x(d.data.year); })
 			.attr("y", function (d) { return y(d[1]); })
 			.attr("height", function (d) { return y(d[0]) - y(d[1]); })

@@ -53,7 +53,7 @@ const barGraphStyles = makeStyles(theme => ({
 		width: 50,
 		height: 10,
 		borderRadius: 2,
-		backgroundColor: '#1F3B54',
+		backgroundColor: '#CCD6DB',
 		marginBottom: 5,
 	},
 	legend6: {
