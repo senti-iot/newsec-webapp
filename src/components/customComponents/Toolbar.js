@@ -26,7 +26,7 @@ const Tooltip = (props) => {
 	return (
 		<Card id={props.fs ? 'tooltipfsLG' + props.id : 'tooltip' + props.id} className={classes.tooltip}>
 			<CardContent>
-				<Grid container xs={12}>
+				<Grid container>
 					<Grid item xs={12}>
 						<Typography variant={'h5'} style={{ color: '#7A7A7A' }}>{renderTooltipType()}</Typography>
 					</Grid>
