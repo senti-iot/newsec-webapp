@@ -18,7 +18,8 @@ const barGraphStyles = makeStyles(theme => ({
 		strokeWidth: '2px',
 	},
 	legendWrapper: {
-		width: 120,
+		width: 130,
+		marginBottom: 10,
 	},
 	legend1: {
 		width: 50,
@@ -53,6 +54,20 @@ const barGraphStyles = makeStyles(theme => ({
 		height: 10,
 		borderRadius: 2,
 		backgroundColor: '#1F3B54',
+		marginBottom: 5,
+	},
+	legend6: {
+		width: 50,
+		height: 10,
+		borderRadius: 2,
+		backgroundColor: '#5D6A70',
+		marginBottom: 5,
+	},
+	legend7: {
+		width: 50,
+		height: 10,
+		borderRadius: 2,
+		backgroundColor: '#90999E',
 		marginBottom: 5,
 	},
 	gridline: {

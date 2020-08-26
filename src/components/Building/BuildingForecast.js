@@ -4,8 +4,9 @@ import { Card, CardHeader, CardContent, IconButton, Typography, Grid, Box } from
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import * as d3 from "d3";
 import { useSelector } from 'react-redux'
+import moment from 'moment';
 
-import buildingStyles from '../../styles/buildingStyles';
+import buildingStyles from 'styles/buildingStyles';
 
 const BuildingForecast = props => {
 	const classes = buildingStyles();
@@ -90,6 +91,8 @@ const BuildingForecast = props => {
 						}
 						title="CO2-aftryk"
 						titleTypographyProps={{ variant: 'h4' }}
+						subheader={"Årlig sum " + moment().format('YYYY')}
+						subheaderTypographyProps={{ variant: 'h5' }}
 					/>
 					<CardContent>
 						<div className={classes.forecastgraphwrapper}>

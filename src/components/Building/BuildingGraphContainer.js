@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { Card, CardHeader, IconButton, Box, Typography, Button } from '@material-ui/core';
+import { Card, CardHeader, IconButton, Box, Typography, Button, Grid } from '@material-ui/core';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import moment from 'moment';
 
@@ -169,9 +169,20 @@ const BuildingGraphContainer = props => {
 				</Box>
 			</Box>
 			<Box display="flex" justifyContent="center" alignItems="center" className={classes.graphRibbon}>
-				<Box>
-					{/* <Typography variant="body2" style={{ color: '#fff' }}>Daglig udledning: X tons</Typography> */}
-				</Box>
+				<Grid container justifyContent="center" alignItems="center" style={{ width: '80%' }}>
+					<Grid item xs={3} style={{ textAlign: 'center' }}>
+						<Typography style={{ fontFamily: 'interstateBold', fontSize: '1.1rem', color: '#fff' }}>Genemsnitlig daglig udledning XX kg</Typography>
+					</Grid>
+					<Grid item xs={3} style={{ textAlign: 'center' }}>
+						<Typography style={{ fontFamily: 'interstateBold', fontSize: '1.1rem', color: '#fff' }}>Reduceret udledning XX%</Typography>
+					</Grid>
+					<Grid item xs={3} style={{ textAlign: 'center' }}>
+						<Typography style={{ fontFamily: 'interstateBold', fontSize: '1.1rem', color: '#fff' }}>Akumuleret sum XX kg</Typography>
+					</Grid>
+					<Grid item xs={3} style={{ textAlign: 'center' }}>
+						<Typography style={{ fontFamily: 'interstateBold', fontSize: '1.1rem', color: '#fff' }}>Forrige periode XX kg</Typography>
+					</Grid>
+				</Grid>
 			</Box>
 
 			 <BuildingLineGraph id="graph" building={building} />

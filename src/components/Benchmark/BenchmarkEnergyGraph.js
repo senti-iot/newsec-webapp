@@ -151,44 +151,55 @@ const BenchmarkEnergyGraph = props => {
 					<svg id="barchart" ref={barChartContainer} style={{ width: '100%', height: '325px' }}></svg>
 				</div>
 
-				<Grid container display="flex" justifyContent="center" alignItems="center" style={{ marginTop: 30, marginBottom: 30 }}>
-					<Grid item xs={0} xl={1}></Grid>
-
-					<Grid item xs={2}>
+				<Grid container display="flex" justifyContent="center" alignItems="center">
+					<Grid item xs={3} xl={2}>
 						<Box display="flex" justifyContent="center" alignItems="center" flexDirection="column" className={graphClasses.legendWrapper}>
 							<div className={graphClasses.legend1}></div>
 							<div><Typography variant="body2">CO2 varme</Typography></div>
 						</Box>
 					</Grid>
 
-					<Grid item xs={2}>
+					<Grid item xs={3} xl={2}>
 						<Box display="flex" justifyContent="center" alignItems="center" flexDirection="column" className={graphClasses.legendWrapper}>
 							<div className={graphClasses.legend2}></div>
 							<div><Typography variant="body2">CO2 el</Typography></div>
 						</Box>
 					</Grid>
 
-					<Grid item xs={2}>
+					<Grid item xs={3} xl={2}>
 						<Box display="flex" justifyContent="center" alignItems="center" flexDirection="column" className={graphClasses.legendWrapper}>
 							<div className={graphClasses.legend3}></div>
 							<div><Typography variant="body2">CO2 vand</Typography></div>
 						</Box>
 					</Grid>
 
-					<Grid item xs={2}>
+					<Grid item xs={3} xl={2}>
+						<Box display="flex" justifyContent="center" alignItems="center" flexDirection="column" className={graphClasses.legendWrapper}>
+							<div className={graphClasses.legend6}></div>
+							<div><Typography variant="body2">CO2 renovering</Typography></div>
+						</Box>
+					</Grid>
+
+					<Grid item xs={3} xl={2}>
+						<Box display="flex" justifyContent="center" alignItems="center" flexDirection="column" className={graphClasses.legendWrapper}>
+							<div className={graphClasses.legend7}></div>
+							<div><Typography variant="body2">CO2 affald</Typography></div>
+						</Box>
+					</Grid>
+
+					<Grid item xs={3} xl={2}>
 						<Box display="flex" justifyContent="center" alignItems="center" flexDirection="column" className={graphClasses.legendWrapper}>
 							<div className={graphClasses.legend4}></div>
 							<div><Typography variant="body2">Total</Typography></div>
 						</Box>
 					</Grid>
 
-					<Grid item xs={2}>
+					<Grid item xs={3} xl={2}>
 						<Box display="flex" justifyContent="center" alignItems="center" flexDirection="column" className={graphClasses.legendWrapper}>
 							<div className={graphClasses.legend5}></div>
 							<div><Typography variant="body2">Målsætning</Typography></div>
 						</Box>
 					</Grid>
-					<Grid item xs={0} xl={1}></Grid>
 				</Grid>
 			</CardContent>
 		</Card>

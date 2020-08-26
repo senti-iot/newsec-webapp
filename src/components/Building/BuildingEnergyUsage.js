@@ -1,10 +1,11 @@
 import React from 'react';
 import { Card, CardHeader, CardContent, IconButton } from '@material-ui/core';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
+import moment from 'moment';
 
-import buildingStyles from '../../styles/buildingStyles';
+import buildingStyles from 'styles/buildingStyles';
 
-const BuildingEnergy = props => {
+const BuildingEnergyUsage = props => {
 	const classes = buildingStyles();
 	// const building = props.building;
 
@@ -16,8 +17,10 @@ const BuildingEnergy = props => {
 						<MoreVertIcon />
 					</IconButton>
 				}
-				title="Relativ energi"
+				title="Energiforbrug"
 				titleTypographyProps={{ variant: 'h4' }}
+				subheader={"Årlig sum " + moment().format('YYYY')}
+				subheaderTypographyProps={{ variant: 'h5' }}
 			/>
 			<CardContent>
 			</CardContent>
@@ -25,4 +28,4 @@ const BuildingEnergy = props => {
 	)
 }
 
-export default BuildingEnergy;
+export default BuildingEnergyUsage;

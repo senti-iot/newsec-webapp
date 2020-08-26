@@ -7,12 +7,12 @@ import BuildingInfo from './BuildingInfo';
 import BuildingImages from './BuildingImages';
 import BuildingGraphContainer from './BuildingGraphContainer';
 import BuildingForecast from './BuildingForecast';
-import BuildingEnergy from './BuildingEnergy';
+import BuildingEnergyUsage from './BuildingEnergyUsage';
 import BuildingScore from './BuildingScore';
 import BuildingEnergyGraph from './BuildingEnergyGraph';
 import BuildingMap from './BuildingMap';
-import { getBuilding } from '../../redux/buildings';
-import CircularLoader from '../../components/CircularLoader';
+import { getBuilding } from 'redux/buildings';
+import CircularLoader from 'components/CircularLoader';
 
 const Building = props => {
 	const dispatch = useDispatch();
@@ -42,7 +42,7 @@ const Building = props => {
 						<BuildingForecast building={building} />
 					</Grid>
 					<Grid item xs={12} lg={4}>
-						<BuildingEnergy building={building} />
+						<BuildingEnergyUsage building={building} />
 					</Grid>
 					<Grid item xs={12} lg={4}>
 						<BuildingScore building={building} />
