@@ -169,9 +169,9 @@ const BuildingGraphContainer = props => {
 				</Box>
 			</Box>
 			<Box display="flex" justifyContent="center" alignItems="center" className={classes.graphRibbon}>
-				<Grid container justifyContent="center" alignItems="center" style={{ width: '80%' }}>
+				<Grid container justifyContent="center" alignItems="center" className={classes.graphRibbonGrid}>
 					<Grid item xs={3} style={{ textAlign: 'center' }}>
-						<Typography style={{ fontFamily: 'interstateBold', fontSize: '1.1rem', color: '#fff' }}>Genemsnitlig daglig udledning XX kg</Typography>
+						<Typography style={{ fontFamily: 'interstateBold', fontSize: '1.1rem', color: '#fff' }}>Gnsntl. daglig udledning XX kg</Typography>
 					</Grid>
 					<Grid item xs={3} style={{ textAlign: 'center' }}>
 						<Typography style={{ fontFamily: 'interstateBold', fontSize: '1.1rem', color: '#fff' }}>Reduceret udledning XX%</Typography>

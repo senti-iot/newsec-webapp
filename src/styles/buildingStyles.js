@@ -33,6 +33,12 @@ const buildingStyles = makeStyles(theme => ({
 		marginTop: 20,
 		marginBottom: 20,
 	},
+	graphRibbonGrid: {
+		width: '80%',
+		[theme.breakpoints.down('lg')]: {
+			width: '95%',
+		}
+	},
 	periodButton: {
 		fontFamily: 'interstate',
 		border: 'solid 2px #377EB8',
