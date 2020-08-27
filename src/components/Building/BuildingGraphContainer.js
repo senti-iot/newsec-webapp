@@ -47,13 +47,13 @@ const BuildingGraphContainer = props => {
 			let deviceId = null;
 			building.devices.map(device => {
 				if (device.type === 'emission') {
-					deviceId = device.deviceId;
+					deviceId = device.uuid;
 				}
 				return null;
 			});
 
 			if (deviceId) {
-				dispatch(getDeviceData(deviceId, building, period, 'co2'));
+				dispatch(getDeviceData(deviceId, period, 'co2'));
 			}
 		}
 		// }

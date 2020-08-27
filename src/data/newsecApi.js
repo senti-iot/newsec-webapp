@@ -26,3 +26,10 @@ export const getBuindingsScore = async () => {
 	let data = await newsecApi.get('/buildings/averageco2score').then(rs => rs.data);
 	return data;
 }
+
+export const getDeviceDataFromServer = async (device, period, type) => {
+	// console.log('/v1/devicedata-clean/' + device + '/' + period.from.format('YYYY-MM-DD HH:mm:ss') + '/' + period.to.format('YYYY-MM-DD HH:mm:ss') + '/' + type + '/-1');
+	// var data = await databrokerApi.get('/v1/devicedata-clean/' + device + '/' + period.from.format('YYYY-MM-DD HH:mm:ss') + '/' + period.to.format('YYYY-MM-DD HH:mm:ss') + '/' + type + '/-1').then(rs => rs.data);
+	var data = await newsecApi.get('/data/deviceemission/' + device + '/' + type + '/' + period.from.format('YYYY-MM-DD') + '/' + period.to.format('YYYY-MM-DD')).then(rs => rs.data);
+	return data;
+}

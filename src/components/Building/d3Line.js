@@ -22,7 +22,7 @@ const getMax = (arr) => {
 		let max = Math.max(...arr.map(d => d.value))
 
 		if (max < 1) {
-			return max + 0.1;
+			return max + 0.01;
 		} else if (max < 5) {
 			return max + 1;
 		} else if (max > 100000) {
@@ -141,7 +141,7 @@ class d3Line {
 		yAxis.selectAll('text').attr('class', classes.axisTick)
 
 		yAxis.append('text')
-			.attr('transform', `translate(-16, ${this.margin.top})`)
+			.attr('transform', `translate(15, ${this.margin.top - 15 })`)
 			.attr('class', classes.axisText)
 			.html(this.props.unit)
 	}

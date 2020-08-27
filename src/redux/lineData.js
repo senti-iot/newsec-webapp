@@ -1,9 +1,8 @@
 /* eslint-disable array-callback-return */
 import moment from 'moment';
 
-import { getDeviceDataFromServer } from '../data/coreApi';
 import { getWeather } from 'data/weather';
-import { getBuindingsBenchmark } from 'data/newsecApi';
+import { getBuindingsBenchmark, getDeviceDataFromServer } from 'data/newsecApi';
 import { getDates } from 'data/functions';
 
 const GetDeviceData = 'GetDeviceData'
@@ -20,7 +19,7 @@ const setLoading = loading => ({
 	payload: loading
 })
 
-export const getDeviceData = (device, building, period, type) =>
+export const getDeviceData = (device, period, type) =>
 	async (dispatch, getState) => {
 		dispatch(setLoading(true));
 

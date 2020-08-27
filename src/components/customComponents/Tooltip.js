@@ -33,7 +33,7 @@ const Tooltip = (props) => {
 					<Grid item xs={12}>
 						<div style={{ display: 'flex', alignItems: 'flex-end' }}>
 							<div style={{ marginRight: 10 }}><Typography style={{ fontSize: '2.6rem', color: '#497EB3', lineHeight: '3.2rem' }}>{props.tooltip.value}</Typography></div>
-							<div><Typography style={{ fontSize: '1.8rem', color: '#497EB3' }}>tons</Typography></div>
+							<div><Typography style={{ fontSize: '1.8rem', color: '#497EB3' }}>kg pr. m2</Typography></div>
 						</div>
 					</Grid>
 					<Grid item xs={12}>
