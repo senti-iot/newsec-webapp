@@ -2,6 +2,7 @@ import React from 'react';
 import { Grid, Card, CardContent, Typography } from '@material-ui/core';
 import moment from 'moment';
 import 'moment/locale/da';
+import NumberFormat from 'react-number-format';
 
 import lineGraphStyles from 'styles/lineGraphStyles';
 
@@ -32,7 +33,7 @@ const Tooltip = (props) => {
 					</Grid>
 					<Grid item xs={12}>
 						<div style={{ display: 'flex', alignItems: 'flex-end' }}>
-							<div style={{ marginRight: 10 }}><Typography style={{ fontSize: '2.6rem', color: '#497EB3', lineHeight: '3.2rem' }}>{props.tooltip.value}</Typography></div>
+							<div style={{ marginRight: 10 }}><Typography style={{ fontSize: '2.6rem', color: '#497EB3', lineHeight: '3.2rem' }}><NumberFormat value={props.tooltip.value} displayType={'text'} thousandSeparator={'.'} decimalSeparator={','} decimalScale={3} /></Typography></div>
 							<div><Typography style={{ fontSize: '1.8rem', color: '#497EB3' }}>kg pr. m2</Typography></div>
 						</div>
 					</Grid>
