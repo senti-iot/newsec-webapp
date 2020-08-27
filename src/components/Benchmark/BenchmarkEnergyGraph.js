@@ -175,13 +175,6 @@ const BenchmarkEnergyGraph = props => {
 
 					<Grid item xs={3} xl={2}>
 						<Box display="flex" justifyContent="center" alignItems="center" flexDirection="column" className={graphClasses.legendWrapper}>
-							<div className={graphClasses.legend6}></div>
-							<div><Typography variant="body2">CO2 renovering</Typography></div>
-						</Box>
-					</Grid>
-
-					<Grid item xs={3} xl={2}>
-						<Box display="flex" justifyContent="center" alignItems="center" flexDirection="column" className={graphClasses.legendWrapper}>
 							<div className={graphClasses.legend7}></div>
 							<div><Typography variant="body2">CO2 affald</Typography></div>
 						</Box>
@@ -189,17 +182,17 @@ const BenchmarkEnergyGraph = props => {
 
 					<Grid item xs={3} xl={2}>
 						<Box display="flex" justifyContent="center" alignItems="center" flexDirection="column" className={graphClasses.legendWrapper}>
-							<div className={graphClasses.legend4}></div>
-							<div><Typography variant="body2">Total</Typography></div>
+							<div className={graphClasses.legend6}></div>
+							<div><Typography variant="body2">CO2 renovering</Typography></div>
 						</Box>
 					</Grid>
 
-					<Grid item xs={3} xl={2}>
+					{/* <Grid item xs={3} xl={2}>
 						<Box display="flex" justifyContent="center" alignItems="center" flexDirection="column" className={graphClasses.legendWrapper}>
 							<div className={graphClasses.legend5}></div>
 							<div><Typography variant="body2">Målsætning</Typography></div>
 						</Box>
-					</Grid>
+					</Grid> */}
 				</Grid>
 			</CardContent>
 		</Card>

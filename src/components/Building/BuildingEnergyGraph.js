@@ -160,18 +160,13 @@ const BuildingEnergyGraph = props => {
 					</Box>
 
 					<Box display="flex" justifyContent="center" alignItems="center" flexDirection="column" className={graphClasses.legendWrapper}>
-						<div className={graphClasses.legend6}></div>
-						<div><Typography variant="body2">CO2 renovering</Typography></div>
-					</Box>
-
-					<Box display="flex" justifyContent="center" alignItems="center" flexDirection="column" className={graphClasses.legendWrapper}>
 						<div className={graphClasses.legend7}></div>
 						<div><Typography variant="body2">CO2 affald</Typography></div>
 					</Box>
 
 					<Box display="flex" justifyContent="center" alignItems="center" flexDirection="column" className={graphClasses.legendWrapper}>
-						<div className={graphClasses.legend4}></div>
-						<div><Typography variant="body2">Total</Typography></div>
+						<div className={graphClasses.legend6}></div>
+						<div><Typography variant="body2">CO2 renovering</Typography></div>
 					</Box>
 
 					<Box display="flex" justifyContent="center" alignItems="center" flexDirection="column" className={graphClasses.legendWrapper}>

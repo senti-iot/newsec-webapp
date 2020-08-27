@@ -6,7 +6,7 @@ import usePrevious from 'hooks/usePrevious';
 import lineGraphStyles from 'styles/lineGraphStyles';
 import { setGraphLine, setGraphLines } from 'redux/appState';
 import CircularLoader from 'components/CircularLoader';
-import Tooltip from 'components/customComponents/Toolbar';
+import Tooltip from 'components/customComponents/Tooltip';
 
 let line = null
 
