@@ -526,6 +526,7 @@ class FilterInput extends Component {
 						classes={{ input: classes.input, root: classes.inputRoot }}
 						id={id}
 						value={this.state.inputValue}
+						autoFocus={true}
 						onChange={this.handleUpdateInput}
 						onKeyDown={this.handleKeyDown}
 						// onKeyPress={this.handleKeyPress}
