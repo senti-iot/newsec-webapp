@@ -16,22 +16,22 @@ const BuildingForecast = props => {
 
 	useEffect(() => {
 		if (deviceData && deviceData.graph && !deviceData.loading) {
-			let actual = 0;
-			deviceData.graph[0].data.map(d => {
-				actual += d.value;
-			});
+			// let actual = 0;
+			// deviceData.graph[0].data.map(d => {
+			// 	actual += d.value;
+			// });
 
-			let goal = 0;
-			deviceData.graph[1].data.map(d => {
-				goal += d.value;
-			});
+			// let goal = 0;
+			// deviceData.graph[1].data.map(d => {
+			// 	goal += d.value;
+			// });
 
-			let forecast = 0;
+			// let forecast = 0;
 
 			const data = [
-				{ value: goal * 100, color: '#1F3B54' },
-				{ value: forecast, color: '#B3CDE3' },
-				{ value: actual * 100, color: '#377EB8' },
+				{ value: 100, color: '#1F3B54' },
+				{ value: 75, color: '#B3CDE3' },
+				{ value: 50, color: '#377EB8' },
 			];
 
 			renderGraph(data);
@@ -50,14 +50,11 @@ const BuildingForecast = props => {
 		let arcs = data.map((obj, i) => {
 			return d3.arc().innerRadius(i * arcSize + innerRadius).outerRadius((i + 1) * arcSize - (width / 100) + innerRadius);
 		});
-		let arcsGrey = data.map((obj, i) => {
-			return d3.arc().innerRadius(i * arcSize + (innerRadius + ((arcSize / 2) - 2))).outerRadius((i + 1) * arcSize - ((arcSize / 2)) + (innerRadius));
-		});
 
 		let pieData = data.map((obj, i) => {
 			return [
 				{ value: obj.value * 0.75, arc: arcs[i], object: obj },
-				{ value: (100 - obj.value) * 0.75, arc: arcsGrey[i], object: obj },
+				{ value: (100 - obj.value) * 0.75, arc: arcs[i], object: obj },
 				{ value: 100 * 0.25, arc: arcs[i], object: obj }];
 		});
 
@@ -65,7 +62,9 @@ const BuildingForecast = props => {
 			return d.value;
 		});
 
-		let g = svg.selectAll('g').data(pieData).enter()
+		let g = svg.selectAll('g')
+			.data(pieData)
+			.enter()
 			.append('g')
 			.attr('transform', 'translate(' + width / 2 + ',' + width / 2 + ') rotate(180)');
 
@@ -77,6 +76,7 @@ const BuildingForecast = props => {
 			}).attr('fill', (d, i) => {
 				return i === 0 ? d.data.object.color : i === 1 ? 'none' : 'none';
 			});
+
 	}
 
 	return (
@@ -89,7 +89,7 @@ const BuildingForecast = props => {
 								<MoreVertIcon />
 							</IconButton>
 						}
-						title="CO2-aftryk"
+						title="CO2 udledning"
 						titleTypographyProps={{ variant: 'h4' }}
 						subheader={"Årlig sum " + moment().format('YYYY')}
 						subheaderTypographyProps={{ variant: 'h5' }}

@@ -135,7 +135,7 @@ const BuildingEnergyGraph = props => {
 						<MoreVertIcon />
 					</IconButton>
 				}
-				title="CO2-aftryk"
+				title="CO2 udledning"
 				titleTypographyProps={{ variant: 'h4' }}
 			/>
 			<CardContent>
@@ -146,27 +146,27 @@ const BuildingEnergyGraph = props => {
 				<Box display="flex" justifyContent="center" alignItems="center" style={{ marginTop: 30, marginBottom: 30 }}>
 					<Box display="flex" justifyContent="center" alignItems="center" flexDirection="column" className={graphClasses.legendWrapper}>
 						<div className={graphClasses.legend1}></div>
-						<div><Typography variant="body2">CO2 varme</Typography></div>
+						<div><Typography variant="body2">Varme</Typography></div>
 					</Box>
 
 					<Box display="flex" justifyContent="center" alignItems="center" flexDirection="column" className={graphClasses.legendWrapper}>
 						<div className={graphClasses.legend2}></div>
-						<div><Typography variant="body2">CO2 el</Typography></div>
+						<div><Typography variant="body2">El</Typography></div>
 					</Box>
 
 					<Box display="flex" justifyContent="center" alignItems="center" flexDirection="column" className={graphClasses.legendWrapper}>
 						<div className={graphClasses.legend3}></div>
-						<div><Typography variant="body2">CO2 vand</Typography></div>
+						<div><Typography variant="body2">Vand</Typography></div>
 					</Box>
 
 					<Box display="flex" justifyContent="center" alignItems="center" flexDirection="column" className={graphClasses.legendWrapper}>
 						<div className={graphClasses.legend7}></div>
-						<div><Typography variant="body2">CO2 affald</Typography></div>
+						<div><Typography variant="body2">Affald</Typography></div>
 					</Box>
 
 					<Box display="flex" justifyContent="center" alignItems="center" flexDirection="column" className={graphClasses.legendWrapper}>
 						<div className={graphClasses.legend6}></div>
-						<div><Typography variant="body2">CO2 renovering</Typography></div>
+						<div><Typography variant="body2">Renovering</Typography></div>
 					</Box>
 
 					<Box display="flex" justifyContent="center" alignItems="center" flexDirection="column" className={graphClasses.legendWrapper}>

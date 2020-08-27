@@ -2,11 +2,12 @@ import React, { useEffect } from 'react';
 import { Card, CardHeader, IconButton, Box, Typography, Button, Grid } from '@material-ui/core';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import moment from 'moment';
+import NumberFormat from 'react-number-format';
 
-import buildingStyles from '../../styles/buildingStyles';
+import buildingStyles from 'styles/buildingStyles';
 import BuildingLineGraph from './BuildingLineGraph';
 // import CircularLoader from '../CircularLoader'
-import { getDeviceData } from '../../redux/lineData'
+import { getDeviceData } from 'redux/lineData'
 import { changeDate } from 'redux/dateTime';
 import { useDispatch, useSelector } from 'hooks'
 import { ReactComponent as GraphCurrentIcon } from "assets/graph/current.svg";
@@ -17,15 +18,18 @@ import { ReactComponent as ArrowPrev } from "assets/icons/arrow_prev_blue.svg";
 import { ReactComponent as ArrowPrevDisabled } from "assets/icons/arrow_prev_grey.svg";
 import { ReactComponent as ArrowNext } from "assets/icons/arrow_next_blue.svg";
 import { ReactComponent as ArrowNextDisabled } from "assets/icons/arrow_next_grey.svg";
+import { ReactComponent as ArrowDown } from "assets/icons/green_arrow_down.svg";
+import { ReactComponent as ArrowUp } from "assets/icons/red_arrow_up.svg";
 
 const BuildingGraphContainer = props => {
 	//Hooks
-	const dispatch = useDispatch()
+	const dispatch = useDispatch();
 	const classes = buildingStyles();
 
 	//Redux
-	const period = useSelector(s => s.dateTime.period)
-	const graphLines = useSelector(s => s.appState.lines)
+	const period = useSelector(s => s.dateTime.period);
+	const graphLines = useSelector(s => s.appState.lines);
+	const emissionStats = useSelector(s => s.lineData.emissionStats);
 
 	const handleSetDate = (id, to, from, timeType) => dispatch(changeDate(id, to, from, timeType))
 
@@ -44,16 +48,16 @@ const BuildingGraphContainer = props => {
 	useEffect(() => {
 		// if (prevId !== deviceId) {
 		if (building && building.devices) {
-			let deviceId = null;
+			let deviceUuid = null;
 			building.devices.map(device => {
 				if (device.type === 'emission') {
-					deviceId = device.uuid;
+					deviceUuid = device.uuid;
 				}
 				return null;
 			});
 
-			if (deviceId) {
-				dispatch(getDeviceData(deviceId, period, 'co2'));
+			if (deviceUuid) {
+				dispatch(getDeviceData(deviceUuid, period, 'co2'));
 			}
 		}
 		// }
@@ -169,20 +173,30 @@ const BuildingGraphContainer = props => {
 				</Box>
 			</Box>
 			<Box display="flex" justifyContent="center" alignItems="center" className={classes.graphRibbon}>
-				<Grid container justifyContent="center" alignItems="center" className={classes.graphRibbonGrid}>
-					<Grid item xs={3} style={{ textAlign: 'center' }}>
-						<Typography style={{ fontFamily: 'interstateBold', fontSize: '1.1rem', color: '#fff' }}>Gnsntl. daglig udledning XX kg</Typography>
+				{emissionStats &&
+					<Grid container justifyContent="center" alignItems="center" className={classes.graphRibbonGrid}>
+						<Grid item xs={3} style={{ textAlign: 'center' }}>
+							<Typography style={{ fontFamily: 'interstateBold', fontSize: '1.1rem', color: '#fff' }}>
+								Gnsntl. daglig udledning <NumberFormat value={emissionStats.averageSum} displayType={'text'} thousandSeparator={'.'} decimalSeparator={','} decimalScale={1} /> g
+							</Typography>
+						</Grid>
+						<Grid item xs={3} style={{ textAlign: 'center' }}>
+							<Typography style={{ fontFamily: 'interstateBold', fontSize: '1.1rem', color: '#fff' }}>
+							Udvikling <span style={{ fontFamily: 'interstateBold', fontSize: '1.1rem', color: (emissionStats.reduction > 0 ? '#C60018' : '#B3DC10') }}><NumberFormat value={emissionStats.reduction} displayType={'text'} thousandSeparator={'.'} decimalSeparator={','} decimalScale={1} />%</span> {emissionStats.reduction > 0 ? <ArrowUp style={{ width: 14, paddingTop: 2 }} /> : <ArrowDown style={{ width: 14, paddingTop: 2 }} />}
+							</Typography>
+						</Grid>
+						<Grid item xs={3} style={{ textAlign: 'center' }}>
+							<Typography style={{ fontFamily: 'interstateBold', fontSize: '1.1rem', color: '#fff' }}>
+								Akumuleret sum <NumberFormat value={emissionStats.actualSum} displayType={'text'} thousandSeparator={'.'} decimalSeparator={','} decimalScale={1} /> {emissionStats.unit}
+							</Typography>
+						</Grid>
+						<Grid item xs={3} style={{ textAlign: 'center' }}>
+							<Typography style={{ fontFamily: 'interstateBold', fontSize: '1.1rem', color: '#fff' }}>
+								Forrige periode <NumberFormat value={emissionStats.previousSum} displayType={'text'} thousandSeparator={'.'} decimalSeparator={','} decimalScale={1} /> {emissionStats.unit}
+							</Typography>
+						</Grid>
 					</Grid>
-					<Grid item xs={3} style={{ textAlign: 'center' }}>
-						<Typography style={{ fontFamily: 'interstateBold', fontSize: '1.1rem', color: '#fff' }}>Reduceret udledning XX%</Typography>
-					</Grid>
-					<Grid item xs={3} style={{ textAlign: 'center' }}>
-						<Typography style={{ fontFamily: 'interstateBold', fontSize: '1.1rem', color: '#fff' }}>Akumuleret sum XX kg</Typography>
-					</Grid>
-					<Grid item xs={3} style={{ textAlign: 'center' }}>
-						<Typography style={{ fontFamily: 'interstateBold', fontSize: '1.1rem', color: '#fff' }}>Forrige periode XX kg</Typography>
-					</Grid>
-				</Grid>
+				}
 			</Box>
 
 			 <BuildingLineGraph id="graph" building={building} />

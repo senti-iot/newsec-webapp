@@ -2,12 +2,13 @@
 import moment from 'moment';
 
 import { getWeather } from 'data/weather';
-import { getBuindingsBenchmark, getDeviceDataFromServer } from 'data/newsecApi';
+import { getBuindingsBenchmark, getDeviceDataFromServer, getDeviceEmissionStatsFromServer } from 'data/newsecApi';
 import { getDates } from 'data/functions';
 
 const GetDeviceData = 'GetDeviceData'
 const GotDeviceData = 'GotDeviceData'
 const wData = 'weatherData'
+const emissionStatsData = 'emissionStatsData'
 
 const gotData = data => ({
 	type: GotDeviceData,
@@ -60,6 +61,13 @@ export const getDeviceData = (device, period, type) =>
 			convertedDataPrevious.push({ value: dataPreviousPeriod[date], date: moment(date).add(prevDaysToAdd, 'day').format('YYYY-MM-DD HH:mm:ss') });
 		});
 		// console.log(convertedDataPrevious);
+
+		let emissionData = await getDeviceEmissionStatsFromServer(device, period, type);
+
+		dispatch({
+			type: emissionStatsData,
+			payload: emissionData
+		});
 
 		let line = {
 			graph: [
@@ -135,6 +143,7 @@ const initialState = {
 		data: []
 	}],
 	weatherData: [],
+	emissionStats: null,
 	loading: true,
 }
 
@@ -147,8 +156,9 @@ export const lineData = (state = initialState, { type, payload }) => {
 		case GetDeviceData:
 			return Object.assign({}, state, { loading: payload });
 		case GotDeviceData:
-			// console.log(payload);
 			return Object.assign({}, state, { ...state, ...payload });
+		case emissionStatsData:
+			return Object.assign({}, state, { emissionStats: payload });
 		default:
 			return state
 	}
