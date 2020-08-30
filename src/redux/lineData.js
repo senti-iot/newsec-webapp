@@ -92,7 +92,7 @@ export const getDeviceData = (device, period, type) =>
 				},
 				{
 					name: "Benchmark",
-					color: "#377EB8",
+					color: "#F97F0A",
 					dashed: true,
 					median: false,
 					noArea: true,
