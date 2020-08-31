@@ -22,6 +22,18 @@ const buildingStyles = makeStyles(theme => ({
 		backgroundColor: '#1F3B54',
 		borderRadius: 3,
 	},
+	legendEl: {
+		width: 40,
+		height: 10,
+		backgroundColor: '#377EB8',
+		borderRadius: 3,
+	},
+	legendHeat: {
+		width: 40,
+		height: 10,
+		backgroundColor: '#1F3B54',
+		borderRadius: 3,
+	},
 	graphDatePickers: {
 		width: '100%',
 		height: 50,
@@ -94,6 +106,14 @@ const buildingStyles = makeStyles(theme => ({
 		marginBottom: 20,
 		[theme.breakpoints.down('lg')]: {
 			width: '100%',
+		}
+	},
+	energyconsumptiongraphwrapper: {
+		width: '50%',
+		height: '230px',
+		margin: '0 auto',
+		[theme.breakpoints.down('lg')]: {
+			width: '80%',
 		}
 	},
 	scoregraphwrapper: {
