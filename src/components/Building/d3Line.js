@@ -437,8 +437,6 @@ class d3Line {
 				return
 			}
 			let tooltipDiv = d3.select(`#tooltip${this.props.id}`)
-			console.log(`#tooltip${this.props.id}`);
-			console.log(tooltipDiv);
 			this.svg.selectAll(".dot")
 				.data(line.data)
 				.enter()
@@ -456,8 +454,6 @@ class d3Line {
 						left -= 300;
 					}
 					tooltipDiv.style("left", left + "px").style("top", (d3.event.pageY + 10) + "px")
-					console.log(left);
-					console.log((d3.event.pageY + 10));
 					setTooltip(d, line.name)
 				}).on("mouseout", function () {
 					// setExpand(false)

@@ -113,7 +113,7 @@ const BuildingLineGraph = (props) => {
 	return (
 
 		loading ? <CircularLoader fill style={{ minHeight: 500 }}/> : <div style={{ width: '100%', height: '100%' }}>
-			{line && <Tooltip tooltip={value} id={props.id} tooltipType={tooltipType} />}
+			<Tooltip tooltip={value} id={props.id} tooltipType={tooltipType} />
 			<svg id={props.id} ref={lineChartContainer}
 				style={{
 					width: '100%',
