@@ -24,6 +24,17 @@ const Tooltip = (props) => {
 		return text;
 	}
 
+	const renderNumber = () => {
+		let number = props.tooltip.value;
+		let numDecimals = 1;
+		if (number >= 1000) { // if over 1000 g show in kg
+			number /= 1000;
+			numDecimals = 2;
+		}
+
+		return <NumberFormat value={number} displayType={'text'} thousandSeparator={'.'} decimalSeparator={','} decimalScale={numDecimals} />;
+	}
+
 	return (
 		<Card id={props.fs ? 'tooltipfsLG' + props.id : 'tooltip' + props.id} className={classes.tooltip}>
 			<CardContent>
@@ -33,8 +44,8 @@ const Tooltip = (props) => {
 					</Grid>
 					<Grid item xs={12}>
 						<div style={{ display: 'flex', alignItems: 'flex-end' }}>
-							<div style={{ marginRight: 10 }}><Typography style={{ fontSize: '2.6rem', color: '#497EB3', lineHeight: '3.2rem' }}><NumberFormat value={props.tooltip.value} displayType={'text'} thousandSeparator={'.'} decimalSeparator={','} decimalScale={1} /></Typography></div>
-							<div><Typography style={{ fontSize: '1.8rem', color: '#497EB3' }}>g pr. m2</Typography></div>
+							<div style={{ marginRight: 10 }}><Typography style={{ fontSize: '2.6rem', color: '#497EB3', lineHeight: '3.2rem' }}>{renderNumber()}</Typography></div>
+							<div><Typography style={{ fontSize: '1.8rem', color: '#497EB3' }}>{props.tooltip.value >= 1000 ? 'kg' : 'g'} pr. m2</Typography></div>
 						</div>
 					</Grid>
 					<Grid item xs={12}>
