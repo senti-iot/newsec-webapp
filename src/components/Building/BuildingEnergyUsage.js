@@ -79,7 +79,7 @@ const BuildingEnergyUsage = props => {
 			/>
 			<CardContent>
 				<Grid container>
-					<Grid item xs={7}>
+					<Grid item xs={7} xl={5}>
 						<Grid container spacing={4}>
 							<Grid item xs={12}>
 								<Typography variant="body2" style={{ fontSize: '17px', fontWeight: 'bold', color: '#848484' }}>
@@ -107,7 +107,7 @@ const BuildingEnergyUsage = props => {
 							</Grid>
 						</Grid>
 					</Grid>
-					<Grid item xs={5}>
+					<Grid item xs={5} xl={7}>
 						<div className={classes.energyconsumptiongraphwrapper}>
 							<svg id='energyconsumptionchart' ref={chartContainer}></svg>
 
