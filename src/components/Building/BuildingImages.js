@@ -22,7 +22,7 @@ class BuildingImages extends React.Component {
 		const { galleryItems, currentIndex } = this.state
 
 		return (
-			<Card style={{ backgroundColor: '#F5F5F5', height: 700 }}>
+			<Card style={{ backgroundColor: '#F5F5F5' }}>
 				<CardHeader
 					action={
 						<IconButton aria-label="settings">

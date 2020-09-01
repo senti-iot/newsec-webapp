@@ -29,22 +29,22 @@ const Building = props => {
 		<>
 			{!loading ?
 				<Grid container spacing={5}>
-					<Grid item xs={12} lg={7}>
+					<Grid item xs={12} lg={7} style={{ display: 'flex' }}>
 						<BuildingInfo building={building} />
 					</Grid>
-					<Grid item xs={12} lg={5}>
+					<Grid item xs={12} lg={5} style={{ display: 'flex' }}>
 						<BuildingImages building={building} />
 					</Grid>
 					<Grid item xs={12}>
 						<BuildingGraphContainer building={building} />
 					</Grid>
-					<Grid item xs={12} lg={4}>
+					<Grid item xs={12} lg={4} style={{ display: 'flex' }}>
 						<BuildingForecast building={building} />
 					</Grid>
-					<Grid item xs={12} lg={4}>
+					<Grid item xs={12} lg={4} style={{ display: 'flex' }}>
 						<BuildingEnergyUsage building={building} />
 					</Grid>
-					<Grid item xs={12} lg={4}>
+					<Grid item xs={12} lg={4} style={{ display: 'flex' }}>
 						<BuildingScore building={building} />
 					</Grid>
 					<Grid item xs={12}>

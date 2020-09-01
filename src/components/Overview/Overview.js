@@ -48,10 +48,10 @@ const Overview = props => {
 					<Grid item xs={12} lg={5}>
 						<OverviewCurrentResult />
 					</Grid>
-					<Grid item xs={12} lg={7} xl={7}>
+					<Grid item xs={12} lg={7} xl={7} style={{ display: 'flex' }}>
 						<OverviewBarGraph buildings={buildings} />
 					</Grid>
-					<Grid item xs={12} lg={5} xl={5}>
+					<Grid item xs={12} lg={5} xl={5} style={{ display: 'flex' }}>
 						<BenchmarkEnergyGraph buildings={buildings} />
 					</Grid>
 				</Grid>

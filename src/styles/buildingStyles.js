@@ -2,7 +2,8 @@ import { makeStyles } from '@material-ui/core/styles';
 
 const buildingStyles = makeStyles(theme => ({
 	card: {
-		backgroundColor: '#F5F5F5'
+		backgroundColor: '#F5F5F5',
+		width: '100%'
 	},
 	ledgendCurrent: {
 		width: 40,

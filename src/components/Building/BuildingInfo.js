@@ -46,7 +46,7 @@ const BuildingInfo = props => {
 	return (
 		<>
 			{building ?
-				<Card className={classes.card} style={{ height: 700 }}>
+				<Card className={classes.card} style={{ minHeight: 680 }}>
 					<CardHeader
 						avatar={
 							<Avatar className={classes.avatar}>
