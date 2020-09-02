@@ -45,17 +45,18 @@ export const getDeviceData = (device, period, type) =>
 		let data = await getDeviceDataFromServer(device, period, type);
 		let dataPreviousPeriod = await getDeviceDataFromServer(device, previousPeriod, type);
 
-		let convertedBudgetData = [];
-		Object.keys(budgetData).map(date => {
-			convertedBudgetData.push({ value: budgetData[date], date: date });
-		});
+		// let convertedBudgetData = [];
+		// Object.keys(budgetData).map(date => {
+		// 	convertedBudgetData.push({ value: budgetData[date], date: date });
+		// });
 
-		let convertedData = [];
-		Object.keys(data).map(date => {
-			convertedData.push({ value: data[date], date: date });
-		});
+		// let convertedData = [];
+		// Object.keys(data).map(date => {
+		// 	convertedData.push({ value: data[date], date: date });
+		// });
 		// console.log(convertedData);
 
+		// console.log(previousPeriod);
 		let convertedDataPrevious = [];
 		Object.keys(dataPreviousPeriod).map(date => {
 			convertedDataPrevious.push({ value: dataPreviousPeriod[date], date: moment(date).add(prevDaysToAdd, 'day').format('YYYY-MM-DD HH:mm:ss') });
@@ -74,12 +75,12 @@ export const getDeviceData = (device, period, type) =>
 				{
 					name: "Actual",
 					color: '#497EB3',
-					data: convertedData,
+					data: data,
 					noArea: true
 				}, {
 					name: "Goal",
 					color: "#1F3B54",
-					data: convertedBudgetData,
+					data: budgetData,
 					noArea: true,
 					dashed: true,
 					median: false,
