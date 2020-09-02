@@ -52,16 +52,15 @@ export const getDeviceData = (device, period, type) =>
 
 		// let convertedData = [];
 		// Object.keys(data).map(date => {
-		// 	convertedData.push({ value: data[date], date: date });
+		// 	convertedData.push({ value: data[date].value, date: data[date].date });
 		// });
 		// console.log(convertedData);
 
 		// console.log(previousPeriod);
 		let convertedDataPrevious = [];
-		Object.keys(dataPreviousPeriod).map(date => {
-			convertedDataPrevious.push({ value: dataPreviousPeriod[date], date: moment(date).add(prevDaysToAdd, 'day').format('YYYY-MM-DD HH:mm:ss') });
+		Object.keys(dataPreviousPeriod).map(i => {
+			convertedDataPrevious.push({ value: dataPreviousPeriod[i].value, date: moment(dataPreviousPeriod[i].date).add(prevDaysToAdd, 'day').format('YYYY-MM-DD HH:mm:ss') });
 		});
-		// console.log(convertedDataPrevious);
 
 		let emissionData = await getDeviceEmissionStatsFromServer(device, period, type);
 
