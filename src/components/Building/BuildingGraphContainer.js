@@ -174,7 +174,7 @@ const BuildingGraphContainer = props => {
 			</Box>
 			<Box display="flex" justifyContent="center" alignItems="center" className={classes.graphRibbon}>
 				{emissionStats &&
-					<Grid container justifyContent="center" alignItems="center" className={classes.graphRibbonGrid}>
+					<Grid container alignItems="center" className={classes.graphRibbonGrid}>
 						<Grid item xs={3} style={{ textAlign: 'center' }}>
 							<Typography style={{ fontFamily: 'interstateBold', fontSize: '1.1rem', color: '#fff' }}>
 								Gnsntl. daglig udledning <NumberFormat value={emissionStats.averageSum} displayType={'text'} thousandSeparator={'.'} decimalSeparator={','} decimalScale={1} /> g
