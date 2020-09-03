@@ -47,10 +47,10 @@ const BuildingEnergyGraph = props => {
 		//TODO: get from data
 		let years = [2018, 2019, 2020, 2021, 2022, 2023, 2024];
 
-		building.energyData.push({ year: 2021, sum: 58, Fjernvarme: 30, Vand: 18, Elektricitet: 10 });
-		building.energyData.push({ year: 2022, sum: 50, Fjernvarme: 25, Vand: 10, Elektricitet: 15 });
-		building.energyData.push({ year: 2023, sum: 43, Fjernvarme: 20, Vand: 10, Elektricitet: 13 });
-		building.energyData.push({ year: 2024, sum: 40, Fjernvarme: 15, Vand: 10, Elektricitet: 15 });
+		building.energyData.push({ year: 2021, sum: 58, Fjernvarme: 30, Vand: 18, Elektricitet: 10, goal: 55 });
+		building.energyData.push({ year: 2022, sum: 50, Fjernvarme: 25, Vand: 10, Elektricitet: 15, goal: 52 });
+		building.energyData.push({ year: 2023, sum: 43, Fjernvarme: 20, Vand: 10, Elektricitet: 13, goal: 45 });
+		building.energyData.push({ year: 2024, sum: 40, Fjernvarme: 15, Vand: 10, Elektricitet: 15, goal: 35 });
 
 		const layers = d3.stack().keys(keys)(building.energyData);
 		const max = d3.max(layers[layers.length - 1], function (d) { return d[1]; }) + 9;
@@ -71,16 +71,21 @@ const BuildingEnergyGraph = props => {
 				.tickFormat("")
 			);
 
-		//grey bar behind
+		//goal line
 		svg.selectAll("rect")
 			.data(building.energyData)
 			.enter()
-			.append("rect")
-			.attr("x", function (d, i) { return x(d.year) - 20; })
-			.attr("y", function (d) { return y(40); })
-			.attr("fill", "#CCD6DB")
-			.attr("height", function (d) { return height - y(40) })
-			.attr("width", x.bandwidth() + 40);
+			.append("path")
+			.style("stroke", "#000000")
+			.style("stroke-width", 3)
+			.style("stroke-dasharray", ("10, 7"))
+			.attr("d", function (d) {
+				if (d.goal) {
+					let rv = "M" + (x(d.year) - 30) + "," + y(d.goal);
+					rv += "L" + (x(d.year) + x.bandwidth() + 30) + "," + y(d.goal);
+					return rv;
+				}
+			});
 
 		// main stacked
 		svg.append("g").selectAll("g")
@@ -92,11 +97,13 @@ const BuildingEnergyGraph = props => {
 			.data(function (d) { return d; })
 			.enter()
 			.append("rect")
-			.style("opacity", function (d) { return d.data.year > moment().year() ? 0.3 : 1; })
+			.style("opacity", function (d) { return d.data.year > moment().year() ? 0.5 : 1; })
 			.attr("x", function (d, i) { return x(d.data.year); })
 			.attr("y", function (d) { return y(d[1]); })
 			.attr("height", function (d) { return y(d[0]) - y(d[1]); })
 			.attr("width", x.bandwidth());
+
+
 
 		const xAxis = d3.axisBottom(x).tickSize(0).tickPadding(20);
 		const yAxis = d3.axisLeft().scale(y).ticks(5).tickSize(0);
