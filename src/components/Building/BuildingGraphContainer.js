@@ -187,7 +187,7 @@ const BuildingGraphContainer = props => {
 						</Grid>
 						<Grid item xs={3} style={{ textAlign: 'center' }}>
 							<Typography style={{ fontFamily: 'interstateBold', fontSize: '1.1rem', color: '#fff' }}>
-								Akumuleret sum <NumberFormat value={emissionStats.actualSum} displayType={'text'} thousandSeparator={'.'} decimalSeparator={','} decimalScale={1} /> {emissionStats.unit}
+								Akkumuleret sum <NumberFormat value={emissionStats.actualSum} displayType={'text'} thousandSeparator={'.'} decimalSeparator={','} decimalScale={1} /> {emissionStats.unit}
 							</Typography>
 						</Grid>
 						<Grid item xs={3} style={{ textAlign: 'center' }}>
@@ -233,7 +233,7 @@ const BuildingGraphContainer = props => {
 				<Button
 					id={'LegendCheckboxBenchmark'}
 					classes={{ root: classes.graphIconButton, label: classes.graphIconButtonLabel }}
-					style={{ border: 'solid 1px ' + (!graphLines['LBenchmark'] ? '#377EB8' : 'transparent') }}
+					style={{ border: 'solid 1px ' + (!graphLines['LBenchmark'] ? '#F97F0A' : 'transparent') }}
 				>
 					<GraphBenchmarkIcon className={classes.graphIconButtonIcon} />
 					<Typography className={classes.graphIconButtonLabelText} variant="body2">Benchmark</Typography>

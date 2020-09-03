@@ -38,3 +38,8 @@ export const getDeviceEmissionStatsFromServer = async (device, period, type) => 
 	var data = await newsecApi.get('/data/deviceemissionstats/' + device + '/' + type + '/' + period.from.format('YYYY-MM-DD') + '/' + period.to.format('YYYY-MM-DD')).then(rs => rs.data);
 	return data;
 }
+
+export const getBuildingImage = async (uuid, filename) => {
+	var data = await newsecApi.get('/building/' + uuid + '/image/' + filename).then(rs => rs.data);
+	return data;
+}

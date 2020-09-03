@@ -1,3 +1,4 @@
+/* eslint-disable array-callback-return */
 import React from 'react';
 import { Card, CardHeader, CardContent, IconButton, Button, Grid } from '@material-ui/core';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
@@ -6,23 +7,45 @@ import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos';
 import AliceCarousel from 'react-alice-carousel';
 import "react-alice-carousel/lib/alice-carousel.css";
 
-class BuildingImages extends React.Component {
-	items = [1, 2, 3, 4, 5]
+import { getBuildingImage } from 'data/newsecApi';
+import CircularLoader from 'components/CircularLoader';
 
+class BuildingImages extends React.Component {
 	state = {
 		currentIndex: 0,
-		galleryItems: this.galleryItems(),
+		items: [],
+		loading: true
 	}
 
-	galleryItems() {
-		return this.items.map((i) => <img src={require('assets/building.jpg')} alt="" style={{ width: '100%', maxHeight: 500 }} />)
+	async componentDidMount() {
+		let images = [];
+		if (this.props.building) {
+			this.setState({ loading: true });
+			await Promise.all(
+				this.props.building.images.map(async (imageObj) => {
+					let data = await getBuildingImage(this.props.building.uuid, imageObj.filename);
+					images.push(data);
+				})
+			);
+
+			let newItems = [];
+			images.map(image => {
+				newItems.push(<img src={`${image}`} alt="" style={{ width: '100%', maxHeight: 500 }} />);
+			});
+
+			this.setState({ items: newItems });
+			this.setState({ loading: false });
+		}
+		// return this.props.building.images.map((i) => {
+		// 	return <img src={require('assets/building.jpg')} alt="" style={{ width: '100%', maxHeight: 500 }} />
+		// });
 	}
 
 	render () {
-		const { galleryItems, currentIndex } = this.state
+		const { items, currentIndex, loading } = this.state
 
 		return (
-			<Card style={{ backgroundColor: '#F5F5F5' }}>
+			<Card style={{ backgroundColor: '#F5F5F5', width: '100%' }}>
 				<CardHeader
 					action={
 						<IconButton aria-label="settings">
@@ -33,35 +56,46 @@ class BuildingImages extends React.Component {
 					titleTypographyProps={{ variant: 'h4' }}
 				/>
 				<CardContent>
-					<AliceCarousel
-						ref={(el) => (this.Carousel = el)}
-						buttonsDisabled={true}
-						items={galleryItems}
-						slideToIndex={currentIndex}
-					/>
+					{!loading ?
+						<>
+							{items.length ?
+								<>
+									<AliceCarousel
+										ref={(el) => (this.Carousel = el)}
+										buttonsDisabled={true}
+										items={items}
+										slideToIndex={currentIndex}
+										dotsDisabled={items.length > 1 ? false : true}
+									/>
 
-					<Grid container justify="space-between">
-						<Grid item>
-							<Button
-								variant="outlined"
-								startIcon={<ArrowBackIosIcon />}
-								onClick={() => this.Carousel.slidePrev()}
-								style={{ fontFamily: 'interstate', fontSize: '1.1rem', border: 'none', color: '#497EB3' }}
-							>
-								FORRIGE
-							</Button>
-						</Grid>
-						<Grid item>
-							<Button
-								variant="outlined"
-								endIcon={<ArrowForwardIosIcon />}
-								onClick={() => this.Carousel.slideNext()}
-								style={{ fontFamily: 'interstate', fontSize: '1.1rem', border: 'none', color: '#497EB3' }}
-							>
-								NÆSTE
-							</Button>
-						</Grid>
-					</Grid>
+									{items.length > 1 ?
+										<Grid container justify="space-between">
+											<Grid item>
+												<Button
+													variant="outlined"
+													startIcon={<ArrowBackIosIcon />}
+													onClick={() => this.Carousel.slidePrev()}
+													style={{ fontFamily: 'interstate', fontSize: '1.1rem', border: 'none', color: '#497EB3' }}
+												>
+													FORRIGE
+												</Button>
+											</Grid>
+											<Grid item>
+												<Button
+													variant="outlined"
+													endIcon={<ArrowForwardIosIcon />}
+													onClick={() => this.Carousel.slideNext()}
+													style={{ fontFamily: 'interstate', fontSize: '1.1rem', border: 'none', color: '#497EB3' }}
+												>
+													NÆSTE
+												</Button>
+											</Grid>
+										</Grid>
+										: ""}
+								</>
+								: ""}
+						</>
+						: <CircularLoader fill style={{ minHeight: 500 }} />}
 				</CardContent>
 			</Card>
 		)

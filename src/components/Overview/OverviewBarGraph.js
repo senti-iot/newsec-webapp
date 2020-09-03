@@ -62,7 +62,7 @@ const OverviewBarGraph = props => {
 		let x = d3.scaleBand().rangeRound([0, emissionData.length * 30]).padding(.5);
 		let y = d3.scaleLinear().range([height, 0]);
 
-		let max = d3.max(emissionData, function (d) { return parseFloat(d.value); }) + 2;
+		let max = d3.max(emissionData, function (d) { return parseFloat(d.value); }) + 1;
 
 		// let tickValues = [0];
 		// for (let i = 0; i < max; i++) {
