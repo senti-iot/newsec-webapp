@@ -28,6 +28,7 @@ import { changeMainView, changeHeaderTitle, toogleFilterBar, toogleFilterIcon } 
 import FilterToolbar from 'components/filterToolbar/FilterToolbar'
 import { ReactComponent as BenchmarkIcon } from "assets/icons/benchmark.svg";
 import { ReactComponent as BenchmarkDimmedIcon } from "assets/icons/benchmark_dimmed.svg";
+import { ReactComponent as PoweredByIcon } from "assets/icons/poweredby.svg";
 
 const Header = (props) => {
 	const classes = mainStyles();
@@ -281,6 +282,9 @@ const Header = (props) => {
 								<ListItemText primary="Om Newsec" style={{ fontFamily: 'interstateLight' }} />
 							</ListItem>
 						</List>
+					</div>
+					<div style={{ position: 'absolute', right: 30, bottom: 20, height: 100 }}>
+						<a href="https://senti.io/" target="_new"><PoweredByIcon /></a>
 					</div>
 				</SwipeableDrawer>
 			</div>
