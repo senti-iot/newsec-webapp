@@ -136,6 +136,13 @@ const buildingStyles = makeStyles(theme => ({
 			height: 450,
 		}
 	},
+	thumbsImage: {
+		width: 50,
+		height: 50,
+		backgroundSize: 'cover',
+		backgroundRepeat: 'no-repeat',
+		borderRadius: '50%',
+	},
 }));
 
 export default buildingStyles;

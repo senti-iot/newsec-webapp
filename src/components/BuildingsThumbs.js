@@ -1,20 +1,19 @@
 import React, { useState } from 'react';
-import { Grid, Card, CardHeader, CardContent, CardActions, Avatar, IconButton, Button, Typography } from '@material-ui/core';
+import { Grid, Card, CardHeader, CardContent, CardActions, IconButton, Button, Typography } from '@material-ui/core';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos';
 import StarBorderIcon from '@material-ui/icons/StarBorder';
 import { useHistory } from 'react-router';
 import { useSelector } from 'react-redux';
 
-import buildingStyles from '../styles/buildingStyles';
 import TablePager from 'components/table/TablePager';
 import { customFilterItems } from 'variables/filters';
 import { groupTypeLabel } from 'variables/functions';
+import BuildingsThumbsImage from 'components/BuildingsThumbsImage';
 
 const BuildingsThumbs = props => {
 	const filters = useSelector(s => s.appState.filters.buildings);
 	const buildings = customFilterItems(props.buildings, filters);
-	const classes = buildingStyles();
 	const history = useHistory();
 	const [page, setPage] = useState(0)
 
@@ -35,8 +34,7 @@ const BuildingsThumbs = props => {
 							<Card>
 								<CardHeader
 									avatar={
-										<Avatar aria-label="recipe" className={classes.avatar}>
-          							</Avatar>
+										<BuildingsThumbsImage building={building} />
 									}
 									action={
 										<>

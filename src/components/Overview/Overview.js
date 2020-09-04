@@ -5,7 +5,7 @@ import { useSelector } from 'react-redux';
 
 import OverviewCurrentResult from './OverviewCurrentResult';
 import OverviewBarGraph from './OverviewBarGraph';
-import BenchmarkEnergyGraph from 'components/Benchmark/BenchmarkEnergyGraph';
+import OverviewEnergyGraph from 'components/Overview/OverviewEnergyGraph';
 import CircularLoader from 'components/CircularLoader';
 import mainStyles from 'styles/mainStyles';
 
@@ -52,7 +52,7 @@ const Overview = props => {
 						<OverviewBarGraph buildings={buildings} />
 					</Grid>
 					<Grid item xs={12} lg={5} xl={5} style={{ display: 'flex' }}>
-						<BenchmarkEnergyGraph buildings={buildings} />
+						<OverviewEnergyGraph buildings={buildings} />
 					</Grid>
 				</Grid>
 				: <CircularLoader fill style={{ marginTop: 500 }} />}

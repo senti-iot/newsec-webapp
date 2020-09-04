@@ -11,7 +11,6 @@ import BuildingsList from './BuildingsList';
 import BuildingsThumbs from './BuildingsThumbs';
 import BuildingsMap from './BuildingsMap';
 import Building from './Building/Building';
-import Benchmark from 'components/Benchmark/Benchmark';
 import { getBuildings } from '../redux/buildings';
 import { getUserData } from 'redux/user';
 import CircularLoader from '../components/CircularLoader';
@@ -43,9 +42,6 @@ const MainContainer = props => {
 						<Switch>
 							<Route path={'/building/:uuid'}>
 								<Building buildings={buildings} />
-							</Route>
-							<Route path={'/benchmark'}>
-								<Benchmark buildings={buildings} />
 							</Route>
 							<Route path={'/'}>
 								{activeView === 'overview' ? <Overview buildings={buildings} /> : ""}

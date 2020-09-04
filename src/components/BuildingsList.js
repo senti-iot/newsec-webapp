@@ -63,6 +63,7 @@ const BuildingsList = props => {
 					onRequestSort={handleRequestSort}
 					rowCount={buildings ? buildings.length : 0}
 					columnData={columnNames}
+					numSelected={0}
 				/>
 				<TableBody>
 					{buildings ? buildings.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map(building => {
