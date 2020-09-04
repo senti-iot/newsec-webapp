@@ -15,8 +15,8 @@ const encrypt = (text) => {
 	return iv.toString('hex') + ':' + encrypted.toString('hex')
 }
 
-const backendHost = 'https://dev.services.senti.cloud/core';
-const databrokerHost = 'https://dev.services.senti.cloud/databroker';
+const backendHost = 'https://services.senti.cloud/core';
+const databrokerHost = 'https://services.senti.cloud/databroker';
 const newsecBackendHost = 'https://newsec.senti.cloud';
 
 export const coreApi = create({
