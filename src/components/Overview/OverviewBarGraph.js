@@ -45,7 +45,7 @@ const OverviewBarGraph = props => {
 	}, [dispatch, benchkmarkPeriod]);
 
 	const renderGraph = () => {
-		let margin = { top: 20, right: 20, bottom: 70, left: 40 };
+		let margin = { top: 30, right: 20, bottom: 70, left: 40 };
 		let width = barChartContainer.current.clientWidth - margin.left - margin.right;
 		let height = barChartContainer.current.clientHeight - margin.top - margin.bottom;
 
@@ -55,7 +55,7 @@ const OverviewBarGraph = props => {
 
 		let svgg = d3.select("#overviewGraph")
 			.attr("width", width + margin.left + margin.right)
-			.attr("height", height + margin.top + margin.bottom)
+			.attr("height", height + margin.top + margin.bottom + 20)
 			.append("g")
 			.attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
@@ -100,7 +100,7 @@ const OverviewBarGraph = props => {
 			// .style("text-anchor", "end")
 			// .text("Value ($)");
 			.append('text')
-			.attr('transform', `translate(40, ${margin.top - 28})`)
+			.attr('transform', `translate(40, ${margin.top - 48})`)
 			.attr('class', graphClasses.axisText)
 			.html('kg pr. m2');
 
