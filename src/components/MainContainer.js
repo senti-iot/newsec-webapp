@@ -3,7 +3,7 @@ import { Switch, Route, Redirect } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux'
 import cookie from 'react-cookies';
 
-import mainStyles from '../styles/mainStyles';
+import mainStyles from 'styles/mainStyles';
 import Header from './Header';
 import Footer from './Footer';
 import Overview from './Overview/Overview';
@@ -11,9 +11,10 @@ import BuildingsList from './BuildingsList';
 import BuildingsThumbs from './BuildingsThumbs';
 import BuildingsMap from './BuildingsMap';
 import Building from './Building/Building';
-import { getBuildings } from '../redux/buildings';
+import { getBuildings } from 'redux/buildings';
 import { getUserData } from 'redux/user';
-import CircularLoader from '../components/CircularLoader';
+import CircularLoader from 'components/CircularLoader';
+import FavoritesList from 'components/FavoritesList';
 
 const MainContainer = props => {
 	const classes = mainStyles();
@@ -42,6 +43,9 @@ const MainContainer = props => {
 						<Switch>
 							<Route path={'/building/:uuid'}>
 								<Building buildings={buildings} />
+							</Route>
+							<Route path={'/favorites'}>
+								<FavoritesList />
 							</Route>
 							<Route path={'/'}>
 								{activeView === 'overview' ? <Overview buildings={buildings} /> : ""}

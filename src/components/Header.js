@@ -125,7 +125,8 @@ const Header = (props) => {
 				history.push('/');
 				break;
 			case 'favorites':
-				history.push('/');
+				dispatch(changeHeaderTitle('Favoritter'));
+				history.push('/favorites');
 				break;
 			case 'users':
 				history.push('/');

@@ -11,7 +11,6 @@ const BuildingsThumbsImage = props => {
 
 	useEffect(() => {
 		const getImageData = async () => {
-			console.log('getImageData: ' + building.uuid);
 			let data = await getBuildingImageWithSize(building.uuid, building.images[0].filename, 100);
 
 			if (data) {
