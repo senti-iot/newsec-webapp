@@ -3,7 +3,6 @@ import React, { useEffect } from 'react';
 import { Card, CardHeader, CardContent, IconButton, Typography, Grid, Box } from '@material-ui/core';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import * as d3 from "d3";
-import { useSelector } from 'react-redux'
 import moment from 'moment';
 
 import buildingStyles from 'styles/buildingStyles';
@@ -12,33 +11,19 @@ const BuildingForecast = props => {
 	const classes = buildingStyles();
 	const building = props.building;
 
-	const deviceData = useSelector(s => s.lineData)
-
 	useEffect(() => {
-		if (deviceData && deviceData.graph && !deviceData.loading) {
-			// let actual = 0;
-			// deviceData.graph[0].data.map(d => {
-			// 	actual += d.value;
-			// });
-
-			// let goal = 0;
-			// deviceData.graph[1].data.map(d => {
-			// 	goal += d.value;
-			// });
-
-			// let forecast = 0;
-
+		if (building && building.emissionToDate) {
 			const data = [
-				{ value: 100, color: '#1F3B54' },
-				{ value: 75, color: '#B3CDE3' },
-				{ value: 50, color: '#377EB8' },
+				{ value: building.emissionToDate.goal, color: '#1F3B54' },
+				{ value: building.emissionToDate.co2Budget, color: '#B3CDE3' },
+				{ value: building.emissionToDate.co2, color: '#377EB8' },
 			];
 
 			renderGraph(data);
 		}
 
 	// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [deviceData]);
+	}, []);
 
 	const renderGraph = (data) => {
 		const width = 230;
@@ -131,8 +116,8 @@ const BuildingForecast = props => {
 							</Grid>
 						</div>
 
-						<Typography variant="h4">Målsætning</Typography>
-						<Typography variant="body2">***Der er i forhold til forrige periode udledt mindre CO2 end målsætningen</Typography>
+						{/* <Typography variant="h4">Målsætning</Typography>
+						<Typography variant="body2">***Der er i forhold til forrige periode udledt mindre CO2 end målsætningen</Typography> */}
 					</CardContent>
 				</Card>
 				: ""}

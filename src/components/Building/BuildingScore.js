@@ -10,6 +10,20 @@ const BuildingScore = props => {
 	const classes = buildingStyles();
 	const building = props.building;
 
+	const renderText = () => {
+		let text = '';
+
+		if (building.relativeCO2Score < 40) {
+			text = 'Ejendommen ligger under middel i CO2 belastning';
+		} else if (building.relativeCO2Score >= 40 && building.relativeCO2Score < 60) {
+			text = 'Ejendommen ligger middel i CO2 belastning';
+		} else if (building.relativeCO2Score >= 60) {
+			text = 'Ejendommen ligger over middel i CO2 belastning';
+		}
+
+		return text;
+	}
+
 	return (
 		<>
 			{building ?
@@ -129,7 +143,7 @@ const BuildingScore = props => {
 								/>
 							</div>
 
-							<Typography style={{ marginTop: 100 }} variant="body2">Ejendommen ligger under middel i CO2 belastning</Typography>
+							<Typography style={{ marginTop: 100 }} variant="body2">{renderText()}</Typography>
 						</CardContent>
 					</Card>
 				</>

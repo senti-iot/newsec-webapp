@@ -48,3 +48,13 @@ export const getBuildingImageWithSize = async (uuid, filename, size) => {
 	var data = await newsecApi.get('/building/' + uuid + '/image/' + filename + '/' + size).then(rs => rs.data);
 	return data;
 }
+
+export const getBuildingUsage = async (uuid) => {
+	var data = await newsecApi.get('/data/buildingusage/' + uuid).then(rs => rs.data);
+	return data;
+}
+
+export const getBuildingEmissionToDate = async (uuid) => {
+	var data = await newsecApi.get('/data/buildingemissiontodate/' + uuid).then(rs => rs.data);
+	return data;
+}

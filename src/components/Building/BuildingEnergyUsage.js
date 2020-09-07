@@ -3,22 +3,26 @@ import { Card, CardHeader, CardContent, IconButton, Grid, Typography, Box } from
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import moment from 'moment';
 import * as d3 from "d3";
+import NumberFormat from 'react-number-format';
 
 import buildingStyles from 'styles/buildingStyles';
 
 const BuildingEnergyUsage = props => {
 	const classes = buildingStyles();
-	// const building = props.building;
+	const building = props.building;
 	const chartContainer = useRef(React.createRef())
 
 	useEffect(() => {
-		let data = [
-			{ value: 50 },
-			{ value: 50 },
-		];
+		if (chartContainer && building && building.usage) {
+			let data = [
+				{ value: building.usage.elP },
+				{ value: building.usage.fjernvarmeP },
+			];
 
-		renderGraph(data);
-	}, [chartContainer]);
+			renderGraph(data);
+		}
+	// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, []);
 
 	const renderGraph = data => {
 		// let width = 230;
@@ -65,83 +69,84 @@ const BuildingEnergyUsage = props => {
 	}
 
 	return (
-		<Card className={classes.card}>
-			<CardHeader
-				action={
-					<IconButton aria-label="settings">
-						<MoreVertIcon />
-					</IconButton>
-				}
-				title="Energiforbrug"
-				titleTypographyProps={{ variant: 'h4' }}
-				subheader={"Årlig sum " + moment().format('YYYY')}
-				subheaderTypographyProps={{ variant: 'h5' }}
-			/>
-			<CardContent>
-				<Grid container>
-					<Grid item xs={7} xl={5}>
-						<Grid container spacing={4}>
-							<Grid item xs={12}>
-								<Typography variant="body2" style={{ fontSize: '17px', fontWeight: 'bold', color: '#848484' }}>
-									El pr. m2
-								</Typography>
-								<Typography variant="body2" style={{ fontSize: '19px', fontWeight: 'bold', color: '#377EB8' }}>
-									XXX kWh
-								</Typography>
-							</Grid>
-							<Grid item xs={12}>
-								<Typography variant="body2" style={{ fontSize: '17px', fontWeight: 'bold', color: '#848484' }}>
-									Varme pr. m2
-								</Typography>
-								<Typography variant="body2" style={{ fontSize: '19px', fontWeight: 'bold', color: '#1F3B54' }}>
-									XXX kWh
-								</Typography>
-							</Grid>
-							<Grid item xs={12}>
-								<Typography variant="body2" style={{ fontSize: '17px', fontWeight: 'bold', color: '#848484' }}>
-									Total energiforbrug
-								</Typography>
-								<Typography variant="body2" style={{ fontSize: '19px', fontWeight: 'bold', color: '#000000' }}>
-									XXX kWh
-								</Typography>
-							</Grid>
-						</Grid>
-					</Grid>
-					<Grid item xs={5} xl={7}>
-						<div className={classes.energyconsumptiongraphwrapper}>
-							<svg id='energyconsumptionchart' ref={chartContainer}></svg>
-
-							<div className={classes.forecastgraphlegendwrapper}>
-								<Grid container
-									alignItems="center"
-									justify="center"
-									spacing={5}>
-									<Grid item xs={6}>
-										<Box display="flex" justifyContent="center" alignItems="center">
-											<div className={classes.legendEl}></div>
-										</Box>
-										<Box display="flex" justifyContent="center" alignItems="center">
-											<Typography variant="body2">El</Typography>
-										</Box>
+		<>
+			{building && building.usage ?
+				<Card className={classes.card}>
+					<CardHeader
+						action={
+							<IconButton aria-label="settings">
+								<MoreVertIcon />
+							</IconButton>
+						}
+						title="Energiforbrug"
+						titleTypographyProps={{ variant: 'h4' }}
+						subheader={"Årlig sum " + moment().format('YYYY')}
+						subheaderTypographyProps={{ variant: 'h5' }}
+					/>
+					<CardContent>
+						<Grid container>
+							<Grid item xs={7} xl={5}>
+								<Grid container spacing={4}>
+									<Grid item xs={12}>
+										<Typography variant="body2" style={{ fontSize: '17px', fontWeight: 'bold', color: '#848484' }}>
+											El pr. m2
+										</Typography>
+										<Typography variant="body2" style={{ fontSize: '19px', fontWeight: 'bold', color: '#377EB8' }}>
+											<NumberFormat value={building.usage.el} displayType={'text'} thousandSeparator={'.'} decimalSeparator={','} decimalScale={2} /> kWh
+										</Typography>
 									</Grid>
-									<Grid item xs={6}>
-										<Box display="flex" justifyContent="center" alignItems="center">
-											<div className={classes.legendHeat}></div>
-										</Box>
-										<Box display="flex" justifyContent="center" alignItems="center">
-											<Typography variant="body2">Varme</Typography>
-										</Box>
+									<Grid item xs={12}>
+										<Typography variant="body2" style={{ fontSize: '17px', fontWeight: 'bold', color: '#848484' }}>
+											Varme pr. m2
+										</Typography>
+										<Typography variant="body2" style={{ fontSize: '19px', fontWeight: 'bold', color: '#1F3B54' }}>
+											<NumberFormat value={building.usage.fjernvarme} displayType={'text'} thousandSeparator={'.'} decimalSeparator={','} decimalScale={2} /> kWh
+										</Typography>
+									</Grid>
+									<Grid item xs={12}>
+										<Typography variant="body2" style={{ fontSize: '17px', fontWeight: 'bold', color: '#848484' }}>
+											Total energiforbrug
+										</Typography>
+										<Typography variant="body2" style={{ fontSize: '19px', fontWeight: 'bold', color: '#000000' }}>
+											<NumberFormat value={building.usage.total} displayType={'text'} thousandSeparator={'.'} decimalSeparator={','} decimalScale={2} /> kWh
+										</Typography>
 									</Grid>
 								</Grid>
-							</div>
+							</Grid>
+							<Grid item xs={5} xl={7}>
+								<div className={classes.energyconsumptiongraphwrapper}>
+									<svg id='energyconsumptionchart' ref={chartContainer}></svg>
 
-						</div>
-
-
-					</Grid>
-				</Grid>
-			</CardContent>
-		</Card>
+									<div className={classes.forecastgraphlegendwrapper}>
+										<Grid container
+											alignItems="center"
+											justify="center"
+											spacing={5}>
+											<Grid item xs={6}>
+												<Box display="flex" justifyContent="center" alignItems="center">
+													<div className={classes.legendEl}></div>
+												</Box>
+												<Box display="flex" justifyContent="center" alignItems="center">
+													<Typography variant="body2">El</Typography>
+												</Box>
+											</Grid>
+											<Grid item xs={6}>
+												<Box display="flex" justifyContent="center" alignItems="center">
+													<div className={classes.legendHeat}></div>
+												</Box>
+												<Box display="flex" justifyContent="center" alignItems="center">
+													<Typography variant="body2">Varme</Typography>
+												</Box>
+											</Grid>
+										</Grid>
+									</div>
+								</div>
+							</Grid>
+						</Grid>
+					</CardContent>
+				</Card>
+				: ""}
+		</>
 	)
 }
 

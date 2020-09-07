@@ -30,8 +30,8 @@ const BuildingsThumbs = props => {
 			<Grid container spacing={3}>
 				{buildings.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map(building => {
 					return (
-						<Grid item xs={12} md={3} key={building.uuid}>
-							<Card>
+						<Grid item xs={12} md={3} xl={2} key={building.uuid} style={{ display: 'flex' }}>
+							<Card style={{ width: '100%', display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
 								<CardHeader
 									avatar={
 										<BuildingsThumbsImage building={building} />
@@ -51,7 +51,7 @@ const BuildingsThumbs = props => {
 									titleTypographyProps={{ variant: 'h6' }}
 									subheaderTypographyProps={{ variant: 'h6' }}
 								/>
-								<CardContent>
+								<CardContent style={{ minHeight: 150, display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
 									<Typography>{groupTypeLabel(building.grouptype)}</Typography>
 
 									<CardActions disableSpacing={true}>
@@ -60,9 +60,10 @@ const BuildingsThumbs = props => {
 											color="primary"
 											endIcon={<ArrowForwardIosIcon />}
 											style={{ marginLeft: 'auto' }}
-											onClick={() => handleClick(building.uuid)}>
-										SE MERE
-        							</Button>
+											onClick={() => handleClick(building.uuid)}
+										>
+											SE MERE
+        								</Button>
 									</CardActions>
 								</CardContent>
 							</Card>
