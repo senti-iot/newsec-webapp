@@ -26,18 +26,18 @@ export const getDeviceData = (device, period, type) =>
 
 		let previousPeriod = { ...period };
 		let prevDaysToAdd = 0;
-		if (period.menuId === 2) {
+		if (period.menuId === 2) { //week
 			previousPeriod.from = moment(period.from).subtract(7, 'day').startOf('day');
-			previousPeriod.to = moment(period.to).subtract(7, 'day').startOf('day');
+			previousPeriod.to = moment(period.to).subtract(7, 'day').endOf('day');
 			prevDaysToAdd = 7;
-		} else if (period.menuId === 4) {
-			previousPeriod.from = moment(period.from).subtract(30, 'day').startOf('day');
-			previousPeriod.to = moment(period.to).subtract(30, 'day').startOf('day');
-			prevDaysToAdd = 30
-		} else if (period.menuId === 7) {
-			previousPeriod.from = moment(period.from).subtract(365, 'day').startOf('day');
-			previousPeriod.to = moment(period.to).subtract(365, 'day').startOf('day');
+		} else if (period.menuId === 4) { //year
+			previousPeriod.from = moment(period.from).subtract(365, 'day').startOf('year').startOf('day');
+			previousPeriod.to = moment(previousPeriod.from).endOf('year').endOf('day');
 			prevDaysToAdd = 365;
+		} else if (period.menuId === 7) { //month
+			previousPeriod.from = moment(period.from).subtract(30, 'day').startOf('day');
+			previousPeriod.to = moment(period.to).subtract(30, 'day').endOf('day');
+			prevDaysToAdd = 30
 		}
 
 		let benchmarkData = await getBuindingsBenchmark(period);
