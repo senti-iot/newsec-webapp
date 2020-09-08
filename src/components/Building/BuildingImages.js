@@ -23,7 +23,7 @@ class BuildingImages extends React.Component {
 			this.setState({ loading: true });
 			await Promise.all(
 				this.props.building.images.map(async (imageObj) => {
-					let data = await getBuildingImage(this.props.building.uuid, imageObj.filename);
+					let data = await getBuildingImage(this.props.building.uuid, imageObj);
 					images.push(data);
 				})
 			);
