@@ -1,15 +1,19 @@
 import React, { useState } from 'react';
-import { Hidden, Table, TableBody, TableRow } from '@material-ui/core';
+import { Hidden, Table, TableBody, TableRow, IconButton } from '@material-ui/core';
+import StarIcon from '@material-ui/icons/Star';
+import StarBorderIcon from '@material-ui/icons/StarBorder';
 import { useHistory } from 'react-router';
 import { useSelector, useDispatch } from 'react-redux';
 
-import tableStyles from '../styles/tableStyles';
+import tableStyles from 'styles/tableStyles';
 import TC from './table/TC';
 import TableHeader from './table/TableHeader';
 import TablePager from './table/TablePager';
 import { customFilterItems } from 'variables/filters';
 import { groupTypeLabel } from 'variables/functions';
 import { sortData } from 'redux/buildings';
+import { putUserInternal } from 'data/coreApi';
+import { setFavorites } from 'redux/user';
 
 const BuildingsList = props => {
 	const [page, setPage] = useState(0);
@@ -20,6 +24,9 @@ const BuildingsList = props => {
 	const classes = tableStyles();
 	const rowsPerPage = useSelector(s => s.appState.trp ? s.appState.trp : s.settings.trp)
 	const buildings = customFilterItems(props.buildings, filters);
+	const user = useSelector(s => s.user.user);
+	const favorites = useSelector(s => s.user.favorites);
+
 	const history = useHistory();
 	const dispatch = useDispatch();
 
@@ -43,8 +50,39 @@ const BuildingsList = props => {
 		history.push('/building/' + uuid);
 	}
 
+	const handleFavorite = async (event, uuid) => {
+		event.stopPropagation();
+
+		if (!user.internal) {
+			user.internal = {};
+		}
+
+		if (!user.internal.newsec) {
+			user.internal.newsec = {};
+		}
+
+		if (!user.internal.newsec.favorites) {
+			user.internal.newsec.favorites = [];
+		}
+
+		let newFavorites = [...favorites];
+
+		if (!newFavorites.filter(favorite => favorite.uuid === uuid).length) {
+			newFavorites.push({ uuid: uuid, type: 'building' });
+		} else {
+			newFavorites = newFavorites.filter(favorite => favorite.uuid !== uuid);
+		}
+
+		user.internal.newsec.favorites = newFavorites;
+
+		let data = await putUserInternal(user.uuid, user.internal);
+		if (data) {
+		 	dispatch(setFavorites(newFavorites));
+		}
+	}
+
 	const columnNames = [
-		// { id: 'id', label: t('devices.fields.id') },
+		{ id: 'favorite', label: '' },
 		{ id: 'no', label: 'Ejendomsnr' },
 		{ id: 'name', label: 'Ejendomsnavn' },
 		{ id: 'grouptype', label: 'Gruppe' },
@@ -95,6 +133,11 @@ const BuildingsList = props => {
 								</Hidden> */}
 
 								<Hidden mdDown>
+									<TC width="50" align="center" content={
+										<IconButton onClick={(event) => handleFavorite(event, building.uuid)}>
+											{favorites.filter(favorite => favorite.uuid === building.uuid).length ? <StarIcon style={{ color: '#90999E' }} /> : <StarBorderIcon />}
+										</IconButton>
+									} />
 									<TC label={building.no} />
 									<TC label={building.name} />
 									<TC label={groupTypeLabel(building.grouptype)} />
