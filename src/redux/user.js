@@ -1,10 +1,12 @@
 import cookie from 'react-cookies';
 import moment from 'moment';
 
-import { getUser, getAuth } from '../data/coreApi';
+import { getUser, getAuth, getUsers } from 'data/coreApi';
 
 const setData = 'setUserData';
 const setFavoritesData = 'setFavoritesData';
+const setUsersData = 'setUsersData';
+const setLoadingData = 'setLoadingData';
 
 export const getUserData = () => {
 	return async (dispatch) => {
@@ -47,9 +49,32 @@ export const setFavorites = favorites => {
 	}
 }
 
+export const getUsersData = () => {
+	return async (dispatch) => {
+		dispatch(setLoading(true));
+
+		let usersData = await getUsers();
+		if (usersData) {
+			dispatch({
+				type: setUsersData,
+				payload: usersData
+			});
+		}
+
+		dispatch(setLoading(false));
+	};
+}
+
+const setLoading = loading => ({
+	type: setLoadingData,
+	payload: loading
+})
+
 const initialState = {
+	loading: false,
 	user: null,
-	favorites: [],
+	favorites: null,
+	users: null,
 }
 
 export const user = (state = initialState, { type, payload }) => {
@@ -58,6 +83,10 @@ export const user = (state = initialState, { type, payload }) => {
 			return Object.assign({}, state, { user: payload });
 		case setFavoritesData:
 			return Object.assign({}, state, { favorites: payload });
+		case setUsersData:
+			return Object.assign({}, state, { users: payload });
+		case setLoadingData:
+			return Object.assign({}, state, { loading: payload });
 		default:
 			return state;
 	}

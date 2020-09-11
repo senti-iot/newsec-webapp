@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Hidden, Table, TableBody, TableRow, IconButton, Typography } from '@material-ui/core';
 import StarIcon from '@material-ui/icons/Star';
 import { useDispatch, useSelector } from 'react-redux';
@@ -10,7 +10,7 @@ import TableHeader from './table/TableHeader';
 import TablePager from './table/TablePager';
 import CircularLoader from 'components/CircularLoader';
 import { putUserInternal } from 'data/coreApi';
-import { setFavorites } from 'redux/user';
+import { getUsersData, setFavorites } from 'redux/user';
 
 const FavoritesList = () => {
 	const classes = tableStyles();
@@ -23,8 +23,13 @@ const FavoritesList = () => {
 	const favorites = useSelector(s => s.user.favorites);
 	const buildings = useSelector(s => s.buildingsReducer.buildings);
 	const user = useSelector(s => s.user.user);
+	const users = useSelector(s => s.user.users);
 
 	const history = useHistory();
+
+	useEffect(() => {
+		dispatch(getUsersData());
+	}, [dispatch]);
 
 	const handleRequestSort = (key, property) => {
 		let o = property !== orderBy ? 'asc' : order === 'desc' ? 'asc' : 'desc'
@@ -59,11 +64,12 @@ const FavoritesList = () => {
 	const columnNames = [
 		{ id: 'favorite', label: '' },
 		{ id: 'name', label: 'Navn' },
+		{ id: 'type', label: 'Type' },
 	]
 
 	return (
 		<>
-			{buildings && favorites ?
+			{buildings && users && favorites ?
 				<>
 					{favorites.length ?
 						<>
@@ -79,7 +85,18 @@ const FavoritesList = () => {
 								/>
 								<TableBody>
 									{favorites ? favorites.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map(favorite => {
-										let building = buildings.filter(b => b.uuid === favorite.uuid);
+										let name = '';
+										let type = '';
+										if (favorite.type === 'building') {
+											let building = buildings.filter(b => b.uuid === favorite.uuid);
+											name = building.length ? building[0].name : '';
+											type = 'Bygning'
+										} else if (favorite.type === 'user') {
+											let user = users.filter(u => u.uuid === favorite.uuid);
+											name = user.length ? user[0].firstName + ' ' + user[0].lastName : '';
+											type = 'Bruger'
+										}
+
 										return (
 											<TableRow
 												hover
@@ -91,7 +108,8 @@ const FavoritesList = () => {
 											>
 												<Hidden mdDown>
 													<TC content={<IconButton onClick={(event) => handleFavoriteDelete(event, favorite.uuid)}><StarIcon style={{ color: '#90999E' }} /></IconButton>} width="50" align="center" />
-													<TC label={building.length ? building[0].name : ""} />
+													<TC label={name} />
+													<TC label={type} />
 												</Hidden>
 											</TableRow>
 										)

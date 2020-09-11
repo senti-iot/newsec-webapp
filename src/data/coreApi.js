@@ -19,6 +19,11 @@ export const getUser = async () => {
 	return data;
 }
 
+export const getUsers = async () => {
+	var data = await coreApi.get('/v2/entity/users').then(rs => rs.data);
+	return data;
+}
+
 export const putUserInternal = async (uuid, userData) => {
 	var data = await coreApi.put('/v2/entity/user/' + uuid + '/internal', userData).then(rs => rs.data);
 	return data;

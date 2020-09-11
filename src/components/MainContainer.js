@@ -15,6 +15,7 @@ import { getBuildings } from 'redux/buildings';
 import { getUserData } from 'redux/user';
 import CircularLoader from 'components/CircularLoader';
 import FavoritesList from 'components/FavoritesList';
+import UserList from 'components/UserList';
 
 const MainContainer = props => {
 	const classes = mainStyles();
@@ -46,6 +47,9 @@ const MainContainer = props => {
 							</Route>
 							<Route path={'/favorites'}>
 								<FavoritesList />
+							</Route>
+							<Route path={'/users'}>
+								<UserList />
 							</Route>
 							<Route path={'/'}>
 								{activeView === 'overview' ? <Overview buildings={buildings} /> : ""}
