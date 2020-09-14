@@ -43,3 +43,7 @@ code {
 .alice-carousel__dots-item {
   background-color: #C4C4C4 !important;
 }
+
+.MuiTableSortLabel-root.MuiTableSortLabel-active.MuiTableSortLabel-root.MuiTableSortLabel-active .MuiTableSortLabel-icon {
+  color: #fff !important;
+}

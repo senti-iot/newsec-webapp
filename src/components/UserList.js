@@ -10,32 +10,32 @@ import tableStyles from 'styles/tableStyles';
 import TC from './table/TC';
 import TableHeader from './table/TableHeader';
 import TablePager from './table/TablePager';
-import { customFilterItems } from 'variables/filters';
-import { sortData } from 'redux/buildings';
+// import { customFilterItems } from 'variables/filters';
 import { getUsersData, setFavorites } from 'redux/user';
 import CircularLoader from 'components/CircularLoader';
 import { putUserInternal } from 'data/coreApi';
 import UserHover from 'components/UserHover';
 import { changeMainView, changeHeaderTitle, toogleFilterIcon, closeFilterBar } from 'redux/appState';
+import { handleRequestSort } from 'variables/functions';
 
 const UserList = () => {
 	const classes = tableStyles();
 
 	const [page, setPage] = useState(0);
 	const [order, setOrder] = useState('asc');
-	const [orderBy, setOrderBy] = useState('');
+	const [orderBy, setOrderBy] = useState('name');
 	const [hoverUser, setHoverUser] = useState(null);
 	const [rowHover, setRowHover] = useState(null);
 
 	const hoverTime = 1;
 	let timer = null
 
-	const filters = useSelector(s => s.appState.filters.users)
+	// const filters = useSelector(s => s.appState.filters.users)
 	const rowsPerPage = useSelector(s => s.appState.trp ? s.appState.trp : s.settings.trp)
 	const loading = useSelector(s => s.user.loading);
 	const user = useSelector(s => s.user.user);
 	const users = useSelector(s => s.user.users);
-	const userFiltered = customFilterItems(users, filters);
+	// const userFiltered = customFilterItems(users, filters);
 	const favorites = useSelector(s => s.user.favorites);
 
 	const dispatch = useDispatch();
@@ -48,16 +48,14 @@ const UserList = () => {
 		dispatch(getUsersData());
 	}, [dispatch]);
 
-	const redux = {
-		sortData: (key, property, order) => dispatch(sortData(key, property, order))
-	}
-
-	const handleRequestSort = (key, property) => {
-		let o = property !== orderBy ? 'asc' : order === 'desc' ? 'asc' : 'desc'
-
-		setOrder(o)
-		setOrderBy(property)
-		redux.sortData(key, property, o)
+	const handleRequestSortFunc = (event, property, way) => {
+		let newOrder = way ? way : order === 'desc' ? 'asc' : 'desc';
+		if (property !== orderBy) {
+			newOrder = 'asc';
+		}
+		handleRequestSort(property, order, users);
+		setOrder(newOrder);
+		setOrderBy(property);
 	}
 
 	const handleChangePage = (event, newpage) => {
@@ -143,13 +141,13 @@ const UserList = () => {
 							order={order}
 							orderBy={orderBy}
 							noCheckbox
-							onRequestSort={handleRequestSort}
-							rowCount={userFiltered ? userFiltered.length : 0}
+							onRequestSort={handleRequestSortFunc}
+							rowCount={users ? users.length : 0}
 							columnData={columnNames}
 							numSelected={0}
 						/>
 						<TableBody>
-							{userFiltered ? userFiltered.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map(user => {
+							{users ? users.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map(user => {
 								return (
 									<TableRow
 										hover
@@ -181,7 +179,7 @@ const UserList = () => {
 						</TableBody>
 					</Table>
 					<TablePager
-						count={userFiltered ? userFiltered.length : 0}
+						count={users ? users.length : 0}
 						page={page}
 						handleChangePage={handleChangePage}
 					/>

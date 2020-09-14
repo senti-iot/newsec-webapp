@@ -10,15 +10,14 @@ import TC from './table/TC';
 import TableHeader from './table/TableHeader';
 import TablePager from './table/TablePager';
 import { customFilterItems } from 'variables/filters';
-import { groupTypeLabel } from 'variables/functions';
-import { sortData } from 'redux/buildings';
+import { groupTypeLabel, handleRequestSort } from 'variables/functions';
 import { putUserInternal } from 'data/coreApi';
 import { setFavorites } from 'redux/user';
 
 const BuildingsList = props => {
 	const [page, setPage] = useState(0);
-	const [order, setOrder] = useState('asc');
-	const [orderBy, setOrderBy] = useState('');
+	const [order, setOrder] = useState('desc');
+	const [orderBy, setOrderBy] = useState('no');
 	const filters = useSelector(s => s.appState.filters.buildings)
 
 	const classes = tableStyles();
@@ -30,16 +29,14 @@ const BuildingsList = props => {
 	const history = useHistory();
 	const dispatch = useDispatch();
 
-	const redux = {
-		sortData: (key, property, order) => dispatch(sortData(key, property, order))
-	}
-
-	const handleRequestSort = (key, property) => {
-		let o = property !== orderBy ? 'asc' : order === 'desc' ? 'asc' : 'desc'
-
-		setOrder(o)
-		setOrderBy(property)
-		redux.sortData(key, property, o)
+	const handleRequestSortFunc = (event, property, way) => {
+		let newOrder = way ? way : order === 'desc' ? 'asc' : 'desc';
+		if (property !== orderBy) {
+			newOrder = 'asc';
+		}
+		handleRequestSort(property, order, buildings);
+		setOrder(newOrder);
+		setOrderBy(property);
 	}
 
 	const handleChangePage = (event, newpage) => {
@@ -98,7 +95,7 @@ const BuildingsList = props => {
 					order={order}
 					orderBy={orderBy}
 					noCheckbox
-					onRequestSort={handleRequestSort}
+					onRequestSort={handleRequestSortFunc}
 					rowCount={buildings ? buildings.length : 0}
 					columnData={columnNames}
 					numSelected={0}

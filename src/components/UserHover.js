@@ -55,23 +55,23 @@ const UserHover = props => {
 								<Gravatar size={50} default='mp' email={user.email} className={classes.img} />
 							</Grid>
 							<Grid xs={9} container justify={'center'}>
-								<Grid xs={12}>
+								<Grid xs={12} item>
 									<Typography variant={'h6'} style={{ textOverflow: 'ellipsis', whiteSpace: 'nowrap', overflow: 'hidden' }}>
 										{`${user.firstName} ${user.lastName}`}
 									</Typography>
 								</Grid>
-								<Grid xs={12}>
+								<Grid xs={12} item>
 									<Typography className={classes.smallText} paragraph={false}>
 										{user.email}
 									</Typography>
 								</Grid>
-								<Grid xs={12}>
+								<Grid xs={12} item>
 									<Typography className={classes.smallText} paragraph={false}>{user.phone ? user.phone : ""}</Typography>
 								</Grid>
 							</Grid>
 						</Grid>
 						<Grid container className={classes.middleContainer}>
-							<Grid xs={12}>
+							<Grid xs={12} item>
 								<Typography className={classes.smallText}>
 									<BusinessIcon className={classes.smallIcon} />
 									{user.org.name}

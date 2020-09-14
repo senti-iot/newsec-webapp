@@ -8,25 +8,25 @@ import tableStyles from 'styles/tableStyles';
 import TC from './table/TC';
 import TableHeader from './table/TableHeader';
 import TablePager from './table/TablePager';
-import { customFilterItems } from 'variables/filters';
-import { sortData } from 'redux/buildings';
+// import { customFilterItems } from 'variables/filters';
 import { getOrgsData, setFavorites } from 'redux/user';
 import CircularLoader from 'components/CircularLoader';
 import { putUserInternal } from 'data/coreApi';
 import { changeMainView, changeHeaderTitle, toogleFilterIcon, closeFilterBar } from 'redux/appState';
+import { handleRequestSort } from 'variables/functions';
 
 const UserList = () => {
 	const [page, setPage] = useState(0);
 	const [order, setOrder] = useState('asc');
-	const [orderBy, setOrderBy] = useState('');
-	const filters = useSelector(s => s.appState.filters.orgs)
+	const [orderBy, setOrderBy] = useState('name');
 
+	// const filters = useSelector(s => s.appState.filters.orgs)
 	const classes = tableStyles();
 	const rowsPerPage = useSelector(s => s.appState.trp ? s.appState.trp : s.settings.trp)
 	const loading = useSelector(s => s.user.loading);
 	const user = useSelector(s => s.user.user);
 	const orgs = useSelector(s => s.user.orgs);
-	const orgsFiltered = customFilterItems(orgs, filters);
+	// const orgsFiltered = customFilterItems(orgs, filters);
 	const favorites = useSelector(s => s.user.favorites);
 
 	const dispatch = useDispatch();
@@ -39,16 +39,14 @@ const UserList = () => {
 		dispatch(getOrgsData());
 	}, [dispatch]);
 
-	const redux = {
-		sortData: (key, property, order) => dispatch(sortData(key, property, order))
-	}
-
-	const handleRequestSort = (key, property) => {
-		let o = property !== orderBy ? 'asc' : order === 'desc' ? 'asc' : 'desc'
-
-		setOrder(o)
-		setOrderBy(property)
-		redux.sortData(key, property, o)
+	const handleRequestSortFunc = (event, property, way) => {
+		let newOrder = way ? way : order === 'desc' ? 'asc' : 'desc';
+		if (property !== orderBy) {
+			newOrder = 'asc';
+		}
+		handleRequestSort(property, order, orgs);
+		setOrder(newOrder);
+		setOrderBy(property);
 	}
 
 	const handleChangePage = (event, newpage) => {
@@ -104,13 +102,13 @@ const UserList = () => {
 							order={order}
 							orderBy={orderBy}
 							noCheckbox
-							onRequestSort={handleRequestSort}
-							rowCount={orgsFiltered ? orgsFiltered.length : 0}
+							onRequestSort={handleRequestSortFunc}
+							rowCount={orgs ? orgs.length : 0}
 							columnData={columnNames}
 							numSelected={0}
 						/>
 						<TableBody>
-							{orgsFiltered ? orgsFiltered.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map(org => {
+							{orgs ? orgs.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map(org => {
 								return (
 									<TableRow
 										hover
@@ -139,7 +137,7 @@ const UserList = () => {
 						</TableBody>
 					</Table>
 					<TablePager
-						count={orgsFiltered ? orgsFiltered.length : 0}
+						count={orgs ? orgs.length : 0}
 						page={page}
 						handleChangePage={handleChangePage}
 					/>

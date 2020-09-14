@@ -12,7 +12,11 @@ const thStyles = makeStyles(theme => ({
 		textAlign: 'center'
 	},
 	headerCell: {
-		color: "inherit",
+		color: "#fff",
+	},
+	sortLabel: {
+		// color: '#fff !important',
+		// backgroundColor: '#fff !important'
 	},
 	paragraphCell: {
 		margin: 0,
