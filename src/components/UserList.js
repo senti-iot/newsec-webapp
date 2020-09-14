@@ -16,6 +16,7 @@ import { getUsersData, setFavorites } from 'redux/user';
 import CircularLoader from 'components/CircularLoader';
 import { putUserInternal } from 'data/coreApi';
 import UserHover from 'components/UserHover';
+import { changeMainView, changeHeaderTitle, toogleFilterIcon, closeFilterBar } from 'redux/appState';
 
 const UserList = () => {
 	const classes = tableStyles();
@@ -40,6 +41,10 @@ const UserList = () => {
 	const dispatch = useDispatch();
 
 	useEffect(() => {
+		dispatch(closeFilterBar());
+		dispatch(toogleFilterIcon(false));
+		dispatch(changeMainView(''));
+		dispatch(changeHeaderTitle('Brugere'));
 		dispatch(getUsersData());
 	}, [dispatch]);
 

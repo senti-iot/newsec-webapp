@@ -24,7 +24,7 @@ import mainStyles from 'styles/mainStyles';
 import BarButton from './ui/BarButton';
 import logo from 'assets/logo.png';
 import { logoutUser } from 'data/coreApi';
-import { changeMainView, changeHeaderTitle, toogleFilterBar, toogleFilterIcon, closeFilterBar } from 'redux/appState';
+import { changeMainView, changeHeaderTitle, toogleFilterBar, toogleFilterIcon } from 'redux/appState';
 import FilterToolbar from 'components/filterToolbar/FilterToolbar'
 import { ReactComponent as BenchmarkIcon } from "assets/icons/benchmark.svg";
 import { ReactComponent as BenchmarkDimmedIcon } from "assets/icons/benchmark_dimmed.svg";
@@ -120,29 +120,15 @@ const Header = (props) => {
 		switch (page) {
 			default:
 			case 'benchmark':
-				dispatch(changeMainView('overview'));
-				dispatch(changeHeaderTitle('Benchmark'));
 				history.push('/');
 				break;
 			case 'favorites':
-				dispatch(closeFilterBar());
-				dispatch(toogleFilterIcon(false));
-				dispatch(changeMainView(''));
-				dispatch(changeHeaderTitle('Favoritter'));
 				history.push('/favorites');
 				break;
 			case 'users':
-				dispatch(closeFilterBar());
-				dispatch(toogleFilterIcon(false));
-				dispatch(changeMainView(''));
-				dispatch(changeHeaderTitle('Brugere'));
 				history.push('/users');
 				break;
 			case 'customers':
-				dispatch(closeFilterBar());
-				dispatch(toogleFilterIcon(false));
-				dispatch(changeMainView(''));
-				dispatch(changeHeaderTitle('Kunder'));
 				history.push('/customers');
 				break;
 			case 'support':

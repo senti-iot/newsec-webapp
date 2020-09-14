@@ -13,6 +13,7 @@ import { sortData } from 'redux/buildings';
 import { getOrgsData, setFavorites } from 'redux/user';
 import CircularLoader from 'components/CircularLoader';
 import { putUserInternal } from 'data/coreApi';
+import { changeMainView, changeHeaderTitle, toogleFilterIcon, closeFilterBar } from 'redux/appState';
 
 const UserList = () => {
 	const [page, setPage] = useState(0);
@@ -31,6 +32,10 @@ const UserList = () => {
 	const dispatch = useDispatch();
 
 	useEffect(() => {
+		dispatch(closeFilterBar());
+		dispatch(toogleFilterIcon(false));
+		dispatch(changeMainView(''));
+		dispatch(changeHeaderTitle('Kunder'));
 		dispatch(getOrgsData());
 	}, [dispatch]);
 

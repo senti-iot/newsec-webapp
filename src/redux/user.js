@@ -93,7 +93,6 @@ const setLoading = loading => ({
 export const isFav = (obj) => {
 	return (dispatch, getState) => {
 		let favs = getState().user.favorites;
-		console.log(favs);
 		if (favs.findIndex(f => f.uuid === obj.uuid && f.type === obj.type) > -1) {
 			return true;
 		} else {
@@ -106,7 +105,6 @@ export const removeFromFav = (obj, noConfirm) => {
 	return async (dispatch, getState) => {
 		let favs = getState().user.favorites;
 		favs = favs.filter(f => f.uuid !== obj.uuid);
-		// console.log(favs);
 		dispatch({
 			type: setFavoritesData,
 			payload: favs
@@ -118,7 +116,6 @@ export const addToFav = (obj, noConfirm) => {
 	return async (dispatch, getState) => {
 		let favs = getState().user.favorites || [];
 		favs.push(obj);
-		// console.log(favs);
 		dispatch({
 			type: setFavoritesData,
 			payload: favs

@@ -1,18 +1,25 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import moment from 'moment';
 import { Grid, Typography, Box } from '@material-ui/core';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 import OverviewCurrentResult from './OverviewCurrentResult';
 import OverviewBarGraph from './OverviewBarGraph';
 import OverviewEnergyGraph from 'components/Overview/OverviewEnergyGraph';
 import CircularLoader from 'components/CircularLoader';
 import mainStyles from 'styles/mainStyles';
+import { changeMainView, changeHeaderTitle } from 'redux/appState';
 
 const Overview = props => {
 	const user = useSelector(s => s.user.user);
 	const buildings = props.buildings;
 	const classes = mainStyles();
+	const dispatch = useDispatch();
+
+	useEffect(() => {
+		dispatch(changeMainView('overview'));
+		dispatch(changeHeaderTitle('Benchmark'));
+	}, [dispatch]);
 
 	const getWelcomeTime = () => {
 		let string = "";

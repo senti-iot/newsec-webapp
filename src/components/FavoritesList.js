@@ -11,6 +11,7 @@ import TablePager from './table/TablePager';
 import CircularLoader from 'components/CircularLoader';
 import { putUserInternal } from 'data/coreApi';
 import { getUsersData, setFavorites } from 'redux/user';
+import { changeMainView, changeHeaderTitle, toogleFilterIcon, closeFilterBar } from 'redux/appState';
 
 const FavoritesList = () => {
 	const classes = tableStyles();
@@ -29,6 +30,10 @@ const FavoritesList = () => {
 	const history = useHistory();
 
 	useEffect(() => {
+		dispatch(closeFilterBar());
+		dispatch(toogleFilterIcon(false));
+		dispatch(changeMainView(''));
+		dispatch(changeHeaderTitle('Favoritter'));
 		dispatch(getUsersData());
 	}, [dispatch]);
 
