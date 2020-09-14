@@ -15,14 +15,21 @@ import { sortData } from 'redux/buildings';
 import { getUsersData, setFavorites } from 'redux/user';
 import CircularLoader from 'components/CircularLoader';
 import { putUserInternal } from 'data/coreApi';
+import UserHover from 'components/UserHover';
 
 const UserList = () => {
+	const classes = tableStyles();
+
 	const [page, setPage] = useState(0);
 	const [order, setOrder] = useState('asc');
 	const [orderBy, setOrderBy] = useState('');
-	const filters = useSelector(s => s.appState.filters.users)
+	const [hoverUser, setHoverUser] = useState(null);
+	const [rowHover, setRowHover] = useState(null);
 
-	const classes = tableStyles();
+	const hoverTime = 1;
+	let timer = null
+
+	const filters = useSelector(s => s.appState.filters.users)
 	const rowsPerPage = useSelector(s => s.appState.trp ? s.appState.trp : s.settings.trp)
 	const loading = useSelector(s => s.user.loading);
 	const user = useSelector(s => s.user.user);
@@ -83,6 +90,34 @@ const UserList = () => {
 		}
 	}
 
+	const setHover = (e, u) => {
+		let target = e.target
+		if (hoverTime > 0) {
+			timer = setTimeout(() => {
+				if (rowHover !== null) {
+					if (rowHover.uuid !== u.uuid) {
+						setRowHover(null);
+						setTimeout(() => {
+							setHoverUser(u);
+							setRowHover(target);
+						}, 200);
+					}
+				} else {
+					setHoverUser(u);
+					setRowHover(target);
+				}
+			}, hoverTime);
+		}
+	}
+
+	const unsetTimeout = () => {
+		clearTimeout(timer);
+	}
+
+	const unsetHover = () => {
+		setRowHover(null);
+	}
+
 	const columnNames = [
 		{ id: 'favorite', label: '' },
 		{ id: 'name', label: 'Navn' },
@@ -96,7 +131,8 @@ const UserList = () => {
 	return (
 		<>
 			{!loading ?
-				<>
+				<div onMouseLeave={unsetHover}>
+					<UserHover anchorEl={rowHover} handleClose={unsetHover} user={hoverUser} />
 					<Table className={classes.table} aria-labelledby='tableTitle'>
 						<TableHeader
 							order={order}
@@ -125,7 +161,9 @@ const UserList = () => {
 													{favorites && favorites.filter(favorite => favorite.uuid === user.uuid).length ? <StarIcon style={{ color: '#90999E' }} /> : <StarBorderIcon />}
 												</IconButton>
 											} />
-											<TC label={user.firstName + ' ' + user.lastName} />
+											<TC onMouseEnter={e => { setHover(e, user) }}
+												onMouseLeave={unsetTimeout}
+												label={user.firstName + ' ' + user.lastName} />
 											<TC label={user.phone} />
 											<TC label={user.email} />
 											<TC label={user.org.name} />
@@ -142,7 +180,7 @@ const UserList = () => {
 						page={page}
 						handleChangePage={handleChangePage}
 					/>
-				</>
+				</div>
 				: <CircularLoader fill /> }
 		</>
 	)

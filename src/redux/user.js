@@ -1,13 +1,15 @@
 import cookie from 'react-cookies';
 import moment from 'moment';
 
-import { getUser, getAuth, getUsers, getOrgs } from 'data/coreApi';
+import { getUser, getAuth, getUsers, getOrgs, putUserInternal } from 'data/coreApi';
 
 const setData = 'setUserData';
 const setFavoritesData = 'setFavoritesData';
 const setUsersData = 'setUsersData';
 const setOrgsData = 'setOrgsData';
 const setLoadingData = 'setLoadingData';
+// const GETFAVS = 'getFavorites';
+const SAVEFAVORITES = 'saveFavorites';
 
 export const getUserData = () => {
 	return async (dispatch) => {
@@ -71,7 +73,7 @@ export const getOrgsData = () => {
 		dispatch(setLoading(true));
 
 		let orgsData = await getOrgs();
-		console.log(orgsData);
+
 		if (orgsData) {
 			dispatch({
 				type: setOrgsData,
@@ -87,6 +89,59 @@ const setLoading = loading => ({
 	type: setLoadingData,
 	payload: loading
 })
+
+export const isFav = (obj) => {
+	return (dispatch, getState) => {
+		let favs = getState().user.favorites;
+		console.log(favs);
+		if (favs.findIndex(f => f.uuid === obj.uuid && f.type === obj.type) > -1) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+}
+
+export const removeFromFav = (obj, noConfirm) => {
+	return async (dispatch, getState) => {
+		let favs = getState().user.favorites;
+		favs = favs.filter(f => f.uuid !== obj.uuid);
+		// console.log(favs);
+		dispatch({
+			type: setFavoritesData,
+			payload: favs
+		});
+		dispatch(saveFavorites(noConfirm));
+	}
+}
+export const addToFav = (obj, noConfirm) => {
+	return async (dispatch, getState) => {
+		let favs = getState().user.favorites || [];
+		favs.push(obj);
+		// console.log(favs);
+		dispatch({
+			type: setFavoritesData,
+			payload: favs
+		});
+		dispatch(saveFavorites(noConfirm));
+	}
+}
+
+const saveFavorites = (noConfirm) => {
+	return async (dispatch, getState) => {
+		let user = getState().user.user;
+		let f = getState().user.favorites;
+		let internal = user.internal || {};
+		internal.newsec = internal.newsec || {};
+		internal.newsec.favorites = f || [];
+
+		let saved = await putUserInternal(user.uuid, internal);
+		dispatch({
+			type: SAVEFAVORITES,
+			payload: noConfirm ? false : saved ? true : false
+		})
+	}
+}
 
 const initialState = {
 	loading: false,
@@ -108,6 +163,10 @@ export const user = (state = initialState, { type, payload }) => {
 			return Object.assign({}, state, { orgs: payload });
 		case setLoadingData:
 			return Object.assign({}, state, { loading: payload });
+		// case GETFAVS:
+		// 	return Object.assign({}, state, { ...action.favorites })
+		case SAVEFAVORITES:
+			return Object.assign({}, state, { saved: payload })
 		default:
 			return state;
 	}
