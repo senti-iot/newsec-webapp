@@ -215,6 +215,7 @@ const initialState = {
 		buildings: [],
 		favorites: [],
 		users: [],
+		orgs: [],
 	},
 	headerTitle: 'Benchmark',
 	secondaryBarVisible: true,

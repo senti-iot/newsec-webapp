@@ -24,6 +24,7 @@ const FavoritesList = () => {
 	const buildings = useSelector(s => s.buildingsReducer.buildings);
 	const user = useSelector(s => s.user.user);
 	const users = useSelector(s => s.user.users);
+	const orgs = useSelector(s => s.user.orgs);
 
 	const history = useHistory();
 
@@ -69,7 +70,7 @@ const FavoritesList = () => {
 
 	return (
 		<>
-			{buildings && users && favorites ?
+			{favorites ?
 				<>
 					{favorites.length ?
 						<>
@@ -95,6 +96,10 @@ const FavoritesList = () => {
 											let user = users.filter(u => u.uuid === favorite.uuid);
 											name = user.length ? user[0].firstName + ' ' + user[0].lastName : '';
 											type = 'Bruger'
+										} else if (favorite.type === 'org') {
+											let org = orgs.filter(o => o.uuid === favorite.uuid);
+											name = org.length ? org[0].name : '';
+											type = 'Kunde'
 										}
 
 										return (

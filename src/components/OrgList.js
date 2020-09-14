@@ -3,8 +3,6 @@ import { Hidden, Table, TableBody, TableRow, IconButton } from '@material-ui/cor
 import StarIcon from '@material-ui/icons/Star';
 import StarBorderIcon from '@material-ui/icons/StarBorder';
 import { useSelector, useDispatch } from 'react-redux';
-import moment from 'moment';
-import 'moment/locale/da';
 
 import tableStyles from 'styles/tableStyles';
 import TC from './table/TC';
@@ -12,7 +10,7 @@ import TableHeader from './table/TableHeader';
 import TablePager from './table/TablePager';
 import { customFilterItems } from 'variables/filters';
 import { sortData } from 'redux/buildings';
-import { getUsersData, setFavorites } from 'redux/user';
+import { getOrgsData, setFavorites } from 'redux/user';
 import CircularLoader from 'components/CircularLoader';
 import { putUserInternal } from 'data/coreApi';
 
@@ -20,20 +18,20 @@ const UserList = () => {
 	const [page, setPage] = useState(0);
 	const [order, setOrder] = useState('asc');
 	const [orderBy, setOrderBy] = useState('');
-	const filters = useSelector(s => s.appState.filters.users)
+	const filters = useSelector(s => s.appState.filters.orgs)
 
 	const classes = tableStyles();
 	const rowsPerPage = useSelector(s => s.appState.trp ? s.appState.trp : s.settings.trp)
 	const loading = useSelector(s => s.user.loading);
 	const user = useSelector(s => s.user.user);
-	const users = useSelector(s => s.user.users);
-	const userFiltered = customFilterItems(users, filters);
+	const orgs = useSelector(s => s.user.orgs);
+	const orgsFiltered = customFilterItems(orgs, filters);
 	const favorites = useSelector(s => s.user.favorites);
 
 	const dispatch = useDispatch();
 
 	useEffect(() => {
-		dispatch(getUsersData());
+		dispatch(getOrgsData());
 	}, [dispatch]);
 
 	const redux = {
@@ -70,7 +68,7 @@ const UserList = () => {
 		let newFavorites = [...favorites];
 
 		if (!newFavorites.filter(favorite => favorite.uuid === uuid).length) {
-			newFavorites.push({ uuid: uuid, type: 'user' });
+			newFavorites.push({ uuid: uuid, type: 'org' });
 		} else {
 			newFavorites = newFavorites.filter(favorite => favorite.uuid !== uuid);
 		}
@@ -86,11 +84,10 @@ const UserList = () => {
 	const columnNames = [
 		{ id: 'favorite', label: '' },
 		{ id: 'name', label: 'Navn' },
-		{ id: 'phone', label: 'Telefon' },
-		{ id: 'email', label: 'E-mail' },
-		{ id: 'org', label: 'Organisation' },
-		{ id: 'type', label: 'Type' },
-		{ id: 'latestlogin', label: 'Seneste login' },
+		{ id: 'address', label: 'Adresse' },
+		{ id: 'zip', label: 'Postnummer' },
+		{ id: 'zity', label: 'By' },
+		{ id: 'website', label: 'Hjemmeside' },
 	]
 
 	return (
@@ -103,34 +100,33 @@ const UserList = () => {
 							orderBy={orderBy}
 							noCheckbox
 							onRequestSort={handleRequestSort}
-							rowCount={userFiltered ? userFiltered.length : 0}
+							rowCount={orgsFiltered ? orgsFiltered.length : 0}
 							columnData={columnNames}
 							numSelected={0}
 						/>
 						<TableBody>
-							{userFiltered ? userFiltered.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map(user => {
+							{orgsFiltered ? orgsFiltered.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map(org => {
 								return (
 									<TableRow
 										hover
 										// onClick={() => handleRowClick(building.uuid)}
 										role='checkbox'
 										tabIndex={-1}
-										key={user.uuid}
+										key={org.uuid}
 										//style={{ cursor: 'pointer' }}
 										className={classes.tableRow}
 									>
 										<Hidden mdDown>
 											<TC width="50" align="center" content={
-												<IconButton onClick={(event) => handleFavorite(event, user.uuid)}>
-													{favorites && favorites.filter(favorite => favorite.uuid === user.uuid).length ? <StarIcon style={{ color: '#90999E' }} /> : <StarBorderIcon />}
+												<IconButton onClick={(event) => handleFavorite(event, org.uuid)}>
+													{favorites && favorites.filter(favorite => favorite.uuid === org.uuid).length ? <StarIcon style={{ color: '#90999E' }} /> : <StarBorderIcon />}
 												</IconButton>
 											} />
-											<TC label={user.firstName + ' ' + user.lastName} />
-											<TC label={user.phone} />
-											<TC label={user.email} />
-											<TC label={user.org.name} />
-											<TC label='' />
-											<TC label={user.lastLoggedIn ? moment(user.lastLoggedIn).format('lll') : '-'} />
+											<TC label={org.name} />
+											<TC label={org.address} />
+											<TC label={org.zip} />
+											<TC label={org.city} />
+											<TC label={org.website} />
 										</Hidden>
 									</TableRow>
 								)
@@ -138,12 +134,12 @@ const UserList = () => {
 						</TableBody>
 					</Table>
 					<TablePager
-						count={userFiltered ? userFiltered.length : 0}
+						count={orgsFiltered ? orgsFiltered.length : 0}
 						page={page}
 						handleChangePage={handleChangePage}
 					/>
 				</>
-				: <CircularLoader fill /> }
+				: <CircularLoader fill />}
 		</>
 	)
 }

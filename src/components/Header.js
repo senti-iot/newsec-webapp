@@ -133,7 +133,8 @@ const Header = (props) => {
 				history.push('/users');
 				break;
 			case 'customers':
-				history.push('/');
+				dispatch(changeHeaderTitle('Kunder'));
+				history.push('/customers');
 				break;
 			case 'support':
 				history.push('/');
