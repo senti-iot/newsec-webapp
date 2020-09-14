@@ -3,7 +3,6 @@ import { Route, Switch } from 'react-router-dom';
 
 import MainContainer from '../components/MainContainer';
 import Login from './Login';
-import Demo from './demo/Demo'
 // import ForgotPassword from './ForgotPassword';
 import NewContent from 'components/NewContent';
 
@@ -19,9 +18,6 @@ const Main = () => {
 				</Route> */}
 				<Route path={'/login'}>
 					<Login />
-				</Route>
-				<Route path={'/demo'}>
-					<Demo/>
 				</Route>
 				<Route path={'/'}>
 					<MainContainer />

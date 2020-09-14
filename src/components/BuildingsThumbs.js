@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Grid, Card, CardHeader, CardContent, CardActions, IconButton, Button, Typography } from '@material-ui/core';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos';
@@ -13,6 +13,7 @@ import { groupTypeLabel } from 'variables/functions';
 import BuildingsThumbsImage from 'components/BuildingsThumbsImage';
 import { putUserInternal } from 'data/coreApi';
 import { setFavorites } from 'redux/user';
+import { changeHeaderTitle, changeMainView, toogleFilterIcon } from 'redux/appState';
 
 const BuildingsThumbs = props => {
 	const filters = useSelector(s => s.appState.filters.buildings);
@@ -24,6 +25,12 @@ const BuildingsThumbs = props => {
 	const rowsPerPage = useSelector(s => s.appState.trp ? s.appState.trp : s.settings.trp)
 	const user = useSelector(s => s.user.user);
 	const favorites = useSelector(s => s.user.favorites);
+
+	useEffect(() => {
+		dispatch(changeHeaderTitle('Miniaturer'));
+		dispatch(changeMainView('thumbs'));
+		dispatch(toogleFilterIcon(true));
+	}, [dispatch]);
 
 	const handleClick = uuid => {
 		history.push('/building/' + uuid);

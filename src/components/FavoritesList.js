@@ -4,14 +4,15 @@ import StarIcon from '@material-ui/icons/Star';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router';
 
-import tableStyles from '../styles/tableStyles';
+import tableStyles from 'styles/tableStyles';
 import TC from './table/TC';
 import TableHeader from './table/TableHeader';
 import TablePager from './table/TablePager';
 import CircularLoader from 'components/CircularLoader';
 import { putUserInternal } from 'data/coreApi';
-import { getUsersData, setFavorites } from 'redux/user';
+import { getUsersData, getOrgsData, setFavorites } from 'redux/user';
 import { changeMainView, changeHeaderTitle, toogleFilterIcon, closeFilterBar } from 'redux/appState';
+import { handleRequestSort } from 'variables/functions';
 
 const FavoritesList = () => {
 	const classes = tableStyles();
@@ -19,7 +20,7 @@ const FavoritesList = () => {
 	const dispatch = useDispatch();
 	const [page, setPage] = useState(0);
 	const [order, setOrder] = useState('asc');
-	const [orderBy, setOrderBy] = useState('');
+	const [orderBy, setOrderBy] = useState('name');
 	const rowsPerPage = useSelector(s => s.appState.trp ? s.appState.trp : s.settings.trp)
 	const favorites = useSelector(s => s.user.favorites);
 	const buildings = useSelector(s => s.buildingsReducer.buildings);
@@ -35,14 +36,17 @@ const FavoritesList = () => {
 		dispatch(changeMainView(''));
 		dispatch(changeHeaderTitle('Favoritter'));
 		dispatch(getUsersData());
+		dispatch(getOrgsData());
 	}, [dispatch]);
 
-	const handleRequestSort = (key, property) => {
-		let o = property !== orderBy ? 'asc' : order === 'desc' ? 'asc' : 'desc'
-
-		setOrder(o)
-		setOrderBy(property)
-		// redux.sortData(key, property, o)
+	const handleRequestSortFunc = (event, property, way) => {
+		let newOrder = way ? way : order === 'desc' ? 'asc' : 'desc';
+		if (property !== orderBy) {
+			newOrder = 'asc';
+		}
+		handleRequestSort(property, order, favorites);
+		setOrder(newOrder);
+		setOrderBy(property);
 	}
 
 	const handleChangePage = (event, newpage) => {
@@ -84,7 +88,7 @@ const FavoritesList = () => {
 									order={order}
 									orderBy={orderBy}
 									noCheckbox
-									onRequestSort={handleRequestSort}
+									onRequestSort={handleRequestSortFunc}
 									rowCount={favorites.length}
 									columnData={columnNames}
 									numSelected={0}

@@ -142,10 +142,10 @@ const saveFavorites = (noConfirm) => {
 
 const initialState = {
 	loading: false,
-	user: null,
-	favorites: null,
-	users: null,
-	orgs: null,
+	user: [],
+	favorites: [],
+	users: [],
+	orgs: [],
 }
 
 export const user = (state = initialState, { type, payload }) => {

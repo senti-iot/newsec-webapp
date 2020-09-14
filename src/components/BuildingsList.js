@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Hidden, Table, TableBody, TableRow, IconButton } from '@material-ui/core';
 import StarIcon from '@material-ui/icons/Star';
 import StarBorderIcon from '@material-ui/icons/StarBorder';
@@ -13,6 +13,7 @@ import { customFilterItems } from 'variables/filters';
 import { groupTypeLabel, handleRequestSort } from 'variables/functions';
 import { putUserInternal } from 'data/coreApi';
 import { setFavorites } from 'redux/user';
+import { changeHeaderTitle, changeMainView, toogleFilterIcon } from 'redux/appState';
 
 const BuildingsList = props => {
 	const [page, setPage] = useState(0);
@@ -28,6 +29,12 @@ const BuildingsList = props => {
 
 	const history = useHistory();
 	const dispatch = useDispatch();
+
+	useEffect(() => {
+		dispatch(changeHeaderTitle('Liste'));
+		dispatch(changeMainView('list'));
+		dispatch(toogleFilterIcon(true));
+	}, [dispatch]);
 
 	const handleRequestSortFunc = (event, property, way) => {
 		let newOrder = way ? way : order === 'desc' ? 'asc' : 'desc';
@@ -132,7 +139,7 @@ const BuildingsList = props => {
 								<Hidden mdDown>
 									<TC width="50" align="center" content={
 										<IconButton onClick={(event) => handleFavorite(event, building.uuid)}>
-											{favorites.filter(favorite => favorite.uuid === building.uuid).length ? <StarIcon style={{ color: '#90999E' }} /> : <StarBorderIcon />}
+											{favorites && favorites.filter(favorite => favorite.uuid === building.uuid).length ? <StarIcon style={{ color: '#90999E' }} /> : <StarBorderIcon />}
 										</IconButton>
 									} />
 									<TC label={building.no} />

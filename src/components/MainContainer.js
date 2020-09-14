@@ -25,7 +25,6 @@ const MainContainer = props => {
 	const buildings = useSelector(s => s.buildingsReducer.buildings);
 	const loading = useSelector(s => s.buildingsReducer.loading);
 	const secondaryBarVisible = useSelector(s => s.appState.secondaryBarVisible);
-	const activeView = useSelector(s => s.appState.mainView);
 
 	useEffect(() => {
 		dispatch(getBuildings());
@@ -55,11 +54,17 @@ const MainContainer = props => {
 							<Route path={'/customers'}>
 								<OrgList />
 							</Route>
+							<Route path={'/list'}>
+								<BuildingsList buildings={buildings} />
+							</Route>
+							<Route path={'/map'}>
+								<BuildingsMap buildings={buildings} />
+							</Route>
+							<Route path={'/thumbs'}>
+								<BuildingsThumbs buildings={buildings} />
+							</Route>
 							<Route path={'/'}>
-								{activeView === 'overview' ? <Overview buildings={buildings} /> : ""}
-								{activeView === 'list' ? <BuildingsList buildings={buildings} /> : ""}
-								{activeView === 'map' ? <BuildingsMap buildings={buildings} /> : ""}
-								{activeView === 'thumbs' ? <BuildingsThumbs buildings={buildings} /> : ""}
+								<Overview buildings={buildings} />
 							</Route>
 							<Redirect path={'*'} to={'/'}></Redirect>
 						</Switch>

@@ -2,12 +2,13 @@ import React, { useEffect, useRef, useCallback } from 'react';
 import { Map, Marker, TileLayer, FeatureGroup, Popup } from 'react-leaflet';
 import "leaflet/dist/leaflet.css";
 import L from 'leaflet';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 
 import BuildingDetailsMapPopup from 'components/BuildingDetailsMapPopup';
 import { customFilterItems } from 'variables/filters';
-import buildingStyles from '../styles/buildingStyles';
+import buildingStyles from 'styles/buildingStyles';
 import { findPinFromBuildingScore } from 'variables/functions';
+import { changeHeaderTitle, changeMainView, toogleFilterIcon } from 'redux/appState';
 
 const BuildingsMap = props => {
 	const filters = useSelector(s => s.appState.filters.buildings);
@@ -15,6 +16,13 @@ const BuildingsMap = props => {
 	const mapRef = useRef(null);
 	const groupRef = useRef(null);
 	const classes = buildingStyles();
+	const dispatch = useDispatch();
+
+	useEffect(() => {
+		dispatch(changeHeaderTitle('Kort'));
+		dispatch(changeMainView('map'));
+		dispatch(toogleFilterIcon(true));
+	}, [dispatch]);
 
 	const zoomToFitMarkers = useCallback(() => {
 		if (!mapRef.current || !groupRef.current) {
@@ -73,7 +81,7 @@ const BuildingsMap = props => {
 				/>
 
 				<FeatureGroup ref={groupRef}>
-					{buildings.map(building => {
+					{buildings && buildings.map(building => {
 						if (building.lat && building.lon) {
 							return (
 								<Marker key={building.uuid} position={[building.lat, building.lon]} icon={new markerIcon({ iconUrl: '/assets/pins/pin_' + findPinFromBuildingScore(building.relativeCO2Score) + '.svg' })}>

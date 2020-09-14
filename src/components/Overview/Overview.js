@@ -8,7 +8,7 @@ import OverviewBarGraph from './OverviewBarGraph';
 import OverviewEnergyGraph from 'components/Overview/OverviewEnergyGraph';
 import CircularLoader from 'components/CircularLoader';
 import mainStyles from 'styles/mainStyles';
-import { changeMainView, changeHeaderTitle } from 'redux/appState';
+import { changeMainView, changeHeaderTitle, toogleFilterIcon } from 'redux/appState';
 
 const Overview = props => {
 	const user = useSelector(s => s.user.user);
@@ -19,6 +19,7 @@ const Overview = props => {
 	useEffect(() => {
 		dispatch(changeMainView('overview'));
 		dispatch(changeHeaderTitle('Benchmark'));
+		dispatch(toogleFilterIcon(false));
 	}, [dispatch]);
 
 	const getWelcomeTime = () => {

@@ -24,7 +24,7 @@ import mainStyles from 'styles/mainStyles';
 import BarButton from './ui/BarButton';
 import logo from 'assets/logo.png';
 import { logoutUser } from 'data/coreApi';
-import { changeMainView, changeHeaderTitle, toogleFilterBar, toogleFilterIcon } from 'redux/appState';
+import { changeMainView, changeHeaderTitle, toogleFilterBar } from 'redux/appState';
 import FilterToolbar from 'components/filterToolbar/FilterToolbar'
 import { ReactComponent as BenchmarkIcon } from "assets/icons/benchmark.svg";
 import { ReactComponent as BenchmarkDimmedIcon } from "assets/icons/benchmark_dimmed.svg";
@@ -92,24 +92,15 @@ const Header = (props) => {
 	};
 
 	const _onChangeView = viewType => {
-		dispatch(changeMainView(viewType));
 		if (viewType === 'overview') {
-			dispatch(toogleFilterIcon(false));
-		} else {
-			dispatch(toogleFilterIcon(true));
-		}
-
-		if (viewType === 'overview') {
-			dispatch(changeHeaderTitle('Benchmark'));
+			history.push('/');
 		} else if (viewType === 'map') {
-			dispatch(changeHeaderTitle('Kort'));
+			history.push('/map');
 		} else if (viewType === 'list') {
-			dispatch(changeHeaderTitle('Liste'));
+			history.push('/list');
 		} else if (viewType === 'thumbs') {
-			dispatch(changeHeaderTitle('Miniaturer'));
+			history.push('/thumbs');
 		}
-
-		history.push('/');
 	}
 
 	const toggleDrawer = () => {
