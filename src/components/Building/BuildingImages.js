@@ -19,7 +19,7 @@ class BuildingImages extends React.Component {
 
 	async componentDidMount() {
 		let images = [];
-		if (this.props.building) {
+		if (this.props.building && this.props.building.images) {
 			this.setState({ loading: true });
 			await Promise.all(
 				this.props.building.images.map(async (imageObj) => {
@@ -34,6 +34,8 @@ class BuildingImages extends React.Component {
 			});
 
 			this.setState({ items: newItems });
+			this.setState({ loading: false });
+		} else {
 			this.setState({ loading: false });
 		}
 		// return this.props.building.images.map((i) => {
