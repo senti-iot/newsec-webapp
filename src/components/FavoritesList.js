@@ -53,8 +53,10 @@ const FavoritesList = () => {
 		setPage(newpage);
 	}
 
-	const handleRowClick = uuid => {
-		history.push('/building/' + uuid);
+	const handleRowClick = favorite => {
+		if (favorite.type === 'building') {
+			history.push('/building/' + favorite.uuid);
+		}
 	}
 
 	const handleFavoriteDelete = async (event, uuid) => {
@@ -114,7 +116,7 @@ const FavoritesList = () => {
 										return (
 											<TableRow
 												hover
-												onClick={() => handleRowClick(favorite.uuid)}
+												onClick={() => handleRowClick(favorite)}
 												role='checkbox'
 												tabIndex={-1}
 												key={favorite.uuid}
