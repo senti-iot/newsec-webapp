@@ -34,7 +34,7 @@ const UserHover = props => {
 		};
 		dispatch(removeFromFav(favObj));
 	}
-
+	console.log(user);
 	return (
 		<>
 			{user ?
@@ -63,9 +63,7 @@ const UserHover = props => {
 											</Typography>
 										</Grid>
 										<Grid xs={12} item>
-											<Typography className={classes.smallText} paragraph={false}>
-												{user.email}
-											</Typography>
+											<Typography className={classes.smallText} paragraph={false}>{user.email ? user.email : ""}</Typography>
 										</Grid>
 										<Grid xs={12} item>
 											<Typography className={classes.smallText} paragraph={false}>{user.phone ? user.phone : ""}</Typography>
@@ -90,7 +88,7 @@ const UserHover = props => {
 												</Link>
 											</IconButton>
 										</Tooltip>
-										{user.phone.length ?
+										{user.phone && user.phone.length ?
 											<Tooltip placement="top" title="Ring">
 												<IconButton>
 													<Link className={classes.smallActionLink} href={`tel:${user.phone}`}>
