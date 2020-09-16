@@ -16,7 +16,7 @@ const Tooltip = (props) => {
 		} else if (props.tooltipType === 'Goal') {
 			text = 'Målsætning CO2 udledning';
 		} else if (props.tooltipType === 'PreviousPeriod') {
-			text = 'Forrige period CO2 udledning';
+			text = 'Forrige periode CO2 udledning';
 		} else if (props.tooltipType === 'Benchmark') {
 			text = 'Benchmark CO2 udledning';
 		}
