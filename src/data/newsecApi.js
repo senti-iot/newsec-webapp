@@ -16,9 +16,9 @@ export const getBuildingsSum = async (period) => {
 	return data;
 }
 
-export const getBuindingsBenchmark = async (period) => {
+export const getBuindingsBenchmark = async (buildingUuid, period) => {
 	// console.log('/data/buildingbenchmark/' + period.from.format('YYYY-MM-DD') + '/' + period.to.format('YYYY-MM-DD'));
-	let data = await newsecApi.get('/data/buildingbenchmark/' + period.from.format('YYYY-MM-DD') + '/' + period.to.format('YYYY-MM-DD')).then(rs => rs.data);
+	let data = await newsecApi.get('/data/buildingbenchmark/' + buildingUuid + '/' + period.from.format('YYYY-MM-DD') + '/' + period.to.format('YYYY-MM-DD')).then(rs => rs.data);
 	return data;
 }
 

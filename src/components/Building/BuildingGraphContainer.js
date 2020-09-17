@@ -57,7 +57,7 @@ const BuildingGraphContainer = props => {
 			});
 
 			if (deviceUuid) {
-				dispatch(getDeviceData(deviceUuid, period, 'co2'));
+				dispatch(getDeviceData(building.uuid, deviceUuid, period, 'co2'));
 			}
 		}
 		// }

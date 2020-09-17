@@ -20,7 +20,7 @@ const setLoading = loading => ({
 	payload: loading
 })
 
-export const getDeviceData = (device, period, type) =>
+export const getDeviceData = (buildingUuid, device, period, type) =>
 	async (dispatch, getState) => {
 		dispatch(setLoading(true));
 
@@ -40,7 +40,7 @@ export const getDeviceData = (device, period, type) =>
 			prevDaysToAdd = 30
 		}
 
-		let benchmarkData = await getBuindingsBenchmark(period);
+		let benchmarkData = await getBuindingsBenchmark(buildingUuid, period);
 		let budgetData = await getDeviceDataFromServer(device, period, 'co2Budget');
 		let data = await getDeviceDataFromServer(device, period, type);
 		let dataPreviousPeriod = await getDeviceDataFromServer(device, previousPeriod, type);
