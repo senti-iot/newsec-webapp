@@ -55,7 +55,7 @@ const OverviewEnergyGraph = props => {
 	}
 
 	const renderGraph = () => {
-		const margin = { top: 20, right: 30, bottom: 40, left: 40 },
+		const margin = { top: 20, right: 30, bottom: 40, left: 50 },
 			width = barChartContainer.current.clientWidth - margin.left - margin.right,
 			height = barChartContainer.current.clientHeight - margin.top - margin.bottom;
 
