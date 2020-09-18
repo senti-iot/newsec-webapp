@@ -142,7 +142,7 @@ const BuildingEnergyGraph = props => {
 						<MoreVertIcon />
 					</IconButton>
 				}
-				title="CO2 udledning"
+				title="CO₂ udledning"
 				titleTypographyProps={{ variant: 'h4' }}
 			/>
 			<CardContent>

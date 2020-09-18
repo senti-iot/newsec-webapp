@@ -21,7 +21,7 @@ const OverviewCurrentResult = () => {
 						<img src={`${ArrowDownIcon}`} alt="" className={mainClasses.currentResultArrow} />
 					</div>
 				</div>
-				<Typography variant="h3">FALD I <span style={{ color: '#377EB8', fontWeight: 'bold' }}>CO2 FORBRUG</span> SIDEN 2018</Typography>
+				<Typography variant="h3">FALD I <span style={{ color: '#377EB8', fontWeight: 'bold' }}>CO₂ FORBRUG</span> SIDEN 2018</Typography>
 			</CardContent>
 		</Card>
 	)

@@ -35,6 +35,30 @@ const buildingStyles = makeStyles(theme => ({
 		backgroundColor: '#1F3B54',
 		borderRadius: 3,
 	},
+	graphScrollArrows: {
+		width: '100%',
+		height: 50,
+	},
+	scrollArrowLeft: {
+		backgroundColor: '#365979',
+		minWidth: 40,
+		height: 30,
+		marginRight: 20,
+		"&:hover": {
+			backgroundColor: "#365979"
+		}
+	},
+	scrollArrowRight: {
+		backgroundColor: '#365979',
+		minWidth: 40,
+		height: 30,
+		"&:hover": {
+			backgroundColor: "#365979"
+		}
+	},
+	scrollArrowDisabled: {
+		backgroundColor: '#ccc',
+	},
 	graphDatePickers: {
 		width: '100%',
 		height: 50,

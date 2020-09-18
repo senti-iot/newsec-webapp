@@ -12,13 +12,13 @@ const Tooltip = (props) => {
 	const renderTooltipType = () => {
 		let text = '';
 		if (props.tooltipType === 'Actual') {
-			text = 'Aktuel CO2 udledning';
+			text = 'Aktuel CO₂ udledning';
 		} else if (props.tooltipType === 'Goal') {
-			text = 'Målsætning CO2 udledning';
+			text = 'Målsætning CO₂ udledning';
 		} else if (props.tooltipType === 'PreviousPeriod') {
-			text = 'Forrige periode CO2 udledning';
+			text = 'Forrige periode CO₂ udledning';
 		} else if (props.tooltipType === 'Benchmark') {
-			text = 'Benchmark CO2 udledning';
+			text = 'Benchmark CO₂ udledning';
 		}
 
 		return text;

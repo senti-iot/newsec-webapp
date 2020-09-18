@@ -74,7 +74,7 @@ const BuildingForecast = props => {
 								<MoreVertIcon />
 							</IconButton>
 						}
-						title="CO2 udledning"
+						title="CO₂ udledning"
 						titleTypographyProps={{ variant: 'h4' }}
 						subheader={"Årlig sum " + moment().format('YYYY')}
 						subheaderTypographyProps={{ variant: 'h5' }}
@@ -117,7 +117,7 @@ const BuildingForecast = props => {
 						</div>
 
 						{/* <Typography variant="h4">Målsætning</Typography>
-						<Typography variant="body2">***Der er i forhold til forrige periode udledt mindre CO2 end målsætningen</Typography> */}
+						<Typography variant="body2">***Der er i forhold til forrige periode udledt mindre CO₂ end målsætningen</Typography> */}
 					</CardContent>
 				</Card>
 				: ""}

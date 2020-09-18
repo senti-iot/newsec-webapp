@@ -92,7 +92,7 @@ const BuildingsList = props => {
 		{ id: 'grouptype', label: 'Gruppe' },
 		{ id: 'owner', label: 'Organisation' },
 		{ id: 'address', label: 'Adresse' },
-		{ id: 'relativeCO2Score', label: 'Relativ CO2 score' },
+		{ id: 'relativeCO2Score', label: 'Relativ CO₂ score' },
 	]
 
 	return (

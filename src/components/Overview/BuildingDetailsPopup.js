@@ -18,8 +18,8 @@ const BuildingDetailsPopup = props => {
 				avatar={
 					<BuildingsThumbsImage building={building} />
 				}
-				title={building.name}
-				subheader={building.buildingNo}
+				title={building.buildingNo}
+				subheader={building.name}
 				titleTypographyProps={{ variant: 'h4' }}
 				subheaderTypographyProps={{ variant: 'h5' }}
 			/>

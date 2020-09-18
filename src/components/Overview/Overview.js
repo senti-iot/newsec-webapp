@@ -1,6 +1,6 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import moment from 'moment';
-import { Grid, Typography, Box } from '@material-ui/core';
+import { Grid, Typography, Box, Select, FormControl, MenuItem } from '@material-ui/core';
 import { useDispatch, useSelector } from 'react-redux';
 
 import OverviewCurrentResult from './OverviewCurrentResult';
@@ -11,10 +11,11 @@ import mainStyles from 'styles/mainStyles';
 import { changeMainView, changeHeaderTitle, toogleFilterIcon } from 'redux/appState';
 
 const Overview = props => {
+	const dispatch = useDispatch();
 	const user = useSelector(s => s.user.user);
 	const buildings = props.buildings;
 	const classes = mainStyles();
-	const dispatch = useDispatch();
+	const [selectedGroup, setSelectedGroup] = useState('all');
 
 	useEffect(() => {
 		dispatch(changeMainView('overview'));
@@ -43,6 +44,10 @@ const Overview = props => {
 		return string;
 	}
 
+	const handleGroupChange = event => {
+		setSelectedGroup(event.target.value);
+	}
+
 	return (
 		<>
 			{user && buildings ?
@@ -50,7 +55,31 @@ const Overview = props => {
 					<Grid item xs={12} lg={7}>
 						<Box className={classes.overviewWelcome}>
 							<Typography variant="h3" style={{ color: '#000', marginBottom: 20, textTransform: 'uppercase' }}>{getWelcomeTime()} {`${user.firstName}`}</Typography>
-							<Typography variant="body2" style={{ fontSize: '1.2rem' }}>Brug benchmark for at gå direkte til den ejendom hvor du ønske at aflæse energiforbrug og CO2. Du kan også via menuen få vist ejendomme som kort, liste eller miniaturer. Til højre på menuen kan du filtrere dine visninger.</Typography>
+							<Typography variant="body2" style={{ fontSize: '1.2rem' }}>Brug benchmark for at gå direkte til den ejendom hvor du ønske at aflæse energiforbrug og CO₂. Du kan også via menuen få vist ejendomme som kort, liste eller miniaturer. Til højre på menuen kan du filtrere dine visninger.</Typography>
+
+							<Grid container style={{ marginTop: 20 }}>
+								<Grid item style={{ display: 'flex', alignItems: 'center' }}>
+									<Typography variant="body2" style={{ fontSize: '1.2rem' }}>Vis data for:</Typography>
+								</Grid>
+								<Grid item>
+									<FormControl variant="outlined" className={classes.formControl}>
+										<Select
+											labelId="demo-simple-select-outlined-label"
+											id="demo-simple-select-outlined"
+											value={selectedGroup}
+											onChange={handleGroupChange}
+											style={{ height: 40, marginLeft: 10 }}
+										>
+											<MenuItem value="all">Alle grupper</MenuItem>
+											<MenuItem value="group1">Gruppe 1 - Boliger</MenuItem>
+											<MenuItem value="group2">Gruppe 2 - Boliger og Erhverv</MenuItem>
+											<MenuItem value="group3">Gruppe 3 - Erhverv med ventilation og med køl</MenuItem>
+											<MenuItem value="group4">Gruppe 4 - Erhverv med ventilation og uden køl</MenuItem>
+											<MenuItem value="group5">Gruppe 5 - Erhverv uden ventilation og uden køl</MenuItem>
+										</Select>
+									</FormControl>
+								</Grid>
+							</Grid>
 						</Box>
 					</Grid>
 					<Grid item xs={12} lg={5}>

@@ -14,11 +14,11 @@ const BuildingScore = props => {
 		let text = '';
 
 		if (building.relativeCO2Score < 40) {
-			text = 'Ejendommen ligger under middel i CO2 belastning';
+			text = 'Ejendommen ligger under middel i CO₂ belastning';
 		} else if (building.relativeCO2Score >= 40 && building.relativeCO2Score < 60) {
-			text = 'Ejendommen ligger middel i CO2 belastning';
+			text = 'Ejendommen ligger middel i CO₂ belastning';
 		} else if (building.relativeCO2Score >= 60) {
-			text = 'Ejendommen ligger over middel i CO2 belastning';
+			text = 'Ejendommen ligger over middel i CO₂ belastning';
 		}
 
 		return text;
@@ -35,7 +35,7 @@ const BuildingScore = props => {
 									<MoreVertIcon />
 								</IconButton>
 							}
-							title="Relativ CO2 score"
+							title="Relativ CO₂ score"
 							titleTypographyProps={{ variant: 'h4' }}
 							subheader={"Årlig sum " + moment().format('YYYY')}
 							subheaderTypographyProps={{ variant: 'h5' }}

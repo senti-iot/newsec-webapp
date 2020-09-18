@@ -21,11 +21,11 @@ const OverviewScore = () => {
 	const renderText = value => {
 		let text = '';
 		if (value < 30) {
-			text = 'Porteføljen ligger under middel i CO2 belastning.';
+			text = 'Porteføljen ligger under middel i CO₂ belastning.';
 		} else if (value >= 30 && value < 60) {
-			text = 'Porteføljen ligger middel i CO2 belastning.';
+			text = 'Porteføljen ligger middel i CO₂ belastning.';
 		} else {
-			text = 'Porteføljen ligger over middel i CO2 belastning.';
+			text = 'Porteføljen ligger over middel i CO₂ belastning.';
 		}
 
 		return text;
@@ -41,7 +41,7 @@ const OverviewScore = () => {
 								<MoreVertIcon />
 							</IconButton>
 						}
-						title="Relativ CO2 score"
+						title="Relativ CO₂ score"
 						titleTypographyProps={{ variant: 'h5' }}
 					/>
 					<CardContent>
