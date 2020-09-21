@@ -70,12 +70,12 @@ const Overview = props => {
 											onChange={handleGroupChange}
 											style={{ height: 40, marginLeft: 10 }}
 										>
-											<MenuItem value="all">Alle grupper</MenuItem>
-											<MenuItem value="group1">Gruppe 1 - Boliger</MenuItem>
-											<MenuItem value="group2">Gruppe 2 - Boliger og Erhverv</MenuItem>
-											<MenuItem value="group3">Gruppe 3 - Erhverv med ventilation og med køl</MenuItem>
-											<MenuItem value="group4">Gruppe 4 - Erhverv med ventilation og uden køl</MenuItem>
-											<MenuItem value="group5">Gruppe 5 - Erhverv uden ventilation og uden køl</MenuItem>
+											<MenuItem value="0">Alle grupper</MenuItem>
+											<MenuItem value="1">Gruppe 1 - Boliger</MenuItem>
+											<MenuItem value="2">Gruppe 2 - Boliger og Erhverv</MenuItem>
+											<MenuItem value="3">Gruppe 3 - Erhverv med ventilation og med køl</MenuItem>
+											<MenuItem value="4">Gruppe 4 - Erhverv med ventilation og uden køl</MenuItem>
+											<MenuItem value="5">Gruppe 5 - Erhverv uden ventilation og uden køl</MenuItem>
 										</Select>
 									</FormControl>
 								</Grid>
