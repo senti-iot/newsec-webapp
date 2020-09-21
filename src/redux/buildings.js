@@ -126,9 +126,6 @@ export const getEnergyDataByYear = (devices) => {
 	}
 }
 
-/**
- * Initial state
- */
 const initialState = {
 	loading: false,
 	loadingExtended: false,
