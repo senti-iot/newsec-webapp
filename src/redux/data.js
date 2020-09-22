@@ -1,12 +1,11 @@
-import { getDeviceCo2ByYear } from 'data/coreApi';
-import { getBuindingsScore } from 'data/newsecApi';
+import { getBuindingsScore, getBuildingsYearlyCo2ByGroup } from 'data/newsecApi';
 
 const energyBarData = 'energyBarData';
 const buildingsScoreData = 'buildingsScoreData';
 
-export const getEnergyDataByYear = (devices) => {
+export const getEnergyDataByGroup = (group) => {
 	return async (dispatch) => {
-		let data = await getDeviceCo2ByYear(devices);
+		let data = await getBuildingsYearlyCo2ByGroup(group);
 		if (data) {
 			dispatch({
 				type: energyBarData,

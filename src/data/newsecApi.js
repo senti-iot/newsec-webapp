@@ -10,9 +10,15 @@ export const getBuildingFromServer = async (uuid) => {
 	return data;
 }
 
-export const getBuildingsSum = async (period) => {
+export const getBuildingsSum = async (period, group) => {
 	// console.log('/data/buildingssum/' + period.from.format('YYYY-MM-DD') + '/' + period.to.format('YYYY-MM-DD'));
-	let data = await newsecApi.get('/data/buildingssum/' + period.from.format('YYYY-MM-DD') + '/' + period.to.format('YYYY-MM-DD')).then(rs => rs.data);
+	let data = await newsecApi.get('/data/buildingssum/' + group + '/' + period.from.format('YYYY-MM-DD') + '/' + period.to.format('YYYY-MM-DD')).then(rs => rs.data);
+	return data;
+}
+
+export const getBuildingsYearlyCo2ByGroup = async (group) => {
+	//console.log('/data/yearlyco2/' + group);
+	let data = await newsecApi.get('/data/yearlyco2/' + group).then(rs => rs.data);
 	return data;
 }
 

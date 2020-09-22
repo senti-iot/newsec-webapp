@@ -1,5 +1,6 @@
 import React from 'react';
 import { Card, CardContent, Typography } from '@material-ui/core';
+import NumberFormat from 'react-number-format';
 
 import mainStyles from 'styles/mainStyles';
 import buildingStyles from 'styles/buildingStyles';
@@ -15,7 +16,7 @@ const OverviewCurrentResult = () => {
 				<Typography variant="h3">Aktuelt resultat</Typography>
 				<div className={mainClasses.currentResultWrapper}>
 					<div>
-						<Typography variant="h2" style={{ color: '#377EB8' }}>14.5%</Typography>
+						<Typography variant="h2" style={{ color: '#377EB8' }}><NumberFormat value={14.5} displayType={'text'} thousandSeparator={'.'} decimalSeparator={','} decimalScale={1} /> %</Typography>
 					</div>
 					<div>
 						<img src={`${ArrowDownIcon}`} alt="" className={mainClasses.currentResultArrow} />

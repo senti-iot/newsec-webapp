@@ -14,7 +14,7 @@ const GetExtendedData = 'GetBuildingExtendedData'
 const GotExtendedData = 'GotBuildingExtendedData'
 const emissionDevices = 'emissionDevices'
 const emissionData = 'emissionData'
-const energyBarData = 'energyBarData';
+// const energyBarData = 'energyBarData';
 
 /**
  * Default dispatch
@@ -108,23 +108,23 @@ export const getBuilding = (uuid) =>
 		dispatch(setLoadingExtended(false));
 	}
 
-export const getBuildingsEmission = (period) =>
+export const getBuildingsEmission = (period, group) =>
 	async (dispatch, getState) => {
-		let data = await getBuildingsSum(period);
+		let data = await getBuildingsSum(period, group);
 		dispatch(gotEmissionData(data));
 	}
 
-export const getEnergyDataByYear = (devices) => {
-	return async (dispatch) => {
-		let data = await getDeviceCo2ByYear(devices);
-		if (data) {
-			dispatch({
-				type: energyBarData,
-				payload: data
-			});
-		}
-	}
-}
+// export const getEnergyDataByYear = (devices) => {
+// 	return async (dispatch) => {
+// 		let data = await getDeviceCo2ByYear(devices);
+// 		if (data) {
+// 			dispatch({
+// 				type: energyBarData,
+// 				payload: data
+// 			});
+// 		}
+// 	}
+// }
 
 const initialState = {
 	loading: false,
@@ -133,7 +133,7 @@ const initialState = {
 	building: null,
 	emissionDevices: null,
 	emissionData: null,
-	energyBarData: null,
+	// energyBarData: null,
 }
 
 /**

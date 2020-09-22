@@ -15,7 +15,7 @@ const Overview = props => {
 	const user = useSelector(s => s.user.user);
 	const buildings = props.buildings;
 	const classes = mainStyles();
-	const [selectedGroup, setSelectedGroup] = useState('all');
+	const [selectedGroup, setSelectedGroup] = useState(0);
 
 	useEffect(() => {
 		dispatch(changeMainView('overview'));
@@ -86,10 +86,10 @@ const Overview = props => {
 						<OverviewCurrentResult />
 					</Grid>
 					<Grid item xs={12} lg={7} xl={7} style={{ display: 'flex' }}>
-						<OverviewBarGraph buildings={buildings} />
+						<OverviewBarGraph buildings={buildings} group={selectedGroup} />
 					</Grid>
 					<Grid item xs={12} lg={5} xl={5} style={{ display: 'flex' }}>
-						<OverviewEnergyGraph buildings={buildings} />
+						<OverviewEnergyGraph buildings={buildings} group={selectedGroup} />
 					</Grid>
 				</Grid>
 				: <CircularLoader fill style={{ marginTop: 500 }} />}

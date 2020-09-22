@@ -1,5 +1,5 @@
 /* eslint-disable array-callback-return */
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { Card, CardHeader, CardContent, IconButton, Box, Typography } from '@material-ui/core';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import * as d3 from "d3";
@@ -7,48 +7,47 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import buildingStyles from '../../styles/buildingStyles';
 import barGraphStyles from '../../styles/barGraphStyles';
-import { getEnergyDataByYear } from 'redux/data';
+import { getEnergyDataByGroup } from 'redux/data';
 
 const OverviewEnergyGraph = props => {
 	const dispatch = useDispatch();
 	const classes = buildingStyles();
 	const graphClasses = barGraphStyles();
-	const buildings = props.buildings;
+	// const buildings = props.buildings;
+	const group = props.group;
 	const barChartContainer = useRef(React.createRef());
-	const [devices, setDevices] = useState(null);
+	// const [devices, setDevices] = useState(null);
 	// const [years, setYears] = useState(null);
 
 	const energyBarData = useSelector(s => s.data.energyBarData);
 
-	useEffect(() => {
-		if (buildings && !devices) {
-			let d = [];
-			buildings.map(building => {
-				if (building.devices && building.devices.length) {
-					building.devices.map(device => {
-						if (device.type === 'fjernvarme' || device.type === 'vand' || device.type === 'el') {
-							d.push(device.uuid);
-						}
-					});
-				}
-			});
+	// useEffect(() => {
+	// 	if (buildings && !devices) {
+	// 		let d = [];
+	// 		buildings.map(building => {
+	// 			if (building.devices && building.devices.length) {
+	// 				building.devices.map(device => {
+	// 					if (device.type === 'fjernvarme' || device.type === 'vand' || device.type === 'el') {
+	// 						d.push(device.uuid);
+	// 					}
+	// 				});
+	// 			}
+	// 		});
 
-			setDevices(d);
-		}
-	}, [buildings, devices]);
-
-	useEffect(() => {
-		if (!energyBarData && buildings && devices) {
-			dispatch(getEnergyDataByYear(devices));
-		}
-	}, [dispatch, energyBarData, buildings, devices]);
+	// 		setDevices(d);
+	// 	}
+	// }, [buildings, devices]);
 
 	useEffect(() => {
-		if (barChartContainer && energyBarData && devices) {
+		dispatch(getEnergyDataByGroup(group));
+	}, [dispatch, group]);
+
+	useEffect(() => {
+		if (barChartContainer && energyBarData) {
 			renderGraph();
 		}
 		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [barChartContainer, energyBarData, devices]);
+	}, [barChartContainer, energyBarData]);
 
 	const make_y_gridlines = (y) => {
 		return d3.axisLeft(y).ticks(5);
@@ -68,9 +67,9 @@ const OverviewEnergyGraph = props => {
 			.padding(0.5)
 			.align(0.1)
 
-		const keys = ['Fjernvarme', 'Vand', 'Elektricitet'];
+		const keys = ['Varme', 'Vand', 'Elektricitet', 'Affald', 'Renovering'];
 
-		const color = d3.scaleOrdinal().domain(keys).range(['#214C6F', '#B3CDE3', '#497EB3']);
+		const color = d3.scaleOrdinal().domain(keys).range(['#214C6F', '#B3CDE3', '#497EB3', '#90999E', '#5D6A70']);
 
 		//TODO: get from data
 		let years = [2018, 2019, 2020];
@@ -78,7 +77,7 @@ const OverviewEnergyGraph = props => {
 		const layers = d3.stack().keys(keys)(energyBarData);
 		const max = d3.max(layers[layers.length - 1], function (d) { return d[1]; });
 
-		y.domain([0, max + 10]);
+		y.domain([0, max + 100]);
 		x.domain(years);
 
 		const svg = d3.select("#barchart")
@@ -107,7 +106,9 @@ const OverviewEnergyGraph = props => {
 			.attr("width", x.bandwidth());
 
 		const xAxis = d3.axisBottom(x).tickSize(0).tickPadding(20);
-		const yAxis = d3.axisLeft().scale(y).ticks(5).tickSize(0);
+		const yAxis = d3.axisLeft().scale(y).ticks(5).tickSize(0).tickFormat(function (d) {
+			return d;
+		});
 
 		svg.append("g")
 			.attr("class", graphClasses.axisTick)

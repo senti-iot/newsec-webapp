@@ -16,6 +16,7 @@ import MapIcon from '@material-ui/icons/Map';
 import TuneIcon from '@material-ui/icons/Tune';
 import AccountBoxIcon from '@material-ui/icons/AccountBox';
 import BusinessIcon from '@material-ui/icons/Business';
+import SettingsIcon from '@material-ui/icons/Settings';
 import { useHistory } from 'react-router'
 import Gravatar from 'react-gravatar';
 import { useDispatch, useSelector } from 'react-redux';
@@ -131,6 +132,15 @@ const Header = (props) => {
 			case 'about':
 				history.push('/');
 				break;
+			case 'profile':
+				history.push('/profile');
+				break;
+			case 'account':
+				history.push('/account');
+				break;
+			case 'settings':
+				history.push('/settings');
+				break;
 		}
 	}
 
@@ -213,11 +223,14 @@ const Header = (props) => {
 								onClose={handleProfileClose}
 								disableAutoFocusItem
 							>
-								<MenuItem style={{ fontFamily: 'interstateLight' }}>
+								<MenuItem style={{ fontFamily: 'interstateLight' }} onClick={() => goToPage('profile')}>
 									<AccountBoxIcon className={classes.usermenuIcon} />Min profil
 								</MenuItem>
-								<MenuItem style={{ fontFamily: 'interstateLight' }}>
+								<MenuItem style={{ fontFamily: 'interstateLight' }} onClick={() => goToPage('acount')}>
 									<BusinessIcon className={classes.usermenuIcon} />Kontodetaljer
+								</MenuItem>
+								<MenuItem style={{ fontFamily: 'interstateLight' }} onClick={() => goToPage('settings')}>
+									<SettingsIcon className={classes.usermenuIcon} />Indstillinger
 								</MenuItem>
 								<MenuItem onClick={() => { handleLogOut() }} style={{ fontFamily: 'interstateLight' }}>
 									<PowerSettingsNew className={classes.usermenuIcon} />Log ud
