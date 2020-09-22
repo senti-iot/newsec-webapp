@@ -1,5 +1,5 @@
 /* eslint-disable array-callback-return */
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { Card, CardHeader, CardContent, IconButton, Box, Typography } from '@material-ui/core';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import * as d3 from "d3";
@@ -18,6 +18,7 @@ const OverviewEnergyGraph = props => {
 	const barChartContainer = useRef(React.createRef());
 	// const [devices, setDevices] = useState(null);
 	// const [years, setYears] = useState(null);
+	const [didRenderGraph, setDidRenderGraph] = useState(false);
 
 	const energyBarData = useSelector(s => s.data.energyBarData);
 
@@ -57,6 +58,10 @@ const OverviewEnergyGraph = props => {
 		const margin = { top: 20, right: 30, bottom: 40, left: 50 },
 			width = barChartContainer.current.clientWidth - margin.left - margin.right,
 			height = barChartContainer.current.clientHeight - margin.top - margin.bottom;
+
+		if (didRenderGraph) {
+			d3.select("#barchart").selectAll("*").remove();
+		}
 
 		const y = d3.scaleLinear()
 			.rangeRound([height, 0])
@@ -134,6 +139,8 @@ const OverviewEnergyGraph = props => {
 		// 	.data(layers)
 		// 	.attr("class", graphClasses.line)
 		// 	.attr("d", line);
+
+		setDidRenderGraph(true);
 	}
 
 	return (
