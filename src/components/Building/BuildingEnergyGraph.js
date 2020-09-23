@@ -40,9 +40,9 @@ const BuildingEnergyGraph = props => {
 			.padding(0.5)
 			.align(0.1)
 
-		let keys = ['Fjernvarme', 'Vand', 'Elektricitet'];
+		const keys = ['Varme', 'Vand', 'Elektricitet', 'Affald', 'Renovering'];
 
-		const color = d3.scaleOrdinal().domain(keys).range(['#214C6F', '#B3CDE3', '#497EB3']);
+		const color = d3.scaleOrdinal().domain(keys).range(['#214C6F', '#B3CDE3', '#497EB3', '#90999E', '#5D6A70']);
 
 		//TODO: get from data
 		let years = [2018, 2019, 2020, 2021, 2022, 2023, 2024];
