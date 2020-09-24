@@ -47,10 +47,10 @@ const BuildingEnergyGraph = props => {
 		//TODO: get from data
 		let years = [2018, 2019, 2020, 2021, 2022, 2023, 2024];
 
-		building.energyData.push({ year: 2021, sum: 58, Fjernvarme: 30, Vand: 18, Elektricitet: 10, goal: 55 });
-		building.energyData.push({ year: 2022, sum: 50, Fjernvarme: 25, Vand: 10, Elektricitet: 15, goal: 52 });
-		building.energyData.push({ year: 2023, sum: 43, Fjernvarme: 20, Vand: 10, Elektricitet: 13, goal: 45 });
-		building.energyData.push({ year: 2024, sum: 40, Fjernvarme: 15, Vand: 10, Elektricitet: 15, goal: 35 });
+		building.energyData.push({ year: 2021, sum: 58, Varme: 20, Vand: 18, Elektricitet: 10, Affald: 5, Renovering: 5, goal: 55 });
+		building.energyData.push({ year: 2022, sum: 50, Varme: 15, Vand: 10, Elektricitet: 15, Affald: 5, Renovering: 5, goal: 52 });
+		building.energyData.push({ year: 2023, sum: 43, Varme: 10, Vand: 10, Elektricitet: 13, Affald: 5, Renovering: 5, goal: 45 });
+		building.energyData.push({ year: 2024, sum: 40, Varme: 10, Vand: 10, Elektricitet: 15, Affald: 5, Renovering: 5, goal: 35 });
 
 		const layers = d3.stack().keys(keys)(building.energyData);
 		const max = d3.max(layers[layers.length - 1], function (d) { return d[1]; }) + 9;
