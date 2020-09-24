@@ -8,6 +8,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import buildingStyles from '../../styles/buildingStyles';
 import barGraphStyles from '../../styles/barGraphStyles';
 import { getEnergyDataByGroup } from 'redux/data';
+import CircularLoader from 'components/CircularLoader';
 
 const OverviewEnergyGraph = props => {
 	const dispatch = useDispatch();
@@ -19,6 +20,7 @@ const OverviewEnergyGraph = props => {
 	// const [devices, setDevices] = useState(null);
 	// const [years, setYears] = useState(null);
 	const [didRenderGraph, setDidRenderGraph] = useState(false);
+	const [loading, setLoading] = useState(true);
 
 	const energyBarData = useSelector(s => s.data.energyBarData);
 
@@ -40,12 +42,14 @@ const OverviewEnergyGraph = props => {
 	// }, [buildings, devices]);
 
 	useEffect(() => {
+		setLoading(true);
 		dispatch(getEnergyDataByGroup(group));
 	}, [dispatch, group]);
 
 	useEffect(() => {
 		if (barChartContainer && energyBarData) {
 			renderGraph();
+			setLoading(false);
 		}
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [barChartContainer, energyBarData]);
@@ -155,36 +159,39 @@ const OverviewEnergyGraph = props => {
 				titleTypographyProps={{ variant: 'h4' }}
 			/>
 			<CardContent>
+				{loading ? <CircularLoader fill /> : ""}
+
 				<div style={{ width: '100%', height: '100%' }}>
 					<svg id="barchart" ref={barChartContainer} style={{ width: '100%', height: '325px' }}></svg>
 				</div>
 
-				<div className={graphClasses.legendTotalWrapper}>
-					<Box display="flex" justifyContent="center" alignItems="center" flexDirection="column" className={graphClasses.legendWrapper}>
-						<div className={graphClasses.legend1}></div>
-						<div><Typography variant="body2">Varme</Typography></div>
-					</Box>
+				{!loading ?
+					<div className={graphClasses.legendTotalWrapper}>
+						<Box display="flex" justifyContent="center" alignItems="center" flexDirection="column" className={graphClasses.legendWrapper}>
+							<div className={graphClasses.legend1}></div>
+							<div><Typography variant="body2">Varme</Typography></div>
+						</Box>
 
-					<Box display="flex" justifyContent="center" alignItems="center" flexDirection="column" className={graphClasses.legendWrapper}>
-						<div className={graphClasses.legend2}></div>
-						<div><Typography variant="body2">El</Typography></div>
-					</Box>
+						<Box display="flex" justifyContent="center" alignItems="center" flexDirection="column" className={graphClasses.legendWrapper}>
+							<div className={graphClasses.legend2}></div>
+							<div><Typography variant="body2">El</Typography></div>
+						</Box>
 
-					<Box display="flex" justifyContent="center" alignItems="center" flexDirection="column" className={graphClasses.legendWrapper}>
-						<div className={graphClasses.legend3}></div>
-						<div><Typography variant="body2">Vand</Typography></div>
-					</Box>
+						<Box display="flex" justifyContent="center" alignItems="center" flexDirection="column" className={graphClasses.legendWrapper}>
+							<div className={graphClasses.legend3}></div>
+							<div><Typography variant="body2">Vand</Typography></div>
+						</Box>
 
-					<Box display="flex" justifyContent="center" alignItems="center" flexDirection="column" className={graphClasses.legendWrapper}>
-						<div className={graphClasses.legend7}></div>
-						<div><Typography variant="body2">Affald</Typography></div>
-					</Box>
+						<Box display="flex" justifyContent="center" alignItems="center" flexDirection="column" className={graphClasses.legendWrapper}>
+							<div className={graphClasses.legend7}></div>
+							<div><Typography variant="body2">Affald</Typography></div>
+						</Box>
 
-					<Box display="flex" justifyContent="center" alignItems="center" flexDirection="column" className={graphClasses.legendWrapper}>
-						<div className={graphClasses.legend6}></div>
-						<div><Typography variant="body2">Renovering</Typography></div>
-					</Box>
-				</div>
+						<Box display="flex" justifyContent="center" alignItems="center" flexDirection="column" className={graphClasses.legendWrapper}>
+							<div className={graphClasses.legend6}></div>
+							<div><Typography variant="body2">Renovering</Typography></div>
+						</Box>
+					</div> : ""}
 			</CardContent>
 		</Card>
 	)

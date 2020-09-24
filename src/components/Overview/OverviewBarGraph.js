@@ -18,6 +18,7 @@ import { ReactComponent as ArrowPrev } from "assets/icons/arrow_prev_blue.svg";
 import { ReactComponent as ArrowPrevDisabled } from "assets/icons/arrow_prev_grey.svg";
 import { ReactComponent as ArrowNext } from "assets/icons/arrow_next_blue.svg";
 import { ReactComponent as ArrowNextDisabled } from "assets/icons/arrow_next_grey.svg";
+import CircularLoader from 'components/CircularLoader';
 
 const OverviewBarGraph = props => {
 	const barChartContainer = useRef(createRef());
@@ -36,6 +37,7 @@ const OverviewBarGraph = props => {
 	const [sliceStart, setSliceStart] = useState(0);
 	const [sliceEnd, setSliceEnd] = useState(null);
 	const [barCount, setBarCount] = useState(0);
+	const [loading, setLoading] = useState(true);
 
 	const emissionData = useSelector(s => s.buildingsReducer.emissionData);
 	const benchkmarkPeriod = useSelector(s => s.dateTime.benchmarkPeriod);
@@ -43,11 +45,13 @@ const OverviewBarGraph = props => {
 	useEffect(() => {
 		if (barChartContainer && buildings && emissionData) {
 			renderGraph();
+			setLoading(false);
 		}
 	// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [barChartContainer, buildings, emissionData, sliceStart, sliceEnd]);
 
 	useEffect(() => {
+		setLoading(true);
 		dispatch(getBuildingsEmission(benchkmarkPeriod, group));
 		setSelectedDate(moment(benchkmarkPeriod.to));
 	}, [dispatch, benchkmarkPeriod, group]);
@@ -288,10 +292,18 @@ const OverviewBarGraph = props => {
 						</Button>
 					</Box>
 
+					{loading ? <CircularLoader fill /> : ""}
+
 					<div style={{ width: '100%', height: '100%' }}>
 						<svg id="overviewGraph" ref={barChartContainer} style={{ width: '100%', height: '350px' }}></svg>
 					</div>
-					<Typography variant="body2">Vælg en ejendom for at se detajler.</Typography>
+
+					{!loading ?
+						<>
+							<Typography variant="body2">Vælg en ejendom for at se detajler.</Typography>
+						</>
+						:
+						""}
 				</CardContent>
 			</Card>
 
