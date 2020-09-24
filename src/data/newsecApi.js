@@ -22,6 +22,12 @@ export const getBuildingsYearlyCo2ByGroup = async (group) => {
 	return data;
 }
 
+export const getBuildingYearlyCo2 = async (uuid) => {
+	console.log('/data/buildingyearlyco2/' + uuid);
+	let data = await newsecApi.get('/data/buildingyearlyco2/' + uuid).then(rs => rs.data);
+	return data;
+}
+
 export const getBuindingsBenchmark = async (buildingUuid, period) => {
 	// console.log('/data/buildingbenchmark/' + period.from.format('YYYY-MM-DD') + '/' + period.to.format('YYYY-MM-DD'));
 	let data = await newsecApi.get('/data/buildingbenchmark/' + buildingUuid + '/' + period.from.format('YYYY-MM-DD') + '/' + period.to.format('YYYY-MM-DD')).then(rs => rs.data);

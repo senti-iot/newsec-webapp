@@ -1,6 +1,5 @@
 /* eslint-disable array-callback-return */
-import { getBuildingsFromServer, getBuildingFromServer, getBuildingsSum, getBuildingUsage, getBuildingEmissionToDate } from '../data/newsecApi';
-import { getDeviceCo2ByYear } from 'data/coreApi';
+import { getBuildingsFromServer, getBuildingFromServer, getBuildingsSum, getBuildingUsage, getBuildingEmissionToDate, getBuildingYearlyCo2 } from '../data/newsecApi';
 import { changeHeaderTitle, changeMainView, closeFilterBar, toogleFilterIcon } from './appState';
 
 /**
@@ -82,16 +81,16 @@ export const getBuilding = (uuid) =>
 		dispatch(setLoadingExtended(true));
 		let building = await getBuildingFromServer(uuid);
 
-		let devices = [];
-		if (building.devices && building.devices.length) {
-			building.devices.map(device => {
-				if (device.type === 'fjernvarme' || device.type === 'vand' || device.type === 'el') {
-					devices.push(device.uuid);
-				}
-			});
-		}
+		// let devices = [];
+		// if (building.devices && building.devices.length) {
+		// 	building.devices.map(device => {
+		// 		if (device.type === 'fjernvarme' || device.type === 'vand' || device.type === 'el') {
+		// 			devices.push(device.uuid);
+		// 		}
+		// 	});
+		// }
 
-		let energyData = await getDeviceCo2ByYear(devices);
+		let energyData = await getBuildingYearlyCo2(building.uuid);
 		building.energyData = energyData;
 
 		let usageData = await getBuildingUsage(uuid);
