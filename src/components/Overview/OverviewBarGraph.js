@@ -38,6 +38,7 @@ const OverviewBarGraph = props => {
 	const [sliceEnd, setSliceEnd] = useState(null);
 	const [barCount, setBarCount] = useState(0);
 	const [loading, setLoading] = useState(true);
+	const [prevGroup, setPrevGroup] = useState(null);
 
 	const emissionData = useSelector(s => s.buildingsReducer.emissionData);
 	const benchkmarkPeriod = useSelector(s => s.dateTime.benchmarkPeriod);
@@ -54,12 +55,18 @@ const OverviewBarGraph = props => {
 		setLoading(true);
 		dispatch(getBuildingsEmission(benchkmarkPeriod, group));
 		setSelectedDate(moment(benchkmarkPeriod.to));
-	}, [dispatch, benchkmarkPeriod, group]);
+	}, [dispatch, benchkmarkPeriod, group, prevGroup]);
 
 	const renderGraph = () => {
 		let margin = { top: 30, right: 20, bottom: 70, left: 40 };
 		let width = barChartContainer.current.clientWidth - margin.left - margin.right;
 		let height = barChartContainer.current.clientHeight - margin.top - margin.bottom;
+
+		if (prevGroup !== group) {
+			setSliceStart(0);
+			setLeftScrollDisabled(true);
+		}
+		setPrevGroup(group);
 
 		let end = sliceEnd;
 		if (!end) {
@@ -69,6 +76,12 @@ const OverviewBarGraph = props => {
 		}
 
 		let data = emissionData.slice(sliceStart, end);
+
+		if (emissionData.length > end) {
+			setRightScrollDisabled(false);
+		} else {
+			setRightScrollDisabled(true);
+		}
 
 		if (didRenderGraph) {
 			d3.select("#overviewGraph").selectAll("*").remove();
