@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
-import { Card, CardHeader, CardContent, IconButton, Tabs, Tab, List, ListItem, ListItemText, Divider, Typography } from '@material-ui/core';
+import { Card, CardHeader, CardContent, Tabs, Tab, List, ListItem, ListItemText, Divider, Typography } from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles';
-import MoreVertIcon from '@material-ui/icons/MoreVert';
 import NumberFormat from 'react-number-format';
 
 import buildingStyles from 'styles/buildingStyles';
@@ -48,11 +47,6 @@ const BuildingInfo = props => {
 			{building ?
 				<Card className={classes.card} style={{ minHeight: 680 }}>
 					<CardHeader
-						action={
-							<IconButton aria-label="settings">
-								<MoreVertIcon />
-							</IconButton>
-						}
 						title={building.name}
 						subheader={building.no}
 						titleTypographyProps={{ variant: 'h4' }}

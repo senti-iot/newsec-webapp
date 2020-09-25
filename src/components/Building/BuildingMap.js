@@ -1,6 +1,5 @@
 import React, { useEffect } from 'react';
-import { Card, CardHeader, CardContent, IconButton, Typography } from '@material-ui/core';
-import MoreVertIcon from '@material-ui/icons/MoreVert';
+import { Card, CardHeader, CardContent, Typography } from '@material-ui/core';
 import { Map, Marker, TileLayer } from 'react-leaflet';
 import "leaflet/dist/leaflet.css";
 import L from 'leaflet';
@@ -36,11 +35,6 @@ const BuildingMap = props => {
 			{building && building.lat && building.lon ? 
 				<Card className={classes.card}>
 					<CardHeader
-						action={
-							<IconButton aria-label="settings">
-								<MoreVertIcon />
-							</IconButton>
-						}
 						title="Kort"
 						titleTypographyProps={{ variant: 'h4' }}
 					/>

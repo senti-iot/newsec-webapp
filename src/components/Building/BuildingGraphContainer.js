@@ -1,6 +1,5 @@
 import React, { useEffect } from 'react';
 import { Card, CardHeader, IconButton, Box, Typography, Button, Grid } from '@material-ui/core';
-import MoreVertIcon from '@material-ui/icons/MoreVert';
 import moment from 'moment';
 import NumberFormat from 'react-number-format';
 
@@ -146,11 +145,6 @@ const BuildingGraphContainer = props => {
 	return (
 		<Card className={classes.card}>
 			<CardHeader
-				action={
-					<IconButton aria-label="settings">
-						<MoreVertIcon />
-					</IconButton>
-				}
 				title="CO₂ udledning"
 				titleTypographyProps={{ variant: 'h4' }}
 			/>

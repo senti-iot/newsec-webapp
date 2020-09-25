@@ -1,6 +1,5 @@
 import React, { useEffect } from 'react';
-import { Card, CardHeader, CardContent, IconButton, Typography } from '@material-ui/core';
-import MoreVertIcon from '@material-ui/icons/MoreVert';
+import { Card, CardHeader, CardContent, Typography } from '@material-ui/core';
 import ReactSpeedometer from 'react-d3-speedometer';
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -36,11 +35,6 @@ const OverviewScore = () => {
 			{buildingsScoreData ?
 				<Card className={classes.card} style={{ minHeight: 370 }}>
 					<CardHeader
-						action={
-							<IconButton>
-								<MoreVertIcon />
-							</IconButton>
-						}
 						title="Relativ CO₂ score"
 						titleTypographyProps={{ variant: 'h5' }}
 					/>

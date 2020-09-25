@@ -1,6 +1,5 @@
 import React, { useEffect, useRef } from 'react';
-import { Card, CardHeader, CardContent, IconButton, Typography } from '@material-ui/core';
-import MoreVertIcon from '@material-ui/icons/MoreVert';
+import { Card, CardHeader, CardContent, Typography } from '@material-ui/core';
 import * as d3 from 'd3';
 
 import buildingStyles from '../../styles/buildingStyles';
@@ -65,11 +64,6 @@ const OverviewForecast = () => {
 	return (
 		<Card className={classes.card} style={{ minHeight: 370 }}>
 			<CardHeader
-				action={
-					<IconButton>
-						<MoreVertIcon />
-					</IconButton>
-				}
 				title="Prognose 2020"
 				titleTypographyProps={{ variant: 'h5' }}
 			/>

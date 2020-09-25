@@ -1,7 +1,6 @@
 /* eslint-disable array-callback-return */
 import React from 'react';
-import { Card, CardHeader, CardContent, IconButton, Button, Grid } from '@material-ui/core';
-import MoreVertIcon from '@material-ui/icons/MoreVert';
+import { Card, CardHeader, CardContent, Button, Grid } from '@material-ui/core';
 import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
 import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos';
 import AliceCarousel from 'react-alice-carousel';
@@ -49,11 +48,6 @@ class BuildingImages extends React.Component {
 		return (
 			<Card style={{ backgroundColor: '#F5F5F5', width: '100%' }}>
 				<CardHeader
-					action={
-						<IconButton aria-label="settings">
-							<MoreVertIcon />
-						</IconButton>
-					}
 					title="Billeder"
 					titleTypographyProps={{ variant: 'h4' }}
 				/>

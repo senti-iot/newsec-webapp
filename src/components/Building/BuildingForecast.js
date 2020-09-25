@@ -1,7 +1,6 @@
 /* eslint-disable array-callback-return */
 import React, { useEffect } from 'react';
-import { Card, CardHeader, CardContent, IconButton, Typography, Grid, Box } from '@material-ui/core';
-import MoreVertIcon from '@material-ui/icons/MoreVert';
+import { Card, CardHeader, CardContent, Typography, Grid, Box } from '@material-ui/core';
 import * as d3 from "d3";
 import moment from 'moment';
 
@@ -69,11 +68,6 @@ const BuildingForecast = props => {
 			{building ?
 				<Card className={classes.card}>
 					<CardHeader
-						action={
-							<IconButton aria-label="settings">
-								<MoreVertIcon />
-							</IconButton>
-						}
 						title="CO₂ udledning"
 						titleTypographyProps={{ variant: 'h4' }}
 						subheader={"Årlig sum " + moment().format('YYYY')}

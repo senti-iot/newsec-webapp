@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { Grid, Card, CardHeader, CardContent, CardActions, IconButton, Button, Typography } from '@material-ui/core';
-import MoreVertIcon from '@material-ui/icons/MoreVert';
 import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos';
 import StarBorderIcon from '@material-ui/icons/StarBorder';
 import StarIcon from '@material-ui/icons/Star';
@@ -84,9 +83,6 @@ const BuildingsThumbs = props => {
 										<>
 											<IconButton onClick={() => favorite(building)}>
 												{favorites.filter(favorite => favorite.uuid === building.uuid).length ? <StarIcon style={{ color: '#90999E' }} /> : <StarBorderIcon />}
-											</IconButton>
-											<IconButton>
-												<MoreVertIcon />
 											</IconButton>
 										</>
 									}

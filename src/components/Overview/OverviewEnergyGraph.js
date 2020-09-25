@@ -1,7 +1,6 @@
 /* eslint-disable array-callback-return */
 import React, { useEffect, useRef, useState } from 'react';
-import { Card, CardHeader, CardContent, IconButton, Box, Typography } from '@material-ui/core';
-import MoreVertIcon from '@material-ui/icons/MoreVert';
+import { Card, CardHeader, CardContent, Box, Typography } from '@material-ui/core';
 import * as d3 from "d3";
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -150,11 +149,6 @@ const OverviewEnergyGraph = props => {
 	return (
 		<Card className={classes.card}>
 			<CardHeader
-				action={
-					<IconButton aria-label="settings">
-						<MoreVertIcon />
-					</IconButton>
-				}
 				title="CO₂ udledning"
 				titleTypographyProps={{ variant: 'h4' }}
 			/>

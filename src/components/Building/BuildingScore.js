@@ -1,6 +1,5 @@
 import React from 'react';
-import { Card, CardHeader, CardContent, IconButton, Typography } from '@material-ui/core';
-import MoreVertIcon from '@material-ui/icons/MoreVert';
+import { Card, CardHeader, CardContent, Typography } from '@material-ui/core';
 import ReactSpeedometer from 'react-d3-speedometer';
 import moment from 'moment';
 
@@ -30,11 +29,6 @@ const BuildingScore = props => {
 				<>
 					<Card className={classes.card}>
 						<CardHeader
-							action={
-								<IconButton aria-label="settings">
-									<MoreVertIcon />
-								</IconButton>
-							}
 							title="Relativ CO₂ score"
 							titleTypographyProps={{ variant: 'h4' }}
 							subheader={"Årlig sum " + moment().format('YYYY')}

@@ -1,6 +1,5 @@
 import React, { useEffect, useRef } from 'react';
-import { Card, CardHeader, CardContent, IconButton, Grid, Typography, Box } from '@material-ui/core';
-import MoreVertIcon from '@material-ui/icons/MoreVert';
+import { Card, CardHeader, CardContent, Grid, Typography, Box } from '@material-ui/core';
 import moment from 'moment';
 import * as d3 from "d3";
 import NumberFormat from 'react-number-format';
@@ -73,11 +72,6 @@ const BuildingEnergyUsage = props => {
 			{building && building.usage ?
 				<Card className={classes.card}>
 					<CardHeader
-						action={
-							<IconButton aria-label="settings">
-								<MoreVertIcon />
-							</IconButton>
-						}
 						title="Energiforbrug"
 						titleTypographyProps={{ variant: 'h4' }}
 						subheader={"Årlig sum " + moment().format('YYYY')}
