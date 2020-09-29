@@ -1,6 +1,5 @@
 import React, { useEffect, createRef, useRef, useState } from 'react';
 import { Card, CardHeader, CardContent, IconButton, Typography, Box, Popover, Button } from '@material-ui/core';
-import MoreVertIcon from '@material-ui/icons/MoreVert';
 import CalendarTodayIcon from '@material-ui/icons/CalendarToday';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
@@ -263,11 +262,6 @@ const OverviewBarGraph = props => {
 		<>
 			<Card className={classes.card}>
 				<CardHeader
-					action={
-						<IconButton>
-							<MoreVertIcon />
-						</IconButton>
-					}
 					title="Benchmark"
 					titleTypographyProps={{ variant: 'h4' }}
 				/>
