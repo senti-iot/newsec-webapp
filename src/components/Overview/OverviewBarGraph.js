@@ -165,6 +165,24 @@ const OverviewBarGraph = props => {
 				setAnchorEl(anchorEl ? null : d3.event.currentTarget);
 			});
 
+		//add line
+		const line = d3.line()
+			.x(function (d, i) {
+				let val = x(d.buildingNo);
+				if (i === 0) {
+					val = 0;
+				} else if (i === data.length - 1) {
+					val = width;
+				}
+				return val;
+			})
+			.y(function (d) { return y(max / 2); });
+
+		svgg.append("path")
+			.datum(data)
+			.attr("class", graphClasses.line)
+			.attr("d", line);
+
 		setDidRenderGraph(true);
 	}
 
