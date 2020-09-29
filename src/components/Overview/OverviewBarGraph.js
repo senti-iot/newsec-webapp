@@ -86,7 +86,7 @@ const OverviewBarGraph = props => {
 			d3.select("#overviewGraph").selectAll("*").remove();
 		}
 
-		let svgg = d3.select("#overviewGraph")
+		let svg = d3.select("#overviewGraph")
 			.attr("width", width + margin.left + margin.right)
 			.attr("height", height + margin.top + margin.bottom + 20)
 			.append("g")
@@ -113,7 +113,7 @@ const OverviewBarGraph = props => {
 		x.domain(data.map(function (d) { return d.buildingNo; }));
 		y.domain([0, max]);
 
-		svgg.append("g")
+		svg.append("g")
 			.attr("class", graphClasses.axisTick)
 			.attr("transform", "translate(0," + height + ")")
 			.call(xAxis)
@@ -123,7 +123,7 @@ const OverviewBarGraph = props => {
 			.attr("dy", "-.55em")
 			.attr("transform", "rotate(-90)");
 
-		svgg.append("g")
+		svg.append("g")
 			.attr("class", graphClasses.axisTick)
 			.call(yAxis)
 			// .append("text")
@@ -137,14 +137,14 @@ const OverviewBarGraph = props => {
 			.attr('class', graphClasses.axisText)
 			.html('Kg pr. m2');
 
-		svgg.append("g")
+		svg.append("g")
 			.attr("class", graphClasses.gridline)
 			.call(make_y_gridlines(y)
 				.tickSize(-width)
 				.tickFormat("")
 			);
 
-		svgg.selectAll("bar")
+		svg.selectAll("bar")
 			.data(data)
 			.enter().append("rect")
 			.style("fill", "#377EB8")
@@ -178,7 +178,7 @@ const OverviewBarGraph = props => {
 			})
 			.y(function (d) { return y(max / 2); });
 
-		svgg.append("path")
+		svg.append("path")
 			.datum(data)
 			.attr("class", graphClasses.line)
 			.attr("d", line);
