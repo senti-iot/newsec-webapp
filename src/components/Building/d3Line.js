@@ -172,10 +172,6 @@ class d3Line {
 		if (moment(counter).diff(to, 'day') > 14) {
 			add = 3
 		}
-		/**
-		 * Hour tick generator
-		 */
-
 
 		/**
 		 * Month tick generator
@@ -187,34 +183,30 @@ class d3Line {
 				if (lb === 0) {
 					counter.add(14, 'day')
 					lb = 1
-				}
-				else {
+				} else {
 					let diff = -1 * moment(counter).diff(moment(counter).endOf('month'), 'days')
 					counter.add(diff + 1, 'day')
 					lb = 0
 				}
-				// counter.add(Math.round(moment(counter).daysInMonth() / 2) - 1, 'day')
 
 				if (
 					monthTicks.findIndex(f => {
 						return moment(f).format('MMMM').toLowerCase() === counter.format('MMMM').toLowerCase()
 					}) === -1
 				) {
-
 					monthTicks.push(counter.valueOf())
 				}
 			}
+			to = moment(to).add(1, 'day');
 			this.ticks.push(to.valueOf())
 			monthTicks.push(to.valueOf())
-		}
-		if (timeType === 1) {
+		} else if (timeType === 1) {
 			while (moment(counter).diff(to, 'hour') < 0) {
 				hourTicks.push(counter.valueOf())
 				counter.add(add, 'hour')
 			}
 			hourTicks.push(to.valueOf())
-		}
-		else {
+		} else {
 			/**
 			 * Day tick generator
 			 */

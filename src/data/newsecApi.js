@@ -23,7 +23,7 @@ export const getBuildingsYearlyCo2ByGroup = async (group) => {
 }
 
 export const getBuildingYearlyCo2 = async (uuid) => {
-	console.log('/data/buildingyearlyco2/' + uuid);
+	// console.log('/data/buildingyearlyco2/' + uuid);
 	let data = await newsecApi.get('/data/buildingyearlyco2/' + uuid).then(rs => rs.data);
 	return data;
 }
