@@ -74,9 +74,9 @@ const OverviewBarGraph = props => {
 			setSliceEnd(end);
 		}
 
-		let data = emissionData.slice(sliceStart, end);
+		let data = emissionData.data.slice(sliceStart, end);
 
-		if (emissionData.length > end) {
+		if (emissionData.data.length > end) {
 			setRightScrollDisabled(false);
 		} else {
 			setRightScrollDisabled(true);
@@ -176,7 +176,7 @@ const OverviewBarGraph = props => {
 				}
 				return val;
 			})
-			.y(function (d) { return y(max / 2); });
+			.y(function (d) { return y(emissionData.average); });
 
 		svg.append("path")
 			.datum(data)
@@ -268,8 +268,8 @@ const OverviewBarGraph = props => {
 		setSliceStart(sliceEnd);
 
 		let end = sliceEnd + barCount;
-		if (end > emissionData.length) {
-			end = emissionData.length;
+		if (end > emissionData.data.length) {
+			end = emissionData.data.length;
 			setRightScrollDisabled(true);
 		}
 		setSliceEnd(end);
