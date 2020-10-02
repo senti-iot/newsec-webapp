@@ -156,13 +156,12 @@ const OverviewBarGraph = props => {
 			.on("mouseover", function () {
 				d3.select(this).style("fill", "#1F3B54");
 			})
-			.on("mouseout", function (d, i) {
+			.on("mouseout", function () {
 				d3.select(this).transition().duration(300).style("fill", "#377EB8");
 			})
-			.on("click", function (d, i) {
-				//history.push('/building/' + d.buildingUuid);
+			.on("click", function (event, d) {
 				setSelectedBuilding(d);
-				setAnchorEl(anchorEl ? null : d3.event.currentTarget);
+				setAnchorEl(anchorEl ? null : event.currentTarget);
 			});
 
 		//add line

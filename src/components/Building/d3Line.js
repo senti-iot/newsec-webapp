@@ -433,19 +433,19 @@ class d3Line {
 				.data(line.data)
 				.enter()
 				.append("circle") // Uses the enter().append() method
-				.on("mouseover", function (d) {
+				.on("mouseover", function (event, d) {
 					d3.select(this).transition().duration(200).attr('opacity', 1)
 					tooltipDiv.transition()
 						.duration(200)
 						.style("opacity", 1)
 						.style('z-index', 1040)
-					// let left = d3.event.pageX < 175 ? 245 : d3.event.pageX
-					// left = d3.event.pageX > width - 175 ? width - 150 : left
-					let left = d3.event.pageX;
+					// let left = event.pageX < 175 ? 245 : d3.event.pageX
+					// left = event.pageX > width - 175 ? width - 150 : left
+					let left = event.pageX;
 					if (left + 300 > width) {
 						left -= 300;
 					}
-					tooltipDiv.style("left", left + "px").style("top", (d3.event.pageY + 10) + "px")
+					tooltipDiv.style("left", left + "px").style("top", (event.pageY + 10) + "px")
 					setTooltip(d, line.name)
 				}).on("mouseout", function () {
 					// setExpand(false)
@@ -592,7 +592,7 @@ class d3Line {
 							.attr('stroke-width', '7px')
 							.attr('d', this.valueLine)
 							.attr('id', 'HArea' + line.name)
-							.on("mouseover", (d) => {
+							.on("mouseover", (event, d) => {
 								if (!this.state[`L${line.name}`]) {
 
 									medianLine.transition()
@@ -604,8 +604,8 @@ class d3Line {
 										.style("opacity", 1)
 										.style('z-index', 1040)
 
-									medianTooltip.style("left", (d3.event.pageX) - 82 + "px")
-										.style("top", (d3.event.pageY) - 41 + "px")
+									medianTooltip.style("left", (event.pageX) - 82 + "px")
+										.style("top", (event.pageY) - 41 + "px")
 
 									setMedianTooltip(d[0])
 								}
@@ -737,7 +737,7 @@ class d3Line {
 					.attr('d', this.valueLine)
 					.attr('id', `MedianH${line.name}`)
 					.style('display', this.state['Median' + line.name] ? 'none' : undefined)
-					.on("mouseover", (d) => {
+					.on("mouseover", (event, d) => {
 						if (!this.state[`Median${line.name}`]) {
 
 							medianLine.transition()
@@ -752,8 +752,8 @@ class d3Line {
 									.duration(200)
 									.style("opacity", 1)
 									.style('z-index', 1040)
-								medianTooltip.style("left", (d3.event.pageX) - 82 + "px")
-									.style("top", (d3.event.pageY) - 41 + "px")
+								medianTooltip.style("left", (event.pageX) - 82 + "px")
+									.style("top", (event.pageY) - 41 + "px")
 
 								setMedianTooltip(d[0])
 							}
@@ -796,7 +796,7 @@ class d3Line {
 					.attr('d', this.valueLine)
 					.attr('id', `MedianH${line.name}`)
 					.style('display', this.state['Median' + line.name] ? 'none' : undefined)
-					.on("mouseover", (d) => {
+					.on("mouseover", (event, d) => {
 						if (!this.state[`Median${line.name}`]) {
 
 							medianLine.transition()
@@ -808,8 +808,8 @@ class d3Line {
 								.style("opacity", 1)
 								.style('z-index', 1040)
 
-							medianTooltip.style("left", (d3.event.pageX) - 82 + "px")
-								.style("top", (d3.event.pageY) - 41 + "px")
+							medianTooltip.style("left", (event.pageX) - 82 + "px")
+								.style("top", (event.pageY) - 41 + "px")
 
 							setMedianTooltip(d[0])
 						}
