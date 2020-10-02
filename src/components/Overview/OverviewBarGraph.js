@@ -54,7 +54,8 @@ const OverviewBarGraph = props => {
 		setLoading(true);
 		dispatch(getBuildingsEmission(benchkmarkPeriod, group));
 		setSelectedDate(moment(benchkmarkPeriod.to));
-	}, [dispatch, benchkmarkPeriod, group, prevGroup]);
+	// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [benchkmarkPeriod, group]);
 
 	const renderGraph = () => {
 		let margin = { top: 30, right: 20, bottom: 70, left: 40 };
@@ -319,7 +320,7 @@ const OverviewBarGraph = props => {
 					{loading ? <CircularLoader fill /> : ""}
 
 					<div style={{ width: '100%', height: '100%' }}>
-						<svg id="overviewGraph" ref={barChartContainer} style={{ width: '100%', height: '350px' }}></svg>
+						<svg id="overviewGraph" ref={barChartContainer} style={{ visibility: loading ? 'hidden' : 'visible', width: '100%', height: '350px' }}></svg>
 					</div>
 
 					{!loading ?
