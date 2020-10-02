@@ -5,6 +5,7 @@ import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import * as d3 from 'd3';
 import moment from 'moment';
+import { useDispatch, useSelector } from 'react-redux';
 
 import BuildingDetailsPopup from 'components/Overview/BuildingDetailsPopup';
 import YearPicker from 'components/ui/YearPicker';
@@ -12,7 +13,6 @@ import barGraphStyles from '../../styles/barGraphStyles';
 import buildingStyles from '../../styles/buildingStyles';
 import { changeBenchmarkDate } from 'redux/dateTime';
 import { getBuildingsEmission } from 'redux/buildings';
-import { useDispatch, useSelector } from 'hooks';
 import { ReactComponent as ArrowPrev } from "assets/icons/arrow_prev_blue.svg";
 import { ReactComponent as ArrowPrevDisabled } from "assets/icons/arrow_prev_grey.svg";
 import { ReactComponent as ArrowNext } from "assets/icons/arrow_next_blue.svg";

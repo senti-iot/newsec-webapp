@@ -70,3 +70,8 @@ export const getBuildingEmissionToDate = async (uuid) => {
 	var data = await newsecApi.get('/data/buildingemissiontodate/' + uuid).then(rs => rs.data);
 	return data;
 }
+
+export const getCurrentResultFromServer = async (group) => {
+	var data = await newsecApi.get('/data/actualresult/' + group).then(rs => rs.data);
+	return data;
+}

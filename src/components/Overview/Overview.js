@@ -83,7 +83,7 @@ const Overview = props => {
 						</Box>
 					</Grid>
 					<Grid item xs={12} lg={5}>
-						<OverviewCurrentResult />
+						<OverviewCurrentResult group={selectedGroup} />
 					</Grid>
 					<Grid item xs={12} lg={7} xl={7} style={{ display: 'flex' }}>
 						<OverviewBarGraph buildings={buildings} group={selectedGroup} />
