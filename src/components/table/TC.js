@@ -1,33 +1,12 @@
 import React from 'react';
-import { TableCell, Typography, makeStyles } from '@material-ui/core';
+import { TableCell, Typography } from '@material-ui/core';
 import classNames from 'classnames';
 
-const styles = makeStyles(theme => ({
-	tablecellPadding: {
-		padding: 9
-	},
-	tableCell: {
-		backgroundColor: '#F6F6F6',
-		padding: 5,
-		[theme.breakpoints.down('sm')]: {
-			paddingRight: 4,
-			padding: 0,
-		},
-		'&:last-child': {
-			paddingRight: 8
-		}
-	},
-	tableCellCheckbox: {
-		width: 35,
-	},
-	center: {
-		textAlign: 'center'
-	}
-}))
-
+import tableStyles from 'styles/tableStyles';
 
 const TC = (props) => {
-	const classes = styles();
+	const classes = tableStyles();
+
 	const { checkbox, noCheckbox, label, content, className, center, FirstC, ...rest } = props;
 	let tcClasses = classNames({
 		[className]: className,

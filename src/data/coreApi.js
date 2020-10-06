@@ -24,6 +24,11 @@ export const getUsers = async () => {
 	return data;
 }
 
+export const getUsersInOrg = async (uuid) => {
+	var data = await coreApi.get('/v2/entity/users/' + uuid).then(rs => rs.data);
+	return data;
+}
+
 export const getOrgs = async () => {
 	var data = await coreApi.get('/v2/entity/organisations').then(rs => rs.data);
 	return data;

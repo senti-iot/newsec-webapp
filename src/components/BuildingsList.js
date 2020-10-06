@@ -117,7 +117,6 @@ const BuildingsList = props => {
 								tabIndex={-1}
 								key={building.uuid}
 								//style={{ cursor: 'pointer' }}
-								className={classes.tableRow}
 							>
 								{/* <Hidden lgUp>
 									<TC content={

@@ -34,7 +34,7 @@ const UserHover = props => {
 		};
 		dispatch(removeFromFav(favObj));
 	}
-	console.log(user);
+
 	return (
 		<>
 			{user ?

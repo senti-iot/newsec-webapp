@@ -2,10 +2,10 @@ import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { TablePagination, isWidthUp } from '@material-ui/core';
 
-import { changeTableRows } from '../../redux/appState';
+import { changeTableRows } from 'redux/appState';
 import cx from 'classnames';
-import useWidth from '../../hooks/useWidth';
-import tableStyles from '../../styles/tableStyles';
+import useWidth from 'hooks/useWidth';
+import tableStyles from 'styles/tableStyles';
 
 const TablePager = props => {
 	const dispatch = useDispatch();
@@ -56,10 +56,10 @@ const TablePager = props => {
 				'aria-label': 'Forrige side',
 			}}
 			classes={{
-				toolbar: classes.tablePaginationToolbar,
+				toolbar: props.isWhite ? classes.tablePaginationToolbarWhite : classes.tablePaginationToolbar,
 				spacer: classes.spacer,
 				input: classes.spaceBetween,
-				caption: classes.tablePaginationCaption
+				caption: props.isWhite ? classes.tablePaginationCaptionBlack : classes.tablePaginationCaption
 			}}
 			labelDisplayedRows={({ from, to, count }) => disableRowsPerPage ? `` : `${from}-${to} ${'af'} ${count}`}
 			onChangePage={handleChangePage}

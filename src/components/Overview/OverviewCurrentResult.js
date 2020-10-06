@@ -21,7 +21,6 @@ const OverviewCurrentResult = props => {
 
 	useEffect(() => {
 		if (currentResult) {
-			console.log(currentResult);
 			setLoading(false);
 		}
 	}, [currentResult]);

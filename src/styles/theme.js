@@ -28,6 +28,10 @@ const theme = createMuiTheme({
 		h6: {
 			fontSize: '1rem',
 		},
+		caption: {
+			fontSize: '1rem',
+			color: 'rgba(0, 0, 0, 0.54)',
+		},
 		body2: {
 			color: '#000',
 			fontFamily: 'interstateLight !important',

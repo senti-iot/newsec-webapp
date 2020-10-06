@@ -57,22 +57,48 @@ const thStyles = makeStyles(theme => ({
 			color: '#fff',
 		},
 	},
+	tablecellPadding: {
+		padding: 9
+	},
 	tableCell: {
-		borderTop: "1px solid rgba(224, 224, 224, 1)",
-		height: 20,
-	},
-	tablecellcheckbox: {
-		[theme.breakpoints.down("sm")]: {
-			width: '35px'
+		padding: 5,
+		[theme.breakpoints.down('sm')]: {
+			paddingRight: 4,
+			padding: 0,
 		},
-		[theme.breakpoints.down("md")]: {
-			width: '45px'
-		},
-		fontSize: '0.875rem',
-		borderTop: "1px solid rgba(224, 224, 224, 1)",
-		/*padding: 0, */
-		width: '50px',
+		'&:last-child': {
+			paddingRight: 8
+		}
 	},
+	tableCellHeader: {
+		backgroundColor: '#214C6F',
+		padding: 5,
+		[theme.breakpoints.down('sm')]: {
+			paddingRight: 4,
+			padding: 0,
+		},
+		'&:last-child': {
+			paddingRight: 8
+		}
+	},
+	tableCellWhite: {
+		backgroundColor: '#FFF',
+		padding: 5,
+		[theme.breakpoints.down('sm')]: {
+			paddingRight: 4,
+			padding: 0,
+		},
+		'&:last-child': {
+			paddingRight: 8
+		}
+	},
+	tableCellCheckbox: {
+		width: 35,
+	},
+	center: {
+		textAlign: 'center'
+	},
+
 
 	//
 	// PAGER
@@ -95,10 +121,17 @@ const thStyles = makeStyles(theme => ({
 		fontSize: "0.875rem",
 		color: '#fff'
 	},
+	tablePaginationCaptionBlack: {
+		fontSize: "0.875rem",
+		color: '#000'
+	},
 	tablePaginationToolbar: {
 		backgroundColor: '#214C6F',
 		color: '#fff',
-	}
+	},
+	tablePaginationToolbarWhite: {
+		backgroundColor: '#fff',
+	},
 }));
 
 export default thStyles;

@@ -1,12 +1,13 @@
 import cookie from 'react-cookies';
 import moment from 'moment';
 
-import { getUser, getAuth, getUsers, getOrgs, putUserInternal } from 'data/coreApi';
+import { getUser, getAuth, getUsers, getOrgs, putUserInternal, getUsersInOrg } from 'data/coreApi';
 
 const setData = 'setUserData';
 const setFavoritesData = 'setFavoritesData';
 const setUsersData = 'setUsersData';
 const setOrgsData = 'setOrgsData';
+const setOrgUserData = 'setOrgUserData';
 const setLoadingData = 'setLoadingData';
 // const GETFAVS = 'getFavorites';
 const SAVEFAVORITES = 'saveFavorites';
@@ -60,6 +61,23 @@ export const getUsersData = () => {
 		if (usersData) {
 			dispatch({
 				type: setUsersData,
+				payload: usersData
+			});
+		}
+
+		dispatch(setLoading(false));
+	};
+}
+
+export const getUsersInOrgData = (uuid) => {
+	return async (dispatch) => {
+		dispatch(setLoading(true));
+
+		let usersData = await getUsersInOrg(uuid);
+
+		if (usersData) {
+			dispatch({
+				type: setOrgUserData,
 				payload: usersData
 			});
 		}
@@ -142,10 +160,11 @@ const saveFavorites = (noConfirm) => {
 
 const initialState = {
 	loading: false,
-	user: [],
+	user: null,
 	favorites: [],
 	users: [],
 	orgs: [],
+	orgUsers: [],
 }
 
 export const user = (state = initialState, { type, payload }) => {
@@ -158,6 +177,8 @@ export const user = (state = initialState, { type, payload }) => {
 			return Object.assign({}, state, { users: payload });
 		case setOrgsData:
 			return Object.assign({}, state, { orgs: payload });
+		case setOrgUserData:
+			return Object.assign({}, state, { orgUsers: payload });
 		case setLoadingData:
 			return Object.assign({}, state, { loading: payload });
 		// case GETFAVS:

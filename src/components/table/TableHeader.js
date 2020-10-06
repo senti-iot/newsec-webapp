@@ -27,7 +27,7 @@ const TableHeader = props => {
 					{columnData.map((column, i) => {
 						let tcClasses = classNames({
 							[classes.header]: classes,
-							[classes.tableCell]: classes,
+							[classes.tableCellHeader]: classes,
 							[classes.centered]: classes && column.centered,
 							[classes.tablecellcheckbox]: classes && column.checkbox,
 							[classes.noCheckbox]: noCheckbox

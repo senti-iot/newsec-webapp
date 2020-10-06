@@ -67,7 +67,7 @@ const BuildingLineGraph = (props) => {
 			}
 
 			let cProps = {
-				unit: 'g pr. m2',
+				unit: 'G pr. m2',
 				id: props.id,
 				data: deviceData,
 				setLine: setLine,

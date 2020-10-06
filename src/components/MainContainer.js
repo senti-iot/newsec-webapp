@@ -17,6 +17,9 @@ import CircularLoader from 'components/CircularLoader';
 import FavoritesList from 'components/FavoritesList';
 import UserList from 'components/UserList';
 import OrgList from 'components/OrgList';
+import Profile from 'components/User/Profile';
+import Account from 'components/User/Account';
+import Settings from 'components/User/Settings';
 
 const MainContainer = props => {
 	const classes = mainStyles();
@@ -62,6 +65,15 @@ const MainContainer = props => {
 							</Route>
 							<Route path={'/thumbs'}>
 								<BuildingsThumbs buildings={buildings} />
+							</Route>
+							<Route path={'/profile'}>
+								<Profile />
+							</Route>
+							<Route path={'/account'}>
+								<Account />
+							</Route>
+							<Route path={'/settings'}>
+								<Settings />
 							</Route>
 							<Route path={'/'}>
 								<Overview buildings={buildings} />

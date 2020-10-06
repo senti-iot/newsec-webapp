@@ -52,15 +52,8 @@ const Header = (props) => {
 		setHasFilters(filters.buildings.length ? true : false);
 	}, [filters]);
 
-	// const dropDownExample = [
-	// 	{ value: 0, label: "No", icon: <MapIcon /> },
-	// 	{ value: 1, label: "Yes", icon: <MapIcon /> }
-	// ]
 	const ft = [
 		{ key: 'name', name: "Navn", type: 'string' },
-		// { key: 'uuid', name: "uuid", type: 'string' },
-		// { key: 'communication', name: "FieldName", type: 'dropDown', options: dropDownExample },
-		// { key: 'reg_name', name: "FieldName", type: 'string' },
 		{ key: '', name: "Free Text", type: 'string', hidden: true },
 	]
 
@@ -134,12 +127,15 @@ const Header = (props) => {
 				break;
 			case 'profile':
 				history.push('/profile');
+				setAnchorProfile(null);
 				break;
 			case 'account':
 				history.push('/account');
+				setAnchorProfile(null);
 				break;
 			case 'settings':
 				history.push('/settings');
+				setAnchorProfile(null);
 				break;
 		}
 	}
@@ -226,7 +222,7 @@ const Header = (props) => {
 								<MenuItem style={{ fontFamily: 'interstateLight' }} onClick={() => goToPage('profile')}>
 									<AccountBoxIcon className={classes.usermenuIcon} />Min profil
 								</MenuItem>
-								<MenuItem style={{ fontFamily: 'interstateLight' }} onClick={() => goToPage('acount')}>
+								<MenuItem style={{ fontFamily: 'interstateLight' }} onClick={() => goToPage('account')}>
 									<BusinessIcon className={classes.usermenuIcon} />Kontodetaljer
 								</MenuItem>
 								<MenuItem style={{ fontFamily: 'interstateLight' }} onClick={() => goToPage('settings')}>
