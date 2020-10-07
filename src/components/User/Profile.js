@@ -1,16 +1,23 @@
-import React from 'react';
-import { useSelector } from 'react-redux';
+import React, { useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import Gravatar from 'react-gravatar';
 import { Card, CardHeader, CardContent, Grid, Typography, Link } from '@material-ui/core';
 import PersonIcon from '@material-ui/icons/Person';
 import moment from 'moment';
 
 import userStyles from 'styles/userStyles';
+import { changeMainView, changeHeaderTitle } from 'redux/appState';
 
 const Profile = () => {
+	const dispatch = useDispatch();
 	const user = useSelector(s => s.user.user);
 	const extended = user && user.aux ? user.aux.senti ? user.aux.senti.extendedProfile : {} : {};
 	const classes = userStyles();
+
+	useEffect(() => {
+		dispatch(changeHeaderTitle('Min profil'));
+		dispatch(changeMainView(''));
+	}, [dispatch]);
 
 	const renderName = () => {
 		return user ? user.firstName + ' ' + user.lastName : "";

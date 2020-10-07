@@ -2,6 +2,7 @@ import cookie from 'react-cookies';
 import moment from 'moment';
 
 import { getUser, getAuth, getUsers, getOrgs, putUserInternal, getUsersInOrg } from 'data/coreApi';
+import { getSettings } from 'redux/settings';
 
 const setData = 'setUserData';
 const setFavoritesData = 'setFavoritesData';
@@ -29,6 +30,8 @@ export const getUserData = () => {
 						type: setData,
 						payload: userData
 					});
+
+					dispatch(getSettings());
 
 					if (userData.internal && userData.internal.newsec && userData.internal.newsec.favorites) {
 						dispatch({
