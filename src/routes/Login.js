@@ -54,7 +54,6 @@ const Login = () => {
 						<img src="/assets/logo.png" alt="" />
 					</div>
 					<div className={classes.header}>Newsec Property Knowledge Center</div>
-					<div className={classes.needaccount}>Brug for en konto? <a href="/">Opret en konto</a></div>
 
 					<TextField
 						id="username"
