@@ -73,7 +73,7 @@ const ForgotPassword = props => {
 		if (handleValidation()) {
 			let session = await bConfirmPass({
 				newPassword: password,
-				passwordToken: params.token,
+				token: params.token,
 			})
 			if (session === 200) {
 				setPasswordReset(true)
