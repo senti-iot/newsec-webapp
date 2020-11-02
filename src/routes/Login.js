@@ -92,7 +92,7 @@ const Login = () => {
 
 				<div className={classes.bottomwrapper}>
 					<div className={classes.copyright}>© 2016–{moment().year()} Alle rettigheder forbeholdt. Newsec Property Knowledge Center is powered by Senti.</div>
-					<div className={classes.bottomLinksWrapper}><a href="/" className={classes.bottomLink}>Cookie politik</a>&nbsp;&nbsp;&nbsp;&nbsp;<a href="/" className={classes.bottomLink}>Persondatapolitik</a></div>
+					{/* <div className={classes.bottomLinksWrapper}><a href="/" className={classes.bottomLink}>Cookie politik</a>&nbsp;&nbsp;&nbsp;&nbsp;<a href="/" className={classes.bottomLink}>Persondatapolitik</a></div> */}
 				</div>
 			</Grid>
 			<Grid item className={classes.loginImage} sm={false} md={8} lg={9}>
