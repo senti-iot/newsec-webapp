@@ -87,7 +87,7 @@ const Login = () => {
 						{loggingIn && <CircularProgress size={24} className={classes.buttonProgress} />}
 					</div>
 
-					<div className={classes.forgotpassword}><a href="/">Glemt kodeord?</a></div>
+					<div className={classes.forgotpassword}><a href="/forgotpassword">Glemt kodeord?</a></div>
 				</div>
 
 				<div className={classes.bottomwrapper}>
