@@ -13,7 +13,7 @@ const Main = () => {
 			<NewContent />
 
 			<Switch>
-				<Route path={'/forgotpassword'}>
+				<Route path={'/password/reset/:lang/:token?'}>
 					<ForgotPassword />
 				</Route>
 				<Route path={'/login'}>

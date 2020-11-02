@@ -19,6 +19,11 @@ export const resetPassword = async (email) => {
 	return response.status;
 }
 
+export const confirmPassword = async (obj) => {
+	let response = await coreApi.post(`/v2/entity/user/forgotpassword/set`, obj).then(rs => rs)
+	return response.status
+}
+
 export const getUser = async () => {
 	var data = await coreApi.get('/v2/auth/user').then(rs => rs.data);
 	return data;
