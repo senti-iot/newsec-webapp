@@ -28,7 +28,7 @@ export const getSettings = () => {
 		let internal = user.internal || {};
 		internal.newsec = internal.newsec || {};
 
-		if (internal.newsec.settings.trp) {
+		if (internal.newsec.settings && internal.newsec.settings.trp) {
 			dispatch({
 				type: TRP,
 				nr: internal.newsec.settings.trp
