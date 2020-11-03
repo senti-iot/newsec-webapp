@@ -51,6 +51,7 @@ const OverviewCurrentResult = props => {
 							: 
 							<Typography variant="h3">STIGNING I <span style={{ color: '#377EB8', fontWeight: 'bold' }}>CO₂ FORBRUG</span> SIDEN 2018</Typography>
 						}
+						<Typography variant="body2">Udreget ud fra samme periode af året i 2018</Typography>
 					</>
 					: <CircularLoader fill /> }
 			</CardContent>
