@@ -8,7 +8,7 @@ import OverviewBarGraph from './OverviewBarGraph';
 import OverviewEnergyGraph from 'components/Overview/OverviewEnergyGraph';
 import CircularLoader from 'components/CircularLoader';
 import mainStyles from 'styles/mainStyles';
-import { changeMainView, changeHeaderTitle, toogleFilterIcon } from 'redux/appState';
+import { changeMainView, changeHeaderTitle, toogleFilterIcon, closeFilterBar } from 'redux/appState';
 
 const Overview = props => {
 	const dispatch = useDispatch();
@@ -20,6 +20,7 @@ const Overview = props => {
 	useEffect(() => {
 		dispatch(changeMainView('overview'));
 		dispatch(changeHeaderTitle('Benchmark'));
+		dispatch(closeFilterBar(true));
 		dispatch(toogleFilterIcon(false));
 	}, [dispatch]);
 
