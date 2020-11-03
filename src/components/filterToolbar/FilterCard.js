@@ -37,13 +37,13 @@ const style = theme => ({
 		color: 'white',
 	},
 	header: {
-		background: '#00897b',
+		background: '#214c6f',
 		color: 'white',
 		padding: 8
 	},
 	menu: {
 		padding: 0,
-		background: '#00897b'
+		background: '#214c6f'
 	},
 	content: {
 		height: '100%'
@@ -267,7 +267,7 @@ class FilterCard extends Component {
 					</ItemG>
 				</Fragment>
 			case 'string':
-				return <TextF fullWidth id={'filter-text'} autoFocus onKeyDown={this.handleKeyDown} label={"Contains"} value={value} onChange={e => this.handleInput(e.target.value)} />
+				return <TextF fullWidth id={'filter-text'} autoFocus onKeyDown={this.handleKeyDown} label={"Indeholder"} value={value} onChange={e => this.handleInput(e.target.value)} />
 			default:
 				break;
 		}
@@ -306,7 +306,7 @@ class FilterCard extends Component {
 						<CardActions>
 							<ItemG xs={12} container justify={'center'}>
 								<Button onClick={this.handleButton} onKeyPress={this.handleKeyPress}>
-									{!edit ? "Add Filter" : "Edit Filter"}
+									{!edit ? "Tilføj filter" : "Rediger filter"}
 								</Button>
 							</ItemG>
 						</CardActions>

@@ -54,8 +54,12 @@ const Header = (props) => {
 	}, [filters]);
 
 	const ft = [
-		{ key: 'name', name: "Navn", type: 'string' },
-		{ key: '', name: "Free Text", type: 'string', hidden: true },
+		{ key: 'no', name: 'Ejendomsnr', type: 'string' },
+		{ key: 'name', name: 'Ejendomsnavn', type: 'string' },
+		{ key: 'grouptype', name: 'Gruppe', type: 'string' },
+		{ key: 'owner', name: 'Organisation', type: 'string' },
+		{ key: 'streetName', name: 'Adresse', type: 'string' },
+		{ key: 'relativeCO2Score', name: 'Relativ CO₂ score', type: 'string' },
 	]
 
 	const redux = {
