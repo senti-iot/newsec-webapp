@@ -15,7 +15,6 @@ class BuildingImages extends React.Component {
 		items: [],
 		loading: true
 	}
-
 	async componentDidMount() {
 		let images = [];
 		if (this.props.building && this.props.building.images) {
@@ -37,6 +36,8 @@ class BuildingImages extends React.Component {
 		} else {
 			this.setState({ loading: false });
 		}
+		console.log(this.state.items);
+		console.log(this.state.items.length);
 		// return this.props.building.images.map((i) => {
 		// 	return <img src={require('assets/building.jpg')} alt="" style={{ width: '100%', maxHeight: 500 }} />
 		// });
@@ -58,10 +59,10 @@ class BuildingImages extends React.Component {
 								<>
 									<AliceCarousel
 										ref={(el) => (this.Carousel = el)}
-										buttonsDisabled={true}
+										disableButtonsControls={true}
 										items={items}
 										slideToIndex={currentIndex}
-										dotsDisabled={items.length > 1 ? false : true}
+										disableDotsControls={items.length > 1 ? false : true}
 									/>
 
 									{items.length > 1 ?
