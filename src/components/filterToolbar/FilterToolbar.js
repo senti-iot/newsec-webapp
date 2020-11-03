@@ -191,14 +191,12 @@ const FilterToolbar = props => {
 	}
 
 	const handleMenuItem = ft => {
-		console.log(ft)
 		setOpenFilterCard(true)
 
 		setState({
 			...state,
 			[ft]: true
 		})
-		console.log(state)
 	}
 
 	const isSelected = id => focusedMenu === id ? true : false
