@@ -116,6 +116,7 @@ const BuildingsList = props => {
 								role='checkbox'
 								tabIndex={-1}
 								key={building.uuid}
+								className={classes.tableRow}
 								//style={{ cursor: 'pointer' }}
 							>
 								{/* <Hidden lgUp>
