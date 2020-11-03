@@ -17,7 +17,7 @@ import TuneIcon from '@material-ui/icons/Tune';
 import AccountBoxIcon from '@material-ui/icons/AccountBox';
 import BusinessIcon from '@material-ui/icons/Business';
 import SettingsIcon from '@material-ui/icons/Settings';
-import { useHistory } from 'react-router'
+import { useHistory } from 'react-router';
 import Gravatar from 'react-gravatar';
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -26,7 +26,8 @@ import BarButton from './ui/BarButton';
 import logo from 'assets/logo.png';
 import { logoutUser } from 'data/coreApi';
 import { changeMainView, changeHeaderTitle, toogleFilterBar } from 'redux/appState';
-import FilterToolbar from 'components/filterToolbar/FilterToolbar'
+import FilterToolbar from 'components/filterToolbar/FilterToolbar';
+import HeaderSearch from './HeaderSearch';
 import { ReactComponent as BenchmarkIcon } from "assets/icons/benchmark.svg";
 import { ReactComponent as BenchmarkDimmedIcon } from "assets/icons/benchmark_dimmed.svg";
 import { ReactComponent as PoweredByIcon } from "assets/icons/poweredby.svg";
@@ -180,18 +181,9 @@ const Header = (props) => {
 							{headerTitle ? headerTitle : ""}
 						</Typography>
 
-						{/* <div className={classes.search}>
-							<div className={classes.searchIcon}>
-								<SearchIcon />
-							</div>
-							<InputBase
-								placeholder="Søg..."
-								classes={{
-									root: classes.searchInputRoot,
-									input: classes.searchInput,
-								}}
-							/>
-						</div> */}
+						<div className={classes.search}>
+							<HeaderSearch />
+						</div>
 
 						<IconButton>
 							<Badge badgeContent={0} color="secondary" overlap="circle" classes={{ badge: classes.notificationsBadge }}>

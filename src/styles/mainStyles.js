@@ -1,4 +1,4 @@
-import { fade, makeStyles } from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/core/styles';
 
 const mainStyles = makeStyles(theme => ({
 	root: {
@@ -47,36 +47,16 @@ const mainStyles = makeStyles(theme => ({
 	},
 	search: {
 		position: 'relative',
-		borderRadius: theme.shape.borderRadius,
-		backgroundColor: fade(theme.palette.common.white, 0.85),
-		'&:hover': {
-			backgroundColor: fade(theme.palette.common.white, 0.50),
-		},
-		marginRight: theme.spacing(2),
-		marginLeft: 0,
-		width: '240px',
-		// [theme.breakpoints.up('sm')]: {
-		// 	marginLeft: theme.spacing(3),
-		// 	width: 'auto',
-		// },
-	},
-	searchIcon: {
-		height: '100%',
-		position: 'absolute',
-		pointerEvents: 'none',
-		display: 'flex',
-		alignItems: 'center',
-		justifyContent: 'center',
-		paddingLeft: '10px',
-		color: '#979797',
-	},
-	searchInputRoot: {
-		color: '#797979 !important',
+		width: '300px',
+		marginRight: '30px',
 	},
 	searchInput: {
-		width: '100%',
-		paddingLeft: '40px !important',
-		color: '#797979 !important',
+		backgroundColor: '#fff !important'
+	},
+	searchInputRoot: {
+		"& label.Mui-focused": {
+			color: "#214c6f"
+		},
 	},
 	notificationsBadge: {
 		backgroundColor: '#E54C2A !important',
