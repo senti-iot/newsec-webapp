@@ -124,11 +124,14 @@ const Header = (props) => {
 			case 'support':
 				history.push('/');
 				break;
+			case 'contact':
+				history.push('/contact');
+				break;
 			case 'policy':
 				history.push('/');
 				break;
 			case 'about':
-				history.push('/');
+				history.push('/about');
 				break;
 			case 'profile':
 				history.push('/profile');
