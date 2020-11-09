@@ -44,12 +44,12 @@ const BuildingEnergyGraph = props => {
 		const color = d3.scaleOrdinal().domain(keys).range(['#214C6F', '#B3CDE3', '#497EB3', '#90999E', '#5D6A70']);
 
 		//TODO: get from data
-		let years = [2018, 2019, 2020, 2021, 2022, 2023, 2024];
-
-		building.energyData.push({ year: 2021, sum: 58, Varme: 20, Vand: 18, Elektricitet: 10, Affald: 5, Renovering: 5, goal: 55 });
-		building.energyData.push({ year: 2022, sum: 50, Varme: 15, Vand: 10, Elektricitet: 15, Affald: 5, Renovering: 5, goal: 52 });
-		building.energyData.push({ year: 2023, sum: 43, Varme: 10, Vand: 10, Elektricitet: 13, Affald: 5, Renovering: 5, goal: 45 });
-		building.energyData.push({ year: 2024, sum: 40, Varme: 10, Vand: 10, Elektricitet: 15, Affald: 5, Renovering: 5, goal: 35 });
+		let years = [2018, 2019, 2020];
+		// , 2021, 2022, 2023, 2024
+		// building.energyData.push({ year: 2021, sum: 58, Varme: 20, Vand: 18, Elektricitet: 10, Affald: 5, Renovering: 5, goal: 55 });
+		// building.energyData.push({ year: 2022, sum: 50, Varme: 15, Vand: 10, Elektricitet: 15, Affald: 5, Renovering: 5, goal: 52 });
+		// building.energyData.push({ year: 2023, sum: 43, Varme: 10, Vand: 10, Elektricitet: 13, Affald: 5, Renovering: 5, goal: 45 });
+		// building.energyData.push({ year: 2024, sum: 40, Varme: 10, Vand: 10, Elektricitet: 15, Affald: 5, Renovering: 5, goal: 35 });
 
 		const layers = d3.stack().keys(keys)(building.energyData);
 		const max = d3.max(layers[layers.length - 1], function (d) { return d[1]; }) + 9;
@@ -170,10 +170,10 @@ const BuildingEnergyGraph = props => {
 						<div><Typography variant="body2">Renovering</Typography></div>
 					</Box>
 
-					<Box display="flex" justifyContent="center" alignItems="center" flexDirection="column" className={graphClasses.legendWrapper}>
+					{/* <Box display="flex" justifyContent="center" alignItems="center" flexDirection="column" className={graphClasses.legendWrapper}>
 						<div className={graphClasses.legend5}></div>
 						<div><Typography variant="body2">Målsætning</Typography></div>
-					</Box>
+					</Box> */}
 				</Box>
 			</CardContent>
 		</Card>
