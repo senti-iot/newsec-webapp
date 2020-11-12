@@ -161,7 +161,11 @@ const OverviewBarGraph = props => {
 				d3.select(this).transition().duration(300).style("fill", "#377EB8");
 			})
 			.on("click", function (event, d) {
-				setSelectedBuilding(d);
+				const filteredBuilding = buildings.filter(obj => {
+					return obj.uuid === d.buildingUuid
+				});
+				console.log(filteredBuilding);
+				setSelectedBuilding(filteredBuilding[0]);
 				setAnchorEl(anchorEl ? null : event.currentTarget);
 			});
 
