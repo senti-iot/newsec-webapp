@@ -41,7 +41,7 @@ export const getDeviceData = (buildingUuid, device, period, type) =>
 		}
 
 		let benchmarkData = await getBuindingsBenchmark(buildingUuid, period);
-		let budgetData = await getDeviceDataFromServer(device, period, 'co2Budget');
+		// let budgetData = await getDeviceDataFromServer(device, period, 'co2Budget');
 		let data = await getDeviceDataFromServer(device, period, type);
 		let dataPreviousPeriod = await getDeviceDataFromServer(device, previousPeriod, type);
 
@@ -76,13 +76,13 @@ export const getDeviceData = (buildingUuid, device, period, type) =>
 					color: '#497EB3',
 					data: data,
 					noArea: true
-				}, {
-					name: "Goal",
-					color: "#1F3B54",
-					data: budgetData,
-					noArea: true,
-					dashed: true,
-					median: false,
+				// }, {
+				// 	name: "Goal",
+				// 	color: "#1F3B54",
+				// 	data: budgetData,
+				// 	noArea: true,
+				// 	dashed: true,
+				// 	median: false,
 				}, {
 					name: "PreviousPeriod",
 					color: '#B3CDE3',

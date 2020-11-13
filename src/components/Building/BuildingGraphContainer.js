@@ -10,7 +10,7 @@ import { getDeviceData } from 'redux/lineData'
 import { changeDate } from 'redux/dateTime';
 import { useDispatch, useSelector } from 'hooks'
 import { ReactComponent as GraphCurrentIcon } from "assets/graph/current.svg";
-import { ReactComponent as GraphGoalIcon } from "assets/graph/goal.svg";
+// import { ReactComponent as GraphGoalIcon } from "assets/graph/goal.svg";
 import { ReactComponent as GraphLastIcon } from "assets/graph/last.svg";
 import { ReactComponent as GraphBenchmarkIcon } from "assets/graph/benchmark.svg";
 import { ReactComponent as ArrowPrev } from "assets/icons/arrow_prev_blue.svg";
@@ -206,16 +206,16 @@ const BuildingGraphContainer = props => {
 					style={{ marginRight: 20, border: 'solid 1px ' + (!graphLines['LActual'] ? '#497EB3' : 'transparent') }}
 				>
 					<GraphCurrentIcon className={classes.graphIconButtonIcon} />
-					<Typography className={classes.graphIconButtonLabelText} variant="body2">Aktuel</Typography>
+					<Typography className={classes.graphIconButtonLabelText} variant="body2">Aktuel udledning</Typography>
 				</Button>
-				<Button
+				{/* <Button
 					id={'LegendCheckboxGoal'}
 					classes={{ root: classes.graphIconButton, label: classes.graphIconButtonLabel }}
 					style={{ marginRight: 20, border: 'solid 1px ' + (!graphLines['LGoal'] ? '#1F3B54' : 'transparent') }}
 				>
 					<GraphGoalIcon className={classes.graphIconButtonIcon} />
 					<Typography className={classes.graphIconButtonLabelText} variant="body2">Målsætning</Typography>
-				</Button>
+				</Button> */}
 				<Button
 					id={'LegendCheckboxPreviousPeriod'}
 					classes={{ root: classes.graphIconButton, label: classes.graphIconButtonLabel }}
@@ -230,7 +230,7 @@ const BuildingGraphContainer = props => {
 					style={{ border: 'solid 1px ' + (!graphLines['LBenchmark'] ? '#F97F0A' : 'transparent') }}
 				>
 					<GraphBenchmarkIcon className={classes.graphIconButtonIcon} />
-					<Typography className={classes.graphIconButtonLabelText} variant="body2">Benchmark</Typography>
+					<Typography className={classes.graphIconButtonLabelText} variant="body2">Gennemsnit for gruppe</Typography>
 				</Button>
 			 </Box>
 		</Card>

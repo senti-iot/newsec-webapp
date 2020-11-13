@@ -102,7 +102,7 @@ const buildingStyles = makeStyles(theme => ({
 	},
 	graphIconButton: {
 		textTransform: 'none',
-		width: 140,
+		width: 210,
 	},
 	graphIconButtonLabel: {
 		flexDirection: 'column'
