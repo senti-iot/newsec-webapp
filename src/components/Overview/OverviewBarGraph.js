@@ -125,9 +125,9 @@ const OverviewBarGraph = props => {
 			// .style("text-anchor", "end")
 			// .text("Value ($)");
 			.append('text')
-			.attr('transform', `translate(40, ${margin.top - 48})`)
+			.attr('transform', `translate(95, ${margin.top - 45})`)
 			.attr('class', graphClasses.axisText)
-			.html('Kg pr. m2');
+			.html('Kg CO₂ / m2 / år');
 
 		svg.append("g")
 			.attr("class", graphClasses.gridline)
@@ -274,7 +274,7 @@ const OverviewBarGraph = props => {
 		<>
 			<Card className={classes.card}>
 				<CardHeader
-					title="Benchmark"
+					title="Co2 udledning pr. ejendom"
 					titleTypographyProps={{ variant: 'h4' }}
 				/>
 				<CardContent>

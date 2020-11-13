@@ -149,7 +149,7 @@ const OverviewEnergyGraph = props => {
 	return (
 		<Card className={classes.card}>
 			<CardHeader
-				title="CO₂ udledning"
+				title="CO₂ udledning for portefølje"
 				titleTypographyProps={{ variant: 'h4' }}
 			/>
 			<CardContent>
