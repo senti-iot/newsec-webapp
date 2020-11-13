@@ -1,8 +1,8 @@
 import React, { useEffect, createRef, useRef, useState } from 'react';
-import { Card, CardHeader, CardContent, IconButton, Typography, Box, Popover, Button } from '@material-ui/core';
+import { Card, CardHeader, CardContent, IconButton, Typography, Box, Popover } from '@material-ui/core'; //Button
 import CalendarTodayIcon from '@material-ui/icons/CalendarToday';
-import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
-import ChevronRightIcon from '@material-ui/icons/ChevronRight';
+// import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
+// import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import * as d3 from 'd3';
 import moment from 'moment';
 import { useDispatch, useSelector } from 'react-redux';
@@ -31,13 +31,13 @@ const OverviewBarGraph = props => {
 	const [datePickerOpen, setDatepickerOpen] = useState(false);
 	const [anchorEl, setAnchorEl] = useState(null);
 	const [selectedBuilding, setSelectedBuilding] = useState(null);
-	const [leftScrollDisabled, setLeftScrollDisabled] = useState(true);
-	const [rightScrollDisabled, setRightScrollDisabled] = useState(false);
-	const [sliceStart, setSliceStart] = useState(0);
-	const [sliceEnd, setSliceEnd] = useState(null);
-	const [barCount, setBarCount] = useState(0);
+	// const [leftScrollDisabled, setLeftScrollDisabled] = useState(true);
+	// const [rightScrollDisabled, setRightScrollDisabled] = useState(false);
+	// const [sliceStart, setSliceStart] = useState(0);
+	// const [sliceEnd, setSliceEnd] = useState(null);
+	// const [barCount, setBarCount] = useState(0);
 	const [loading, setLoading] = useState(true);
-	const [prevGroup, setPrevGroup] = useState(null);
+	// const [prevGroup, setPrevGroup] = useState(null);
 
 	const emissionData = useSelector(s => s.buildingsReducer.emissionData);
 	const benchkmarkPeriod = useSelector(s => s.dateTime.benchmarkPeriod);
@@ -48,7 +48,7 @@ const OverviewBarGraph = props => {
 			setLoading(false);
 		}
 	// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [barChartContainer, buildings, emissionData, sliceStart, sliceEnd]);
+	}, [barChartContainer, buildings, emissionData]); //, sliceStart, sliceEnd
 
 	useEffect(() => {
 		setLoading(true);
@@ -58,30 +58,31 @@ const OverviewBarGraph = props => {
 	}, [benchkmarkPeriod, group]);
 
 	const renderGraph = () => {
-		let margin = { top: 30, right: 20, bottom: 70, left: 40 };
+		let margin = { top: 30, right: 20, bottom: 30, left: 40 };
 		let width = barChartContainer.current.clientWidth - margin.left - margin.right;
 		let height = barChartContainer.current.clientHeight - margin.top - margin.bottom;
 
-		if (prevGroup !== group) {
-			setSliceStart(0);
-			setLeftScrollDisabled(true);
-		}
-		setPrevGroup(group);
+		// if (prevGroup !== group) {
+		// 	setSliceStart(0);
+		// 	setLeftScrollDisabled(true);
+		// }
+		// setPrevGroup(group);
 
-		let end = sliceEnd;
-		if (!end) {
-			end = Math.round(width / 30);
-			setBarCount(end);
-			setSliceEnd(end);
-		}
+		// let end = sliceEnd;
+		// if (!end) {
+		// 	end = Math.round(width / 30);
+		// 	setBarCount(end);
+		// 	setSliceEnd(end);
+		// }
 
-		let data = emissionData.data.slice(sliceStart, end);
+		// let data = emissionData.data.slice(sliceStart, end);
+		let data = emissionData.data;
 
-		if (emissionData.data.length > end) {
-			setRightScrollDisabled(false);
-		} else {
-			setRightScrollDisabled(true);
-		}
+		// if (emissionData.data.length > end) {
+		// 	setRightScrollDisabled(false);
+		// } else {
+		// 	setRightScrollDisabled(true);
+		// }
 
 		if (didRenderGraph) {
 			d3.select("#overviewGraph").selectAll("*").remove();
@@ -89,40 +90,30 @@ const OverviewBarGraph = props => {
 
 		let svg = d3.select("#overviewGraph")
 			.attr("width", width + margin.left + margin.right)
-			.attr("height", height + margin.top + margin.bottom + 20)
+			.attr("height", height + margin.top + margin.bottom)
 			.append("g")
 			.attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
-		let x = d3.scaleBand().rangeRound([0, data.length * 30]).padding(.5);
+		let x = d3.scaleBand().range([0, width]).paddingInner(.5).paddingOuter(.3);
 		let y = d3.scaleLinear().range([height, 0]);
 
 		let max = d3.max(emissionData.data, function (d) { return parseFloat(d.value); }) + 1;
 
-		// let tickValues = [0];
-		// for (let i = 0; i < max; i++) {
-		// 	i += Math.round(max / 5);
-		// 	if (i < max) {
-		// 		tickValues.push(i);
-		// 	}
-		// }
-
-		// tickValues.push(max);
-
-		let xAxis = d3.axisBottom(x).tickSize(0).tickPadding(10);
+		// let xAxis = d3.axisBottom(x).tickSize(0).tickPadding(10);
 		let yAxis = d3.axisLeft(y).tickSize(0).ticks(5);
 
 		x.domain(data.map(function (d) { return d.buildingNo; }));
 		y.domain([0, max]);
 
-		svg.append("g")
-			.attr("class", graphClasses.axisTick)
-			.attr("transform", "translate(0," + height + ")")
-			.call(xAxis)
-			.selectAll("text")
-			.style("text-anchor", "end")
-			.attr("dx", "-.8em")
-			.attr("dy", "-.55em")
-			.attr("transform", "rotate(-90)");
+		// svg.append("g")
+		// 	.attr("class", graphClasses.axisTick)
+		// 	.attr("transform", "translate(0," + height + ")")
+		// 	.call(xAxis)
+		// 	.selectAll("text")
+		// 	.style("text-anchor", "end")
+		// 	.attr("dx", "-.8em")
+		// 	.attr("dy", "-.55em")
+		// 	.attr("transform", "rotate(-90)");
 
 		svg.append("g")
 			.attr("class", graphClasses.axisTick)
@@ -164,7 +155,6 @@ const OverviewBarGraph = props => {
 				const filteredBuilding = buildings.filter(obj => {
 					return obj.uuid === d.buildingUuid
 				});
-				console.log(filteredBuilding);
 				setSelectedBuilding(filteredBuilding[0]);
 				setAnchorEl(anchorEl ? null : event.currentTarget);
 			});
@@ -254,31 +244,31 @@ const OverviewBarGraph = props => {
 		setAnchorEl(null);
 	}
 
-	const scrollLeft = () => {
-		setSliceStart(sliceEnd);
+	// const scrollLeft = () => {
+	// 	setSliceStart(sliceEnd);
 
-		setSliceEnd(sliceStart);
+	// 	setSliceEnd(sliceStart);
 
-		let start = sliceStart - barCount;
-		if (start <= 0) {
-			start = 0;
-			setLeftScrollDisabled(true);
-		}
-		setSliceStart(start);
-		setRightScrollDisabled(false);
-	}
+	// 	let start = sliceStart - barCount;
+	// 	if (start <= 0) {
+	// 		start = 0;
+	// 		setLeftScrollDisabled(true);
+	// 	}
+	// 	setSliceStart(start);
+	// 	setRightScrollDisabled(false);
+	// }
 
-	const scrollRight = () => {
-		setSliceStart(sliceEnd);
+	// const scrollRight = () => {
+	// 	setSliceStart(sliceEnd);
 
-		let end = sliceEnd + barCount;
-		if (end > emissionData.data.length) {
-			end = emissionData.data.length;
-			setRightScrollDisabled(true);
-		}
-		setSliceEnd(end);
-		setLeftScrollDisabled(false);
-	}
+	// 	let end = sliceEnd + barCount;
+	// 	if (end > emissionData.data.length) {
+	// 		end = emissionData.data.length;
+	// 		setRightScrollDisabled(true);
+	// 	}
+	// 	setSliceEnd(end);
+	// 	setLeftScrollDisabled(false);
+	// }
 
 	return (
 		<>
@@ -298,7 +288,7 @@ const OverviewBarGraph = props => {
 						</IconButton>
 						<IconButton onClick={handleOpenDatepicker}><CalendarTodayIcon style={{ color: '#377EB8' }} /></IconButton>
 					</Box>
-					<Box display="flex" justifyContent="flex-end" alignItems="center" className={classes.graphScrollArrows}>
+					{/* <Box display="flex" justifyContent="flex-end" alignItems="center" className={classes.graphScrollArrows}>
 						<Button
 							className={classes.scrollArrowLeft}
 							disabled={leftScrollDisabled}
@@ -319,7 +309,7 @@ const OverviewBarGraph = props => {
 						>
 							<ChevronRightIcon style={{ color: '#fff' }} />
 						</Button>
-					</Box>
+					</Box> */}
 
 					{loading ? <CircularLoader fill /> : ""}
 

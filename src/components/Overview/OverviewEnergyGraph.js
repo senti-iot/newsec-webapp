@@ -156,7 +156,7 @@ const OverviewEnergyGraph = props => {
 				{loading ? <CircularLoader fill /> : ""}
 
 				<div style={{ width: '100%', height: '100%' }}>
-					<svg id="barchart" ref={barChartContainer} style={{ visibility: loading ? 'hidden' : 'visible', width: '100%', height: '325px' }}></svg>
+					<svg id="barchart" ref={barChartContainer} style={{ visibility: loading ? 'hidden' : 'visible', width: '100%', height: '410px' }}></svg>
 				</div>
 
 				{!loading ?
