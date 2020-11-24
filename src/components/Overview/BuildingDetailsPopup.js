@@ -10,7 +10,7 @@ const BuildingDetailsPopup = props => {
 	const history = useHistory();
 
 	const handleClick = () => {
-		history.push('/building/' + building.buildingUuid);
+		history.push('/building/' + building.uuid);
 	}
 
 	return (
