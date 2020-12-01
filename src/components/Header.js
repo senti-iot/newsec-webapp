@@ -8,7 +8,6 @@ import ListIcon from '@material-ui/icons/List';
 import ViewComfyIcon from '@material-ui/icons/ViewComfy';
 import StarOutlinedIcon from '@material-ui/icons/StarOutlined';
 import PeopleIcon from '@material-ui/icons/People';
-import EmailIcon from '@material-ui/icons/Email';
 import ContactSupportIcon from '@material-ui/icons/ContactSupport';
 import VerifiedUserIcon from '@material-ui/icons/VerifiedUser';
 import CopyrightIcon from '@material-ui/icons/Copyright';
@@ -123,9 +122,6 @@ const Header = (props) => {
 				break;
 			case 'support':
 				history.push('/');
-				break;
-			case 'contact':
-				history.push('/contact');
 				break;
 			case 'policy':
 				history.push('/');
@@ -261,10 +257,6 @@ const Header = (props) => {
 							<ListItem button className={classes.drawerListItem} onClick={() => goToPage('customers')}>
 								<ListItemIcon className={classes.drawerListIcon}><BusinessIcon className={classes.drawerIcon} /></ListItemIcon>
 								<ListItemText primary="Kunder" style={{ fontFamily: 'interstateLight' }} />
-							</ListItem>
-							<ListItem button className={classes.drawerListItem} onClick={() => goToPage('contact')}>
-								<ListItemIcon className={classes.drawerListIcon}><EmailIcon className={classes.drawerIcon} /></ListItemIcon>
-								<ListItemText primary="Kontakt" style={{ fontFamily: 'interstateLight' }} />
 							</ListItem>
 							<ListItem button className={classes.drawerListItem} onClick={() => goToPage('support')}>
 								<ListItemIcon className={classes.drawerListIcon}><ContactSupportIcon className={classes.drawerIcon} /></ListItemIcon>

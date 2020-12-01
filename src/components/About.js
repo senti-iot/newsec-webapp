@@ -21,6 +21,23 @@ const About = () => {
 						<br /><br />
 						Læs mere på <Link href="https://www.newsec.dk/" target="_blank">www.newsec.dk</Link>. Følg os på <Link href="https://www.linkedin.com/company/newsec/" target="_new">LinkedIn</Link> og <Link href="https://www.facebook.com/NewsecGroup" target="_blank">Facebook</Link>.
 					</Typography>
+
+					<Typography variant="h5" style={{ fontWeight: 'bold', marginTop: 20, marginBottom: 10 }}>Kontakt</Typography>
+					<Typography>
+						Newsec Energi og Indeklima
+						<br />
+						Building Performance Management
+						<br />
+						Telefon: <Link href="tel:45260102">45260102</Link>
+
+						<br /><br />
+
+						Vores åbningstider
+						<br />
+						Mandag - torsdag kl. 9.00 - 16.00
+						<br />
+						Fredag kl. 9.00 - 15.00
+					</Typography>
 				</CardContent>
 			</Card>
 		</>

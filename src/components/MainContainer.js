@@ -21,7 +21,6 @@ import Profile from 'components/User/Profile';
 import Account from 'components/User/Account';
 import Settings from 'components/User/Settings';
 import About from 'components/About';
-import Contact from 'components/Contact';
 
 const MainContainer = props => {
 	const classes = mainStyles();
@@ -76,9 +75,6 @@ const MainContainer = props => {
 							</Route>
 							<Route path={'/settings'}>
 								<Settings />
-							</Route>
-							<Route path={'/contact'}>
-								<Contact />
 							</Route>
 							<Route path={'/about'}>
 								<About />
