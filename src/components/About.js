@@ -14,7 +14,7 @@ const About = () => {
 					titleTypographyProps={{ variant: 'h4' }}
 				/>
 				<CardContent>
-					<Typography>
+					<Typography variant="body2">
 						Newsec - The Full Service Property House in Northern Europe - tilbyder ejendomsejere, investorer og lejere et komplet udvalg af services inden for ejendomsrådgivning og ejendomsforvaltning. Newsec blev grundlagt i 1994 og er i dag et partnerejet selskab med ca. 1.800 medarbejdere fordelt på de syv nordiske og baltiske markeder. I 2018 åbnede Newsec et kontor i London for at assistere internationale investorer med interesse i Norden og Baltikum.
 						<br /><br />
 						Newsec Property Asset Management Denmark A/S
@@ -23,7 +23,7 @@ const About = () => {
 					</Typography>
 
 					<Typography variant="h5" style={{ fontWeight: 'bold', marginTop: 20, marginBottom: 10 }}>Kontakt</Typography>
-					<Typography>
+					<Typography variant="body2">
 						Newsec Energi og Indeklima
 						<br />
 						Building Performance Management

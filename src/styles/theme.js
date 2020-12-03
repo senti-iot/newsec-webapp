@@ -29,13 +29,13 @@ const theme = createMuiTheme({
 			fontSize: '1rem',
 		},
 		caption: {
-			fontSize: '1rem',
+			fontSize: '1.1rem',
 			color: 'rgba(0, 0, 0, 0.54)',
 		},
 		body2: {
 			color: '#000',
 			fontFamily: 'interstateLight !important',
-			fontSize: '1.1rem',
+			fontSize: '1.2rem',
 		},
 	},
 });

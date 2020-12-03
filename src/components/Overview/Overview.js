@@ -56,11 +56,11 @@ const Overview = props => {
 					<Grid item xs={12} lg={7}>
 						<Box className={classes.overviewWelcome}>
 							<Typography variant="h3" style={{ color: '#000', marginBottom: 20, textTransform: 'uppercase' }}>{getWelcomeTime()} {`${user.firstName}`}</Typography>
-							<Typography variant="body2" style={{ fontSize: '1.2rem' }}>Brug benchmark for at gå direkte til den ejendom hvor du ønske at aflæse energiforbrug og CO₂. Du kan også via menuen få vist ejendomme som kort, liste eller miniaturer. Til højre på menuen kan du filtrere dine visninger.</Typography>
+							<Typography variant="body2">Brug benchmark for at gå direkte til den ejendom hvor du ønske at aflæse energiforbrug og CO₂. Du kan også via menuen få vist ejendomme som kort, liste eller miniaturer. Til højre på menuen kan du filtrere dine visninger.</Typography>
 
 							<Grid container style={{ marginTop: 20 }}>
 								<Grid item style={{ display: 'flex', alignItems: 'center' }}>
-									<Typography variant="body2" style={{ fontSize: '1.2rem' }}>Vis data for:</Typography>
+									<Typography variant="body2">Vis data for:</Typography>
 								</Grid>
 								<Grid item>
 									<FormControl variant="outlined" className={classes.formControl}>
