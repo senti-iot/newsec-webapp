@@ -274,7 +274,7 @@ const OverviewBarGraph = props => {
 		<>
 			<Card className={classes.card}>
 				<CardHeader
-					title="Co2 udledning pr. ejendom"
+					title="CO₂ udledning pr. ejendom"
 					titleTypographyProps={{ variant: 'h4' }}
 				/>
 				<CardContent>
