@@ -136,6 +136,10 @@ const OverviewBarGraph = props => {
 				.tickFormat("")
 			);
 
+		let div = d3.select("body").append("div")
+			.attr("class", classes.tooltip)
+			.style("opacity", 0);
+
 		svg.selectAll("bar")
 			.data(data)
 			.enter().append("rect")
@@ -145,11 +149,22 @@ const OverviewBarGraph = props => {
 			.attr("width", x.bandwidth())
 			.attr("y", function (d) { return y(d.value); })
 			.attr("height", function (d) { return height - y(d.value); })
-			.on("mouseover", function () {
+			.on("mouseover", function (event, d) {
 				d3.select(this).style("fill", "#1F3B54");
+
+				div.transition()
+					.duration(200)
+					.style("opacity", .9);
+				div.html(d.buildingNo)
+					.style("left", (event.pageX + 7) + "px")
+					.style("top", (event.pageY - 30) + "px");
 			})
 			.on("mouseout", function () {
 				d3.select(this).transition().duration(300).style("fill", "#377EB8");
+
+				div.transition()
+					.duration(500)
+					.style("opacity", 0);
 			})
 			.on("click", function (event, d) {
 				const filteredBuilding = buildings.filter(obj => {

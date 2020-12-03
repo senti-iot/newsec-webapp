@@ -167,6 +167,17 @@ const buildingStyles = makeStyles(theme => ({
 		backgroundRepeat: 'no-repeat',
 		borderRadius: '50%',
 	},
+	tooltip: {
+		position: 'absolute',
+		textAlign: 'center',
+		padding: '5px',
+		color: '#000',
+		backgroundColor: '#fff',
+		// border: 'solid 1px #ccc',
+		borderRadius: '3px',
+		pointerEvents: 'none',
+		boxShadow: '1px 1px 5px 0px rgba(50, 50, 50, 0.5)',
+	}
 }));
 
 export default buildingStyles;
