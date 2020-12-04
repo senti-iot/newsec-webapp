@@ -33,7 +33,8 @@ const HeaderSearch = () => {
 					}
 					filterOptions={filterOptions}
 					onChange={(event, option) => {
-						if (option) {
+						if (event.keyCode === 13 && (!option || typeof option !== 'object')) {
+						} else if (option) {
 							setKey(moment().toISOString());
 							history.push('/building/' + option.uuid);
 						}
