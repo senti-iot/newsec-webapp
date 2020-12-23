@@ -1,5 +1,6 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import { useParams } from 'react-router-dom';
 import Gravatar from 'react-gravatar';
 import { Card, CardHeader, CardContent, Grid, Typography, Link } from '@material-ui/core';
 import PersonIcon from '@material-ui/icons/Person';
@@ -7,17 +8,47 @@ import moment from 'moment';
 
 import userStyles from 'styles/userStyles';
 import { changeMainView, changeHeaderTitle } from 'redux/appState';
+import { getUserByUuid } from 'data/coreApi';
+import CircularLoader from 'components/CircularLoader';
 
 const Profile = () => {
+	const { uuid } = useParams();
 	const dispatch = useDispatch();
-	const user = useSelector(s => s.user.user);
-	const extended = user && user.aux ? user.aux.senti ? user.aux.senti.extendedProfile : {} : {};
 	const classes = userStyles();
 
+	const u = useSelector(s => s.user.user);
+
+	const [loading, setLoading] = useState(true);
+	const [user, setUser] = useState(null);
+	const [extended, setExtented] = useState(null);
+
 	useEffect(() => {
-		dispatch(changeHeaderTitle('Min profil'));
+		dispatch(changeHeaderTitle('Profil'));
 		dispatch(changeMainView(''));
 	}, [dispatch]);
+
+	useEffect(() => {
+		async function fetchData(uuid) {
+			const userData = await getUserByUuid(uuid);
+			if (userData) {
+				const ext = userData.aux ? userData.aux.senti ? userData.aux.senti.extendedProfile : {} : {};
+
+				setUser(userData);
+				setExtented(ext);
+				setLoading(false);
+			}
+		}
+
+		if (uuid) {
+			fetchData(uuid);
+		} else {
+			const ext = u && u.aux ? u.aux.senti ? u.aux.senti.extendedProfile : {} : {};
+
+			setUser(u);
+			setExtented(ext);
+			setLoading(false);
+		}
+	}, [uuid, u]);
 
 	const renderName = () => {
 		return user ? user.firstName + ' ' + user.lastName : "";
@@ -33,7 +64,7 @@ const Profile = () => {
 				avatar={<PersonIcon fontSize="large" />}
 			/>
 			<CardContent>
-				{user ?
+				{!loading ?
 					<Grid container spacing={2}>
 						<Grid item lg={9} md={12}>
 							<Grid item>
@@ -118,7 +149,7 @@ const Profile = () => {
 							{user.img ? <img src={user.img} alt='UserAvatar' className={classes.img} /> : <Gravatar default='mp' size={250} email={user.email} className={classes.img} />}
 						</Grid>
 					</Grid>
-					: ""}
+					: <CircularLoader fill />}
 			</CardContent>
 		</Card>
 	)

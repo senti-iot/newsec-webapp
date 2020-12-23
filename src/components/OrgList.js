@@ -3,6 +3,7 @@ import { Hidden, Table, TableBody, TableRow, IconButton } from '@material-ui/cor
 import StarIcon from '@material-ui/icons/Star';
 import StarBorderIcon from '@material-ui/icons/StarBorder';
 import { useSelector, useDispatch } from 'react-redux';
+import { useHistory } from 'react-router';
 
 import tableStyles from 'styles/tableStyles';
 import TC from './table/TC';
@@ -16,12 +17,14 @@ import { changeMainView, changeHeaderTitle, toogleFilterIcon, closeFilterBar } f
 import { handleRequestSort } from 'variables/functions';
 
 const UserList = () => {
+	const classes = tableStyles();
+	const history = useHistory();
+
 	const [page, setPage] = useState(0);
 	const [order, setOrder] = useState('asc');
 	const [orderBy, setOrderBy] = useState('name');
 
 	// const filters = useSelector(s => s.appState.filters.orgs)
-	const classes = tableStyles();
 	const rowsPerPage = useSelector(s => s.appState.trp ? s.appState.trp : s.settings.trp)
 	const loading = useSelector(s => s.user.loading);
 	const user = useSelector(s => s.user.user);
@@ -93,6 +96,10 @@ const UserList = () => {
 		{ id: 'website', label: 'Hjemmeside' },
 	]
 
+	const handleRowClick = (uuid) => {
+		history.push('/account/' + uuid);
+	}
+
 	return (
 		<>
 			{!loading ?
@@ -112,7 +119,7 @@ const UserList = () => {
 								return (
 									<TableRow
 										hover
-										// onClick={() => handleRowClick(building.uuid)}
+										onClick={() => handleRowClick(org.uuid)}
 										role='checkbox'
 										tabIndex={-1}
 										key={org.uuid}

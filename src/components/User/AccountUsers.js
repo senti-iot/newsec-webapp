@@ -6,6 +6,7 @@ import PeopleIcon from '@material-ui/icons/People';
 import { useSelector, useDispatch } from 'react-redux';
 import moment from 'moment';
 import 'moment/locale/da';
+import { useHistory, useParams } from 'react-router-dom';
 
 import tableStyles from 'styles/tableStyles';
 import TC from 'components/table/TC';
@@ -17,6 +18,8 @@ import { putUserInternal } from 'data/coreApi';
 
 const AccountUsers = () => {
 	const classes = tableStyles();
+	const history = useHistory();
+	const { uuid } = useParams();
 
 	const [page, setPage] = useState(0);
 	const [hoverUser, setHoverUser] = useState(null);
@@ -34,10 +37,14 @@ const AccountUsers = () => {
 	const dispatch = useDispatch();
 
 	useEffect(() => {
-		if (user) {
-			dispatch(getUsersInOrgData(user.org.uuid));
+		if (uuid) {
+			dispatch(getUsersInOrgData(uuid));
+		} else {
+			if (user) {
+				dispatch(getUsersInOrgData(user.org.uuid));
+			}
 		}
-	}, [dispatch, user]);
+	}, [dispatch, user, uuid]);
 
 	const handleFavorite = async (event, uuid) => {
 		event.stopPropagation();
@@ -102,6 +109,10 @@ const AccountUsers = () => {
 		setRowHover(null);
 	}
 
+	const handleRowClick = uuid => {
+		history.push('/profile/' + uuid);
+	}
+
 	return (
 		<Card>
 			<CardHeader
@@ -120,8 +131,8 @@ const AccountUsers = () => {
 										return (
 											<TableRow
 												hover
-												// onClick={() => handleRowClick(building.uuid)}
-												role='checkbox'
+												onClick={() => handleRowClick(user.uuid)}
+												className={classes.tableRow}
 												tabIndex={-1}
 												key={user.uuid}
 											>

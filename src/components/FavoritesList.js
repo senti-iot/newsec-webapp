@@ -56,6 +56,10 @@ const FavoritesList = () => {
 	const handleRowClick = favorite => {
 		if (favorite.type === 'building') {
 			history.push('/building/' + favorite.uuid);
+		} else if (favorite.type === 'user') {
+			history.push('/profile/' + favorite.uuid);
+		} else if (favorite.type === 'org') {
+			history.push('/account/' + favorite.uuid);
 		}
 	}
 

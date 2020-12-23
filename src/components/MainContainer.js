@@ -70,7 +70,7 @@ const MainContainer = props => {
 							<Route path={'/profile/:uuid?'}>
 								<Profile />
 							</Route>
-							<Route path={'/account'}>
+							<Route path={'/account/:uuid?'}>
 								<Account />
 							</Route>
 							<Route path={'/settings'}>

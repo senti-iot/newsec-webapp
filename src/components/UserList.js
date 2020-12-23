@@ -3,6 +3,7 @@ import { Hidden, Table, TableBody, TableRow, IconButton } from '@material-ui/cor
 import StarIcon from '@material-ui/icons/Star';
 import StarBorderIcon from '@material-ui/icons/StarBorder';
 import { useSelector, useDispatch } from 'react-redux';
+import { useHistory } from 'react-router';
 import moment from 'moment';
 import 'moment/locale/da';
 
@@ -20,6 +21,7 @@ import { handleRequestSort } from 'variables/functions';
 
 const UserList = () => {
 	const classes = tableStyles();
+	const history = useHistory();
 
 	const [page, setPage] = useState(0);
 	const [order, setOrder] = useState('asc');
@@ -131,6 +133,10 @@ const UserList = () => {
 		{ id: 'latestlogin', label: 'Seneste login' },
 	]
 
+	const handleRowClick = (uuid) => {
+		history.push('/profile/' + uuid);
+	}
+
 	return (
 		<>
 			{!loading ?
@@ -151,7 +157,7 @@ const UserList = () => {
 								return (
 									<TableRow
 										hover
-										// onClick={() => handleRowClick(building.uuid)}
+										onClick={() => handleRowClick(user.uuid)}
 										role='checkbox'
 										tabIndex={-1}
 										key={user.uuid}
