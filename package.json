@@ -13,7 +13,7 @@
     "@testing-library/react": "^11.2.2",
     "@testing-library/user-event": "^12.6.0",
     "@welldone-software/why-did-you-render": "^6.0.3",
-    "apisauce": "^2.0.0",
+    "apisauce": "^2.0.1",
     "classnames": "^2.2.6",
     "crypto": "^1.0.1",
     "d3": "^6.3.1",
