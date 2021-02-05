@@ -80,7 +80,7 @@ const OverviewEnergyGraph = props => {
 		const color = d3.scaleOrdinal().domain(keys).range(['#214C6F', '#B3CDE3', '#497EB3', '#90999E', '#5D6A70']);
 
 		//TODO: get from data
-		let years = [2018, 2019, 2020];
+		let years = [2018, 2019, 2020, 2021];
 
 		const layers = d3.stack().keys(keys)(energyBarData);
 		const max = d3.max(layers[layers.length - 1], function (d) { return d[1]; });

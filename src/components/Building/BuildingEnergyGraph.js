@@ -44,7 +44,7 @@ const BuildingEnergyGraph = props => {
 		const color = d3.scaleOrdinal().domain(keys).range(['#214C6F', '#B3CDE3', '#497EB3', '#90999E', '#5D6A70']);
 
 		//TODO: get from data
-		let years = [2018, 2019, 2020];
+		let years = [2018, 2019, 2020, 2021];
 		// , 2021, 2022, 2023, 2024
 		// building.energyData.push({ year: 2021, sum: 58, Varme: 20, Vand: 18, Elektricitet: 10, Affald: 5, Renovering: 5, goal: 55 });
 		// building.energyData.push({ year: 2022, sum: 50, Varme: 15, Vand: 10, Elektricitet: 15, Affald: 5, Renovering: 5, goal: 52 });
