@@ -28,7 +28,8 @@ notifications:
     - hh@webhouse.dk
     on_success: never
     on_failure: always
-  slack: webhouseteam:82qu1PX5R5wkYNCW5x6fVlhu
+  slack:
+    secure: AP+7XpOUo3Yg4CHQLuQwdQk6rrEbZFhhUA8mQ50TpEMA7w5mzUY2hlbCKWDZnRAzeEWO6UX6meXrYwmkU6XiPpq3xFijXQ+xoAwdFohHFu3/h8bWM7tHmUedigzrNtHU6GGzaK+x8cWRg1UYXG7HY0gH1nP94hnyPjN0jGG8Cuyg161IhLtHDQwfPRcGasdZDlFuw3hCfUsewRBWeLWode0wENI12/E+twdEkEamr0FsayHg/Hh+LTf3VCKldmHIVbmspsUepZbXuOf7mS1uPLdQC+OmwcTShRfDYg7hgpv8W/t/deTzbMG082pFhzEk+ZWxnhcD46vYBe6KZFVtgy9J/QUGrrZSHGz0fD0EaBMFouHMMuQMjV74xkjFa3xhHOUQ2PZaGxUU22M5Tn3X1UgYaFGRMyTDv/gEPMd/xP9Z+mWil1+1hsnyDsecZTmckxPuzW27H3Iko8+XHpZAzfV9VEf6nd57rbNng1gG9vXkXJdDeA4gBZbRYuGbV7dXSu9yiyCHs84d6qbEcyXdNoBy4V565UAw59+DKpJb0grByJFiMb+raxRt1vFqA6Rj18n5TVcsvWC2ZU3PYNIWunZTU2T6G6zA8rl5b/q/dgfDTxks8hFfqWPO5QiYKx8EYtHBDo14gG13mDHs4FVbggSQtsmhlYvm8Q2BF8tObDo=
 script:
 - npm run-script build
 - cp ./build/index.html ./build/200.html
