@@ -18,7 +18,7 @@ const loginStyles = makeStyles(theme => ({
 		paddingRight: '30px',
 	},
 	loginImage: {
-		backgroundImage: `url(${"/assets/loginbg.png"})`,
+		backgroundImage: `url(${"/assets/loginbg.jpg"})`,
 		backgroundSize: 'cover',
 		backgroundRepeat: 'no-repeat',
 		backgroundPosition: 'center center'
