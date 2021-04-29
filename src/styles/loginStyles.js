@@ -63,6 +63,7 @@ const loginStyles = makeStyles(theme => ({
 		alignItems: 'flex-end',
 		color: '#979797',
 		fontSize: '13px',
+		textDecoration: 'none',
 	},
 	bottomLinksWrapper: {
 		marginTop: '20px',
